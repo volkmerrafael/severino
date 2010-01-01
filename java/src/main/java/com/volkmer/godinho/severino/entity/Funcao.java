@@ -9,22 +9,20 @@ import javax.persistence.Table;
 
 import com.volkmer.godinho.core.validacao.CampoInfo;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 @Table
+@Data
 @Entity
 public class Funcao {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@CampoInfo(descricao="Código")
-	@Getter @Setter
 	private Long id;
 	
 	@Column(length=250)
 	@CampoInfo(descricao="Nome", obrigatorio=true)
-	@Getter @Setter
 	private String nome;
 			
 }

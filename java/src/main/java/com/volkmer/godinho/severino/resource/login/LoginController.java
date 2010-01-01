@@ -20,6 +20,9 @@ import com.volkmer.godinho.severino.resource.acesso.AcessoResource;
 import com.volkmer.godinho.severino.resource.sessao.SessaoResource;
 import com.volkmer.godinho.severino.resource.usuario.UsuarioResource;
 
+import io.swagger.annotations.Api;
+
+@Api("Login")
 @Path("/login")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)

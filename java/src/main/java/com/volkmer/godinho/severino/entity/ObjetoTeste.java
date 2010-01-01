@@ -3,20 +3,20 @@ package com.volkmer.godinho.severino.entity;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
+@Data
 public class ObjetoTeste {
 	
-	@Getter @Setter private Integer vInteger;
-	@Getter @Setter private Long vLong;
-	@Getter @Setter private Boolean vBooleanTrue;
-	@Getter @Setter private Boolean vBooleanFalse;
-	@Getter @Setter private Double vDouble;
-	@Getter @Setter private Float vFloat;
-	@Getter @Setter private BigDecimal vBigDecimal;
-	@Getter @Setter private String vString;
-	@Getter @Setter private LocalDate vLocalDate;
+	private Integer vInteger;
+	private Long vLong;
+	private Boolean vBooleanTrue;
+	private Boolean vBooleanFalse;
+	private Double vDouble;
+	private Float vFloat;
+	private BigDecimal vBigDecimal;
+	private String vString;
+	private LocalDate vLocalDate;
 	
 	public void criar() {
 		

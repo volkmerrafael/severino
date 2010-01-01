@@ -9,27 +9,24 @@ import javax.persistence.Table;
 
 import com.volkmer.godinho.core.validacao.CampoInfo;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 @Table
+@Data
 @Entity
 public class AnoMes {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@CampoInfo(descricao="Código")
-	@Getter @Setter
 	private Long id;
 	
 	@Column
 	@CampoInfo(descricao="Ano", obrigatorio=true)
-	@Getter @Setter
 	private Integer ano;
 	
 	@Column
 	@CampoInfo(descricao="Mês", obrigatorio=true)
-	@Getter @Setter
 	private Integer mes;
 	
 }

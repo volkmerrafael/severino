@@ -6,6 +6,9 @@ import javax.ws.rs.Path;
 import com.volkmer.godinho.core.rest.ControllerCRUD;
 import com.volkmer.godinho.severino.entity.Importacao;
 
+import io.swagger.annotations.Api;
+
+@Api("Importação")
 @Path("/importacao")
 public class ImportacaoController extends ControllerCRUD<Importacao, ImportacaoResource> {
 

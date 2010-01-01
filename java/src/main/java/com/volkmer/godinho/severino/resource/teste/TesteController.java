@@ -20,6 +20,9 @@ import com.volkmer.godinho.severino.entity.ObjetoTeste;
 import com.volkmer.godinho.severino.entity.Usuario;
 import com.volkmer.godinho.severino.resource.acesso.AcessoResource;
 
+import io.swagger.annotations.Api;
+
+@Api("Teste")
 @Path("/teste")
 public class TesteController {
 

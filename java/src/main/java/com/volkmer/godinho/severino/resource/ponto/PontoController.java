@@ -12,6 +12,9 @@ import javax.ws.rs.core.MediaType;
 import com.volkmer.godinho.severino.entity.AnoMes;
 import com.volkmer.godinho.severino.entity.Ponto;
 
+import io.swagger.annotations.Api;
+
+@Api("Ponto")
 @Path("/ponto")
 public class PontoController {
 
