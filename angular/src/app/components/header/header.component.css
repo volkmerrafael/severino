@@ -1,0 +1,20 @@
+header {
+  background-color: #0288D1;
+  padding: 20px 0px;
+}
+header h1 {
+  font-size: 1.6em;
+}
+header a {
+  color:  #FFF;
+}
+header h1 a:hover {
+  color:  #FFF;
+  text-decoration: none;
+}
+header span {
+  color: #FFF;
+}
+.padding-links {
+  padding-top: 6px;
+}

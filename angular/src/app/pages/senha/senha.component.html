@@ -1,0 +1,35 @@
+
+<app-header></app-header>
+
+<app-titulo title="Para continuar informe sua senha"></app-titulo>
+
+<div class="container form-login">
+  <div class="row justify-content-md-center">
+    <div class="col-md-5">
+
+      <app-card>
+        <figure class="text-center">
+          <img src="assets/icon-look.png" />
+        </figure>
+
+        <form (ngSubmit)="login()">
+          <div class="form-group">
+            <input type="password"
+                   class="form-control"
+                   placeholder="Senha"
+                   name="senha"
+                   [(ngModel)]="usuario.password">
+          </div>
+
+          <button type="submit" class="btn btn-primary">Entrar</button>
+        </form>
+
+        <br>
+
+        <a href="#">Não sei minha senha</a>
+      </app-card>
+
+    </div>
+  </div>
+</div>
+

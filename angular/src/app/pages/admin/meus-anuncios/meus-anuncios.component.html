@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="col-md-8">
+    <p>Estes são os seus anúncios.</p>
+
+    <p-selectButton
+        [options]="status"
+        [(ngModel)]="selectedStatus"
+        (onOptionClick)="onOptionClick($event)"></p-selectButton>
+
+  </div>
+  <div class="col-md-4 text-right">
+    <button routerLink="/anunciar" class="btn-inserir">Cadastrar Anúncio</button>
+  </div>
+</div>
+
+<br><br>
+
+<div class="row">
+  <div class="col-md-12">
+
+    <p-table class="no-border" [value]="anuncios">
+      <ng-template pTemplate="body" let-anuncio>
+        <tr>
+            <td style="width: 140px"></td>
+            <td>
+              <a href="#">{{anuncio.titulo}}</a>
+              <span class="line-info">{{anuncio.valor | currency}}</span>
+              <span class="line-info">{{anuncio.status | status}}</span>
+              <span class="line-info">{{anuncio.visualizacoes}} visitas - {{anuncio.dataHoraCadastro | date:'dd/MM/yyyy hh:mm'}}</span>
+              <a href="#">Editar</a> <a href="#">Excluir</a>
+            </td>
+            <td style="width: 200px;" class="text-center">
+                <button routerLink="/anunciar" class="btn-destaque">Destacar anúncio</button>
+                <a class="link-ajuda" href="#">Como funciona?</a>
+            </td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+  </div>
+</div>
