@@ -9,7 +9,9 @@
 		"8eb0270e-fd1e-492e-b8d0-399b1bec0645",
 		"af09429a-3540-4e38-89d1-5462f748bf7c",
 		"031a14ca-8e47-41b7-a06d-fc52ae006dd6",
+		"d2337090-4fe4-4ca8-9afa-25ec5b3ca0f6",
 		"811d030c-55b0-4f94-87f5-39670ac2f919",
+		"0861416d-4227-4f22-8576-31d08d69cc41",
 		"81e90a5f-b99d-41b7-bcaa-38e8e1bed18b",
 		"4561382d-754a-470d-9c16-ec6e0c09b37e",
 		"48113645-b7b8-46d6-be25-4dad45bc38f6",
@@ -22,7 +24,7 @@
 		{
 			"id": "031a14ca-8e47-41b7-a06d-fc52ae006dd6",
 			"name": "Ponto - Listar",
-			"url": "http://localhost:8082/severino/rest/ponto/listar",
+			"url": "http://localhost:8082/severino/rest/ponto/listar/2018/4",
 			"description": "",
 			"data": [],
 			"dataMode": "raw",
@@ -58,6 +60,29 @@
 			"folder": null,
 			"rawModeData": "{\r\n  \"nome\": \"RAFAEL VOLKMER\",\r\n  \"email\": \"!ds@2@7!ds\",\r\n  \"acesso\" : {\r\n\t\t\"nomeacesso\" :\t\"21052125605\",\r\n\t\t\"senha\" : \"2\"\r\n  }\r\n}\r\n",
 			"headers": "User-Token: d18dbf6e206c606c21c00f0d7761e62dd63142b17ff4a499579796e6698ed24433f8a08649fb9daaa657741a42987bbe0dbbe8cc217a816b5c513a6e3b5314c2\nSession-Token: fdcfef32e686ee7bbe4afad3f0487c016020fe4f40ec4ca7fb7f557e5d36f6aff618850f957cfe6b70ae60b8115194f8244aa9993e4c34a5504240e15869bd2f\nUser-Agent: 21052125605\nContent-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "0861416d-4227-4f22-8576-31d08d69cc41",
+			"name": "Existe Nome de Acesso",
+			"url": "http://localhost:8082/severino/rest/teste/existeNomeAcesso/sdfjsdaklfs",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"rawModeData": "{\r\n  \"nomeacesso\": \"admin\",\r\n  \"senha\": \"admin\"\r\n}\r\n",
+			"headers": "Content-Type: application/json\n",
 			"pathVariables": {}
 		},
 		{
@@ -286,6 +311,47 @@
 			"folder": null,
 			"rawModeData": "{\r\n  \"nome\": \"RAFAEL VOLKMER\",\r\n  \"email\": \"!ds@2@7!ds\",\r\n  \"acesso\" : {\r\n\t\t\"nomeacesso\" :\t\"21052125605\",\r\n\t\t\"senha\" : \"2\"\r\n  }\r\n}\r\n",
 			"headers": "User-Token: 9d4beb818b2ff1ecab3df6b3de946c84ed3e03d3c02acba496cf98b8cfc11dfe5d6271bf8710408f63420c05dcf21334a63d929f7dd40362d82fdaa63b06e040\nSession-Token: 64e2107c72fed019ca19b92f8f0faf16e9da7f678f91c80318af2371d086432ac2f226cdb336dd66669f0b07f0546257d2a95f956fde6c4b1ddc08afcd2523b0\nUser-Agent: admin\nContent-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "d2337090-4fe4-4ca8-9afa-25ec5b3ca0f6",
+			"name": "Ponto - Listar Períodos",
+			"url": "http://localhost:8082/severino/rest/ponto/listar/periodos",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "User-Token",
+					"value": "d18dbf6e206c606c21c00f0d7761e62dd63142b17ff4a499579796e6698ed24433f8a08649fb9daaa657741a42987bbe0dbbe8cc217a816b5c513a6e3b5314c2",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Session-Token",
+					"value": "fdcfef32e686ee7bbe4afad3f0487c016020fe4f40ec4ca7fb7f557e5d36f6aff618850f957cfe6b70ae60b8115194f8244aa9993e4c34a5504240e15869bd2f",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "User-Agent",
+					"value": "21052125605",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"rawModeData": "{\r\n  \"nome\": \"RAFAEL VOLKMER\",\r\n  \"email\": \"!ds@2@7!ds\",\r\n  \"acesso\" : {\r\n\t\t\"nomeacesso\" :\t\"21052125605\",\r\n\t\t\"senha\" : \"2\"\r\n  }\r\n}\r\n",
+			"headers": "User-Token: d18dbf6e206c606c21c00f0d7761e62dd63142b17ff4a499579796e6698ed24433f8a08649fb9daaa657741a42987bbe0dbbe8cc217a816b5c513a6e3b5314c2\nSession-Token: fdcfef32e686ee7bbe4afad3f0487c016020fe4f40ec4ca7fb7f557e5d36f6aff618850f957cfe6b70ae60b8115194f8244aa9993e4c34a5504240e15869bd2f\nUser-Agent: 21052125605\nContent-Type: application/json\n",
 			"pathVariables": {}
 		},
 		{
