@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { UsuarioService } from "../../services/usuario.service";
-import { UsuarioAcesso } from "../../model/usuario-acesso";
+import { Login } from "../../model/login";
 import { Router } from "@angular/router";
 
 @Component({
@@ -10,17 +10,31 @@ import { Router } from "@angular/router";
 })
 export class SenhaComponent {
 
-  usuario: UsuarioAcesso;
+  usuario: Login;
 
   constructor(private usuarioService: UsuarioService,
               private router: Router) {
-    this.usuario = <UsuarioAcesso>{};
-    this.usuario.username = localStorage.getItem('nomeacesso');
+    this.usuario = <Login>{};
+    this.usuario.nomeacesso = localStorage.getItem('nomeacesso');
   }
 
+  /*this.usuarioService.cadastro( this.usuario ).subscribe(res => {
+    const ua = <Login>{};
+    ua.nomeacesso = this.usuario.nomeacesso;
+    ua.senha = this.usuario.senha;
+
+    this.usuarioService.login( ua ).subscribe(token => {
+      localStorage.setItem('token', token);
+      this.router.navigate(['/admin']);
+    });
+  //});
+*/
   login() {
     this.usuarioService.login(this.usuario).subscribe(res => {
-      localStorage.setItem('token', res);
+      console.log('usertoken', res.usertoken);
+      console.log('sessaotoken', res.sessaotoken);
+      localStorage.setItem('usertoken', res.usertoken);
+      localStorage.setItem('sessaotoken', res.sessaotoken);
       this.router.navigate(['/admin']);
     });
   }

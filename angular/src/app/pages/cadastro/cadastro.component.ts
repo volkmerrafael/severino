@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { Usuario } from "../../model/usuario";
 import { UsuarioService } from "../../services/usuario.service";
-import { UsuarioAcesso } from "../../model/usuario-acesso";
+import { Login } from "../../model/login";
 import { Router } from "@angular/router";
 
 @Component({
@@ -21,14 +21,14 @@ export class CadastroComponent {
 
   cadastrar() {
     this.usuarioService.cadastro( this.usuario ).subscribe(res => {
-      const ua = <UsuarioAcesso>{};
-      ua.username = this.usuario.nomeacesso;
-      ua.password = this.usuario.senha;
+      const ua = <Login>{};
+      ua.nomeacesso = this.usuario.nomeacesso;
+      ua.senha = this.usuario.senha;
 
-      this.usuarioService.login( ua ).subscribe(token => {
+     /* this.usuarioService.login( ua ).subscribe(token => {
         localStorage.setItem('token', token);
         this.router.navigate(['/admin']);
-      });
+      });*/
     });
   }
 

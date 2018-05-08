@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from "rxjs/Observable";
 import { environment } from "../../environments/environment";
-import { UsuarioAcesso } from "../model/usuario-acesso";
+import { Login } from "../model/login";
 import { Usuario } from "../model/usuario";
 import { catchError } from 'rxjs/operators';
 import { MessageService } from "./message.service";
@@ -20,10 +20,12 @@ export class UsuarioService {
     );
   }
 
-  login(usuario: UsuarioAcesso): Observable<string> {
+  login(login: Login): Observable<Login> {
+    console.log("login");
+    console.log(login);
     return this.http.post(
-      `${environment.server}login`,  usuario,  {responseType: 'text'}
-    ).pipe<string>(
+      `${environment.server}login`,  login,  {responseType: 'json'}
+    ).pipe<Login>(
       catchError(this.handleError<any>('login', [], 'Senha inválida!'))
     );
   }
