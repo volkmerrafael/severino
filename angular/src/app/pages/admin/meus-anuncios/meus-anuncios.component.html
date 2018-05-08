@@ -18,22 +18,43 @@
 <div class="row">
   <div class="col-md-12">
 
-    <p-table class="no-border" [value]="anuncios">
-      <ng-template pTemplate="body" let-anuncio>
-        <tr>
-            <td style="width: 140px"></td>
-            <td>
-              <a href="#">{{anuncio.titulo}}</a>
-              <span class="line-info">{{anuncio.valor | currency}}</span>
-              <span class="line-info">{{anuncio.status | status}}</span>
-              <span class="line-info">{{anuncio.visualizacoes}} visitas - {{anuncio.dataHoraCadastro | date:'dd/MM/yyyy hh:mm'}}</span>
-              <a href="#">Editar</a> <a href="#">Excluir</a>
-            </td>
-            <td style="width: 200px;" class="text-center">
-                <button routerLink="/anunciar" class="btn-destaque">Destacar anúncio</button>
-                <a class="link-ajuda" href="#">Como funciona?</a>
-            </td>
-        </tr>
+    <p-table class="no-border" [value]="pontos">
+      <ng-template pTemplate="header">
+          <tr>
+              <th>Id</th>
+              <th>Data</th>
+              <!--th>Jornada</th-->
+              <th>Entrada</th>
+              <th>Sáida</th>
+              <th>Entrada</th>
+              <th>Sáida</th>
+              <th>Entrada</th>
+              <th>Sáida</th>
+              <!--th>Entrada</th-->
+              <!--th>Sáida</th-->
+              <th>Marcação Incorreta</th>
+              <th>Crédito</th>
+              <th>Débito</th>
+
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-ponto>
+            <tr>
+                <td>{{ponto.id}}</td>
+                <td>{{ponto.data | date:"dd/MM/yyyy"}}</td>
+                <!--td>{{ponto.jornada}}</td-->
+                <td>{{ponto.entrada1}}</td>
+                <td>{{ponto.saida1}}</td>
+                <td>{{ponto.entrada2}}</td>
+                <td>{{ponto.saida2}}</td>
+                <td>{{ponto.entrada3}}</td>
+                <td>{{ponto.saida3}}</td>
+                <!--td>{{ponto.entrada4}}</td-->
+                <!--td>{{ponto.saida4}}</td-->
+                <td>{{ponto.jus_marcacao_incorreta}}</td>
+                <td>{{ponto.jus_hora_credito}}</td>
+                <td>{{ponto.jus_hora_debito}}</td>
+            </tr>
       </ng-template>
     </p-table>
 

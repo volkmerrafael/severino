@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { SelectItem } from 'primeng/api';
-import { Anuncio } from "../../../model/anuncio";
+import { Ponto } from "../../../model/ponto";
 import { AnuncioService } from "../../../services/anuncio.service";
 
 @Component({
@@ -12,7 +12,7 @@ export class MeusAnunciosComponent {
 
   status: SelectItem[];
   selectedStatus: string;
-  anuncios: Anuncio[] = [];
+  pontos: Ponto[] = [];
 
   constructor(private anuncioService: AnuncioService) {
     this.status = [
@@ -23,13 +23,13 @@ export class MeusAnunciosComponent {
     this.selectedStatus = 'P';
     this.anuncioService
             .findAllByStatus( this.selectedStatus )
-            .subscribe( res => this.anuncios = res );
+            .subscribe( res => this.pontos = res );
   }
 
   onOptionClick(event: any) {
     this.anuncioService
             .findAllByStatus( event.option.value )
-            .subscribe( res => this.anuncios = res );
+            .subscribe( res => this.pontos = res );
   }
 
 }

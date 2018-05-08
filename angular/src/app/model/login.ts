@@ -2,7 +2,7 @@ import { Usuario } from "./usuario";
 
 export interface Login {
   
-    nomeacesso: String;
+    nomeacesso: string;
     senha: string;
     usertoken: string; 
     sessaotoken: string;         

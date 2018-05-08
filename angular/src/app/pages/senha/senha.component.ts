@@ -35,6 +35,7 @@ export class SenhaComponent {
       console.log('sessaotoken', res.sessaotoken);
       localStorage.setItem('usertoken', res.usertoken);
       localStorage.setItem('sessaotoken', res.sessaotoken);
+      localStorage.setItem('nomeacesso', res.nomeacesso);
       this.router.navigate(['/admin']);
     });
   }

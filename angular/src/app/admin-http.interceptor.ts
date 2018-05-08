@@ -10,12 +10,18 @@ import { Observable } from "rxjs/Observable";
 export class AdminHttpInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = localStorage.getItem('token');
-    if ( token ) {
+
+    const sessaotoken = localStorage.getItem('sessaotoken');
+    const usertoken = localStorage.getItem('usertoken');
+    const nomeacesso = localStorage.getItem('nomeacesso');
+
+    if ( usertoken ) {
       const secureReq = req.clone({
         headers: new HttpHeaders({
           'Content-Type':  'application/json',
-          'Authorization': token
+          'User-Agent': nomeacesso,
+          'Session-Token' : sessaotoken,
+          'User-Token': usertoken
         })
       });
       return next.handle(secureReq);
