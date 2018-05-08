@@ -11,7 +11,7 @@ export class MessageComponent {
   message: string;
 
   constructor(private messageService: MessageService) {
-    this.messageService.onMessage().subscribe(res => {
+    this.messageService.onMessage().subscribe((res: { message: string }) => {
 
       this.message = res.message;
 

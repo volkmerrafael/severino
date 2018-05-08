@@ -16,13 +16,13 @@ export class CadastroComponent {
   constructor(private usuarioService: UsuarioService,
               private router: Router) {
     this.usuario = new Usuario();
-    this.usuario.email = localStorage.getItem('email');
+    this.usuario.nomeacesso = localStorage.getItem('nomeacesso');
   }
 
   cadastrar() {
     this.usuarioService.cadastro( this.usuario ).subscribe(res => {
       const ua = <UsuarioAcesso>{};
-      ua.username = this.usuario.email;
+      ua.username = this.usuario.nomeacesso;
       ua.password = this.usuario.senha;
 
       this.usuarioService.login( ua ).subscribe(token => {

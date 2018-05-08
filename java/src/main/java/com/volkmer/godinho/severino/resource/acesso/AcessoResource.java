@@ -25,8 +25,17 @@ public class AcessoResource extends ResourceCRUD<Acesso> {
 		
 		TypedQuery<Acesso> query = this.getEm().createQuery("select a from Acesso a where a.nomeacesso = :nomeacesso", this.getModelClass());
 		query.setParameter("nomeacesso", nomeacesso);
-		Acesso acesso = query.getSingleResult();
-		return acesso;
+		
+		try {
+			Acesso acesso = query.getSingleResult();
+			return acesso;
+		} catch (Exception e) {
+			if (e.getMessage().indexOf("No entity found for query")==-1) {
+				e.printStackTrace();
+			}
+		}
+		
+		return null;
 		
 	}
 

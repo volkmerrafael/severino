@@ -41,7 +41,11 @@ public class Usuario {
 	@Column(length=26)
 	@CampoInfo(descricao="P.I.S", obrigatorio=false)
 	private String pis;
-	    
+
+	@Column(length=350)
+	@CampoInfo(descricao="Departamento", obrigatorio=false)
+	private String departamento;
+	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="acessoId", foreignKey=@ForeignKey(name="fk_usuario_acesso"))
 	private Acesso acesso;
@@ -100,6 +104,14 @@ public class Usuario {
 
 	public void setPis(String pis) {
 		this.pis = pis;
+	}
+
+	public String getDepartamento() {
+		return departamento;
+	}
+
+	public void setDepartamento(String departamento) {
+		this.departamento = departamento;
 	}
 		
 }

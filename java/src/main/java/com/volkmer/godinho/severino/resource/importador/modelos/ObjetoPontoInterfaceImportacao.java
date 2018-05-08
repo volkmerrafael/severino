@@ -6,6 +6,5 @@ public interface ObjetoPontoInterfaceImportacao {
 	public ObjetoPontoCompleto atualizar() throws Exception ;
 	public Boolean isFimArquivo();
 	public int getInicioArquivo();
-	//public String getNameClass();
 	
 }

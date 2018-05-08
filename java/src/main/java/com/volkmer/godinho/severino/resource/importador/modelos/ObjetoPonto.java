@@ -1,5 +1,10 @@
 package com.volkmer.godinho.severino.resource.importador.modelos
 ;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+
 import com.volkmer.godinho.severino.entity.Ponto;
 
 public class ObjetoPonto implements ObjetoPontoInterfaceImportacao {
@@ -10,6 +15,8 @@ public class ObjetoPonto implements ObjetoPontoInterfaceImportacao {
 	private static String pis;
 	private static String data_admissao;
 	private static String funcao;
+	private static String departamento;
+	private static String periodo;
 	private String data;
 	private String diasemana;
 	private String jornada;
@@ -222,6 +229,22 @@ public class ObjetoPonto implements ObjetoPontoInterfaceImportacao {
 		this.observacao = observacao;
 	}
 
+	public static String getDepartamento() {
+		return departamento;
+	}
+
+	public static void setDepartamento(String departamento) {
+		ObjetoPonto.departamento = departamento;
+	}
+
+	public static String getPeriodo() {
+		return periodo;
+	}
+
+	public static void setPeriodo(String periodo) {
+		ObjetoPonto.periodo = periodo;
+	}
+
 	@Override
 	public void setValor(Integer pos, Integer linha, String newValor, Object oldObject) {
 		
@@ -240,8 +263,14 @@ public class ObjetoPonto implements ObjetoPontoInterfaceImportacao {
 			} else
 			if (pos.equals(7) && linha.equals(5) && newValor.indexOf("Função:")!=-1) {
 				this.funcao = newValor.replace("Função: ", "");
+			} else
+			if (pos.equals(0) && linha.equals(5) && newValor.indexOf("Departamento:")!=-1) {
+				this.departamento = newValor.replace("Departamento: ", "");
+			} else 
+			if (pos.equals(11) && linha.equals(0) && newValor.indexOf("Período de")!=-1) {
+				this.periodo = newValor.replace("Período de ", "");
 			}
-			//System.out.println("posicao: "+pos+" linha: "+linha+" newValor: "+newValor);
+			System.out.println("posicao: "+pos+" linha: "+linha+" newValor: "+newValor);
 		} else
 		if (linha >= 13) {
 			//System.out.println("posicao: "+pos+" linha: "+linha+" newValor: "+newValor);
@@ -316,7 +345,7 @@ public class ObjetoPonto implements ObjetoPontoInterfaceImportacao {
 	}
 	
 	@Override
-	public ObjetoPontoCompleto atualizar() {//rever//BaseBO bo) throws Exception {
+	public ObjetoPontoCompleto atualizar() {
 
 		try {
 
@@ -326,10 +355,28 @@ public class ObjetoPonto implements ObjetoPontoInterfaceImportacao {
 			    objetoPontoCompleto.setData_admissao(this.data_admissao);
 			    objetoPontoCompleto.setFuncionario(this.funcionario);
 			    objetoPontoCompleto.setPis(this.pis);
+			    objetoPontoCompleto.setDepartamento(this.departamento);
 			    
 				Ponto ponto = new Ponto();
-			
-				ponto.setData(this.data);
+				
+				if (this.data!=null && !this.data.equals("")) {
+					String dataCompleta = "";
+					if (this.data.length()==4) {
+						dataCompleta = this.data.substring(0, 3)+"0"+this.data.substring(3, 4);
+					} else {
+						dataCompleta = this.data;
+					}
+					dataCompleta += this.periodo.substring(5, 10);
+					
+					try {
+						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+						LocalDate date = LocalDate.parse(dataCompleta,formatter);
+						ponto.setData(date);
+					} catch (Exception e) {
+						
+					}
+				}
+				
 				ponto.setDiasemana(this.diasemana);
 				ponto.setJornada(this.jornada);
 				ponto.setLegenda(this.legenda);
@@ -372,10 +419,7 @@ public class ObjetoPonto implements ObjetoPontoInterfaceImportacao {
 
 	@Override
 	public int getInicioArquivo() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
-	
-	//private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	
+		
 }

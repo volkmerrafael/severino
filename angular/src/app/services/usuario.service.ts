@@ -13,9 +13,10 @@ export class UsuarioService {
   constructor(private http: HttpClient,
               private messageService: MessageService) {}
 
-  existeEmail(email: string): Observable<Boolean> {
+  existeNomeAcesso(nomeacesso: string): Observable<Boolean> {
+    console.log(nomeacesso);
     return this.http.get<Boolean>(
-      `${environment.server}usuario/public/existeEmail?email=${email}`
+      `${environment.server}teste/existeNomeAcesso/`+nomeacesso
     );
   }
 

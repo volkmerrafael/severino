@@ -15,7 +15,7 @@ export class SenhaComponent {
   constructor(private usuarioService: UsuarioService,
               private router: Router) {
     this.usuario = <UsuarioAcesso>{};
-    this.usuario.username = localStorage.getItem('email');
+    this.usuario.username = localStorage.getItem('nomeacesso');
   }
 
   login() {

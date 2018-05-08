@@ -9,15 +9,15 @@ import { UsuarioService } from "../../services/usuario.service";
 })
 export class LoginComponent {
 
-  email: string;
+  nomeacesso: string;
 
   constructor(private router: Router,
               private usuarioService: UsuarioService) {}
 
   onSubmit() {
-    localStorage.setItem('email', this.email);
+    localStorage.setItem('nomeacesso', this.nomeacesso);
 
-    this.usuarioService.existeEmail( this.email ).subscribe( res => {
+    this.usuarioService.existeNomeAcesso( this.nomeacesso ).subscribe( res => {
       if ( res ) {
         this.router.navigate(['/senha']);
       } else {

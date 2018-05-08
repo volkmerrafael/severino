@@ -8,6 +8,7 @@ public class ObjetoPontoCompleto {
 	private String pis;
 	private String data_admissao;
 	private String funcao;
+	private String departamento;
 	private Ponto ponto;
 	
 	public String getFuncionario() {
@@ -33,6 +34,12 @@ public class ObjetoPontoCompleto {
 	}
 	public void setFuncao(String funcao) {
 		this.funcao = funcao;
+	}
+	public String getDepartamento() {
+		return departamento;
+	}
+	public void setDepartamento(String departamento) {
+		this.departamento = departamento;
 	}
 	public Ponto getPonto() {
 		return ponto;

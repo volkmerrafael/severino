@@ -76,8 +76,8 @@ public class ConverteExcelEmObjetoPonto {
 			for (int pagina = 0; pagina < arqExel.getNumberOfSheets(); pagina++) {
 				
 				//Abas do Planilha - Sheet 
-		        Sheet sheet = arqExel.getSheetAt(pagina);
-		        
+				Sheet sheet = arqExel.getSheetAt(pagina);
+
 				//Busca o total de linhas do arquivo Exel
 				linhasArqExel  = sheet.getLastRowNum()+1;
 				

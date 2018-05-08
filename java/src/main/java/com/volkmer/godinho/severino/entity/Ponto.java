@@ -1,5 +1,8 @@
 package com.volkmer.godinho.severino.entity;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,9 +29,9 @@ public class Ponto {
 	@JoinColumn(name="usuarioId", foreignKey=@ForeignKey(name="fk_ponto_usuario"))
 	private Usuario usuario;
 
-	@Column(length=150)
+	@Column
 	@CampoInfo(descricao="Data", obrigatorio=false)
-	private String data;
+	private LocalDate data;
 	
 	@Column(length=150)
 	@CampoInfo(descricao="Dia da Semana", obrigatorio=false)
@@ -138,11 +141,11 @@ public class Ponto {
 		this.usuario = usuario;
 	}
 
-	public String getData() {
+	public LocalDate getData() {
 		return data;
 	}
 
-	public void setData(String data) {
+	public void setData(LocalDate data) {
 		this.data = data;
 	}
 

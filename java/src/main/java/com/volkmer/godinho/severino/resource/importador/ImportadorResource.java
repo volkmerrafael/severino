@@ -22,8 +22,9 @@ public class ImportadorResource extends ResourceCRUD<Ponto> {
 	@SuppressWarnings("resource")
 	public void gravarPonto(ObjetoPontoCompleto obj) throws Exception {
 	
-		TypedQuery<Usuario> queryUsuario = this.getEm().createQuery("select u from Usuario u where u.nome = :nome", Usuario.class);
-		queryUsuario.setParameter("nome", obj.getFuncionario());
+		//Busca usuário pelo P.I.S.
+		TypedQuery<Usuario> queryUsuario = this.getEm().createQuery("select u from Usuario u where u.pis = :pis", Usuario.class);
+		queryUsuario.setParameter("pis", obj.getPis());
 		
 		Usuario usuario = new Usuario();
 		
@@ -37,9 +38,9 @@ public class ImportadorResource extends ResourceCRUD<Ponto> {
 			}
 		}
 		
-		//@SuppressWarnings("resource")
 		UsuarioResource usuRes = new UsuarioResource();
 		
+		//Caso não encontre o usuário cria o mesmo e também cria um acesso setando o pis como nomeacesso e senha
 		if (usuario==null) {
 			
 			Acesso acesso = new Acesso();
@@ -50,6 +51,7 @@ public class ImportadorResource extends ResourceCRUD<Ponto> {
 			usuario.setNome(obj.getFuncionario());
 			usuario.setData_admissao(obj.getData_admissao());
 			usuario.setPis(obj.getPis());
+			usuario.setDepartamento(obj.getDepartamento());
 			usuario.setFuncao(obj.getFuncao());
 			usuario.setEmail("--");
 			usuario.setAcesso(acesso);
@@ -60,11 +62,8 @@ public class ImportadorResource extends ResourceCRUD<Ponto> {
 			
 		}
 		
-		//TypedQuery<Ponto> query = this.getEm().createQuery("select p from Ponto p where p.id = :id", this.getModelClass());
-		//query.setParameter("id", Long.valueOf(9999)); //objetoPontoCompleto.getPonto().getData()
-		
+		//Grava o ponto e vincula ao mesmo ao cadastro o usuário ao qual pertence o ponto
 		Ponto pontoNovo = new Ponto();
-		
 		pontoNovo = obj.getPonto();
 		pontoNovo.setUsuario(usuario);
 		this.incluir(pontoNovo);

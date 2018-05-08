@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  server: "http://192.168.0.118:8002/"
+  server: "http://localhost:8082/severino/rest/"
 };

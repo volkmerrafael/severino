@@ -1,7 +1,7 @@
 
 <app-header></app-header>
 
-<app-titulo title="Para continuar informe seu e-mail"></app-titulo>
+<app-titulo title="Para continuar informe seu Nome de Acesso"></app-titulo>
 
 <div class="container form-login">
   <div class="row justify-content-md-center">
@@ -15,10 +15,10 @@
         <form (ngSubmit)="onSubmit()">
           <div class="form-group">
             <input class="form-control"
-                    name="email"
-                    type="mail"
-                    placeholder="E-mail"
-                    [(ngModel)]="email" />
+                    name="nomeacesso"
+                    type="text"
+                    placeholder="Nome de Acesso"
+                    [(ngModel)]="nomeacesso" />
           </div>
 
           <button type="submit"

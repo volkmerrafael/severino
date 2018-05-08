@@ -34,7 +34,6 @@ public class ImportadorController {
 		if (listaRetorno!=null && listaRetorno.size()>0) {
 			for (ObjetoPontoCompleto objetoPontoCompleto : listaRetorno) {
 				if (objetoPontoCompleto.getPonto().getData()!=null 
-						&& objetoPontoCompleto.getPonto().getData()!="" 
 						&& objetoPontoCompleto.getPonto().getDiasemana()!=null
 						&& objetoPontoCompleto.getPonto().getDiasemana()!="") {
 					

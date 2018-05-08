@@ -15,8 +15,10 @@ import javax.ws.rs.core.MediaType;
 import com.volkmer.godinho.core.dao.ListaDeClasses;
 import com.volkmer.godinho.core.email.Email;
 import com.volkmer.godinho.core.rest.RestSessao;
+import com.volkmer.godinho.severino.entity.Acesso;
 import com.volkmer.godinho.severino.entity.ObjetoTeste;
 import com.volkmer.godinho.severino.entity.Usuario;
+import com.volkmer.godinho.severino.resource.acesso.AcessoResource;
 
 @Path("/teste")
 public class TesteController {
@@ -34,6 +36,24 @@ public class TesteController {
 		String msg = "ping: " + LocalDateTime.now();
 		System.out.println(msg);
 		return msg;
+		
+	}
+	
+	@GET
+	@Path("/existeNomeAcesso/{nomeacesso}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Boolean ping(@PathParam("nomeacesso") String nomeacesso) {
+		
+		@SuppressWarnings("resource")
+		AcessoResource acessoRes = new AcessoResource();
+				
+		Acesso acesso = acessoRes.buscaPorNomeDeAcesso(nomeacesso);
+		
+		if (acesso!=null) {
+			return true;
+		} else {
+			return false;
+		}
 		
 	}
 	
