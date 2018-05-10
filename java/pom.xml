@@ -43,7 +43,13 @@
 	</properties>
 
 	<dependencies>
-
+		<!-- LOMBOK -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.16.16</version>
+			<scope>provided</scope>
+		</dependency>
 		<!-- Dependencias para Excel -->
 		<dependency>
 		    <groupId>org.apache.poi</groupId>

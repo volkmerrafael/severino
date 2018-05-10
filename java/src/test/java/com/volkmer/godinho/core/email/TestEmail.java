@@ -1,10 +1,11 @@
 package com.volkmer.godinho.core.email;
 
 import org.junit.Assert;
+import org.junit.Test;
 
 public class TestEmail {
 
-	//@Test
+	@Test
 	public void teste() {
 		
 		try {

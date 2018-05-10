@@ -15,6 +15,9 @@ import javax.persistence.Table;
 
 import com.volkmer.godinho.core.validacao.CampoInfo;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Table
 @Entity
 public class Usuario {
@@ -22,98 +25,42 @@ public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@CampoInfo(descricao="Código")
+	@Getter @Setter
 	private Long id;
 	
 	@Column(length=200)
 	@CampoInfo(descricao="Nome", obrigatorio=true)
+	@Getter @Setter
 	private String nome;
 	
 	@Column(length=200)
 	@CampoInfo(descricao="Email", obrigatorio=true)
+	@Getter @Setter
 	private String email;
 	
 	@Column
 	@CampoInfo(descricao="Data Admissão", obrigatorio=false)
+	@Getter @Setter
 	private LocalDate data_admissao;
 	
 	@Column(length=26)
 	@CampoInfo(descricao="P.I.S", obrigatorio=false)
+	@Getter @Setter
 	private String pis;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="acessoId", foreignKey=@ForeignKey(name="fk_usuario_acesso"))
+	@Getter @Setter
 	private Acesso acesso;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="departamentoId", foreignKey=@ForeignKey(name="fk_usuario_departamento"))
+	@Getter @Setter
 	private Departamento departamento;
 
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="funcaoId", foreignKey=@ForeignKey(name="fk_usuario_funcao"))
+	@Getter @Setter
 	private Funcao funcao;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public LocalDate getData_admissao() {
-		return data_admissao;
-	}
-
-	public void setData_admissao(LocalDate data_admissao) {
-		this.data_admissao = data_admissao;
-	}
-
-	public String getPis() {
-		return pis;
-	}
-
-	public void setPis(String pis) {
-		this.pis = pis;
-	}
-
-	public Acesso getAcesso() {
-		return acesso;
-	}
-
-	public void setAcesso(Acesso acesso) {
-		this.acesso = acesso;
-	}
-
-	public Departamento getDepartamento() {
-		return departamento;
-	}
-
-	public void setDepartamento(Departamento departamento) {
-		this.departamento = departamento;
-	}
-
-	public Funcao getFuncao() {
-		return funcao;
-	}
-
-	public void setFuncao(Funcao funcao) {
-		this.funcao = funcao;
-	}
 		
 }

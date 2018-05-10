@@ -9,6 +9,9 @@ import javax.persistence.Table;
 
 import com.volkmer.godinho.core.validacao.CampoInfo;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Table
 @Entity
 public class Departamento {
@@ -16,26 +19,12 @@ public class Departamento {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@CampoInfo(descricao="Código")
+	@Getter @Setter
 	private Long id;
 	
 	@Column(length=200)
 	@CampoInfo(descricao="Nome", obrigatorio=true)
+	@Getter @Setter
 	private String nome;
 	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
 }

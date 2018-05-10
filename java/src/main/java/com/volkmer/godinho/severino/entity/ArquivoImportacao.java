@@ -9,6 +9,9 @@ import javax.persistence.Table;
 
 import com.volkmer.godinho.core.validacao.CampoInfo;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Table
 @Entity
 public class ArquivoImportacao {
@@ -16,26 +19,12 @@ public class ArquivoImportacao {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@CampoInfo(descricao="Código")
+	@Getter @Setter
 	private Long id;
 	
 	@Column
 	@CampoInfo(descricao="Anexo", obrigatorio=true)
+	@Getter @Setter
 	private byte[] anexo;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public byte[] getAnexo() {
-		return anexo;
-	}
-
-	public void setAnexo(byte[] anexo) {
-		this.anexo = anexo;
-	}
 	
 }
