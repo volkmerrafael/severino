@@ -9,8 +9,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.volkmer.godinho.severino.entity.AnoMes;
 import com.volkmer.godinho.severino.entity.Ponto;
-import com.volkmer.godinho.severino.resource.ponto.modelos.AnoMes;
 
 @Path("/ponto")
 public class PontoController {
@@ -24,8 +24,7 @@ public class PontoController {
 	@Path("/listar/periodos")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<AnoMes> listaPeriodoComInfo() throws Exception {
-		return new PontoResource().listarPeriodos(userToken);		
-		
+		return new PontoResource().listarPeriodos(userToken);
 	}
 	
 	//Lista o ponto de um período especifíco
@@ -35,7 +34,6 @@ public class PontoController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Ponto> listar(@PathParam("ano") Integer ano, @PathParam("mes") Integer mes) throws Exception {
 		return new PontoResource().listarPontos(userToken,ano,mes);		
-		
 	}
 	
 }

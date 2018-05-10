@@ -15,6 +15,8 @@
 		"81e90a5f-b99d-41b7-bcaa-38e8e1bed18b",
 		"4561382d-754a-470d-9c16-ec6e0c09b37e",
 		"48113645-b7b8-46d6-be25-4dad45bc38f6",
+		"9fc126f1-8ef6-47cb-9bc3-76bf98dda265",
+		"ac9c21ea-55b3-45d1-97b5-bdcb23e95b9b",
 		"a175fcb6-328a-4e9c-a3e1-61e397981056",
 		"ee8413fd-fba1-41ea-9db1-8a45f138734e"
 	],
@@ -24,20 +26,20 @@
 		{
 			"id": "031a14ca-8e47-41b7-a06d-fc52ae006dd6",
 			"name": "Ponto - Listar",
-			"url": "http://localhost:8082/severino/rest/ponto/listar/2018/4",
+			"url": "http://localhost:8082/severino/rest/ponto/listar/2018/5",
 			"description": "",
 			"data": [],
 			"dataMode": "raw",
 			"headerData": [
 				{
 					"key": "User-Token",
-					"value": "d18dbf6e206c606c21c00f0d7761e62dd63142b17ff4a499579796e6698ed24433f8a08649fb9daaa657741a42987bbe0dbbe8cc217a816b5c513a6e3b5314c2",
+					"value": "ffd6b8c0796e960bb815257080c897aa74341d3df4f198242a74c9c2ee718024898699d4cb27907e9cbaeefee1ad823e81fc9457058c5579ec4e0c7e830dba81",
 					"description": "",
 					"enabled": true
 				},
 				{
 					"key": "Session-Token",
-					"value": "fdcfef32e686ee7bbe4afad3f0487c016020fe4f40ec4ca7fb7f557e5d36f6aff618850f957cfe6b70ae60b8115194f8244aa9993e4c34a5504240e15869bd2f",
+					"value": "42e7b7a0d7068486b8cfd3acab72e962b5de74bbb0021f89278dca9c16191537cb56b19503c7e3bd0debd234cb2f356eeeb760796d0d16914ab8954586fab97e",
 					"description": "",
 					"enabled": true
 				},
@@ -59,7 +61,7 @@
 			"events": [],
 			"folder": null,
 			"rawModeData": "{\r\n  \"nome\": \"RAFAEL VOLKMER\",\r\n  \"email\": \"!ds@2@7!ds\",\r\n  \"acesso\" : {\r\n\t\t\"nomeacesso\" :\t\"21052125605\",\r\n\t\t\"senha\" : \"2\"\r\n  }\r\n}\r\n",
-			"headers": "User-Token: d18dbf6e206c606c21c00f0d7761e62dd63142b17ff4a499579796e6698ed24433f8a08649fb9daaa657741a42987bbe0dbbe8cc217a816b5c513a6e3b5314c2\nSession-Token: fdcfef32e686ee7bbe4afad3f0487c016020fe4f40ec4ca7fb7f557e5d36f6aff618850f957cfe6b70ae60b8115194f8244aa9993e4c34a5504240e15869bd2f\nUser-Agent: 21052125605\nContent-Type: application/json\n",
+			"headers": "User-Token: ffd6b8c0796e960bb815257080c897aa74341d3df4f198242a74c9c2ee718024898699d4cb27907e9cbaeefee1ad823e81fc9457058c5579ec4e0c7e830dba81\nSession-Token: 42e7b7a0d7068486b8cfd3acab72e962b5de74bbb0021f89278dca9c16191537cb56b19503c7e3bd0debd234cb2f356eeeb760796d0d16914ab8954586fab97e\nUser-Agent: 21052125605\nContent-Type: application/json\n",
 			"pathVariables": {}
 		},
 		{
@@ -129,7 +131,7 @@
 		{
 			"id": "48113645-b7b8-46d6-be25-4dad45bc38f6",
 			"name": "Usuário - Listar",
-			"url": "http://localhost:8082/severino/rest/usuario/224",
+			"url": "http://localhost:8082/severino/rest/usuario",
 			"description": "",
 			"data": [],
 			"dataMode": "raw",
@@ -232,6 +234,47 @@
 			"pathVariables": {}
 		},
 		{
+			"id": "9fc126f1-8ef6-47cb-9bc3-76bf98dda265",
+			"name": "Departamento - Listar",
+			"url": "http://localhost:8082/severino/rest/departamento",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "User-Token",
+					"value": "9d4beb818b2ff1ecab3df6b3de946c84ed3e03d3c02acba496cf98b8cfc11dfe5d6271bf8710408f63420c05dcf21334a63d929f7dd40362d82fdaa63b06e040",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Session-Token",
+					"value": "64e2107c72fed019ca19b92f8f0faf16e9da7f678f91c80318af2371d086432ac2f226cdb336dd66669f0b07f0546257d2a95f956fde6c4b1ddc08afcd2523b0",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "User-Agent",
+					"value": "admin",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"rawModeData": "{\r\n  \"nome\": \"RAFAEL VOLKMER\",\r\n  \"email\": \"!ds@2@7!ds\",\r\n  \"acesso\" : {\r\n\t\t\"nomeacesso\" :\t\"21052125605\",\r\n\t\t\"senha\" : \"2\"\r\n  }\r\n}\r\n",
+			"headers": "User-Token: 9d4beb818b2ff1ecab3df6b3de946c84ed3e03d3c02acba496cf98b8cfc11dfe5d6271bf8710408f63420c05dcf21334a63d929f7dd40362d82fdaa63b06e040\nSession-Token: 64e2107c72fed019ca19b92f8f0faf16e9da7f678f91c80318af2371d086432ac2f226cdb336dd66669f0b07f0546257d2a95f956fde6c4b1ddc08afcd2523b0\nUser-Agent: admin\nContent-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
 			"id": "a175fcb6-328a-4e9c-a3e1-61e397981056",
 			"name": "Usuário - Alterar",
 			"url": "http://localhost:8082/severino/rest/usuario/",
@@ -273,9 +316,9 @@
 			"pathVariables": {}
 		},
 		{
-			"id": "af09429a-3540-4e38-89d1-5462f748bf7c",
-			"name": "Realiza Importação",
-			"url": "http://localhost:8082/severino/rest/importacao/fazer",
+			"id": "ac9c21ea-55b3-45d1-97b5-bdcb23e95b9b",
+			"name": "Funcão - Listar",
+			"url": "http://localhost:8082/severino/rest/funcao",
 			"description": "",
 			"data": [],
 			"dataMode": "raw",
@@ -314,6 +357,47 @@
 			"pathVariables": {}
 		},
 		{
+			"id": "af09429a-3540-4e38-89d1-5462f748bf7c",
+			"name": "Realiza Importação",
+			"url": "http://localhost:8082/severino/rest/importador/fazer",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "User-Token",
+					"value": "50a80dc17458fd89c45ad74764eb8281f9a415cd00a30e75a90701cc69ed3cb3d44382934a84d25442f401bef35dc016bbf6419cf323426371f5934f32e056a6",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Session-Token",
+					"value": "880d14eafc7e456fab7ae86887739119438ace72aa0fd36a14a1efecafca04e211cbc8a610608ecc5a481093701fe796e0c37bafe6c03a91ae2107a460cecb54",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "User-Agent",
+					"value": "admin",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"rawModeData": "{\r\n  \"nome\": \"RAFAEL VOLKMER\",\r\n  \"email\": \"!ds@2@7!ds\",\r\n  \"acesso\" : {\r\n\t\t\"nomeacesso\" :\t\"21052125605\",\r\n\t\t\"senha\" : \"2\"\r\n  }\r\n}\r\n",
+			"headers": "User-Token: 50a80dc17458fd89c45ad74764eb8281f9a415cd00a30e75a90701cc69ed3cb3d44382934a84d25442f401bef35dc016bbf6419cf323426371f5934f32e056a6\nSession-Token: 880d14eafc7e456fab7ae86887739119438ace72aa0fd36a14a1efecafca04e211cbc8a610608ecc5a481093701fe796e0c37bafe6c03a91ae2107a460cecb54\nUser-Agent: admin\nContent-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
 			"id": "d2337090-4fe4-4ca8-9afa-25ec5b3ca0f6",
 			"name": "Ponto - Listar Períodos",
 			"url": "http://localhost:8082/severino/rest/ponto/listar/periodos",
@@ -323,13 +407,13 @@
 			"headerData": [
 				{
 					"key": "User-Token",
-					"value": "d18dbf6e206c606c21c00f0d7761e62dd63142b17ff4a499579796e6698ed24433f8a08649fb9daaa657741a42987bbe0dbbe8cc217a816b5c513a6e3b5314c2",
+					"value": "ffd6b8c0796e960bb815257080c897aa74341d3df4f198242a74c9c2ee718024898699d4cb27907e9cbaeefee1ad823e81fc9457058c5579ec4e0c7e830dba81",
 					"description": "",
 					"enabled": true
 				},
 				{
 					"key": "Session-Token",
-					"value": "fdcfef32e686ee7bbe4afad3f0487c016020fe4f40ec4ca7fb7f557e5d36f6aff618850f957cfe6b70ae60b8115194f8244aa9993e4c34a5504240e15869bd2f",
+					"value": "42e7b7a0d7068486b8cfd3acab72e962b5de74bbb0021f89278dca9c16191537cb56b19503c7e3bd0debd234cb2f356eeeb760796d0d16914ab8954586fab97e",
 					"description": "",
 					"enabled": true
 				},
@@ -351,7 +435,7 @@
 			"events": [],
 			"folder": null,
 			"rawModeData": "{\r\n  \"nome\": \"RAFAEL VOLKMER\",\r\n  \"email\": \"!ds@2@7!ds\",\r\n  \"acesso\" : {\r\n\t\t\"nomeacesso\" :\t\"21052125605\",\r\n\t\t\"senha\" : \"2\"\r\n  }\r\n}\r\n",
-			"headers": "User-Token: d18dbf6e206c606c21c00f0d7761e62dd63142b17ff4a499579796e6698ed24433f8a08649fb9daaa657741a42987bbe0dbbe8cc217a816b5c513a6e3b5314c2\nSession-Token: fdcfef32e686ee7bbe4afad3f0487c016020fe4f40ec4ca7fb7f557e5d36f6aff618850f957cfe6b70ae60b8115194f8244aa9993e4c34a5504240e15869bd2f\nUser-Agent: 21052125605\nContent-Type: application/json\n",
+			"headers": "User-Token: ffd6b8c0796e960bb815257080c897aa74341d3df4f198242a74c9c2ee718024898699d4cb27907e9cbaeefee1ad823e81fc9457058c5579ec4e0c7e830dba81\nSession-Token: 42e7b7a0d7068486b8cfd3acab72e962b5de74bbb0021f89278dca9c16191537cb56b19503c7e3bd0debd234cb2f356eeeb760796d0d16914ab8954586fab97e\nUser-Agent: 21052125605\nContent-Type: application/json\n",
 			"pathVariables": {}
 		},
 		{

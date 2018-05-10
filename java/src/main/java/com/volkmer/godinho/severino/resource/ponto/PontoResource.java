@@ -7,9 +7,9 @@ import javax.persistence.TypedQuery;
 
 import com.volkmer.godinho.core.resource.ResourceCRUD;
 import com.volkmer.godinho.severino.entity.Acesso;
+import com.volkmer.godinho.severino.entity.AnoMes;
 import com.volkmer.godinho.severino.entity.Ponto;
 import com.volkmer.godinho.severino.entity.Usuario;
-import com.volkmer.godinho.severino.resource.ponto.modelos.AnoMes;
 
 public class PontoResource extends ResourceCRUD<Ponto> {
 	
@@ -63,30 +63,12 @@ public class PontoResource extends ResourceCRUD<Ponto> {
 				
 		List<AnoMes> listaAnoMes = new ArrayList<AnoMes>();
 		
-		if (lista!=null && lista.size()>0) {
-			for (Ponto ponto : lista) {
-				
-				AnoMes anomes = new AnoMes();
-				anomes.setAno(ponto.getData().getYear());
-				anomes.setMes(ponto.getData().getMonthValue());
-				
-				if (listaAnoMes==null || listaAnoMes.size()==0) {
-					listaAnoMes.add(anomes);
-				} else {
-					for (AnoMes anoMesNaLista : listaAnoMes) {
-						if (anoMesNaLista.getAno().equals(anomes.getAno()) && anoMesNaLista.getMes().equals(anomes.getMes())) {
-							break;
-						} else {
-							listaAnoMes.add(anomes);
-							break;
-						}
-					}
-				}
-				//if (!listaAnoMes.contains(anomes)) {
-				//	listaAnoMes.add(anomes);
-				//}
-				
+		for (Ponto ponto : lista) {
+			
+			if (!listaAnoMes.contains(ponto.getAnomes())) {
+				listaAnoMes.add(ponto.getAnomes());
 			}
+				
 		}
 		
 		return listaAnoMes;

@@ -7,6 +7,7 @@ import java.time.Month;
 import com.volkmer.godinho.severino.entity.Ponto;
 import com.volkmer.godinho.severino.resource.importador.modelos.ObjetoPontoCompleto;
 import com.volkmer.godinho.severino.resource.importador.modelos.Tempo;
+import com.volkmer.godinho.severino.resource.ponto.PontoStatus;
 
 public class ProcessaDadosPonto {
 
@@ -22,12 +23,15 @@ public class ProcessaDadosPonto {
 		String s4 = objetoPontoCompleto.getPonto().getSaida4();
 		
 		if (!this.marcacoesEstaoCorretas(e1,s1,e2,s2,e3,s3,e4,s4)) {
-			objetoPontoCompleto.getPonto().setJus_marcacao_incorreta(1);
+			objetoPontoCompleto.getPonto().setStatus(PontoStatus.MARCACAO_INCORRETA);
 			objetoPontoCompleto.getPonto().setObservacao("Marcações Incorretas");
 		} else {
 			this.calculaDebitoECredito(e1,s1,e2,s2,e3,s3,e4,s4, objetoPontoCompleto.getPonto());
 		}
-					
+		
+		if (objetoPontoCompleto.getPonto().getStatus()==null) {
+			objetoPontoCompleto.getPonto().setStatus(PontoStatus.CORRETO);
+		}
 	}
 
 	private void calculaDebitoECredito(
@@ -69,14 +73,14 @@ public class ProcessaDadosPonto {
 				//calcula débito somente se estorou a tolerancia
 				debito = totalMinutosObrigatorios-totalMinutosTrabalhados;
 				obj.setMinutos_debito(debito);
-				obj.setJus_hora_debito(1);
+				obj.setStatus(PontoStatus.DEBITO);
 				obj.setObservacao(this.transformaHoraMinutoEmString("-",debito)+" => Débito no BH");
 				
 			} else if (totalMinutosTrabalhados>(totalMinutosObrigatorios+tolerancia)){
 				//calcula crédito somente se estourou tolerancia
 				credito = totalMinutosTrabalhados-totalMinutosObrigatorios;
 				obj.setMinutos_credito(credito);
-				obj.setJus_hora_credito(1);
+				obj.setStatus(PontoStatus.CREDITO);
 				obj.setObservacao(this.transformaHoraMinutoEmString("+",credito)+" => Crédito BH");
 			}
 		}

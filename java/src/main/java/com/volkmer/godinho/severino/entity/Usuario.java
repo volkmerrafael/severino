@@ -1,5 +1,7 @@
 package com.volkmer.godinho.severino.entity;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,27 +31,27 @@ public class Usuario {
 	@Column(length=200)
 	@CampoInfo(descricao="Email", obrigatorio=true)
 	private String email;
-
-	@Column(length=200)
-	@CampoInfo(descricao="Função", obrigatorio=false)
-	private String funcao;
-
-	@Column(length=200)
+	
+	@Column
 	@CampoInfo(descricao="Data Admissão", obrigatorio=false)
-	private String data_admissao;
+	private LocalDate data_admissao;
 	
 	@Column(length=26)
 	@CampoInfo(descricao="P.I.S", obrigatorio=false)
 	private String pis;
-
-	@Column(length=350)
-	@CampoInfo(descricao="Departamento", obrigatorio=false)
-	private String departamento;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="acessoId", foreignKey=@ForeignKey(name="fk_usuario_acesso"))
 	private Acesso acesso;
 	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="departamentoId", foreignKey=@ForeignKey(name="fk_usuario_departamento"))
+	private Departamento departamento;
+
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="funcaoId", foreignKey=@ForeignKey(name="fk_usuario_funcao"))
+	private Funcao funcao;
+
 	public Long getId() {
 		return id;
 	}
@@ -74,27 +76,11 @@ public class Usuario {
 		this.email = email;
 	}
 
-	public Acesso getAcesso() {
-		return acesso;
-	}
-
-	public void setAcesso(Acesso login) {
-		this.acesso = login;
-	}
-
-	public String getFuncao() {
-		return funcao;
-	}
-
-	public void setFuncao(String funcao) {
-		this.funcao = funcao;
-	}
-
-	public String getData_admissao() {
+	public LocalDate getData_admissao() {
 		return data_admissao;
 	}
 
-	public void setData_admissao(String data_admissao) {
+	public void setData_admissao(LocalDate data_admissao) {
 		this.data_admissao = data_admissao;
 	}
 
@@ -106,12 +92,28 @@ public class Usuario {
 		this.pis = pis;
 	}
 
-	public String getDepartamento() {
+	public Acesso getAcesso() {
+		return acesso;
+	}
+
+	public void setAcesso(Acesso acesso) {
+		this.acesso = acesso;
+	}
+
+	public Departamento getDepartamento() {
 		return departamento;
 	}
 
-	public void setDepartamento(String departamento) {
+	public void setDepartamento(Departamento departamento) {
 		this.departamento = departamento;
+	}
+
+	public Funcao getFuncao() {
+		return funcao;
+	}
+
+	public void setFuncao(Funcao funcao) {
+		this.funcao = funcao;
 	}
 		
 }

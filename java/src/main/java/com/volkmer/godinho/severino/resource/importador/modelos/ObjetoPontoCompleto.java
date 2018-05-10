@@ -1,12 +1,14 @@
 package com.volkmer.godinho.severino.resource.importador.modelos
 ;
+import java.time.LocalDate;
+
 import com.volkmer.godinho.severino.entity.Ponto;
 
 public class ObjetoPontoCompleto {
 	
 	private String funcionario;
 	private String pis;
-	private String data_admissao;
+	private LocalDate data_admissao;
 	private String funcao;
 	private String departamento;
 	private Ponto ponto;
@@ -23,10 +25,10 @@ public class ObjetoPontoCompleto {
 	public void setPis(String pis) {
 		this.pis = pis;
 	}
-	public String getData_admissao() {
+	public LocalDate getData_admissao() {
 		return data_admissao;
 	}
-	public void setData_admissao(String data_admissao) {
+	public void setData_admissao(LocalDate data_admissao) {
 		this.data_admissao = data_admissao;
 	}
 	public String getFuncao() {

@@ -270,7 +270,7 @@ public class ObjetoPonto implements ObjetoPontoInterfaceImportacao {
 			if (pos.equals(11) && linha.equals(0) && newValor.indexOf("Período de")!=-1) {
 				this.periodo = newValor.replace("Período de ", "");
 			}
-			System.out.println("posicao: "+pos+" linha: "+linha+" newValor: "+newValor);
+			//System.out.println("posicao: "+pos+" linha: "+linha+" newValor: "+newValor);
 		} else
 		if (linha >= 13) {
 			//System.out.println("posicao: "+pos+" linha: "+linha+" newValor: "+newValor);
@@ -348,11 +348,13 @@ public class ObjetoPonto implements ObjetoPontoInterfaceImportacao {
 	public ObjetoPontoCompleto atualizar() {
 
 		try {
+			
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 			    ObjetoPontoCompleto objetoPontoCompleto = new ObjetoPontoCompleto();
 				
 			    objetoPontoCompleto.setFuncao(this.funcao);
-			    objetoPontoCompleto.setData_admissao(this.data_admissao);
+			    objetoPontoCompleto.setData_admissao(LocalDate.parse(this.data_admissao,formatter));
 			    objetoPontoCompleto.setFuncionario(this.funcionario);
 			    objetoPontoCompleto.setPis(this.pis);
 			    objetoPontoCompleto.setDepartamento(this.departamento);
@@ -368,12 +370,10 @@ public class ObjetoPonto implements ObjetoPontoInterfaceImportacao {
 					}
 					dataCompleta += this.periodo.substring(5, 10);
 					
+					//rever
 					try {
-						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-						LocalDate date = LocalDate.parse(dataCompleta,formatter);
-						ponto.setData(date);
+						ponto.setData(LocalDate.parse(dataCompleta,formatter));
 					} catch (Exception e) {
-						
 					}
 				}
 				

@@ -11,7 +11,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.volkmer.godinho.severino.resource.importador.modelos.ObjetoPontoCompleto;
 
-@Path("/importacao")
+@Path("/importador")
 public class ImportadorController {
 
 	@HeaderParam("user-token")
@@ -48,7 +48,7 @@ public class ImportadorController {
 		
 		for (ObjetoPontoCompleto obj : listaFinal) {
 			
-			new ImportadorResource().gravarPonto(obj);
+			new ImportadorResource().gravarPonto(obj,userToken);
 			
 		}
 		

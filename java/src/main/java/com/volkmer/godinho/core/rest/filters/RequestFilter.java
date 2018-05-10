@@ -62,9 +62,10 @@ public class RequestFilter implements ContainerRequestFilter {
 					throw new IOException("Sessão expirada");
 				}
 				
-				//if (!sessao.getUseragent().equals(useragent) || !sessao.getIp().equals(ip)) {
-					//throw new IOException("Sessão expirada");
-				//}
+				/*if (!sessao.getUseragent().equals(useragent) || !sessao.getIp().equals(ip)) {
+					throw new IOException("Sessão expirada");
+				}*/
+				
 				
 			} catch (Exception e) {
 				throw new IOException(e);

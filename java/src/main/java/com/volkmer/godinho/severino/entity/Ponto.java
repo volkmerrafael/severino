@@ -1,10 +1,11 @@
 package com.volkmer.godinho.severino.entity;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -15,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.volkmer.godinho.core.validacao.CampoInfo;
+import com.volkmer.godinho.severino.resource.ponto.PontoStatus;
 
 @Table
 @Entity
@@ -25,55 +27,59 @@ public class Ponto {
 	@CampoInfo(descricao="Código")
 	private Long id;
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="usuarioId", foreignKey=@ForeignKey(name="fk_ponto_usuario"))
 	private Usuario usuario;
 
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="anomesId", foreignKey=@ForeignKey(name="fk_ponto_anomes"))
+	private AnoMes anomes;
+	
 	@Column
 	@CampoInfo(descricao="Data", obrigatorio=false)
 	private LocalDate data;
 	
-	@Column(length=150)
+	@Column(length=3)
 	@CampoInfo(descricao="Dia da Semana", obrigatorio=false)
 	private String diasemana;
 	
-	@Column(length=1500)
+	@Column(length=26)
 	@CampoInfo(descricao="Jornada", obrigatorio=false)
 	private String jornada;
 
-	@Column(length=150)
+	@Column(length=1)
 	@CampoInfo(descricao="Legenda", obrigatorio=false)
 	private String legenda;
 
-	@Column(length=150)
+	@Column(length=6)
 	@CampoInfo(descricao="Horário de Entrada 1", obrigatorio=false)
 	private String entrada1;
 	
-	@Column(length=150)
+	@Column(length=6)
 	@CampoInfo(descricao="Horário de Saída 1", obrigatorio=false)
 	private String saida1;
 
-	@Column(length=150)
+	@Column(length=6)
 	@CampoInfo(descricao="Horário de Entrada 2", obrigatorio=false)
 	private String entrada2;
 	
-	@Column(length=150)
+	@Column(length=6)
 	@CampoInfo(descricao="Horário de Saída 2", obrigatorio=false)
 	private String saida2;
 	
-	@Column(length=150)
+	@Column(length=6)
 	@CampoInfo(descricao="Horário de Entrada 3", obrigatorio=false)
 	private String entrada3;
 
-	@Column(length=150)
+	@Column(length=6)
 	@CampoInfo(descricao="Horário de Saída 3", obrigatorio=false)
 	private String saida3;
 	
-	@Column(length=150)
+	@Column(length=6)
 	@CampoInfo(descricao="Horário de Entrada 4", obrigatorio=false)
 	private String entrada4;
 	
-	@Column(length=150)
+	@Column(length=6)
 	@CampoInfo(descricao="Horário de Saída 4", obrigatorio=false)
 	private String saida4;
 	
@@ -102,17 +108,10 @@ public class Ponto {
 	private String faltas_noturno;
 
 	@Column
-	@CampoInfo(descricao="Habilita Justificativa de Marcações Incorretas", obrigatorio=true)
-	private Integer jus_marcacao_incorreta = 0;
+	@Enumerated(EnumType.STRING)
+	@CampoInfo(descricao="Status", obrigatorio=true)
+	private PontoStatus status;
 
-	@Column
-	@CampoInfo(descricao="Habilita Justificativa de Horas Extra", obrigatorio=true)
-	private Integer jus_hora_credito = 0;
-
-	@Column
-	@CampoInfo(descricao="Habilita Justificativa de Compensação de Horas", obrigatorio=true)
-	private Integer jus_hora_debito = 0;
-	
 	@Column
 	@CampoInfo(descricao="Minutos Débito", obrigatorio=true)
 	private Integer minutos_debito;
@@ -293,28 +292,12 @@ public class Ponto {
 		this.trabalhadas_noturno = trabalhadas_noturno;
 	}
 
-	public Integer getJus_marcacao_incorreta() {
-		return jus_marcacao_incorreta;
+	public PontoStatus getStatus() {
+		return status;
 	}
 
-	public void setJus_marcacao_incorreta(Integer jus_marcacao_incorreta) {
-		this.jus_marcacao_incorreta = jus_marcacao_incorreta;
-	}
-
-	public Integer getJus_hora_credito() {
-		return jus_hora_credito;
-	}
-
-	public void setJus_hora_credito(Integer jus_hora_credito) {
-		this.jus_hora_credito = jus_hora_credito;
-	}
-
-	public Integer getJus_hora_debito() {
-		return jus_hora_debito;
-	}
-
-	public void setJus_hora_debito(Integer jus_hora_debito) {
-		this.jus_hora_debito = jus_hora_debito;
+	public void setStatus(PontoStatus status) {
+		this.status = status;
 	}
 
 	public Integer getMinutos_debito() {
@@ -331,6 +314,14 @@ public class Ponto {
 
 	public void setMinutos_credito(Integer minutos_credito) {
 		this.minutos_credito = minutos_credito;
+	}
+
+	public AnoMes getAnomes() {
+		return anomes;
+	}
+
+	public void setAnomes(AnoMes anomes) {
+		this.anomes = anomes;
 	}
 
 }
