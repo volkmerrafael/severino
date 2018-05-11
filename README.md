@@ -37,3 +37,4 @@ Tecnologias
 * Maicon Godinho - Front-End - https://github.com/MaiconGodinho
 * Renan Suzin - Documentos - https://github.com/renansuzin
 * Leandro Ordanel Medeiros - Consultoria - https://github.com/ordnaelmedeiros
+* Eduardo Bastian - Consultoria - https://github.com/ebastian
