@@ -28,7 +28,7 @@
 * Para interpretação das planilhas
 
 # Versões
-### 1. (versão 1.0) (Status - Em Desenvolvimento) (14/05/2018)
+### 1. (versão 1.0) (Status - Em Desenvolvimento)
 ##### 1.1. Desenvolvimento (14/05/2018)
 * Acesso
   - [ ] Login.
