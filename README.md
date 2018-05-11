@@ -1,15 +1,43 @@
 # Severino
 
+# Tecnologias
+###### Wildfly 10.1
+* Servidor de Aplicação
+* http://wildfly.org/downloads/
+
+###### Postgres 10.4
+* Banco de dados
+* https://www.enterprisedb.com/download-postgresql-binaries
+
+###### RESTEasy
+* Desenvolvimento de Aplicações RESTful
+* https://resteasy.github.io/
+
+###### Plugin Lombok Maven
+* Java menos verboso
+* http://blog.caelum.com.br/java-menos-verboso-com-lombok/
+* https://projectlombok.org/setup/maven
+
+###### Swagger
+* Documentação de Métodos Rest
+* https://mvnrepository.com/artifact/io.swagger
+* No projeto Link: http://localhost:8082/severino/doc/index.html
+
+###### Apache POI
+* https://poi.apache.org/
+* Para interpretação das planilhas
+
+# Versões
 ### 1. (versão 1.0) (Em Desenvolvimento)
 * Acesso
   - [ ] Login.
 * Acesso Administrativo
   - [ ] Upload de Planilhas Excel de Ponto.
   - [ ] Visualizar lista de Arquivos Importados
-  - [ ] Visualizar junto ao arquivo importado a quantidade de Funcionario que estavam no arquivo.
-  - [ ] Visualizar junto ao arquivo importado a quantidade de Funcionario que tem Marcação Incorreta.
-  - [ ] Visualizar junto ao arquivo importado a quantidade de Funcionario que tem Declaração de Hora Extra a Fazer.
-  - [ ] Visualizar junto ao arquivo importado a quantidade de Funcionario que tem Declaração de Compensação de Horas a Fazer.
+  - [ ] Visualizar quantidade de Funcionario que estavam no arquivo.
+  - [ ] Visualizar quantidade de Funcionario que tem Marcação Incorreta.
+  - [ ] Visualizar quantidade de Funcionario que tem Declaração de Hora Extra a Fazer.
+  - [ ] Visualizar quantidade de Funcionario que tem Declaração de Compensação de Horas a Fazer.
 * Acesso Individual
   - [ ] Visualizar seu próprio ponto.
   - [ ] Visualizar quantidade de Marcações Incorretas.
@@ -37,35 +65,7 @@
 * Acesso Coordenador
   - [ ] Visualizar ponto dos Funcionário pertencentes ao seu Departamento
 
-Tecnologias
-
-# Wildfly 10.1
-* Servidor de Aplicação
-* http://wildfly.org/downloads/
-
-# Postgres 10.4
-* Banco de dados
-* https://www.enterprisedb.com/download-postgresql-binaries
-
-# RESTEasy
-* Desenvolvimento de Aplicações RESTful
-* https://resteasy.github.io/
-
-# Plugin Lombok Maven
-* Java menos verboso
-* http://blog.caelum.com.br/java-menos-verboso-com-lombok/
-* https://projectlombok.org/setup/maven
-
-# Swagger
-* Documentação de Métodos Rest
-* https://mvnrepository.com/artifact/io.swagger
-* No projeto Link: http://localhost:8082/severino/doc/index.html
-
-# Apache POI
-* https://poi.apache.org/
-* Para interpretação das planilhas
-
-## @autor 
+#### @autor 
 * Rafael Volkmer - Back-End - https://github.com/volkmerrafael
 * Maicon Godinho - Front-End - https://github.com/MaiconGodinho
 * Renan Suzin - Documentos - https://github.com/renansuzin
