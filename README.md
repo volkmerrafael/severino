@@ -1,6 +1,6 @@
 # Severino
 
-### 1. (versão 1.0)
+### 1. (versão 1.0) (Em Desenvolvimento)
 * Acesso
   - [ ] Login.
 * Acesso Administrativo
