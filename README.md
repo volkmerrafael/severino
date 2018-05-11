@@ -16,13 +16,13 @@
   - [ ] Verificar quantiade de Crédito no Banco de Horas
   - [ ] Verificar quantidade de Débito no Banco de Horas
 
-### 1. (versão 1.1)
+### 2. (versão 1.1)
 * Acesso Administrativo 
   - [ ] Visualizar Informações dos Funcionario que tem Marcação Incorreta.
   - [ ] Visualizar Informações dos Funcionarioo que tem Declaração de Hora Extra a Fazer.
   - [ ] Visualizar Informações dos Funcionario que tem Declaração de Compensação de Horas a Fazer.
 
-### 2. (versão 2.0)
+### 3. (versão 2.0)
 * Acesso Administrativo
   - [ ] Envio de Notificação ou E-mail ao colaborador.
   - [ ] Ver ponto dos Funcionários por Departamento
@@ -30,7 +30,7 @@
 * Acesso Individual
   - [ ] Gravar Justificativas
 
-### 3. (versao 3.0)
+### 4. (versao 3.0)
 * Acesso Individual
   - [ ] Visualizar Absenteísmo Mensal.
   - [ ] Visualizar Absenteísmo Anual.
