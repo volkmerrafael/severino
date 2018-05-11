@@ -1,21 +1,41 @@
 # Severino
 
-1. (versão 1.0)
+### 1. (versão 1.0)
+* Acesso
   - [ ] Login.
 * Acesso Administrativo
   - [ ] Upload de Planilhas Excel de Ponto.
+  - [ ] Visualizar lista de Arquivos Importados
+  - [ ] Visualizar junto ao arquivo importado a quantidade de Funcionario que estavam no arquivo.
+  - [ ] Visualizar junto ao arquivo importado a quantidade de Funcionario que tem Marcação Incorreta.
+  - [ ] Visualizar junto ao arquivo importado a quantidade de Funcionario que tem Declaração de Hora Extra a Fazer.
+  - [ ] Visualizar junto ao arquivo importado a quantidade de Funcionario que tem Declaração de Compensação de Horas a Fazer.
 * Acesso Individual
-  - [ ] Acesso Individual.
   - [ ] Visualizar seu próprio ponto.
+  - [ ] Visualizar quantidade de Marcações Incorretas.
+  - [ ] Verificar quantiade de Crédito no Banco de Horas
+  - [ ] Verificar quantidade de Débito no Banco de Horas
 
-2. (versão 1.1)
-- [ ] Gerador de Justificativas
-- [ ] Envio de E-mail
-- [ ] Painel Admini
+### 1. (versão 1.1)
+* Acesso Administrativo 
+  - [ ] Visualizar Informações dos Funcionario que tem Marcação Incorreta.
+  - [ ] Visualizar Informações dos Funcionarioo que tem Declaração de Hora Extra a Fazer.
+  - [ ] Visualizar Informações dos Funcionario que tem Declaração de Compensação de Horas a Fazer.
 
-3. (versao 2.0)
-- [ ] Absenteísmo
+### 2. (versão 2.0)
+* Acesso Administrativo
+  - [ ] Envio de Notificação ou E-mail ao colaborador.
+  - [ ] Ver ponto dos Funcionários por Departamento
+  - [ ] Cadastro de Coordenadores
+* Acesso Individual
+  - [ ] Gravar Justificativas
 
+### 3. (versao 3.0)
+* Acesso Individual
+  - [ ] Visualizar Absenteísmo Mensal.
+  - [ ] Visualizar Absenteísmo Anual.
+* Acesso Coordenador
+  - [ ] Visualizar ponto dos Funcionário pertencentes ao seu Departamento
 
 Tecnologias
 
