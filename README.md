@@ -28,7 +28,8 @@
 * Para interpretação das planilhas
 
 # Versões
-### 1. (versão 1.0) (Em Desenvolvimento)
+### 1. (versão 1.0) (Status - Em Desenvolvimento) (14/05/2018)
+##### 1.1. Desenvolvimento (14/05/2018)
 * Acesso
   - [ ] Login.
 * Acesso Administrativo
@@ -43,6 +44,10 @@
   - [ ] Visualizar quantidade de Marcações Incorretas.
   - [ ] Verificar quantiade de Crédito no Banco de Horas
   - [ ] Verificar quantidade de Débito no Banco de Horas
+##### 1.2. Teste (16/05/2018)
+* Teste do .war
+##### 1.3. Instalação (18/05/2018)
+* Instalação 
 
 ### 2. (versão 1.1)
 * Acesso Administrativo 
