@@ -1,8 +1,21 @@
 # Severino
-* Importador de Planilhas Excel de Ponto
-* Acesso Individual e Administrativo ao Ponto
-* Gerador de Justificativas
-* Envio de E-mail
+
+1. (versão 1.0)
+  - [ ] Login.
+* Acesso Administrativo
+  - [ ] Upload de Planilhas Excel de Ponto.
+* Acesso Individual
+  - [ ] Acesso Individual.
+  - [ ] Visualizar seu próprio ponto.
+
+2. (versão 1.1)
+- [ ] Gerador de Justificativas
+- [ ] Envio de E-mail
+- [ ] Painel Admini
+
+3. (versao 2.0)
+- [ ] Absenteísmo
+
 
 Tecnologias
 
