@@ -32,8 +32,8 @@ Tecnologias
 * https://poi.apache.org/
 * Para interpretação das planilhas
 
-@autor 
-Rafael Volkmer - Back-End - https://github.com/volkmerrafael
-Maicon Godinho - Front-End - https://github.com/MaiconGodinho
-Renan Suzin - Documentos - https://github.com/renansuzin
-Leandro Ordanel Medeiros - Consultoria - https://github.com/ordnaelmedeiros
+## @autor 
+* Rafael Volkmer - Back-End - https://github.com/volkmerrafael
+* Maicon Godinho - Front-End - https://github.com/MaiconGodinho
+* Renan Suzin - Documentos - https://github.com/renansuzin
+* Leandro Ordanel Medeiros - Consultoria - https://github.com/ordnaelmedeiros
