@@ -11,3 +11,7 @@ RESTEasy
 
 Plugin Lombok Maven
 -> https://projectlombok.org/setup/maven
+
+Swagger
+-> https://mvnrepository.com/artifact/io.swagger
+-> No projeto: http://localhost:8082/severino/doc/index.html
