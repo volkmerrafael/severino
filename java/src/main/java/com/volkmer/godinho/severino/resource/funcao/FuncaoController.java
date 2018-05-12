@@ -15,6 +15,12 @@ public class FuncaoController extends ControllerCRUD<Funcao, FuncaoResource> {
 	@HeaderParam("user-token")
 	String userToken;
 	
+	@HeaderParam("session-token")
+	String sessionToken;
+
+	@HeaderParam("user-agent")
+	String userAgent;
+	
 	@Override
 	public FuncaoResource newResource() {
 		return new FuncaoResource();

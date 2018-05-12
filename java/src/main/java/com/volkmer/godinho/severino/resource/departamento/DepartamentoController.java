@@ -15,6 +15,12 @@ public class DepartamentoController extends ControllerCRUD<Departamento, Departa
 	@HeaderParam("user-token")
 	String userToken;
 	
+	@HeaderParam("session-token")
+	String sessionToken;
+
+	@HeaderParam("user-agent")
+	String userAgent;
+	
 	@Override
 	public DepartamentoResource newResource() {
 		return new DepartamentoResource();

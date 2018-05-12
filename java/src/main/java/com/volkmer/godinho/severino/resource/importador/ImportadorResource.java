@@ -1,5 +1,6 @@
 package com.volkmer.godinho.severino.resource.importador;
 
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 import com.volkmer.godinho.core.resource.ResourceCRUD;
@@ -7,6 +8,7 @@ import com.volkmer.godinho.severino.entity.Acesso;
 import com.volkmer.godinho.severino.entity.AnoMes;
 import com.volkmer.godinho.severino.entity.Departamento;
 import com.volkmer.godinho.severino.entity.Funcao;
+import com.volkmer.godinho.severino.entity.Importacao;
 import com.volkmer.godinho.severino.entity.Ponto;
 import com.volkmer.godinho.severino.entity.Usuario;
 import com.volkmer.godinho.severino.resource.anomes.AnoMesResource;
@@ -26,7 +28,7 @@ public class ImportadorResource extends ResourceCRUD<Ponto> {
 	}
 	
 	@SuppressWarnings("resource")
-	public void gravarPonto(ObjetoPontoCompleto obj, String userToken) throws Exception {
+	public void gravarAlterarPonto(ObjetoPontoCompleto obj, String userToken, Importacao importacao) throws Exception {
 	
 		Departamento departamento = this.processaDepartamento(obj.getDepartamento());
 		Funcao funcao = this.processaFuncao(obj.getFuncao());
@@ -45,16 +47,12 @@ public class ImportadorResource extends ResourceCRUD<Ponto> {
 			obj.getPonto().setId(ponto.getId());
 			obj.getPonto().setUsuario(ponto.getUsuario());
 			obj.getPonto().setAnomes(ponto.getAnomes());
+			obj.getPonto().setImportacao(importacao);
 			ponto = obj.getPonto();
 			this.alterar(ponto);
 			this.commit();
-			
-		} catch (Exception e) {
-			if (e.getMessage().indexOf("No entity found for query")==-1) {
-				e.printStackTrace();
-			} else  {
-				ponto = null;
-			}
+		} catch (NoResultException e) {
+			ponto = null;
 		}
 		
 		if (ponto==null) {
@@ -67,14 +65,9 @@ public class ImportadorResource extends ResourceCRUD<Ponto> {
 			AnoMes anomes = new AnoMes();
 			
 			try {
-					anomes = queryAnoMes.getSingleResult();
-			} catch (Exception e) {
-				if (e.getMessage().indexOf("No entity found for query")==-1) {
-					e.printStackTrace();
-				} else  {
-					
-					anomes = null;
-				}
+				anomes = queryAnoMes.getSingleResult();
+			} catch (NoResultException e) {
+				anomes = null;
 			}
 			
 			AnoMesResource anomesRes = new AnoMesResource();
@@ -89,7 +82,8 @@ public class ImportadorResource extends ResourceCRUD<Ponto> {
 				
 			ponto = obj.getPonto();
 			ponto.setUsuario(usuario);
-			ponto.setAnomes(anomes);			
+			ponto.setAnomes(anomes);
+			ponto.setImportacao(importacao);
 			this.incluir(ponto);
 			this.commit();
 		}
@@ -107,30 +101,11 @@ public class ImportadorResource extends ResourceCRUD<Ponto> {
 		
 		Usuario usuario = new Usuario();
 		
-		try {
-				
-				usuario = queryUsuario.getSingleResult();
-				
-				/*TypedQuery<Acesso> queryAcesso = this.getEm().createQuery("select a from Acesso a where a.nomeacesso = :nomeacesso", Acesso.class);
-				queryAcesso.setParameter("nomeacesso", obj.getPis());
-				Acesso acesso = queryAcesso.getSingleResult();
-				
-				//Atualiza usuário
-				usuario.setAcesso(acesso);
-				usuario.setDepartamento(departamento);
-				usuario.setFuncao(funcao);
-				usuRes.alterar(usuario);
-				usuRes.commit();
-				*/
-		} catch (Exception e) {
-			if (e.getMessage().indexOf("No entity found for query")==-1) {
-				e.printStackTrace();
-			} else  {
-				usuario = null;
-			}
+		try {	
+			usuario = queryUsuario.getSingleResult();	
+		} catch (NoResultException e) {
+			usuario = null;
 		}
-		
-
 		
 		//Caso não encontre o usuário cria o mesmo e também cria um acesso setando o pis como nomeacesso e senha
 		if (usuario==null) {
@@ -148,8 +123,7 @@ public class ImportadorResource extends ResourceCRUD<Ponto> {
 			usuario.setEmail("");
 			usuario.setAcesso(acesso);
 			
-			usuRes.incluir(usuario);
-			
+			usuRes.incluir(usuario);	
 			usuRes.commit();
 			
 		}
@@ -166,13 +140,9 @@ public class ImportadorResource extends ResourceCRUD<Ponto> {
 		Funcao funcao = new Funcao();
 		
 		try {
-				funcao = queryFuncao.getSingleResult();
-		} catch (Exception e) {
-			if (e.getMessage().indexOf("No entity found for query")==-1) {
-				e.printStackTrace();
-			} else  {
-				funcao = null;
-			}
+			funcao = queryFuncao.getSingleResult();
+		} catch (NoResultException e) {
+			funcao = null;
 		}
 		
 		@SuppressWarnings("resource")
@@ -200,13 +170,9 @@ public class ImportadorResource extends ResourceCRUD<Ponto> {
 		Departamento departamento = new Departamento();
 		
 		try {
-				departamento = queryDepartamento.getSingleResult();
-		} catch (Exception e) {
-			if (e.getMessage().indexOf("No entity found for query")==-1) {
-				e.printStackTrace();
-			} else  {
-				departamento = null;
-			}
+			departamento = queryDepartamento.getSingleResult();
+		} catch (NoResultException e) {
+			departamento = null;
 		}
 		
 		@SuppressWarnings("resource")

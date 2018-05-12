@@ -54,5 +54,9 @@ public class Usuario {
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="funcaoId", foreignKey=@ForeignKey(name="fk_usuario_funcao"))
 	private Funcao funcao;
-		
+
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="importacaoId", foreignKey=@ForeignKey(name="fk_usuario_importacao"))
+	private Importacao importacao;
+	
 }

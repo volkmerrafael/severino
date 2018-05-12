@@ -2,6 +2,7 @@ package com.volkmer.godinho.severino.entity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -66,6 +67,18 @@ public class Importacao {
 	@Column
 	@CampoInfo(descricao="Usuários com Crédito Banco de Horas", obrigatorio=true)
 	private Integer usuario_com_credito_banco;
+
+	@Column
+	@CampoInfo(descricao="Usuários com Marcação Incorreta", obrigatorio=true)
+	private Integer usuario_com_marcacao_incorreta;
+
+	@Column
+	@CampoInfo(descricao="Usuários sem Pendencias", obrigatorio=true)
+	private Integer usuario_sem_pendencias;
+
+	@Column
+	@CampoInfo(descricao="Tempo de Importacão", obrigatorio=true)
+	private LocalTime tempo_importacao;
 	
 	@Column
 	@Enumerated(EnumType.STRING)

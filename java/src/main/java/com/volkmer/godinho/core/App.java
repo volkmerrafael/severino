@@ -10,6 +10,7 @@ import javax.ws.rs.core.Context;
 import com.volkmer.godinho.severino.entity.Acesso;
 import com.volkmer.godinho.severino.entity.Usuario;
 import com.volkmer.godinho.severino.resource.acesso.AcessoResource;
+import com.volkmer.godinho.severino.resource.acesso.AcessoTipo;
 import com.volkmer.godinho.severino.resource.usuario.UsuarioResource;
 
 @ApplicationPath("/rest")
@@ -37,6 +38,7 @@ public class App extends Application {
 					Acesso acesso = new Acesso();
 					acesso.setNomeacesso("admin");
 					acesso.setSenha("admin");
+					acesso.setTipo(AcessoTipo.ADMIN);
 					
 					admin = new Usuario();
 					admin.setNome("Administrador");

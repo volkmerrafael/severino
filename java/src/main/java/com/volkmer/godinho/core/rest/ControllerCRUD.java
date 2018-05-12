@@ -20,7 +20,7 @@ import com.volkmer.godinho.core.rest.filters.RestException;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public abstract class ControllerCRUD<Model, R extends ResourceCRUD<Model>> {
-
+	
 	public abstract R newResource();
 	
 	@GET
@@ -79,7 +79,7 @@ public abstract class ControllerCRUD<Model, R extends ResourceCRUD<Model>> {
 	
 	@GET
 	@Path("/help")
-	@Produces(MediaType.TEXT_HTML)
+	@Produces({MediaType.TEXT_HTML, MediaType.APPLICATION_JSON})
 	public String help() {
 		return "<div><h1>Pagina Help</h1></div>";
 	}

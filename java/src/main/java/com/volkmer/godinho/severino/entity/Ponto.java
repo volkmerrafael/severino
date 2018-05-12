@@ -38,6 +38,10 @@ public class Ponto {
 	@JoinColumn(name="anomesId", foreignKey=@ForeignKey(name="fk_ponto_anomes"))
 	private AnoMes anomes;
 	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="importacaoId", foreignKey=@ForeignKey(name="fk_ponto_importacao"))
+	private Importacao importacao;
+	
 	@Column
 	@CampoInfo(descricao="Data", obrigatorio=false)
 	private LocalDate data;

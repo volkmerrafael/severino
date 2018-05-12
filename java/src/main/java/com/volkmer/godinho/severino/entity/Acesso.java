@@ -43,7 +43,7 @@ public class Acesso {
 	private String token;
 	
 	@Column
-	@Enumerated(EnumType.ORDINAL)
+	@Enumerated(EnumType.STRING)
 	private AcessoTipo tipo;
 	
 }
