@@ -1,0 +1,22 @@
+<app-header [usuario]="usuario"></app-header>
+
+<div class="pub"></div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" routerLink="/admin/meus-anuncios">Meus Anuncios</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" routerLink="/admin/meu-cadastro">Meus Dados</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-md-12">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
