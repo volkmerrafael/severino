@@ -9,9 +9,11 @@ import javax.persistence.TypedQuery;
 import com.volkmer.godinho.core.resource.ResourceCRUD;
 import com.volkmer.godinho.core.timmer.ControleTempoDeExecucao;
 import com.volkmer.godinho.severino.entity.Acesso;
+import com.volkmer.godinho.severino.entity.ArquivoImportacao;
 import com.volkmer.godinho.severino.entity.Importacao;
 import com.volkmer.godinho.severino.entity.Usuario;
 import com.volkmer.godinho.severino.resource.acesso.AcessoTipo;
+import com.volkmer.godinho.severino.resource.arquivoimportacao.ArquivoImportacaoResource;
 import com.volkmer.godinho.severino.resource.importador.ConverteExcelEmObjetoPonto;
 import com.volkmer.godinho.severino.resource.importador.ImportadorResource;
 import com.volkmer.godinho.severino.resource.importador.ProcessaDadosPonto;
@@ -32,6 +34,28 @@ public class ImportacaoResource extends ResourceCRUD<Importacao> {
 		return Importacao.class;
 	}
 
+	@SuppressWarnings("resource")
+	@Override
+	protected void incluirPre(Importacao model) throws Exception {
+		
+		if (model.getArquivoimportacao()!=null) {
+			ArquivoImportacao arqimp = model.getArquivoimportacao();
+			new ArquivoImportacaoResource(this).incluir(arqimp);
+		}
+		
+	}
+	
+	@SuppressWarnings("resource")
+	@Override
+	protected void alterarPre(Importacao model) throws Exception {
+		
+		if (model.getArquivoimportacao()!=null) {
+			ArquivoImportacao arqimp = model.getArquivoimportacao();
+			new ArquivoImportacaoResource(this).alterar(arqimp);
+		}
+		
+	}
+	
 	public List<Importacao> listarImportacoes(String userToken) {
 		
 		if (this.ehUsarioAdmin(userToken)) {
@@ -48,6 +72,17 @@ public class ImportacaoResource extends ResourceCRUD<Importacao> {
 		
 		if (this.ehUsarioAdmin(userToken)) {
 		
+			//Codigo usado pra teste buscando arquivo fisico
+			//Temporario para teste
+			//String caminho = "D:\\repositorio\\severino\\excelponto\\Ponto.xls";
+			//byte[] array = Files.readAllBytes(new File(caminho).toPath());
+			//ArquivoImportacao arq = new ArquivoImportacao();
+			//arq.setAnexo(array);
+
+			ArquivoImportacao arq = new ArquivoImportacao();
+			arq.setAnexo(importacao.getArquivoimportacao().getAnexo());
+			importacao.setArquivoimportacao(arq);
+			
 			//Classe que controla o tempo que leva pra executar a importacão
 			ControleTempoDeExecucao cte = new ControleTempoDeExecucao();
 			//Informa Início
@@ -55,30 +90,31 @@ public class ImportacaoResource extends ResourceCRUD<Importacao> {
 			
 			//Antes de gravar seta a situação Pendente na importação
 			importacao.setStatus(ImportacaoStatus.PENDENTE);
+			//Seta tamanho do arquivo
+			importacao.setTamanho(importacao.getArquivoimportacao().getAnexo().length);
 			//Inclui arquivo no banco de dados
-			Importacao importacaoGravada = this.incluir(importacao);
-			this.incluir(importacaoGravada);
+			this.incluir(importacao);
 			this.commit();
 						
-			for (ObjetoPontoCompleto obj : this.retornaListaFinal(importacaoGravada)) {
+			for (ObjetoPontoCompleto obj : this.retornaListaFinal(importacao)) {
 				//Grava Registro do ponto e Vincula a Impotação
-				new ImportadorResource().gravarAlterarPonto(obj,userToken,importacaoGravada);
+				new ImportadorResource().gravarAlterarPonto(obj,userToken,importacao);
 
 				//Seta período que esta no arquivo
-				if (importacaoGravada.getInicio_periodo()!=null) {
-					importacaoGravada.setInicio_periodo(obj.getData_inicial_importacao());
+				if (importacao.getInicio_periodo()==null) {
+					importacao.setInicio_periodo(obj.getData_inicial_importacao());
 				}
-				if (importacaoGravada.getFinal_periodo()!=null) {
-					importacaoGravada.setFinal_periodo(obj.getData_final_importacao());
+				if (importacao.getFinal_periodo()==null) {
+					importacao.setFinal_periodo(obj.getData_final_importacao());
 				}
 	
 			}
 			
-			this.calcularEstatisticasDoArquivo(importacaoGravada);	
+			this.calcularEstatisticasDoArquivo(importacao);	
 			
 			//Grava no banco o tempo que demorou para importar o arquivo
-			importacaoGravada.setTempo_importacao(cte.fim());
-			this.alterar(importacaoGravada);
+			importacao.setTempo_importacao(cte.fim());
+			this.alterar(importacao);
 			this.commit();
 			
 		}
@@ -91,7 +127,7 @@ public class ImportacaoResource extends ResourceCRUD<Importacao> {
 		
 		importacaoGravada.setData_hora_importacao(LocalDateTime.now());
 		importacaoGravada.setQuantidade_usuario(this.contaUsuarios(importacaoGravada,null));
-		importacaoGravada.setUsuario_com_credito_banco(this.contaUsuarios(importacaoGravada,PontoStatus.CORRETO));
+		importacaoGravada.setUsuario_sem_pendencias(this.contaUsuarios(importacaoGravada,PontoStatus.CORRETO));
 		importacaoGravada.setUsuario_com_credito_banco(this.contaUsuarios(importacaoGravada,PontoStatus.CREDITO));
 		importacaoGravada.setUsuario_com_debito_banco(this.contaUsuarios(importacaoGravada,PontoStatus.DEBITO));
 		importacaoGravada.setUsuario_com_marcacao_incorreta(this.contaUsuarios(importacaoGravada,PontoStatus.MARCACAO_INCORRETA));
@@ -100,7 +136,7 @@ public class ImportacaoResource extends ResourceCRUD<Importacao> {
 	}
 
 	private Integer contaUsuarios(Importacao importacao, PontoStatus pontoStatus) {
-		TypedQuery<Usuario> queryPonto = this.getEm().createQuery("select u from Usuario u where u.id in (select usuarioid from Ponto where p.importacao = :importacao and (:status is null or status = :status))", Usuario.class);
+		TypedQuery<Usuario> queryPonto = this.getEm().createQuery("select u from Usuario u where u.id in (select p.usuario from Ponto p where p.importacao = :importacao and (:status is null or status = :status))", Usuario.class);
 		queryPonto.setParameter("importacao", importacao);
 		queryPonto.setParameter("status", pontoStatus);
 		List<Usuario> lista = queryPonto.getResultList();

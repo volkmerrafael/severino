@@ -34,7 +34,7 @@ public class TesteController {
 	
 	@GET
 	@Path("/ping")
-	@Produces(MediaType.TEXT_HTML)
+	@Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_HTML}) 
 	public String ping() {
 		String msg = "ping: " + LocalDateTime.now();
 		System.out.println(msg);
@@ -62,7 +62,7 @@ public class TesteController {
 	
 	@GET
 	@Path("/html")
-	@Produces(MediaType.TEXT_HTML)
+	@Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_HTML}) 
 	public String html() {
 		try {
 			new Email().sendEmail();
@@ -96,7 +96,7 @@ public class TesteController {
 	
 	@GET
 	@Path("/xml")
-	@Produces(MediaType.APPLICATION_XML)
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public ObjetoTeste xml() {
 		ObjetoTeste obj = new ObjetoTeste();
 		obj.criar();

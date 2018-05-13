@@ -66,7 +66,7 @@ public class ObjetoPonto implements ObjetoPontoInterfaceImportacao {
 			if (pos.equals(11) && linha.equals(0) && newValor.indexOf("Período de")!=-1) {
 				this.periodo = newValor.replace("Período de ", "");
 			}
-			System.out.println("posicao: "+pos+" linha: "+linha+" newValor: "+newValor);
+			//SSystem.out.println("posicao: "+pos+" linha: "+linha+" newValor: "+newValor);
 		} else
 		if (linha >= 13) {
 			//System.out.println("posicao: "+pos+" linha: "+linha+" newValor: "+newValor);
@@ -155,7 +155,25 @@ public class ObjetoPonto implements ObjetoPontoInterfaceImportacao {
 			    objetoPontoCompleto.setPis(this.pis);
 			    objetoPontoCompleto.setDepartamento(this.departamento);
 			    
-				Ponto ponto = new Ponto();
+			    //System.out.println(this.periodo);
+			    
+				//rever
+				try {
+					if (this.periodo!=null) {
+						objetoPontoCompleto.setData_inicial_importacao(LocalDate.parse(this.periodo.substring(0, 10),formatter));
+					}
+				} catch (Exception e) {
+				}
+				//rever
+				try {
+					if (this.periodo!=null) {
+						objetoPontoCompleto.setData_final_importacao(LocalDate.parse(this.periodo.substring(13, this.periodo.length()),formatter));
+					}
+				} catch (Exception e) {
+				}
+			
+				
+			    Ponto ponto = new Ponto();
 				
 				if (this.data!=null && !this.data.equals("")) {
 					String dataCompleta = "";

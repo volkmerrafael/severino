@@ -38,7 +38,7 @@ public class RequestFilter implements ContainerRequestFilter {
 			String sessaotoken = context.getHeader("Session-Token");
 			String useragent = context.getHeader("User-Agent");
 			String ip = context.getRemoteHost()+"-"+context.getRemoteAddr();
-			
+			/*
 			if (usuariotoken==null || sessaotoken==null) {
 				throw new IOException("Permissão negada");
 			}
@@ -61,16 +61,16 @@ public class RequestFilter implements ContainerRequestFilter {
 				if (!acesso.getId().equals(sessao.getAcesso().getId())) {
 					throw new IOException("Sessão expirada");
 				}
-				
+				*/
 				/*if (!sessao.getUseragent().equals(useragent) || !sessao.getIp().equals(ip)) {
 					throw new IOException("Sessão expirada");
 				}*/
 				
-				
+				/*
 			} catch (Exception e) {
 				throw new IOException(e);
 			}
-			
+			*/
 			sessao.setUsuariotoken(usuariotoken);
 			sessao.setSessiontoken(sessaotoken);
 			
