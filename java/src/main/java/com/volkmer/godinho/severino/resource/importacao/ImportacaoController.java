@@ -12,6 +12,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.volkmer.godinho.severino.entity.Importacao;
 import com.volkmer.godinho.severino.entity.Usuario;
+import com.volkmer.godinho.severino.resource.ponto.PontoStatus;
 
 import io.swagger.annotations.Api;
 
@@ -48,7 +49,7 @@ public class ImportacaoController {
 	@GET
 	@Path("/detalhar/usuarios/{importacao}/{status}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Usuario> lsitarUsuariosPorStatus(@PathParam("importacao") Integer importacao, @PathParam("status") Integer status) throws Exception {
+	public List<Usuario> lsitarUsuariosPorStatus(@PathParam("importacao") Long importacao, @PathParam("status") PontoStatus status) throws Exception {
 		return new ImportacaoResource().listarUsuarios(userToken, importacao, status);
 	}
 	

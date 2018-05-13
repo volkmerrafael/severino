@@ -188,16 +188,22 @@ public class ImportacaoResource extends ResourceCRUD<Importacao> {
 
 	}
 
-	public List<Usuario> listarUsuarios(String userToken, Integer importacao, Integer status) {
+	public List<Usuario> listarUsuarios(String userToken, Long id_importacao, PontoStatus status) {
 		
 		if (this.ehUsarioAdmin(userToken)) {
-			TypedQuery<Usuario> queryPonto = this.getEm().createQuery("select u from Usuario u where u.id in (select usuarioid from Ponto where p.importacao = :importacao and (:status is null or status = :status))", Usuario.class);
+			
+			Importacao importacao = this.getEm().find(this.getModelClass(), id_importacao);
+						
+			TypedQuery<Usuario> queryPonto = this.getEm().createQuery("select u from Usuario u where u.id in (select p.usuario from Ponto p where p.importacao = :importacao and (:status is null or status = :status))", Usuario.class);
 			queryPonto.setParameter("importacao", importacao);
 			queryPonto.setParameter("status", status);
+	
 			List<Usuario> lista = queryPonto.getResultList();
 			
 			return lista;
+			
 		}
+		
 		return null;
 	}
 	
