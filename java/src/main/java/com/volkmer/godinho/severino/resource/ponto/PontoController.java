@@ -24,9 +24,6 @@ public class PontoController {
 	@HeaderParam("session-token")
 	String sessionToken;
 
-	@HeaderParam("user-agent")
-	String userAgent;
-
 	//Lista períodos em que o usuário tem o ponto importado
 	@SuppressWarnings("resource")
 	@GET

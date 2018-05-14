@@ -36,8 +36,8 @@ public class RequestFilter implements ContainerRequestFilter {
 			
 			String usuariotoken = context.getHeader("User-Token");
 			String sessaotoken = context.getHeader("Session-Token");
-			String useragent = context.getHeader("User-Agent");
-			String ip = context.getRemoteHost()+"-"+context.getRemoteAddr();
+			//String useragent = context.getHeader("User-Agent");
+			//String ip = context.getRemoteHost()+"-"+context.getRemoteAddr();
 			
 			if (usuariotoken==null || sessaotoken==null) {
 				throw new IOException("Permissão negada");

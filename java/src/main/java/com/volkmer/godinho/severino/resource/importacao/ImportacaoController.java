@@ -25,9 +25,6 @@ public class ImportacaoController {
 	
 	@HeaderParam("session-token")
 	String sessionToken;
-
-	@HeaderParam("user-agent")
-	String userAgent;
 	
 	@SuppressWarnings("resource")
 	@GET

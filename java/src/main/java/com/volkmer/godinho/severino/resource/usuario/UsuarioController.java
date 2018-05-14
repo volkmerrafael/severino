@@ -17,9 +17,6 @@ public class UsuarioController extends ControllerCRUD<Usuario, UsuarioResource> 
 	
 	@HeaderParam("session-token")
 	String sessionToken;
-
-	@HeaderParam("user-agent")
-	String userAgent;
 	
 	@Override
 	public UsuarioResource newResource() {
