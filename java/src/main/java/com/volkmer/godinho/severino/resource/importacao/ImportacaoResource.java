@@ -93,6 +93,11 @@ public class ImportacaoResource extends ResourceCRUD<Importacao> {
 			//Informa Início
 			cte.inicio();
 			
+			String nomecompletoarquivo = importacao.getNome();
+			
+			importacao.setNome(nomecompletoarquivo.substring(0, nomecompletoarquivo.lastIndexOf(".")));
+			importacao.setExtensao(nomecompletoarquivo.substring(nomecompletoarquivo.lastIndexOf("."), nomecompletoarquivo.length()));
+			
 			//Antes de gravar seta a situação Pendente na importação
 			importacao.setStatus(ImportacaoStatus.PENDENTE);
 			//Seta tamanho do arquivo
