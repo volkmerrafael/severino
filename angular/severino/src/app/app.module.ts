@@ -15,6 +15,7 @@ import { UserHttpInterceptor } from './auth/user-http.interceptor';
 import { FileUploadModule } from 'primeng/fileupload';
 import { MenubarModule } from 'primeng/menubar';
 import { MenuItem } from 'primeng/api';
+import { DateFormatPipe } from './components/pipes/pipe';
 
 export const HttpInterceptorProviders = [
   { provide: HTTP_INTERCEPTORS, useClass: UserHttpInterceptor, multi: true  }
@@ -24,7 +25,8 @@ export const HttpInterceptorProviders = [
   declarations: [
     AppComponent,
     MessageComponent,
-    PontoComponent
+    PontoComponent,
+    DateFormatPipe
   ],
   imports: [
     BrowserModule,

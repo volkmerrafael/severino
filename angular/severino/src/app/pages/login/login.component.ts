@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { UsuarioService } from "../../services/usuario.service";
 import { Login } from "../../model/login";
+import { Usuario } from "../../model/usuario";
 
 @Component({
   selector: 'app-login',
@@ -16,14 +17,15 @@ export class LoginComponent {
     private router: Router) {
 
   this.usuario = <Login>{};
+
+   
 }
 
   login() {
     this.usuarioService.login(this.usuario).subscribe(res => {
-      console.log("Componente: login.component.ts Método: login()");      
-      console.log(res.usertoken);
-      console.log(res.nomeacesso);
-      console.log(res.sessaotoken);
+
+      sessionStorage.setItem('nomeUsuario', res.usuario.nome);
+
       sessionStorage.setItem('usertoken', res.usertoken);
       sessionStorage.setItem('sessaotoken', res.sessaotoken);
       sessionStorage.setItem('nomeacesso', res.nomeacesso);
