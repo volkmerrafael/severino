@@ -39,6 +39,7 @@ export class PontoComponent implements OnInit {
   onBasicUpload(event) {
     let arquivo = event.files[0];
     this.importacao.nome = arquivo.name;
+    this.importacao.extensao = arquivo.name.substr(arquivo.name.lastIndexOf('.')+1);    
     let leitor = new FileReader();
     leitor.onload = this._handleReaderLoaded.bind(this);
     leitor.readAsDataURL(arquivo);    
