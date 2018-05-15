@@ -14,15 +14,12 @@ export class UsuarioService {
               private messageService: MessageService) {}
 
   existeNomeAcesso(nomeacesso: string): Observable<Boolean> {
-    console.log(nomeacesso);
     return this.http.get<Boolean>(
       `${environment.server}teste/existeNomeAcesso/`+nomeacesso
     );
   }
 
   login(login: Login): Observable<Login> {
-    console.log("login");
-    console.log(login);
     return this.http.post(
       `${environment.server}login`,  login,  {responseType: 'json'}
     ).pipe<Login>(

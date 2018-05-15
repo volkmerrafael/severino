@@ -20,12 +20,13 @@ export class LoginComponent {
 
   login() {
     this.usuarioService.login(this.usuario).subscribe(res => {
+      console.log("Componente: login.component.ts Método: login()");      
       console.log(res.usertoken);
       console.log(res.nomeacesso);
       console.log(res.sessaotoken);
-      localStorage.setItem('usertoken', res.usertoken);
-      localStorage.setItem('sessaotoken', res.sessaotoken);
-      localStorage.setItem('nomeacesso', res.nomeacesso);
+      sessionStorage.setItem('usertoken', res.usertoken);
+      sessionStorage.setItem('sessaotoken', res.sessaotoken);
+      sessionStorage.setItem('nomeacesso', res.nomeacesso);
 
       this.router.navigate(['/ponto']);
     });

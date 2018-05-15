@@ -12,12 +12,10 @@ export class MessageService {
   }
 
   messageSuccess(message: string) {
-    console.log(message);
     this.message(message, 'success');
   }
 
   messageError(message: string) {
-    console.log(message);
     this.message(message, 'error');
   }
 
