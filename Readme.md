@@ -28,22 +28,22 @@
 * Para interpretação das planilhas
 
 # Versões
-### 1. (versão 1.0) (Status - Em Desenvolvimento)
+### 1. (versão 1.0) (Status - Em Teste)
 ##### 1.1. Desenvolvimento (14/05/2018)
 * Acesso
-  - [ ] Login.
+  - [x] Login.
 * Acesso Administrativo
-  - [ ] Upload de Planilhas Excel de Ponto.
-  - [ ] Visualizar lista de Arquivos Importados
-  - [ ] Visualizar quantidade de Funcionario que estavam no arquivo.
-  - [ ] Visualizar quantidade de Funcionario que tem Marcação Incorreta.
-  - [ ] Visualizar quantidade de Funcionario que tem Declaração de Hora Extra a Fazer.
-  - [ ] Visualizar quantidade de Funcionario que tem Declaração de Compensação de Horas a Fazer.
+  - [x] Upload de Planilhas Excel de Ponto.
+  - [x] Visualizar lista de Arquivos Importados
+  - [x] Visualizar quantidade de Funcionario que estavam no arquivo.
+  - [x] Visualizar quantidade de Funcionario que tem Marcação Incorreta.
+  - [x] Visualizar quantidade de Funcionario que tem Declaração de Hora Extra a Fazer.
+  - [x] Visualizar quantidade de Funcionario que tem Declaração de Compensação de Horas a Fazer.
 * Acesso Individual
-  - [ ] Visualizar seu próprio ponto.
-  - [ ] Visualizar quantidade de Marcações Incorretas.
-  - [ ] Verificar quantiade de Crédito no Banco de Horas
-  - [ ] Verificar quantidade de Débito no Banco de Horas
+  - [x] Visualizar seu próprio ponto.
+  - [x] Visualizar quantidade de Marcações Incorretas.
+  - [x] Verificar quantiade de Crédito no Banco de Horas
+  - [x] Verificar quantidade de Débito no Banco de Horas
 ##### 1.2. Teste (16/05/2018)
 * Teste do .war
 ##### 1.3. Instalação (18/05/2018)
