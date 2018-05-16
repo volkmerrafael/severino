@@ -53,6 +53,7 @@
 ### 2. (versão 1.1) (18/05/2018)
 * Acesso Administrativo 
   - [ ] Visualizar Informações dos Funcionario que tem Marcação Incorreta.
+  - [ ] Adicionar botão Atualizar lista de importações.
 * Acesso Individual
   - [ ] Gravar Justificativas Item a Item
   - [ ] Mostrar Total Hora Extra Mês
