@@ -1,3 +1,4 @@
+import { AnoMes } from './../../model/anomes';
 import { Component, OnInit } from '@angular/core';
 import { PontoService } from '../../services/ponto.service';
 import { Ponto } from '../../model/ponto';
@@ -8,6 +9,9 @@ import { MenubarModule } from 'primeng/menubar';
 import { MenuItem } from 'primeng/api';
 import { Usuario } from '../../model/usuario';
 import { DateFormatPipe } from '../../components/pipes/pipe'
+import { DropdownModule } from 'primeng/dropdown';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule }   from '@angular/forms';
 
 @Component({
   selector: 'app-ponto',
@@ -19,6 +23,8 @@ export class PontoComponent implements OnInit {
   mes : String = "02";
   ano : String = "2018";
   pontos : Ponto[] = [];
+  periodos : AnoMes[] = [];
+  periodoSelecionado : AnoMes;
   usuario: Usuario = new Usuario();
   importacao: Importacao = new Importacao(); 
   arqImportacao: ArquivoImportacao = new ArquivoImportacao();  
@@ -32,11 +38,27 @@ export class PontoComponent implements OnInit {
                 .subscribe( res => {
                   this.pontos = res 
                   console.log(res);
-                 });              
+                 });        
+                 
+    this.pontoService
+                .listarPeriodos()
+                .subscribe( res => {
+                        this.periodos = res 
+                        console.log(res);
+                      });           
    }
 
   ngOnInit() {
 
+  }
+
+  listarPeriodos() {
+    this.pontoService
+                .listarPeriodos()
+                .subscribe( res => {
+                       this.periodos = res 
+                       console.log(res);
+                      });
   }
 
   listarPontoPorPeriodo() {
@@ -46,25 +68,5 @@ export class PontoComponent implements OnInit {
                        this.pontos = res 
                        console.log(res);
                       });
-  }
-
-  onBasicUpload(event) {
-    let arquivo = event.files[0];
-    this.importacao.nome = arquivo.name;
-    this.importacao.extensao = arquivo.name.substr(arquivo.name.lastIndexOf('.')+1);    
-    let leitor = new FileReader();
-    leitor.onload = this._handleReaderLoaded.bind(this);
-    leitor.readAsDataURL(arquivo);    
-  }
-
-  _handleReaderLoaded(e) {
-    let reader = e.target;
-    let anexo = reader.result;
-    let res = anexo.toString().split(",");
-    let anexoDecode = res[1];
-    this.arqImportacao.anexo = anexoDecode;
-    this.importacao.arquivoimportacao = this.arqImportacao;
-    console.log(this.importacao);
-    this.pontoService.uploadArquivo(this.importacao).subscribe(res => { this.importacao });
-  } 
+  }  
 }

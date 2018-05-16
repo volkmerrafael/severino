@@ -2,7 +2,6 @@ import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { UsuarioService } from "../../services/usuario.service";
 import { Login } from "../../model/login";
-import { Usuario } from "../../model/usuario";
 
 @Component({
   selector: 'app-login',
@@ -30,7 +29,11 @@ export class LoginComponent {
       sessionStorage.setItem('sessaotoken', res.sessaotoken);
       sessionStorage.setItem('nomeacesso', res.nomeacesso);
 
-      this.router.navigate(['/ponto']);
+      if (res.usuario.acesso.tipo == "ADMIN") {
+        this.router.navigate(['/admin']);
+      } else {
+        this.router.navigate(['/ponto']);
+      }     
     });
 
   }

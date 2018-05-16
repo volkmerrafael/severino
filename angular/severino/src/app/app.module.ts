@@ -16,6 +16,10 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { MenubarModule } from 'primeng/menubar';
 import { MenuItem } from 'primeng/api';
 import { DateFormatPipe } from './components/pipes/pipe';
+import { DropdownModule } from 'primeng/dropdown';
+import { FormsModule }   from '@angular/forms';
+import { AdminComponent } from './pages/admin/admin.component';
+import { ImportacaoService } from './services/importacao.service';
 
 export const HttpInterceptorProviders = [
   { provide: HTTP_INTERCEPTORS, useClass: UserHttpInterceptor, multi: true  }
@@ -26,7 +30,8 @@ export const HttpInterceptorProviders = [
     AppComponent,
     MessageComponent,
     PontoComponent,
-    DateFormatPipe
+    DateFormatPipe,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
@@ -35,12 +40,15 @@ export const HttpInterceptorProviders = [
     AppRoutingModule,
     TableModule,
     FileUploadModule,
-    MenubarModule
+    MenubarModule,
+    DropdownModule,
+    FormsModule
   ],
   providers: [
     MessageService,
     PontoService,
-    HttpInterceptorProviders
+    HttpInterceptorProviders,
+    ImportacaoService
   ],
   bootstrap: [AppComponent]
 })

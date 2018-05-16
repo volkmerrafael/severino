@@ -1,0 +1,115 @@
+<div id="corpoPonto" class="row justify-content-md-center">
+
+  <div id="card" class="card">
+        
+    <div class="card-body">
+          
+      <div>
+  
+        <img id="severino-icon" src="../../../assets/severino-icon-64.png" alt="Severino">
+  
+      </div>
+          
+      <div>
+  
+        Logado como: <strong>{{usuario.nome}}</strong>
+  
+      </div>
+  
+      <br>
+
+      <div id="uploadInput">
+
+          <p-fileUpload name="myfile[]" (uploadHandler)="onBasicUpload($event)" [customUpload]="true" accept=".xls" chooseLabel="Escolher"
+
+                auto="auto" invalidFileTypeMessageSummary="Arquivo inválido: {0}" invalidFileTypeMessageDetail='Tipos de arquivos permitidos: {0}.'></p-fileUpload>
+
+      </div>
+
+      <br>
+
+      <div class="row">
+
+        <div id="table">
+
+          <p-table id="tabela" class="table" [value]="importacoes">
+
+            <ng-template pTemplate="header">
+
+              <tr> 
+
+                <th>nome</th>
+
+                <th>extensao</th>
+
+                <th>tamanho</th>
+
+                <th>ini_per</th>
+
+                <th>fin_per</th>
+
+                <th>Dt/HrDeImp</th>
+
+                <th>QtUsuario</th>
+
+                <th>Usuário Com Débito</th>
+
+                <th>Usuário Com Crédito</th>
+
+                <th>usu_marc_inc</th>
+
+                <th>usu_sem_pend</th>
+
+                <th>tempo_importacao</th>
+
+                <th>status</th>
+
+              </tr>
+
+            </ng-template>
+
+            <ng-template pTemplate="body" let-importacao>
+
+              <tr>
+
+                <td>{{importacao.nome}}</td>
+
+                <td>{{importacao.extensao}}</td>
+
+                <td>{{importacao.tamanho}}</td>
+
+                <td>{{importacao.inicio_periodo}}</td>
+
+                <td>{{importacao.final_periodo}}</td>
+
+                <td>{{importacao.data_hora_importacao}}</td>
+
+                <td>{{importacao.quantidade_usuario}}</td>
+
+                <td>{{importacao.usuario_com_debito_banco}}</td>
+
+                <td>{{importacao.usuario_com_credito_banco}}</td>
+
+                <td>{{importacao.usuario_com_marcacao_incorreta}}</td>
+
+                <td>{{importacao.usuario_sem_pendencias}}</td>
+
+                <td>{{importacao.tempo_importacao}}</td>
+
+                <td>{{importacao.status}}</td>
+
+              </tr>
+
+            </ng-template>
+
+          </p-table>
+
+        </div>
+
+      </div>
+
+    </div>
+  
+  </div>
+    
+</div>

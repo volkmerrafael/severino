@@ -6,6 +6,6 @@ export interface Login {
     senha: string;
     usertoken: string; 
     sessaotoken: string;         
-    Usuario: Usuario;
+    usuario: Usuario;
 
 }
