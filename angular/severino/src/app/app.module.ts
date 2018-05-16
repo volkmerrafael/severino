@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MessageComponent } from './components/message/message.component';
 import { MessageService } from './services/message.service';
-import { PontoComponent } from './pages/ponto/ponto.component';
 import { TableModule } from 'primeng/table';
 import { HttpModule } from '@angular/http';
 import { PontoService } from './services/ponto.service';
@@ -29,7 +28,6 @@ export const HttpInterceptorProviders = [
   declarations: [
     AppComponent,
     MessageComponent,
-    PontoComponent,
     DateFormatPipe,
     AdminComponent
   ],
@@ -42,11 +40,11 @@ export const HttpInterceptorProviders = [
     FileUploadModule,
     MenubarModule,
     DropdownModule,
-    FormsModule
-  ],
+    FormsModule,
+    PontoModule
+  ],  
   providers: [
     MessageService,
-    PontoService,
     HttpInterceptorProviders,
     ImportacaoService
   ],
