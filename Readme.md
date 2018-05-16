@@ -79,5 +79,7 @@
 * Rafael Volkmer - Back-End - https://github.com/volkmerrafael
 * Maicon Godinho - Front-End - https://github.com/MaiconGodinho
 * Renan Suzin - Documentos - https://github.com/renansuzin
+
 * Leandro Ordanel Medeiros - Consultoria - https://github.com/ordnaelmedeiros
 * Eduardo Bastian - Consultoria - https://github.com/ebastian
+* Leandro Picoloto - Consultoria - https://github.com/picoloto
