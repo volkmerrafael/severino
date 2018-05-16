@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  server: "https://anuncieon.com:8002/"
+  server: "http://localhost:8082/severino/rest/"
 };
