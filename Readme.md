@@ -27,6 +27,18 @@
 * https://poi.apache.org/
 * Para interpretação das planilhas
 
+###### Angular: 5.2.10
+* https://angular.io/
+
+###### Bootstrap
+* https://getbootstrap.com/docs/4.0/getting-started/introduction/
+
+###### NgPrime
+* https://www.primefaces.org/primeng/
+
+###### Node.js 
+* https://nodejs.org/en/
+
 # Versões
 ### 1. (versão 1.0) (Status - Em Teste)
 ##### 1.1. Desenvolvimento (14/05/2018)
