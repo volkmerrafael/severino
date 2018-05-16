@@ -15,6 +15,9 @@ import com.volkmer.godinho.severino.entity.Usuario;
 import com.volkmer.godinho.severino.resource.ponto.PontoStatus;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @Api("Importação")
 @Path("/importacao")
@@ -29,6 +32,7 @@ public class ImportacaoController {
 	@SuppressWarnings("resource")
 	@GET
 	@Path("/")
+	@ApiOperation(value = "Listar Arquivos Importados")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Importacao> listarImportacao() throws Exception {
 		return new ImportacaoResource().listarImportacoes(userToken);
@@ -37,6 +41,12 @@ public class ImportacaoController {
 	@SuppressWarnings("resource")
 	@POST
 	@Path("/")
+	@ApiOperation(value = "Importar Arquivo")
+	@ApiResponses(
+	  @ApiResponse(
+	    code=200,
+	    message="Importado com Sucesso",
+	    response = Importacao.class))
 	@Produces(MediaType.APPLICATION_JSON)
 	public Importacao gravar(Importacao importacao) throws Exception {
 		return new ImportacaoResource().gravar(userToken, importacao);
@@ -45,6 +55,7 @@ public class ImportacaoController {
 	@SuppressWarnings("resource")
 	@GET
 	@Path("/detalhar/usuarios/{importacao}/{status}")
+	@ApiOperation(value = "Listar Usuários Importados por Importação e Status")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Usuario> lsitarUsuariosPorStatus(@PathParam("importacao") Long importacao, @PathParam("status") PontoStatus status) throws Exception {
 		return new ImportacaoResource().listarUsuarios(userToken, importacao, status);

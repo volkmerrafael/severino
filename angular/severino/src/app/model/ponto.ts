@@ -1,4 +1,5 @@
 import { Usuario } from "./usuario";
+import { Legenda } from "./legenda";
 
 export class Ponto {
 
@@ -15,5 +16,6 @@ export class Ponto {
   saida3: string;
   saida4: string;
   usuario: Usuario;
-
+  legenda: Legenda;
+  
 }

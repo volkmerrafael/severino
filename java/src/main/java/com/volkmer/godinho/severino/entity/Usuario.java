@@ -1,3 +1,4 @@
+
 package com.volkmer.godinho.severino.entity;
 
 import java.time.LocalDate;
@@ -13,6 +14,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.volkmer.godinho.core.validacao.CampoInfo;
 
 import lombok.Data;
@@ -37,6 +42,8 @@ public class Usuario {
 	
 	@Column
 	@CampoInfo(descricao="Data Admissão", obrigatorio=false)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
+	@JsonSerialize(using = LocalDateSerializer.class)
 	private LocalDate data_admissao;
 	
 	@Column(length=26)
@@ -54,9 +61,5 @@ public class Usuario {
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="funcaoId", foreignKey=@ForeignKey(name="fk_usuario_funcao"))
 	private Funcao funcao;
-
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="importacaoId", foreignKey=@ForeignKey(name="fk_usuario_importacao"))
-	private Importacao importacao;
 	
 }

@@ -1,5 +1,6 @@
 package com.volkmer.godinho.severino.resource.teste;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -132,6 +133,13 @@ public class TesteController {
 		}
 		
 		return false;
+	}
+	
+	@GET
+	@Path("/data")
+	@Produces(MediaType.APPLICATION_JSON)
+	public LocalDate dataAtual() {
+		return LocalDate.now();
 	}
 	
 }

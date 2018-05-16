@@ -17,6 +17,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.volkmer.godinho.core.MapperJson.LocalDateTimeDeserializer;
+import com.volkmer.godinho.core.MapperJson.LocalDateTimeSerializer;
+import com.volkmer.godinho.core.MapperJson.LocalTimeDeserializer;
+import com.volkmer.godinho.core.MapperJson.LocalTimeSerializer;
 import com.volkmer.godinho.core.validacao.CampoInfo;
 import com.volkmer.godinho.severino.resource.importacao.ImportacaoStatus;
 
@@ -46,14 +54,20 @@ public class Importacao {
 
 	@Column
 	@CampoInfo(descricao="Início Período", obrigatorio=true)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
+	@JsonSerialize(using = LocalDateSerializer.class)
 	private LocalDate inicio_periodo;
 
 	@Column
 	@CampoInfo(descricao="Final Período", obrigatorio=true)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
+	@JsonSerialize(using = LocalDateSerializer.class)
 	private LocalDate final_periodo;
 
 	@Column
 	@CampoInfo(descricao="Data e Hora Importação", obrigatorio=true)
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	private LocalDateTime data_hora_importacao;
 
 	@Column
@@ -78,6 +92,8 @@ public class Importacao {
 
 	@Column
 	@CampoInfo(descricao="Tempo de Importacão", obrigatorio=true)
+	@JsonDeserialize(using = LocalTimeDeserializer.class)
+	@JsonSerialize(using = LocalTimeSerializer.class)
 	private LocalTime tempo_importacao;
 	
 	@Column

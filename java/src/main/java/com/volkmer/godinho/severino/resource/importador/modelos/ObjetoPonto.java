@@ -3,6 +3,7 @@ package com.volkmer.godinho.severino.resource.importador.modelos
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import com.volkmer.godinho.severino.entity.Legenda;
 import com.volkmer.godinho.severino.entity.Ponto;
 
 import lombok.Data;
@@ -193,7 +194,11 @@ public class ObjetoPonto implements ObjetoPontoInterfaceImportacao {
 				
 				ponto.setDiasemana(this.diasemana);
 				ponto.setJornada(this.jornada);
-				ponto.setLegenda(this.legenda);
+				if (this.legenda!=null && !this.legenda.equals("")) {
+					Legenda legenda = new Legenda();
+					legenda.setSigla(this.legenda);
+					ponto.setLegenda(legenda);
+				}
 				ponto.setEntrada1(this.entrada1);
 				ponto.setSaida1(this.saida1);
 				ponto.setEntrada2(this.entrada2);

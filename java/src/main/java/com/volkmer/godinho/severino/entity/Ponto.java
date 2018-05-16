@@ -15,6 +15,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.volkmer.godinho.core.validacao.CampoInfo;
 import com.volkmer.godinho.severino.resource.ponto.PontoStatus;
 
@@ -38,12 +42,18 @@ public class Ponto {
 	@JoinColumn(name="anomesId", foreignKey=@ForeignKey(name="fk_ponto_anomes"))
 	private AnoMes anomes;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="importacaoId", foreignKey=@ForeignKey(name="fk_ponto_importacao"))
 	private Importacao importacao;
 	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="legendaId", foreignKey=@ForeignKey(name="fk_ponto_legenda"))
+	private Legenda legenda;
+	
 	@Column
 	@CampoInfo(descricao="Data", obrigatorio=false)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
+	@JsonSerialize(using = LocalDateSerializer.class)
 	private LocalDate data;
 	
 	@Column(length=3)
@@ -53,10 +63,6 @@ public class Ponto {
 	@Column(length=26)
 	@CampoInfo(descricao="Jornada", obrigatorio=false)
 	private String jornada;
-
-	@Column(length=1)
-	@CampoInfo(descricao="Legenda", obrigatorio=false)
-	private String legenda;
 
 	@Column(length=6)
 	@CampoInfo(descricao="Horário de Entrada 1", obrigatorio=false)

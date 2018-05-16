@@ -38,31 +38,29 @@
 
               <tr> 
 
-                <th>nome</th>
+                <th>Nome</th>
 
-                <th>extensao</th>
+                <th>Tamanho</th>
 
-                <th>tamanho</th>
+                <th>Início</th>
 
-                <th>ini_per</th>
+                <th>Final</th>
 
-                <th>fin_per</th>
+                <th>Data/Hora</th>
 
-                <th>Dt/HrDeImp</th>
+                <th>Usu.</th>
 
-                <th>QtUsuario</th>
+                <th>Déb.</th>
 
-                <th>Usuário Com Débito</th>
+                <th>Cré.</th>
 
-                <th>Usuário Com Crédito</th>
+                <th>Inc.</th>
 
-                <th>usu_marc_inc</th>
+                <th>Cor.</th>
 
-                <th>usu_sem_pend</th>
+                <th>Tempo Imp.</th>
 
-                <th>tempo_importacao</th>
-
-                <th>status</th>
+                <th>Sit.</th>
 
               </tr>
 
@@ -72,17 +70,15 @@
 
               <tr>
 
-                <td>{{importacao.nome}}</td>
-
-                <td>{{importacao.extensao}}</td>
+                <td>{{importacao.nome}}{{importacao.extensao}}</td>
 
                 <td>{{importacao.tamanho}}</td>
 
-                <td>{{importacao.inicio_periodo}}</td>
+                <td>{{importacao.inicio_periodo | date:"dd/MM/yyyy"}}</td>
 
-                <td>{{importacao.final_periodo}}</td>
+                <td>{{importacao.final_periodo | date:"dd/MM/yyyy"}}</td>
 
-                <td>{{importacao.data_hora_importacao}}</td>
+                <td>{{importacao.data_hora_importacao | date:'dd/MM/yyyy HH:mm:ss'}}</td>
 
                 <td>{{importacao.quantidade_usuario}}</td>
 

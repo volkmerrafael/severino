@@ -9,6 +9,7 @@ import com.volkmer.godinho.severino.entity.AnoMes;
 import com.volkmer.godinho.severino.entity.Departamento;
 import com.volkmer.godinho.severino.entity.Funcao;
 import com.volkmer.godinho.severino.entity.Importacao;
+import com.volkmer.godinho.severino.entity.Legenda;
 import com.volkmer.godinho.severino.entity.Ponto;
 import com.volkmer.godinho.severino.entity.Usuario;
 import com.volkmer.godinho.severino.resource.anomes.AnoMesResource;
@@ -42,12 +43,17 @@ public class ImportadorResource extends ResourceCRUD<Ponto> {
 		
 		Ponto ponto = new Ponto();
 		
+		Legenda legenda = this.processaLegenda(obj.getPonto().getLegenda());
+		
 		try {
 			ponto = queryPonto.getSingleResult();
 			obj.getPonto().setId(ponto.getId());
 			obj.getPonto().setUsuario(ponto.getUsuario());
 			obj.getPonto().setAnomes(ponto.getAnomes());
 			obj.getPonto().setImportacao(importacao);
+			if (legenda!=null && legenda.getSigla()!=null) {
+				obj.getPonto().setLegenda(legenda);
+			}
 			ponto = obj.getPonto();
 			this.alterar(ponto);
 			this.commit();
@@ -84,9 +90,33 @@ public class ImportadorResource extends ResourceCRUD<Ponto> {
 			ponto.setUsuario(usuario);
 			ponto.setAnomes(anomes);
 			ponto.setImportacao(importacao);
+			if (legenda!=null && legenda.getSigla()!=null) {
+				ponto.setLegenda(legenda);
+			}
 			this.incluir(ponto);
 			this.commit();
 		}
+		
+	}
+
+	private Legenda processaLegenda(Legenda sigla) {
+		
+		Legenda legenda = new Legenda();
+		
+		if (sigla!=null) {
+			//Busca legenda pela Sigla
+			TypedQuery<Legenda> queryLegenda = this.getEm().createQuery("select u from Legenda u where u.sigla = :sigla", Legenda.class);
+			queryLegenda.setParameter("sigla", sigla.getSigla());	
+			
+			try {	
+				legenda = queryLegenda.getSingleResult();	
+			} catch (NoResultException e) {
+				legenda = null;
+			}
+			
+		}
+
+		return legenda;
 		
 	}
 

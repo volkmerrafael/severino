@@ -94,11 +94,11 @@
   
                 <tr>
 
-                  <td>{{ponto.data}}</td>
+                  <td>{{ponto.data | date:"dd/MM/yyyy"}}</td>
 
                   <td>{{ponto.diasemana}}</td>
 
-                  <td>{{ponto.legenda}}</td>
+                  <td>{{ponto.legenda?.sigla}}</td>
 
                   <td>{{ponto.jornada}}</td>
 

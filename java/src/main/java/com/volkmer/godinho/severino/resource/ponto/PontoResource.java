@@ -24,7 +24,7 @@ public class PontoResource extends ResourceCRUD<Ponto> {
 	public List<Ponto> listarPontos(String token, Integer ano, Integer mes) {
 	
 		//Usuário encontrado agora retorna a lista de ponto do usuário
-		TypedQuery<Ponto> queryPonto = this.getEm().createQuery("select p from Ponto p where p.usuario = :usuario and Month(p.data) = :mes and Year(p.data) = :ano", Ponto.class);
+		TypedQuery<Ponto> queryPonto = this.getEm().createQuery("select p from Ponto p where p.usuario = :usuario and Month(p.data) = :mes and Year(p.data) = :ano order by p.data asc", Ponto.class);
 		queryPonto.setParameter("usuario", this.buscaUsuarioPeloToken(token));
 		queryPonto.setParameter("mes", mes);
 		queryPonto.setParameter("ano", ano);
