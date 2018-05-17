@@ -29,8 +29,8 @@ public class EntityManagerUtil {
 			.setProperty("hibernate.c3p0.max_statements", "50")
 			
 			.setProperty("hibernate.hbm2ddl.auto", "update")
-			.setProperty("hibernate.format_sql", "true")
-			.setProperty("hibernate.show_sql", "true");
+			.setProperty("hibernate.format_sql", "false")
+			.setProperty("hibernate.show_sql", "false");
 		
 		try {
 			List<Class<?>> classes = new ListaDeClasses("com.volkmer.godinho.severino.entity").getClasses();
