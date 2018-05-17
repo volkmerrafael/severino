@@ -36,9 +36,6 @@ export class UsuarioService {
         this.messageService.messageError( message );
       }
 
-      console.log(`log: ${error}`);
-      console.log(`${operation} failed: ${error.error.message}`);
-
       return;
     };
   }

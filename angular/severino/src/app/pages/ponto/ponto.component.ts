@@ -37,14 +37,12 @@ export class PontoComponent implements OnInit {
                 .listarPontoPorPeriodo(this.ano, this.mes)
                 .subscribe( res => {
                   this.pontos = res 
-                  console.log(res);
                  });        
                  
     this.pontoService
                 .listarPeriodos()
                 .subscribe( res => {
-                        this.periodos = res 
-                        console.log(res);
+                        this.periodos = res
                       });           
    }
 
@@ -56,8 +54,7 @@ export class PontoComponent implements OnInit {
     this.pontoService
                 .listarPeriodos()
                 .subscribe( res => {
-                       this.periodos = res 
-                       console.log(res);
+                       this.periodos = res
                       });
   }
 
@@ -65,8 +62,7 @@ export class PontoComponent implements OnInit {
     this.pontoService
                 .listarPontoPorPeriodo(this.mes, this.ano)
                 .subscribe( res => {
-                       this.pontos = res 
-                       console.log(res);
+                       this.pontos = res
                       });
   }  
 }

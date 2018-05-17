@@ -19,6 +19,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule }   from '@angular/forms';
 import { AdminComponent } from './pages/admin/admin.component';
 import { ImportacaoService } from './services/importacao.service';
+import { PontoModule } from './pages/ponto/ponto.module';
 
 export const HttpInterceptorProviders = [
   { provide: HTTP_INTERCEPTORS, useClass: UserHttpInterceptor, multi: true  }

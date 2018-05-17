@@ -29,16 +29,18 @@ public class ImportacaoController {
 	@HeaderParam("session-token")
 	String sessionToken;
 	
-	@SuppressWarnings("resource")
 	@GET
 	@Path("/")
 	@ApiOperation(value = "Listar Arquivos Importados")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Importacao> listarImportacao() throws Exception {
-		return new ImportacaoResource().listarImportacoes(userToken);
+		try (ImportacaoResource imp = new ImportacaoResource()) {
+			return imp.listarImportacoes(userToken);
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 	
-	@SuppressWarnings("resource")
 	@POST
 	@Path("/")
 	@ApiOperation(value = "Importar Arquivo")
@@ -49,16 +51,23 @@ public class ImportacaoController {
 	    response = Importacao.class))
 	@Produces(MediaType.APPLICATION_JSON)
 	public Importacao gravar(Importacao importacao) throws Exception {
-		return new ImportacaoResource().gravar(userToken, importacao);
+		try (ImportacaoResource imp = new ImportacaoResource()) {
+			return imp.gravar(userToken, importacao);
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
-	@SuppressWarnings("resource")
 	@GET
 	@Path("/detalhar/usuarios/{importacao}/{status}")
 	@ApiOperation(value = "Listar Usuários Importados por Importação e Status")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Usuario> lsitarUsuariosPorStatus(@PathParam("importacao") Long importacao, @PathParam("status") PontoStatus status) throws Exception {
-		return new ImportacaoResource().listarUsuarios(userToken, importacao, status);
+		try (ImportacaoResource imp = new ImportacaoResource()) {
+			return imp.listarUsuarios(userToken, importacao, status);
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 	
 }

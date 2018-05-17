@@ -14,8 +14,7 @@ export class ImportacaoService {
 
   constructor(private http: HttpClient) { }
 
-  uploadArquivo(importacao: Importacao): Observable<Importacao> {
-    console.log(importacao);    
+  uploadArquivo(importacao: Importacao): Observable<Importacao> {   
     return this.http.post<Importacao>(
         `${environment.server}importacao/`, importacao);
   }

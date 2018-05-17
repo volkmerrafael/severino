@@ -41,8 +41,8 @@ public class Ponto {
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="anomesId", foreignKey=@ForeignKey(name="fk_ponto_anomes"))
 	private AnoMes anomes;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
+
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="importacaoId", foreignKey=@ForeignKey(name="fk_ponto_importacao"))
 	private Importacao importacao;
 	

@@ -62,7 +62,6 @@ export class AdminComponent implements OnInit {
     let anexoDecode = res[1];
     this.arqImportacao.anexo = anexoDecode;
     this.importacao.arquivoimportacao = this.arqImportacao;
-    console.log(this.importacao);
     this.ImportacaoService.uploadArquivo(this.importacao).subscribe(res => { this.importacao });
     this.ImportacaoService.listarImportacao()
                   .subscribe(res => { 

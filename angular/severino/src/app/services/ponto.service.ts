@@ -17,8 +17,6 @@ export class PontoService {
    }
 
   listarPontoPorPeriodo(ano: String, mes: String): Observable<Ponto[]> {
-    console.log(ano);
-    console.log(mes);
     return this.http.get<Ponto[]>(
       `${environment.server}ponto/listar/`+ano+`/`+mes
     );

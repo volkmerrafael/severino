@@ -25,21 +25,27 @@ public class PontoController {
 	String sessionToken;
 
 	//Lista períodos em que o usuário tem o ponto importado
-	@SuppressWarnings("resource")
 	@GET
 	@Path("/listar/periodos")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<AnoMes> listaPeriodoComInfo() throws Exception {
-		return new PontoResource().listarPeriodos(userToken);
+		try (PontoResource pres = new PontoResource()) {
+			return pres.listarPeriodos(userToken);
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 	
 	//Lista o ponto de um período especifíco
-	@SuppressWarnings("resource")
 	@GET
 	@Path("/listar/{ano}/{mes}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Ponto> listar(@PathParam("ano") Integer ano, @PathParam("mes") Integer mes) throws Exception {
-		return new PontoResource().listarPontos(userToken,ano,mes);		
+		try (PontoResource pres = new PontoResource()) {
+			return pres.listarPontos(userToken,ano,mes);	
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 	
 }

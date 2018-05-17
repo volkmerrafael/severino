@@ -38,31 +38,25 @@ const nomeacesso = sessionStorage.getItem('nomeacesso');
 
 if (urlLogin == -1) {
 
-console.log("user-http.interceptor.ts");
+  if ( usertoken ) {
 
-console.log("Não é  URL de Login (Entra no IF)");
+  const secureReq = req.clone({
 
-if ( usertoken ) {
+    headers: new HttpHeaders({
 
- console.log("Criou Header");
+      'Content-Type' : 'application/json',
 
- const secureReq = req.clone({
+      'Session-Token' : sessaotoken,
 
-   headers: new HttpHeaders({
+      'User-Token' : usertoken
 
-     'Content-Type' : 'application/json',
+    })
 
-     'Session-Token' : sessaotoken,
+  })
 
-     'User-Token' : usertoken
+  return next.handle(secureReq);
 
-   })
-
- })
-
- return next.handle(secureReq);
-
-}
+  }
 
 } else {
 

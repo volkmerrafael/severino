@@ -21,7 +21,7 @@ public class EntityManagerUtil {
 			.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver")
 			.setProperty("hibernate.connection.username", "postgres")
 			.setProperty("hibernate.connection.password", "ids0207")
-			.setProperty("hibernate.connection.url", "jdbc:postgresql://localhost:5443/severino_0007")
+			.setProperty("hibernate.connection.url", "jdbc:postgresql://localhost:5443/severino_0008")
 			
 			.setProperty("hibernate.c3p0.min_size", "5")
 			.setProperty("hibernate.c3p0.max_size", "35")
@@ -29,8 +29,8 @@ public class EntityManagerUtil {
 			.setProperty("hibernate.c3p0.max_statements", "50")
 			
 			.setProperty("hibernate.hbm2ddl.auto", "update")
-			.setProperty("hibernate.format_sql", "false")
-			.setProperty("hibernate.show_sql", "false");
+			.setProperty("hibernate.format_sql", "true")
+			.setProperty("hibernate.show_sql", "true");
 		
 		try {
 			List<Class<?>> classes = new ListaDeClasses("com.volkmer.godinho.severino.entity").getClasses();
