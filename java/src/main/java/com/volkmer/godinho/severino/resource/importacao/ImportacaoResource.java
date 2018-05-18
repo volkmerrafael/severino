@@ -34,24 +34,34 @@ public class ImportacaoResource extends ResourceCRUD<Importacao> {
 		return Importacao.class;
 	}
 
-	@SuppressWarnings("resource")
 	@Override
 	protected void incluirPre(Importacao model) throws Exception {
 		
 		if (model.getArquivoimportacao()!=null) {
-			ArquivoImportacao arqimp = model.getArquivoimportacao();
-			new ArquivoImportacaoResource(this).incluir(arqimp);
+
+			try (ArquivoImportacaoResource res = new ArquivoImportacaoResource()){
+				ArquivoImportacao arqimp = model.getArquivoimportacao();
+				res.incluir(arqimp);
+			} catch (Exception e) {
+				throw e;
+			}
+			
 		}
 		
 	}
 	
-	@SuppressWarnings("resource")
 	@Override
 	protected void alterarPre(Importacao model) throws Exception {
 		
 		if (model.getArquivoimportacao()!=null) {
-			ArquivoImportacao arqimp = model.getArquivoimportacao();
-			new ArquivoImportacaoResource(this).alterar(arqimp);
+			
+			try (ArquivoImportacaoResource res = new ArquivoImportacaoResource()){
+				ArquivoImportacao arqimp = model.getArquivoimportacao();
+				res.alterar(arqimp);
+			} catch (Exception e) {
+				throw e;
+			}
+			
 		}
 		
 	}
@@ -59,14 +69,12 @@ public class ImportacaoResource extends ResourceCRUD<Importacao> {
 	public List<Importacao> listarImportacoes(String userToken) {
 		
 		if (this.ehUsarioAdmin(userToken)) {
-			TypedQuery<Importacao> queryImportacao = this.getEm().createQuery("select i from Importacao i order by data_hora_importacao desc", Importacao.class);
+			
+			TypedQuery<Importacao> queryImportacao = this.getEm().createQuery("select i from Importacao i JOIN FETCH i.arquivoimportacao a order by data_hora_importacao desc", Importacao.class);
 			List<Importacao> lista = queryImportacao.getResultList();
 			
-			for (Importacao importacao : lista) {
-				importacao.getArquivoimportacao().setAnexo(null);
-			}
-			
 			return lista;
+			
 		}
 		
 		return null;
@@ -108,8 +116,11 @@ public class ImportacaoResource extends ResourceCRUD<Importacao> {
 						
 			for (ObjetoPontoCompleto obj : this.retornaListaFinal(importacao)) {
 				//Grava Registro do ponto e Vincula a Impotação
-				new ImportadorResource().gravarAlterarPonto(obj,userToken,importacao);
-
+				try (ImportadorResource res = new ImportadorResource()) {
+					res.gravarAlterarPonto(obj,userToken,importacao);
+				} catch (Exception e) {
+					throw e;
+				}
 				//Seta período que esta no arquivo
 				if (importacao.getInicio_periodo()==null) {
 					importacao.setInicio_periodo(obj.getData_inicial_importacao());
@@ -137,11 +148,22 @@ public class ImportacaoResource extends ResourceCRUD<Importacao> {
 		
 		importacaoGravada.setData_hora_importacao(LocalDateTime.now());
 		importacaoGravada.setQuantidade_usuario(this.contaUsuarios(importacaoGravada,null));
-		importacaoGravada.setUsuario_sem_pendencias(this.contaUsuarios(importacaoGravada,PontoStatus.CORRETO));
 		importacaoGravada.setUsuario_com_credito_banco(this.contaUsuarios(importacaoGravada,PontoStatus.CREDITO));
 		importacaoGravada.setUsuario_com_debito_banco(this.contaUsuarios(importacaoGravada,PontoStatus.DEBITO));
 		importacaoGravada.setUsuario_com_marcacao_incorreta(this.contaUsuarios(importacaoGravada,PontoStatus.MARCACAO_INCORRETA));
 		importacaoGravada.setStatus(ImportacaoStatus.CONCLUIDO);
+		
+		//Usuários Sem Pendência
+		Integer valor = importacaoGravada.getUsuario_com_marcacao_incorreta();
+		
+		if (valor<importacaoGravada.getUsuario_com_credito_banco()) {
+			valor = importacaoGravada.getUsuario_com_credito_banco();
+		}
+		if (valor<importacaoGravada.getUsuario_com_debito_banco()) {
+			valor = importacaoGravada.getUsuario_com_debito_banco();
+		}
+		
+		importacaoGravada.setUsuario_sem_pendencias(importacaoGravada.getQuantidade_usuario()-valor);
 		
 	}
 
