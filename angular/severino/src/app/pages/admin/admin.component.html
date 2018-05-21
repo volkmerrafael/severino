@@ -19,11 +19,7 @@
       <br>
 
       <div id="uploadInput">
-
-          <p-fileUpload name="myfile[]" (uploadHandler)="onBasicUpload($event)" [customUpload]="true" accept=".xls" chooseLabel="Escolher"
-
-                auto="auto" invalidFileTypeMessageSummary="Arquivo inválido: {0}" invalidFileTypeMessageDetail='Tipos de arquivos permitidos: {0}.'></p-fileUpload>
-
+        <p-fileUpload name="myfile[]" (uploadHandler)="onUpload($event)" [customUpload]="true" accept=".xls" chooseLabel=" "  uploadLabel="Fazer Upload" cancelLabel="Cancelar" skinSimple="true"></p-fileUpload>
       </div>
 
       <br>
