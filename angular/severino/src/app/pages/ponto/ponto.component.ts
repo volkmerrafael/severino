@@ -20,8 +20,8 @@ import { FormsModule }   from '@angular/forms';
 })
 export class PontoComponent implements OnInit {
 
-  mes : String = "02";
-  ano : String = "2018";
+  mes: String = "04";
+  ano: String = "2018";
   pontos : Ponto[] = [];
   periodos : AnoMes[] = [];
   periodoSelecionado : AnoMes;
@@ -60,9 +60,13 @@ export class PontoComponent implements OnInit {
 
   listarPontoPorPeriodo() {
     this.pontoService
-                .listarPontoPorPeriodo(this.mes, this.ano)
+                .listarPontoPorPeriodo(this.ano, this.mes)
                 .subscribe( res => {
                        this.pontos = res
+                       console.log(res);
                       });
+
+    
+                          
   }  
 }

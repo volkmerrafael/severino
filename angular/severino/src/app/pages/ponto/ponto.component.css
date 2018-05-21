@@ -28,6 +28,29 @@
   margin-top: 10px;
 }
 
+#inputInfo {
+  text-align: center;
+}
+
 #severino-icon{
   margin-bottom: 20px;
+}
+
+#ano {
+  margin-bottom: 10px;
+  text-align: center;
+  width: 100px;
+  display: inline-block;
+}
+
+#mes {
+  margin-bottom: 10px;
+  text-align: center;
+  width: 70px;
+  display: inline-block;
+}
+
+#linhaCorreta {
+  background-color: #1CA979 !important;
+            color: #ffffff !important;
 }

@@ -26,33 +26,32 @@
   
       <br>
   
-        
-  
-      <div id="mesanoInput">
-          <form (ngSubmit)="listarPontoPorPeriodo()">  
-              <span class="ui-float-label">
-  
-                  <input name="mesInput" id="float-input" type="text" size="5" pInputText placeholder="Mês"> 
-  
-              </span>
-  
-              <span class="ui-float-label">
-  
-                  <input name="anoInput" ng-model="mes" id="float-input" type="text" size="10" pInputText placeholder="Ano"> 
-  
-              </span>
-  
-              <button id="btnCarregar" type="submit">Carregar Informações do Ponto</button>
-          </form>
+      <form (ngSubmit)="listarPontoPorPeriodo()">
+        <div class="form-group">
+          <input class="form-control"
+                  id="mes"
+                  name="mes"
+                  type="text"
+                  placeholder="Mês"
+                  [(ngModel)]="mes" />
+    
+          <input class="form-control"
+                  id="ano"
+                  name="ano"
+                  type="text"
+                  placeholder="Ano"
+                  [(ngModel)]="ano" />
+          <br>
+          <button id="btnCarregar" type="submit" class="btn btn-primary">Carregar Informações do Ponto</button>
         </div>
-        
-        <br><br>
+      </form> 
+        <br>
   
         <div class="row">
   
           <div id="table">
   
-            <p-table id="tabela" class="table" [value]="pontos">
+            <p-table id="tabela" class="table" [value]="pontos" >
   
               <ng-template pTemplate="header">
   
