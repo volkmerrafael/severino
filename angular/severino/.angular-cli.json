@@ -20,11 +20,11 @@
       "prefix": "app",
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
-        "../node_modules/primeui/themes/primeui.css"
+        "../node_modules/primeui/primeui.css"
       ],
       "scripts": [
         "../node_modules/bootstrap/dist/js/bootstrap.min.js",
-        "../node_modules/primeui/themes/primeui.js"
+        "../node_modules/primeui/primeui.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

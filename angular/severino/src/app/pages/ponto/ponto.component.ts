@@ -19,15 +19,17 @@ import { FormsModule }   from '@angular/forms';
   styleUrls: ['./ponto.component.css']
 })
 export class PontoComponent implements OnInit {
-
-  mes: String = "04";
-  ano: String = "2018";
+  
+  myDate: Date = new Date();
+  mes: String = ""+this.myDate.getMonth();
+  ano: String = ""+this.myDate.getFullYear();
   pontos : Ponto[] = [];
   periodos : AnoMes[] = [];
   periodoSelecionado : AnoMes;
   usuario: Usuario = new Usuario();
   importacao: Importacao = new Importacao(); 
-  arqImportacao: ArquivoImportacao = new ArquivoImportacao();  
+  arqImportacao: ArquivoImportacao = new ArquivoImportacao(); 
+    
 
   constructor(private pontoService: PontoService) {
 
@@ -43,7 +45,9 @@ export class PontoComponent implements OnInit {
                 .listarPeriodos()
                 .subscribe( res => {
                         this.periodos = res
-                      });           
+                      });  
+    
+                    
    }
 
   ngOnInit() {
