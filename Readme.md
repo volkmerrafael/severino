@@ -59,10 +59,10 @@
   - [x] Verificar quantidade de Débito no Banco de Horas
 ##### 1.2. Instalação (16/05/2018)
   - [x] Instalação 
-##### 1.3. Teste (18/05/2018)
-  - [ ] Teste do .war
+##### 1.3. Teste (23/05/2018)
+  - [ ] Teste da versão 1.0
 
-### 2. (versão 1.1) (18/05/2018)
+### 2. (versão 1.1) (23/05/2018)
 * Acesso Administrativo 
   - [ ] Visualizar Informações dos Funcionario que tem Marcação Incorreta.
   - [ ] Adicionar botão Atualizar lista de importações.
