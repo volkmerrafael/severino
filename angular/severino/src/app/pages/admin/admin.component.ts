@@ -13,6 +13,7 @@ import { DateFormatPipe } from '../../components/pipes/pipe'
 import { DropdownModule } from 'primeng/dropdown';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
+import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-admin',
@@ -25,34 +26,33 @@ export class AdminComponent implements OnInit {
 
   importacao: Importacao = new Importacao(); 
 
-  importacoes: Importacao[] = [];
+  importacoes: Importacao[] = new Array;
 
   arqImportacao: ArquivoImportacao = new ArquivoImportacao();  
 
   constructor(private ImportacaoService: ImportacaoService) { 
     this.usuario.nome = sessionStorage.getItem('nomeUsuario');
     
-    this.ImportacaoService.listarImportacao()
-                  .subscribe(res => { 
-                             this.importacoes = res });
+    this.listarImportacao();
   }
 
   ngOnInit() {
 
   }
 
-  onBasicUpload(event) {
+  onUpload(event) {
     let arquivo = event.files[0];
     this.importacao.nome = arquivo.name;
     this.importacao.extensao = arquivo.name.substr(arquivo.name.lastIndexOf('.')+1);    
     let leitor = new FileReader();
     leitor.onload = this._handleReaderLoaded.bind(this);
-    leitor.readAsDataURL(arquivo);    
+    leitor.readAsDataURL(arquivo);       
   }
 
-  listarImportacao(event) {
-    this.ImportacaoService.listarImportacao().subscribe(res => { this.importacao });
-    
+  listarImportacao() {
+    this.ImportacaoService.listarImportacao()
+                  .subscribe(res => { 
+                             this.importacoes = res });  
   }
 
   _handleReaderLoaded(e) {
@@ -63,9 +63,9 @@ export class AdminComponent implements OnInit {
     this.arqImportacao.anexo = anexoDecode;
     this.importacao.arquivoimportacao = this.arqImportacao;
     this.ImportacaoService.uploadArquivo(this.importacao).subscribe(res => { this.importacao });
-    this.ImportacaoService.listarImportacao()
-                  .subscribe(res => { 
-                             this.importacoes = res });
+    setTimeout( () => {
+      this.listarImportacao();
+    }, 2000);
   } 
 
 }
