@@ -53,10 +53,13 @@
   - [x] Visualizar quantidade de Funcionario que tem Declaração de Compensação de Horas a Fazer.
 * Acesso Individual
   - [x] Visualizar seu próprio ponto.
-  - [ ] Visulaizar seu próprio ponto por ano e mês.
+  - [x] Visulaizar seu próprio ponto por ano e mês.
   - [x] Visualizar quantidade de Marcações Incorretas.
   - [x] Verificar quantiade de Crédito no Banco de Horas
   - [x] Verificar quantidade de Débito no Banco de Horas
+* Gerar build para produção
+  - [ ] Back-End
+  - [ ] Front-End
 ##### 1.2. Instalação (16/05/2018)
   - [x] Instalação 
 ##### 1.3. Teste (23/05/2018)
@@ -70,6 +73,7 @@
   - [ ] Gravar Justificativas Item a Item
   - [ ] Mostrar Total Hora Extra Mês
   - [ ] Mostrar Total Hora Débito Mês
+  - [ ] Apresentar com coloração diferente pontos de débito, crédito e correto.
   
 ### 3. (versao 2.0) (25/05/2018)
 * Acesso Individual
