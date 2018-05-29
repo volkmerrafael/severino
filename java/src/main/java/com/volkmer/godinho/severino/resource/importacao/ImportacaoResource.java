@@ -70,8 +70,10 @@ public class ImportacaoResource extends ResourceCRUD<Importacao> {
 		
 		if (this.ehUsarioAdmin(userToken)) {
 			
-			TypedQuery<Importacao> queryImportacao = this.getEm().createQuery("select i from Importacao i JOIN FETCH i.arquivoimportacao a order by i.id desc", Importacao.class);
+			TypedQuery<Importacao> queryImportacao = this.getEm().createQuery("select i from Importacao i order by id desc", Importacao.class);
 			List<Importacao> lista = queryImportacao.getResultList();
+			
+			lista.forEach(i -> i.setArquivoimportacao(null));
 			
 			return lista;
 			
