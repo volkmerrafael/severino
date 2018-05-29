@@ -69,13 +69,25 @@ public class ProcessaDadosPonto {
 		
 		if (totalMinutosTrabalhados!=0) {
 			
-			if (totalMinutosTrabalhados<(totalMinutosObrigatorios-tolerancia)) {
+			//Quando é Feriado e Domingo duplica horas extra
+			//Se dia da semana for sabado ou domingo deve ser hora extra
+			
+			if (obj.getDiasemana().equals("Sáb")) {
+				credito = totalMinutosTrabalhados;
+				obj.setMinutos_credito(credito);
+				obj.setStatus(PontoStatus.CREDITO);
+				obj.setObservacao(this.transformaHoraMinutoEmString("+",credito)+" => Crédito BH");				
+			} else if (obj.getDiasemana().equals("Dom") || (obj.getLegenda()!=null && obj.getLegenda().getSigla()!=null && obj.getLegenda().getSigla().equals("F"))) {
+				credito = totalMinutosTrabalhados;
+				obj.setMinutos_credito(credito);
+				obj.setStatus(PontoStatus.CREDITO);
+				obj.setObservacao(this.transformaHoraMinutoEmString("+",credito*2)+" => Crédito BH Especial");
+			} else if (totalMinutosTrabalhados<(totalMinutosObrigatorios-tolerancia)) {
 				//calcula débito somente se estorou a tolerancia
 				debito = totalMinutosObrigatorios-totalMinutosTrabalhados;
 				obj.setMinutos_debito(debito);
 				obj.setStatus(PontoStatus.DEBITO);
 				obj.setObservacao(this.transformaHoraMinutoEmString("-",debito)+" => Débito no BH");
-				
 			} else if (totalMinutosTrabalhados>(totalMinutosObrigatorios+tolerancia)){
 				//calcula crédito somente se estourou tolerancia
 				credito = totalMinutosTrabalhados-totalMinutosObrigatorios;
