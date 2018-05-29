@@ -1,226 +1,239 @@
-package com.volkmer.godinho.severino.resource.importador;
+package com.volkmer.godinho.severino.resource.importacao;
 
-import javax.persistence.NoResultException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.TypedQuery;
 
 import com.volkmer.godinho.core.resource.ResourceCRUD;
+import com.volkmer.godinho.core.timmer.ControleTempoDeExecucao;
 import com.volkmer.godinho.severino.entity.Acesso;
-import com.volkmer.godinho.severino.entity.AnoMes;
-import com.volkmer.godinho.severino.entity.Departamento;
-import com.volkmer.godinho.severino.entity.Funcao;
+import com.volkmer.godinho.severino.entity.ArquivoImportacao;
 import com.volkmer.godinho.severino.entity.Importacao;
-import com.volkmer.godinho.severino.entity.Legenda;
-import com.volkmer.godinho.severino.entity.Ponto;
 import com.volkmer.godinho.severino.entity.Usuario;
-import com.volkmer.godinho.severino.resource.anomes.AnoMesResource;
-import com.volkmer.godinho.severino.resource.departamento.DepartamentoResource;
-import com.volkmer.godinho.severino.resource.funcao.FuncaoResource;
+import com.volkmer.godinho.severino.resource.acesso.AcessoTipo;
+import com.volkmer.godinho.severino.resource.arquivoimportacao.ArquivoImportacaoResource;
+import com.volkmer.godinho.severino.resource.importador.ConverteExcelEmObjetoPonto;
+import com.volkmer.godinho.severino.resource.importador.ImportadorResource;
+import com.volkmer.godinho.severino.resource.importador.ProcessaDadosPonto;
 import com.volkmer.godinho.severino.resource.importador.modelos.ObjetoPontoCompleto;
-import com.volkmer.godinho.severino.resource.usuario.UsuarioResource;
+import com.volkmer.godinho.severino.resource.ponto.PontoStatus;
 
-public class ImportadorResource extends ResourceCRUD<Ponto> {
+public class ImportacaoResource extends ResourceCRUD<Importacao> {
 
-	public ImportadorResource() {
+	public ImportacaoResource() {
+	}
+	
+	public ImportacaoResource(ResourceCRUD<?> res) {
+		super(res);
 	}
 	
 	@Override
-	public Class<Ponto> getModelClass() {
-		return Ponto.class;
+	public Class<Importacao> getModelClass() {
+		return Importacao.class;
+	}
+
+	@Override
+	protected void incluirPre(Importacao model) throws Exception {
+		
+		if (model.getArquivoimportacao()!=null) {
+
+			try (ArquivoImportacaoResource res = new ArquivoImportacaoResource()){
+				ArquivoImportacao arqimp = model.getArquivoimportacao();
+				res.incluir(arqimp);
+			} catch (Exception e) {
+				throw e;
+			}
+			
+		}
+		
 	}
 	
-	@SuppressWarnings("resource")
-	public void gravarAlterarPonto(ObjetoPontoCompleto obj, String userToken, Importacao importacao) throws Exception {
+	@Override
+	protected void alterarPre(Importacao model) throws Exception {
+		
+		if (model.getArquivoimportacao()!=null) {
+			
+			try (ArquivoImportacaoResource res = new ArquivoImportacaoResource()){
+				ArquivoImportacao arqimp = model.getArquivoimportacao();
+				res.alterar(arqimp);
+			} catch (Exception e) {
+				throw e;
+			}
+			
+		}
+		
+	}
 	
-		Departamento departamento = this.processaDepartamento(obj.getDepartamento());
-		Funcao funcao = this.processaFuncao(obj.getFuncao());
-		Usuario usuario = this.processaUsuario(obj, departamento, funcao);
+	public List<Importacao> listarImportacoes(String userToken) {
+		
+		if (this.ehUsarioAdmin(userToken)) {
+			
+			TypedQuery<Importacao> queryImportacao = this.getEm().createQuery("select i from Importacao i order by id desc", Importacao.class);
+			List<Importacao> lista = queryImportacao.getResultList();
+			
+			lista.forEach(i -> i.setArquivoimportacao(null));
+			
+			return lista;
+			
+		}
+		
+		return null;
+		
+	}
+	
+	public Importacao gravar(String userToken, Importacao importacao) throws Exception {
+		
+		if (this.ehUsarioAdmin(userToken)) {
+		
+			//Codigo usado pra teste buscando arquivo fisico
+			//Temporario para teste
+			//String caminho = "D:\\repositorio\\severino\\excelponto\\Ponto.xls";
+			//byte[] array = Files.readAllBytes(new File(caminho).toPath());
+			//ArquivoImportacao arq = new ArquivoImportacao();
+			//arq.setAnexo(array);
+
+			ArquivoImportacao arq = new ArquivoImportacao();
+			arq.setAnexo(importacao.getArquivoimportacao().getAnexo());
+			importacao.setArquivoimportacao(arq);
+			
+			//Classe que controla o tempo que leva pra executar a importacão
+			ControleTempoDeExecucao cte = new ControleTempoDeExecucao();
+			//Informa Início
+			cte.inicio();
+			
+			String nomecompletoarquivo = importacao.getNome();
+			
+			importacao.setNome(nomecompletoarquivo.substring(0, nomecompletoarquivo.lastIndexOf(".")));
+			importacao.setExtensao(nomecompletoarquivo.substring(nomecompletoarquivo.lastIndexOf("."), nomecompletoarquivo.length()));
+			
+			//Antes de gravar seta a situação Pendente na importação
+			importacao.setStatus(ImportacaoStatus.PENDENTE);
+			//Seta tamanho do arquivo
+			importacao.setTamanho(importacao.getArquivoimportacao().getAnexo().length);
+			//Inclui arquivo no banco de dados
+			this.incluir(importacao);
+			this.commit();
 						
-		//Grava o ponto e vincula ao mesmo ao cadastro o usuário ao qual pertence o ponto
-		
-		TypedQuery<Ponto> queryPonto = this.getEm().createQuery("select p from Ponto p where p.usuario = :usuario and p.data = :data", Ponto.class);
-		queryPonto.setParameter("usuario", usuario);
-		queryPonto.setParameter("data", obj.getPonto().getData());
-		
-		Ponto ponto = new Ponto();
-		
-		Legenda legenda = this.processaLegenda(obj.getPonto().getLegenda());
-		
-		try {
-			ponto = queryPonto.getSingleResult();
-			ponto.getImportacao().setArquivoimportacao(null);
-			
-			obj.getPonto().setId(ponto.getId());
-			obj.getPonto().setUsuario(ponto.getUsuario());
-			obj.getPonto().setAnomes(ponto.getAnomes());
-			obj.getPonto().setImportacao(importacao);
-			if (legenda!=null && legenda.getSigla()!=null) {
-				obj.getPonto().setLegenda(legenda);
+			for (ObjetoPontoCompleto obj : this.retornaListaFinal(importacao)) {
+				//Grava Registro do ponto e Vincula a Impotação
+				try (ImportadorResource res = new ImportadorResource()) {
+					res.gravarAlterarPonto(obj,userToken,importacao);
+				} catch (Exception e) {
+					throw e;
+				}
+				//Seta período que esta no arquivo
+				if (importacao.getInicio_periodo()==null) {
+					importacao.setInicio_periodo(obj.getData_inicial_importacao());
+				}
+				if (importacao.getFinal_periodo()==null) {
+					importacao.setFinal_periodo(obj.getData_final_importacao());
+				}
+	
 			}
-			ponto = obj.getPonto();
-			this.alterar(ponto);
+			
+			this.calcularEstatisticasDoArquivo(importacao);	
+			
+			//Grava no banco o tempo que demorou para importar o arquivo
+			importacao.setTempo_importacao(cte.fim());
+			this.alterar(importacao);
 			this.commit();
-		} catch (NoResultException e) {
-			ponto = null;
+			
 		}
 		
-		if (ponto==null) {
-			
-			//Busca ano mes
-			TypedQuery<AnoMes> queryAnoMes = this.getEm().createQuery("select u from AnoMes u where u.ano = :ano and u.mes = :mes", AnoMes.class);
-			queryAnoMes.setParameter("ano", obj.getPonto().getData().getYear());
-			queryAnoMes.setParameter("mes", Integer.valueOf(obj.getPonto().getData().getMonth().getValue()));
-			
-			AnoMes anomes = new AnoMes();
-			
-			try {
-				anomes = queryAnoMes.getSingleResult();
-			} catch (NoResultException e) {
-				anomes = null;
-			}
-			
-			AnoMesResource anomesRes = new AnoMesResource();
-			
-			if (anomes==null) {
-				anomes = new AnoMes();
-				anomes.setAno(obj.getPonto().getData().getYear());
-				anomes.setMes(obj.getPonto().getData().getMonthValue());
-				anomesRes.incluir(anomes);
-				anomesRes.commit();
-			}
-				
-			ponto = obj.getPonto();
-			ponto.setUsuario(usuario);
-			ponto.setAnomes(anomes);
-			ponto.setImportacao(importacao);
-			if (legenda!=null && legenda.getSigla()!=null) {
-				ponto.setLegenda(legenda);
-			}
-			this.incluir(ponto);
-			this.commit();
+		return null;
+		
+	}
+	
+	private void calcularEstatisticasDoArquivo(Importacao importacaoGravada) {
+		
+		importacaoGravada.setData_hora_importacao(LocalDateTime.now());
+		importacaoGravada.setQuantidade_usuario(this.contaUsuarios(importacaoGravada,null));
+		importacaoGravada.setUsuario_com_credito_banco(this.contaUsuarios(importacaoGravada,PontoStatus.CREDITO));
+		importacaoGravada.setUsuario_com_debito_banco(this.contaUsuarios(importacaoGravada,PontoStatus.DEBITO));
+		importacaoGravada.setUsuario_com_marcacao_incorreta(this.contaUsuarios(importacaoGravada,PontoStatus.MARCACAO_INCORRETA));
+		importacaoGravada.setStatus(ImportacaoStatus.CONCLUIDO);
+		
+		//Usuários Sem Pendência
+		Integer valor = importacaoGravada.getUsuario_com_marcacao_incorreta();
+		
+		if (valor<importacaoGravada.getUsuario_com_credito_banco()) {
+			valor = importacaoGravada.getUsuario_com_credito_banco();
 		}
+		if (valor<importacaoGravada.getUsuario_com_debito_banco()) {
+			valor = importacaoGravada.getUsuario_com_debito_banco();
+		}
+		
+		importacaoGravada.setUsuario_sem_pendencias(importacaoGravada.getQuantidade_usuario()-valor);
 		
 	}
 
-	private Legenda processaLegenda(Legenda sigla) {
+	private Integer contaUsuarios(Importacao importacao, PontoStatus pontoStatus) {
+		TypedQuery<Usuario> queryPonto = this.getEm().createQuery("select u from Usuario u where u.id in (select p.usuario from Ponto p where p.importacao = :importacao and (:status is null or status = :status))", Usuario.class);
+		queryPonto.setParameter("importacao", importacao);
+		queryPonto.setParameter("status", pontoStatus);
+		List<Usuario> lista = queryPonto.getResultList();
+		return lista.size();
+	}
+
+	private boolean ehUsarioAdmin(String userToken) {
 		
-		Legenda legenda = new Legenda();
+		TypedQuery<Acesso> queryAcesso = this.getEm().createQuery("select a from Acesso a where a.token = :token", Acesso.class);
+		queryAcesso.setParameter("token", userToken);
+		Acesso acesso = queryAcesso.getSingleResult();
 		
-		if (sigla!=null) {
-			//Busca legenda pela Sigla
-			TypedQuery<Legenda> queryLegenda = this.getEm().createQuery("select u from Legenda u where u.sigla = :sigla", Legenda.class);
-			queryLegenda.setParameter("sigla", sigla.getSigla());	
-			
-			try {	
-				legenda = queryLegenda.getSingleResult();	
-			} catch (NoResultException e) {
-				legenda = null;
+		if (acesso.getTipo().equals(AcessoTipo.ADMIN)) {
+			return true;
+		}		
+		
+		return false;
+		
+	}
+	
+	private List<ObjetoPontoCompleto> retornaListaFinal(Importacao importacaoGravada) throws Exception {
+		
+		//Converte Arquivo em Lista de Objetos
+		List<ObjetoPontoCompleto> listaRetorno = new ConverteExcelEmObjetoPonto().importacao(importacaoGravada);
+		
+		List<ObjetoPontoCompleto> listaFinal = new ArrayList<ObjetoPontoCompleto>();
+		
+		//remove itens desnecessarios da lista
+		if (listaRetorno!=null && listaRetorno.size()>0) {
+			for (ObjetoPontoCompleto objetoPontoCompleto : listaRetorno) {
+				if (objetoPontoCompleto.getPonto().getData()!=null 
+						&& objetoPontoCompleto.getPonto().getDiasemana()!=null
+						&& objetoPontoCompleto.getPonto().getDiasemana()!="") {
+					
+					//Faz calculos e processa as linhas
+					new ProcessaDadosPonto().processar(objetoPontoCompleto);
+					
+					listaFinal.add(objetoPontoCompleto);
+				}
 			}
-			
 		}
-
-		return legenda;
 		
+		return listaFinal;
+
 	}
 
-	private Usuario processaUsuario(ObjetoPontoCompleto obj, Departamento departamento, Funcao funcao) throws Exception {
+	public List<Usuario> listarUsuarios(String userToken, Long id_importacao, PontoStatus status) {
 		
-		//Busca usuário pelo P.I.S.
-		TypedQuery<Usuario> queryUsuario = this.getEm().createQuery("select u from Usuario u where u.pis = :pis", Usuario.class);
-		queryUsuario.setParameter("pis", obj.getPis());	
-		
-		@SuppressWarnings("resource")
-		UsuarioResource usuRes = new UsuarioResource();
-		
-		Usuario usuario = new Usuario();
-		
-		try {	
-			usuario = queryUsuario.getSingleResult();	
-		} catch (NoResultException e) {
-			usuario = null;
-		}
-		
-		//Caso não encontre o usuário cria o mesmo e também cria um acesso setando o pis como nomeacesso e senha
-		if (usuario==null) {
+		if (this.ehUsarioAdmin(userToken)) {
 			
-			Acesso acesso = new Acesso();
-			acesso.setNomeacesso(obj.getPis());
-			acesso.setSenha(obj.getPis());
+			Importacao importacao = this.getEm().find(this.getModelClass(), id_importacao);
+						
+			TypedQuery<Usuario> queryPonto = this.getEm().createQuery("select u from Usuario u where u.id in (select p.usuario from Ponto p where p.importacao = :importacao and (:status is null or status = :status))", Usuario.class);
+			queryPonto.setParameter("importacao", importacao);
+			queryPonto.setParameter("status", status);
+	
+			List<Usuario> lista = queryPonto.getResultList();
 			
-			usuario = new Usuario();
-			usuario.setNome(obj.getFuncionario());
-			usuario.setData_admissao(obj.getData_admissao());
-			usuario.setPis(obj.getPis());
-			usuario.setDepartamento(departamento);
-			usuario.setFuncao(funcao);
-			usuario.setEmail("");
-			usuario.setAcesso(acesso);
-			
-			usuRes.incluir(usuario);	
-			usuRes.commit();
+			return lista;
 			
 		}
-
-		return usuario;
-	}
-
-	private Funcao processaFuncao(String nomeFuncao) throws Exception {
 		
-		//Busca Funcao pelo Nome
-		TypedQuery<Funcao> queryFuncao = this.getEm().createQuery("select f from Funcao f where f.nome = :nomeFuncao", Funcao.class);
-		queryFuncao.setParameter("nomeFuncao", nomeFuncao);	
-		
-		Funcao funcao = new Funcao();
-		
-		try {
-			funcao = queryFuncao.getSingleResult();
-		} catch (NoResultException e) {
-			funcao = null;
-		}
-		
-		@SuppressWarnings("resource")
-		FuncaoResource funRes = new FuncaoResource();
-		
-		//Caso não encontre a função
-		if (funcao==null) {
-			
-			funcao = new Funcao();
-			funcao.setNome(nomeFuncao);
-			funRes.incluir(funcao);
-			funRes.commit();
-			
-		}
-
-		return funcao;
-		
-	}
-
-	private Departamento processaDepartamento(String nomeDepartamento) throws Exception {
-		//Busca Departamento pelo Nome
-		TypedQuery<Departamento> queryDepartamento = this.getEm().createQuery("select d from Departamento d where d.nome = :nomeDepartamento", Departamento.class);
-		queryDepartamento.setParameter("nomeDepartamento", nomeDepartamento);	
-		
-		Departamento departamento = new Departamento();
-		
-		try {
-			departamento = queryDepartamento.getSingleResult();
-		} catch (NoResultException e) {
-			departamento = null;
-		}
-		
-		@SuppressWarnings("resource")
-		DepartamentoResource depRes = new DepartamentoResource();
-		
-		//Caso não encontre a Departamento
-		if (departamento==null) {
-			
-			departamento = new Departamento();
-			departamento.setNome(nomeDepartamento);
-			depRes.incluir(departamento);
-			depRes.commit();
-			
-		}
-
-		return departamento;
+		return null;
 	}
 	
 }
