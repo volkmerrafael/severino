@@ -1,5 +1,4 @@
-package com.volkmer.godinho.severino.resource.importador.modelos
-;
+package com.volkmer.godinho.severino.resource.importador.modelos;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -25,22 +24,22 @@ public class ObjetoPonto implements ObjetoPontoInterfaceImportacao {
 	private String data;
 	private String diasemana;
 	private String jornada;
-    private String legenda;
-    private String entrada1;
-    private String saida1;
-    private String entrada2;
-    private String saida2;
-    private String entrada3;
-    private String saida3;
-    private String entrada4;
-    private String saida4;
-    private String trabalhadas_diurno;
-    private String trabalhadas_noturno;
-    private String extra_diurno;
-    private String extra_noturno;
-    private String faltas_diurno;
-    private String faltas_noturno;
-    private String observacao;
+	private String legenda;
+	private String entrada1;
+	private String saida1;
+	private String entrada2;
+	private String saida2;
+	private String entrada3;
+	private String saida3;
+	private String entrada4;
+	private String saida4;
+	private String trabalhadas_diurno;
+	private String trabalhadas_noturno;
+	private String extra_diurno;
+	private String extra_noturno;
+	private String faltas_diurno;
+	private String faltas_noturno;
+	private String observacao;
 
 	@Override
 	public void setValor(Integer pos, Integer linha, String newValor, Object oldObject) {
@@ -67,10 +66,10 @@ public class ObjetoPonto implements ObjetoPontoInterfaceImportacao {
 			if (pos.equals(11) && linha.equals(0) && newValor.indexOf("Período de")!=-1) {
 				this.periodo = newValor.replace("Período de ", "");
 			}
-			//SSystem.out.println("posicao: "+pos+" linha: "+linha+" newValor: "+newValor);
+			System.out.println("posicao: "+pos+" linha: "+linha+" newValor: "+newValor);
 		} else
 		if (linha >= 13) {
-			//System.out.println("posicao: "+pos+" linha: "+linha+" newValor: "+newValor);
+			System.out.println("posicao: "+pos+" linha: "+linha+" newValor: "+newValor);
 			switch (pos) {
 			case 0:
 				if (newValor.isEmpty()) {
@@ -100,37 +99,37 @@ public class ObjetoPonto implements ObjetoPontoInterfaceImportacao {
 			case 7:
 				this.saida2 = newValor;
 				break;
-			case 8:
+			case 9:
 				this.entrada3 = newValor;
 				break;
-			case 9:
+			case 10:
 				this.saida3 = newValor;
 				break;
-			case 10:
+			case 12:
 				this.entrada4 = newValor;
 				break;
-			case 11:
+			case 13:
 				this.saida4 = newValor;
 				break;
-			case 12:
+			case 14:
 				this.trabalhadas_diurno = newValor;
 				break;
-			case 13:
+			case 15:
 				this.trabalhadas_noturno = newValor;
 				break;
-			case 14:
+			case 17:
 				this.extra_diurno = newValor;
 				break;
-			case 15:
+			case 18:
 				this.extra_noturno = newValor;
 				break;
-			case 16:
+			case 19:
 				this.faltas_diurno = newValor;
 				break;
-			case 17:
+			case 20:
 				this.faltas_noturno = newValor;
 				break;
-			case 18:
+			case 22:
 				this.observacao = newValor;
 				break;				
 			default:
