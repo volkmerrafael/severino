@@ -53,6 +53,9 @@ public class ObjetoPonto implements ObjetoPontoInterfaceImportacao {
 			} else 
 			if (pos.equals(20) && linha.equals(4) && newValor.indexOf("PIS:")!=-1) {
 				this.pis = newValor.replace("PIS: ", "");
+			} else 
+			if (pos.equals(24) && linha.equals(4) && newValor.indexOf("PIS:")!=-1) {
+				this.pis = newValor.replace("PIS: ", "");
 			} else
 			if (pos.equals(0) && linha.equals(6) && newValor.indexOf("Data Admissão:")!=-1) {
 				this.data_admissao = newValor.replace("Data Admissão: ", "");
@@ -66,10 +69,10 @@ public class ObjetoPonto implements ObjetoPontoInterfaceImportacao {
 			if (pos.equals(11) && linha.equals(0) && newValor.indexOf("Período de")!=-1) {
 				this.periodo = newValor.replace("Período de ", "");
 			}
-			System.out.println("posicao: "+pos+" linha: "+linha+" newValor: "+newValor);
+			//System.out.println("posicao: "+pos+" linha: "+linha+" newValor: "+newValor);
 		} else
 		if (linha >= 13) {
-			System.out.println("posicao: "+pos+" linha: "+linha+" newValor: "+newValor);
+			//System.out.println("posicao: "+pos+" linha: "+linha+" newValor: "+newValor);
 			switch (pos) {
 			case 0:
 				if (newValor.isEmpty()) {
