@@ -101,7 +101,7 @@ public class Importacao {
 	@CampoInfo(descricao="Status", obrigatorio=true)
 	private ImportacaoStatus status;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="arquivoimportacaoId", foreignKey=@ForeignKey(name="fk_arquivoimportacao_importacao"))
 	private ArquivoImportacao arquivoimportacao;
 	
