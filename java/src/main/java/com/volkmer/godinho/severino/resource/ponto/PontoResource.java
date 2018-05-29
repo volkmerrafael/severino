@@ -29,7 +29,9 @@ public class PontoResource extends ResourceCRUD<Ponto> {
 		queryPonto.setParameter("mes", mes);
 		queryPonto.setParameter("ano", ano);
 		List<Ponto> lista = queryPonto.getResultList();
-				
+		
+		lista.forEach(p -> p.getImportacao().setArquivoimportacao(null));
+		
 		return lista;
 		
 	}
@@ -37,10 +39,12 @@ public class PontoResource extends ResourceCRUD<Ponto> {
 	public List<AnoMes> listarPeriodos(String token) {
 		
 		//Lista Mês e Ano em que o usuário tem ponto lançado
-		TypedQuery<Ponto> queryPonto = this.getEm().createQuery("select p from Ponto p JOIN FETCH p.importacao i where p.usuario = :usuario", Ponto.class);
+		TypedQuery<Ponto> queryPonto = this.getEm().createQuery("select p from Ponto p where p.usuario = :usuario", Ponto.class);
 		queryPonto.setParameter("usuario", this.buscaUsuarioPeloToken(token));
 		List<Ponto> lista = queryPonto.getResultList();
 				
+		lista.forEach(p -> p.getImportacao().setArquivoimportacao(null));
+		
 		List<AnoMes> listaAnoMes = new ArrayList<AnoMes>();
 		
 		for (Ponto ponto : lista) {
