@@ -36,7 +36,7 @@ public class ProcessaDadosPonto {
 					objetoPontoCompleto.getPonto().setStatus(PontoStatus.FERIAS);
 				}
 			}
-			if (objetoPontoCompleto.getPonto().getDiasemana().equals("Sáb") || objetoPontoCompleto.getPonto().getDiasemana().equals("Dom")) {
+			if (objetoPontoCompleto.getPonto().getDiasemana().getNome().equals("Sáb") || objetoPontoCompleto.getPonto().getDiasemana().getNome().equals("Dom")) {
 				objetoPontoCompleto.getPonto().setStatus(PontoStatus.SEM_INFORMACAO);
 			} else {
 				objetoPontoCompleto.getPonto().setStatus(PontoStatus.CORRETO);
