@@ -7,13 +7,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.Table;
 
 import com.volkmer.godinho.core.validacao.CampoInfo;
 
 import lombok.Data;
 
-@Table
+@Table(
+		indexes = { 
+				@Index(name = "jornada_jornada_idx", columnList = "periodo_jornada,jornada")
+		})
 @Data
 @Entity
 public class Jornada {

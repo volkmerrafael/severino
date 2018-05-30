@@ -5,13 +5,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.Table;
 
 import com.volkmer.godinho.core.validacao.CampoInfo;
 
 import lombok.Data;
 
-@Table
+@Table(
+		indexes = { 
+				@Index(name = "diasemana_nome_idx", columnList = "nome")
+		})
 @Data
 @Entity
 public class DiaSemana {

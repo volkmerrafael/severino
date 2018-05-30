@@ -10,6 +10,7 @@ import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -22,7 +23,10 @@ import com.volkmer.godinho.core.validacao.CampoInfo;
 
 import lombok.Data;
 
-@Table
+@Table(
+		indexes = { 
+				@Index(name = "usuario_pis_idx", columnList = "pis")
+		})
 @Data
 @Entity
 public class Usuario {
