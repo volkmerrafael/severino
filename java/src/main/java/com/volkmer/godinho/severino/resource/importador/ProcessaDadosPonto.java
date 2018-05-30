@@ -30,9 +30,21 @@ public class ProcessaDadosPonto {
 		}
 		
 		if (objetoPontoCompleto.getPonto().getStatus()==null) {
-			if (objetoPontoCompleto.getPonto().getLegenda()!=null) {
+			if (objetoPontoCompleto.getPonto().getObservacao()!=null && objetoPontoCompleto.getPonto().getObservacao()!="") {
 				if (objetoPontoCompleto.getPonto().getObservacao().equals("Férias")) {
 					objetoPontoCompleto.getPonto().setStatus(PontoStatus.FERIAS);
+				} else 
+				if (objetoPontoCompleto.getPonto().getObservacao().equals("Atestado medico")) {
+					objetoPontoCompleto.getPonto().setStatus(PontoStatus.ATESTADO_MEDICO);
+				} else 
+				if (objetoPontoCompleto.getPonto().getObservacao().equals("Ponto Facultativo")) {
+					objetoPontoCompleto.getPonto().setStatus(PontoStatus.PONTO_FACULTATIVO);
+				} else 
+				if (objetoPontoCompleto.getPonto().getObservacao().equals("Falta Justificada - (F)")) {
+					objetoPontoCompleto.getPonto().setStatus(PontoStatus.FALTA_JUSTIFICADA);
+				} else 
+				if (objetoPontoCompleto.getPonto().getObservacao().equals("Não Admitido")) {
+					objetoPontoCompleto.getPonto().setStatus(PontoStatus.NAO_ADMITIDO);
 				}
 			}
 			if (objetoPontoCompleto.getPonto().getDiasemana().getNome().equals("Sáb") || objetoPontoCompleto.getPonto().getDiasemana().getNome().equals("Dom")) {
