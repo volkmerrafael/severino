@@ -50,10 +50,11 @@ public class ProcessaDadosPonto {
 				} else 
 				if (objetoPontoCompleto.getPonto().getObservacao().equals("Não Admitido")) {
 					objetoPontoCompleto.getPonto().setStatus(PontoStatus.NAO_ADMITIDO);
-				} else
-				if (objetoPontoCompleto.getPonto().getLegenda()!=null && objetoPontoCompleto.getPonto().getLegenda().getSigla().equals("F")) {
-					objetoPontoCompleto.getPonto().setStatus(PontoStatus.FERIADO);
-				}	
+				} 
+			}
+			
+			if (objetoPontoCompleto.getPonto().getLegenda()!=null && objetoPontoCompleto.getPonto().getLegenda().getSigla().equals("F")) {
+				objetoPontoCompleto.getPonto().setStatus(PontoStatus.FERIADO);
 			}
 			
 			if (objetoPontoCompleto.getPonto().getStatus()==null) {
