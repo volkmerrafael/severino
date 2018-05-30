@@ -1,6 +1,6 @@
 #table {
-  margin: 10px;
-  text-align: center;
+  padding-left: 100px;
+  padding-right: 100px;
 }
 
 #menu-lateral {
@@ -20,7 +20,7 @@
   padding-top: 100px;
 }
 
-#btnCarregar{
+#btnPesquisar{
   margin: 0px 0px 0px 5px;
 }
 
@@ -50,7 +50,17 @@
   display: inline-block;
 }
 
-#linhaCorreta {
-  background-color: #1CA979 !important;
-            color: #ffffff !important;
+.linha-correta {
+  background-color: rgb(86, 136, 169) !important;
+  color: #ffffff !important;
+}
+
+.linha-debito {
+  background-color: rgb(153, 59, 59) !important;
+  color: #ffffff !important;
+}
+
+.linha-credito {
+  background-color: rgb(63, 118, 65) !important;
+  color: #ffffff !important;
 }

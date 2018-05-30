@@ -17,9 +17,14 @@
       </div>
   
       <br>
+      <div>
+        <div id="uploadInput"> 
+          <p-fileUpload #fubauto id="btn-upload" mode="basic" auto="auto" name="myfile[]" (uploadHandler)="onUpload($event)" chooseLabel="Upload do Arquivo Ponto" [customUpload]="true" accept=".xls"></p-fileUpload>
+        </div>
 
-      <div id="uploadInput">
-        <p-fileUpload name="myfile[]" (uploadHandler)="onUpload($event)" [customUpload]="true" accept=".xls" chooseLabel=" "  uploadLabel="Fazer Upload" cancelLabel="Cancelar"></p-fileUpload>
+        <div id="atualizarDiv">
+          <p-button id="btn-atualizar-lista-ponto" label="Atualizar" icon="fa fa-fw fa-refresh" (onClick)="listarImportacao()" ></p-button>
+        </div>
       </div>
 
       <br>

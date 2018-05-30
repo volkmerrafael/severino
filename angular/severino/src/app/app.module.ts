@@ -5,8 +5,6 @@ import { AppComponent } from './app.component';
 import { LoginModule } from './pages/login/login.module';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { MessageComponent } from './components/message/message.component';
-import { MessageService } from './services/message.service';
 import { TableModule } from 'primeng/table';
 import { HttpModule } from '@angular/http';
 import { PontoService } from './services/ponto.service';
@@ -16,7 +14,6 @@ import { MenubarModule } from 'primeng/menubar';
 import { MenuItem } from 'primeng/api';
 import { DateFormatPipe } from './components/pipes/pipe';
 import { DropdownModule } from 'primeng/dropdown';
-import { FormsModule }   from '@angular/forms';
 import { AdminComponent } from './pages/admin/admin.component';
 import { ImportacaoService } from './services/importacao.service';
 import { PontoModule } from './pages/ponto/ponto.module';
@@ -29,7 +26,6 @@ export const HttpInterceptorProviders = [
 @NgModule({
   declarations: [
     AppComponent,
-    MessageComponent,
     DateFormatPipe
   ],
   imports: [
@@ -41,12 +37,10 @@ export const HttpInterceptorProviders = [
     FileUploadModule,
     MenubarModule,
     DropdownModule,
-    FormsModule,
     PontoModule,
     AdminModule
-  ],  
+  ],
   providers: [
-    MessageService,
     HttpInterceptorProviders,
     ImportacaoService
   ],
