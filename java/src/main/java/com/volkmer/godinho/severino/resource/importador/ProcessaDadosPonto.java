@@ -50,7 +50,10 @@ public class ProcessaDadosPonto {
 				} else 
 				if (objetoPontoCompleto.getPonto().getObservacao().equals("Não Admitido")) {
 					objetoPontoCompleto.getPonto().setStatus(PontoStatus.NAO_ADMITIDO);
-				} 
+				} else
+				if (objetoPontoCompleto.getPonto().getLegenda()!=null && objetoPontoCompleto.getPonto().getLegenda().getSigla().equals("F")) {
+					objetoPontoCompleto.getPonto().setStatus(PontoStatus.FERIADO);
+				}	
 			}
 			
 			if (objetoPontoCompleto.getPonto().getStatus()==null) {
@@ -100,6 +103,14 @@ public class ProcessaDadosPonto {
 		Integer debito = 0;
 		Integer credito = 0;
 		
+		//Se tem joranada e não tem legenda quer dizer que deveria ter vindo trabalhar então será débito
+		if (obj.getJornada()!=null && obj.getJornada().getJornada()!=null && obj.getLegenda()==null && (obj.getObservacao()==null || obj.getObservacao().indexOf("Débito")!=-1)) {
+			debito = jornada; //recebe jornada pois era o período em que o funcionário deveria estar trabalhando
+			obj.setMinutos_debito(debito);
+			obj.setStatus(PontoStatus.DEBITO);
+			obj.setObservacao(this.transformaHoraMinutoEmString("-",debito)+" => Débito no BH");
+		}
+		
 		if (totalMinutosTrabalhados!=0) {
 			
 			//Quando é Feriado e Domingo duplica horas extra
@@ -136,7 +147,13 @@ public class ProcessaDadosPonto {
 		String retorno = "";
 		
 		if (minutos/60!=0) {
-			retorno += minutos/60+"h "+minutos%60+"m";
+			
+			if (minutos%60==0) {
+				retorno += minutos/60+"h";
+			} else {
+				retorno += minutos/60+"h "+minutos%60+"m";
+			}
+			
 		} else {
 			retorno += minutos%60+"m";
 		}
