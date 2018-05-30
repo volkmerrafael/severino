@@ -105,12 +105,12 @@ public class ProcessaDadosPonto {
 			//Quando é Feriado e Domingo duplica horas extra
 			//Se dia da semana for sabado ou domingo deve ser hora extra
 			
-			if (obj.getDiasemana().equals("Sáb")) {
+			if (obj.getDiasemana().getNome().equals("Sáb")) {
 				credito = totalMinutosTrabalhados;
 				obj.setMinutos_credito(credito);
 				obj.setStatus(PontoStatus.CREDITO);
 				obj.setObservacao(this.transformaHoraMinutoEmString("+",credito)+" => Crédito BH");				
-			} else if (obj.getDiasemana().equals("Dom") || (obj.getLegenda()!=null && obj.getLegenda().getSigla()!=null && obj.getLegenda().getSigla().equals("F"))) {
+			} else if (obj.getDiasemana().getNome().equals("Dom") || (obj.getLegenda()!=null && obj.getLegenda().getSigla()!=null && obj.getLegenda().getSigla().equals("F"))) {
 				credito = totalMinutosTrabalhados;
 				obj.setMinutos_credito(credito);
 				obj.setStatus(PontoStatus.CREDITO);
