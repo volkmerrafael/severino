@@ -30,7 +30,7 @@ public class ProcessaDadosPonto {
 		}
 		
 		if (objetoPontoCompleto.getPonto().getStatus()==null) {
-			if (objetoPontoCompleto.getPonto().getObservacao()!=null && objetoPontoCompleto.getPonto().getObservacao()!="") {
+			if (objetoPontoCompleto.getPonto().getObservacao()!=null && !objetoPontoCompleto.getPonto().getObservacao().equals("")) {
 				if (objetoPontoCompleto.getPonto().getObservacao().equals("Férias")) {
 					objetoPontoCompleto.getPonto().setStatus(PontoStatus.FERIAS);
 				} else 
