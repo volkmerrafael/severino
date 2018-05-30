@@ -7,15 +7,19 @@ import com.volkmer.godinho.core.resource.ResourceCRUD;
 import com.volkmer.godinho.severino.entity.Acesso;
 import com.volkmer.godinho.severino.entity.AnoMes;
 import com.volkmer.godinho.severino.entity.Departamento;
+import com.volkmer.godinho.severino.entity.DiaSemana;
 import com.volkmer.godinho.severino.entity.Funcao;
 import com.volkmer.godinho.severino.entity.Importacao;
+import com.volkmer.godinho.severino.entity.Jornada;
 import com.volkmer.godinho.severino.entity.Legenda;
 import com.volkmer.godinho.severino.entity.Ponto;
 import com.volkmer.godinho.severino.entity.Usuario;
 import com.volkmer.godinho.severino.resource.anomes.AnoMesResource;
 import com.volkmer.godinho.severino.resource.departamento.DepartamentoResource;
+import com.volkmer.godinho.severino.resource.diasemana.DiaSemanaResource;
 import com.volkmer.godinho.severino.resource.funcao.FuncaoResource;
 import com.volkmer.godinho.severino.resource.importador.modelos.ObjetoPontoCompleto;
+import com.volkmer.godinho.severino.resource.jornada.JornadaResource;
 import com.volkmer.godinho.severino.resource.usuario.UsuarioResource;
 
 public class ImportadorResource extends ResourceCRUD<Ponto> {
@@ -44,15 +48,24 @@ public class ImportadorResource extends ResourceCRUD<Ponto> {
 		Ponto ponto = new Ponto();
 		
 		Legenda legenda = this.processaLegenda(obj.getPonto().getLegenda());
+		Jornada jornada = this.processaJornada(obj.getPonto().getJornada());
+		DiaSemana diasemana = this.processaDiaSemana(obj.getPonto().getDiasemana());
 		
 		try {
 			ponto = queryPonto.getSingleResult();
+			ponto.getImportacao().setArquivoimportacao(null);
 			obj.getPonto().setId(ponto.getId());
 			obj.getPonto().setUsuario(ponto.getUsuario());
 			obj.getPonto().setAnomes(ponto.getAnomes());
 			obj.getPonto().setImportacao(importacao);
 			if (legenda!=null && legenda.getSigla()!=null) {
 				obj.getPonto().setLegenda(legenda);
+			}
+			if (diasemana!=null) {
+				obj.getPonto().setDiasemana(diasemana);
+			}
+			if (jornada!=null) {
+				obj.getPonto().setJornada(jornada);
 			}
 			ponto = obj.getPonto();
 			this.alterar(ponto);
@@ -93,6 +106,12 @@ public class ImportadorResource extends ResourceCRUD<Ponto> {
 			if (legenda!=null && legenda.getSigla()!=null) {
 				ponto.setLegenda(legenda);
 			}
+			if (jornada!=null) {
+				ponto.setJornada(jornada);
+			}
+			if (diasemana!=null) {
+				ponto.setDiasemana(diasemana);
+			}
 			this.incluir(ponto);
 			this.commit();
 		}
@@ -120,6 +139,65 @@ public class ImportadorResource extends ResourceCRUD<Ponto> {
 		
 	}
 
+	private Jornada processaJornada(Jornada jornada) throws Exception {
+		
+		if (jornada!=null && jornada.getPeriodo_jornada()!="") {
+			TypedQuery<Jornada> queryJornada = this.getEm().createQuery("select u from Jornada u where u.periodo_jornada = :periodo_jornada and u.jornada = :jornada", Jornada.class);
+			queryJornada.setParameter("periodo_jornada", jornada.getPeriodo_jornada());	
+			queryJornada.setParameter("jornada", jornada.getJornada());
+						
+			try {
+				jornada = queryJornada.getSingleResult();
+			} catch (NoResultException e) {
+			}
+				
+			@SuppressWarnings("resource")
+			JornadaResource jorRes = new JornadaResource();
+				
+			//Caso não encontre a Jornada
+			if (jornada.getId()==null) {
+				
+				jorRes.incluir(jornada);
+				jorRes.commit();
+					
+			}
+	
+			return jornada;
+		}
+		
+		return null;
+		
+	}
+	
+	private DiaSemana processaDiaSemana(DiaSemana diasemana) throws Exception {
+		
+		if (diasemana!=null && diasemana.getNome()!="") {
+			TypedQuery<DiaSemana> queryDiaSemana = this.getEm().createQuery("select u from DiaSemana u where u.nome = :nome", DiaSemana.class);
+			queryDiaSemana.setParameter("nome", diasemana.getNome());	
+			
+			try {
+				diasemana = queryDiaSemana.getSingleResult();
+			} catch (NoResultException e) {
+			}
+				
+			@SuppressWarnings("resource")
+			DiaSemanaResource diaRes = new DiaSemanaResource();
+				
+			//Caso não encontre a DiaSemana
+			if (diasemana.getId()==null) {
+				
+				diaRes.incluir(diasemana);
+				diaRes.commit();
+					
+			}
+	
+			return diasemana;
+		}
+		
+		return null;
+		
+	}
+	
 	private Usuario processaUsuario(ObjetoPontoCompleto obj, Departamento departamento, Funcao funcao) throws Exception {
 		
 		//Busca usuário pelo P.I.S.
@@ -141,8 +219,8 @@ public class ImportadorResource extends ResourceCRUD<Ponto> {
 		if (usuario==null) {
 			
 			Acesso acesso = new Acesso();
-			acesso.setNomeacesso(obj.getPis());
-			acesso.setSenha(obj.getPis());
+			acesso.setNomeacesso(obj.getPis().toString());
+			acesso.setSenha(obj.getPis().toString());
 			
 			usuario = new Usuario();
 			usuario.setNome(obj.getFuncionario());

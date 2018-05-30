@@ -86,13 +86,6 @@ public class ImportacaoResource extends ResourceCRUD<Importacao> {
 	public Importacao gravar(String userToken, Importacao importacao) throws Exception {
 		
 		if (this.ehUsarioAdmin(userToken)) {
-		
-			//Codigo usado pra teste buscando arquivo fisico
-			//Temporario para teste
-			//String caminho = "D:\\repositorio\\severino\\excelponto\\Ponto.xls";
-			//byte[] array = Files.readAllBytes(new File(caminho).toPath());
-			//ArquivoImportacao arq = new ArquivoImportacao();
-			//arq.setAnexo(array);
 
 			ArquivoImportacao arq = new ArquivoImportacao();
 			arq.setAnexo(importacao.getArquivoimportacao().getAnexo());
@@ -107,7 +100,7 @@ public class ImportacaoResource extends ResourceCRUD<Importacao> {
 			
 			importacao.setNome(nomecompletoarquivo.substring(0, nomecompletoarquivo.lastIndexOf(".")));
 			importacao.setExtensao(nomecompletoarquivo.substring(nomecompletoarquivo.lastIndexOf("."), nomecompletoarquivo.length()));
-			
+			importacao.setData_hora_importacao(LocalDateTime.now());
 			//Antes de gravar seta a situação Pendente na importação
 			importacao.setStatus(ImportacaoStatus.PENDENTE);
 			//Seta tamanho do arquivo
@@ -203,7 +196,7 @@ public class ImportacaoResource extends ResourceCRUD<Importacao> {
 			for (ObjetoPontoCompleto objetoPontoCompleto : listaRetorno) {
 				if (objetoPontoCompleto.getPonto().getData()!=null 
 						&& objetoPontoCompleto.getPonto().getDiasemana()!=null
-						&& objetoPontoCompleto.getPonto().getDiasemana()!="") {
+						&& objetoPontoCompleto.getPonto().getDiasemana().getNome()!="") {
 					
 					//Faz calculos e processa as linhas
 					new ProcessaDadosPonto().processar(objetoPontoCompleto);

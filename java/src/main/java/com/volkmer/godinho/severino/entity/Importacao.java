@@ -21,10 +21,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import com.volkmer.godinho.core.MapperJson.LocalDateTimeDeserializer;
-import com.volkmer.godinho.core.MapperJson.LocalDateTimeSerializer;
-import com.volkmer.godinho.core.MapperJson.LocalTimeDeserializer;
-import com.volkmer.godinho.core.MapperJson.LocalTimeSerializer;
+import com.volkmer.godinho.core.mapperjson.LocalDateTimeDeserializer;
+import com.volkmer.godinho.core.mapperjson.LocalDateTimeSerializer;
+import com.volkmer.godinho.core.mapperjson.LocalTimeDeserializer;
+import com.volkmer.godinho.core.mapperjson.LocalTimeSerializer;
 import com.volkmer.godinho.core.validacao.CampoInfo;
 import com.volkmer.godinho.severino.resource.importacao.ImportacaoStatus;
 

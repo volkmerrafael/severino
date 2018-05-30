@@ -10,7 +10,7 @@ import lombok.Data;
 public class ObjetoPontoCompleto {
 	
 	private String funcionario;
-	private String pis;
+	private Long pis;
 	private LocalDate data_admissao;
 	private String funcao;
 	private String departamento;

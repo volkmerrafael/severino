@@ -30,7 +30,17 @@ public class ProcessaDadosPonto {
 		}
 		
 		if (objetoPontoCompleto.getPonto().getStatus()==null) {
-			objetoPontoCompleto.getPonto().setStatus(PontoStatus.CORRETO);
+			if (objetoPontoCompleto.getPonto().getLegenda()!=null) {
+				if (objetoPontoCompleto.getPonto().getLegenda().getSigla().equals("A")
+						&& objetoPontoCompleto.getPonto().getObservacao().equals("Férias")) {
+					objetoPontoCompleto.getPonto().setStatus(PontoStatus.FERIAS);
+				}
+			}
+			if (objetoPontoCompleto.getPonto().getDiasemana().equals("Sáb") || objetoPontoCompleto.getPonto().getDiasemana().equals("Dom")) {
+				objetoPontoCompleto.getPonto().setStatus(PontoStatus.SEM_INFORMACAO);
+			} else {
+				objetoPontoCompleto.getPonto().setStatus(PontoStatus.CORRETO);
+			}
 		}
 	}
 
@@ -40,7 +50,14 @@ public class ProcessaDadosPonto {
 			Ponto obj) {
 		
 		Integer totalMinutosTrabalhados = 0;
-		Integer totalMinutosObrigatorios = 8*60;
+		
+		Integer jornada = 8*60;
+		
+		if (obj.getJornada()!=null && obj.getJornada().getJornada()!=null) {
+			jornada = (obj.getJornada().getJornada().getHour()*60) + obj.getJornada().getJornada().getMinute();
+		}
+		
+		Integer totalMinutosObrigatorios = jornada;
 		Integer tolerancia = 10;
 		
 		if (e1!=null && !e1.equals("") && s1!=null && !s1.equals("")) {

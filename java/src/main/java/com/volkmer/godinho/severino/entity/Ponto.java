@@ -56,13 +56,13 @@ public class Ponto {
 	@JsonSerialize(using = LocalDateSerializer.class)
 	private LocalDate data;
 	
-	@Column(length=3)
-	@CampoInfo(descricao="Dia da Semana", obrigatorio=false)
-	private String diasemana;
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="diasemanaId", foreignKey=@ForeignKey(name="fk_ponto_diasemana"))
+	private DiaSemana diasemana;
 	
-	@Column(length=26)
-	@CampoInfo(descricao="Jornada", obrigatorio=false)
-	private String jornada;
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="jornadaId", foreignKey=@ForeignKey(name="fk_ponto_jornada"))
+	private Jornada jornada;
 
 	@Column(length=6)
 	@CampoInfo(descricao="Horário de Entrada 1", obrigatorio=false)

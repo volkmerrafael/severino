@@ -1,7 +1,12 @@
 package com.volkmer.godinho.severino.resource.importador.modelos;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
+import com.volkmer.godinho.severino.entity.DiaSemana;
+import com.volkmer.godinho.severino.entity.Jornada;
 import com.volkmer.godinho.severino.entity.Legenda;
 import com.volkmer.godinho.severino.entity.Ponto;
 
@@ -18,8 +23,6 @@ public class ObjetoPonto implements ObjetoPontoInterfaceImportacao {
 	private static String funcao;
 	private static String departamento;
 	private static String periodo;
-	private static String data_final_importacao;
-	private static String data_inicial_importacao;
 	
 	private String data;
 	private String diasemana;
@@ -155,7 +158,7 @@ public class ObjetoPonto implements ObjetoPontoInterfaceImportacao {
 			    objetoPontoCompleto.setFuncao(this.funcao);
 			    objetoPontoCompleto.setData_admissao(LocalDate.parse(this.data_admissao,formatter));
 			    objetoPontoCompleto.setFuncionario(this.funcionario);
-			    objetoPontoCompleto.setPis(this.pis);
+			    objetoPontoCompleto.setPis(Long.parseLong(this.pis));
 			    objetoPontoCompleto.setDepartamento(this.departamento);
 			    
 			    //System.out.println(this.periodo);
@@ -194,8 +197,51 @@ public class ObjetoPonto implements ObjetoPontoInterfaceImportacao {
 					}
 				}
 				
-				ponto.setDiasemana(this.diasemana);
-				ponto.setJornada(this.jornada);
+				if (this.diasemana!=null) {
+					DiaSemana diasem = new DiaSemana();
+					diasem.setNome(this.diasemana);
+					ponto.setDiasemana(diasem);
+				}
+				
+				if (this.jornada!=null && !this.jornada.equals("")) {
+					Jornada jd = new Jornada();
+					jd.setPeriodo_jornada(this.jornada);
+					
+					String array[] = this.jornada.split(" ");
+					
+					ArrayList<LocalTime> listaLocalTime = new ArrayList<>();
+					
+					for (String string : array) {
+						string = string+":00";
+						LocalTime lt = LocalTime.parse(string);
+						listaLocalTime.add(lt);						
+					}
+					
+					LocalTime anterior = null;
+					Integer jo = 0;
+					Integer contador = 0;
+					
+					for (LocalTime l : listaLocalTime) {
+						contador++;
+						Duration duracao = null;
+						
+						if (contador!=1 && contador!=3) {
+							LocalTime atual = l;
+							duracao  = Duration.between(anterior, atual);
+							jo += (int) duracao.toMinutes();
+						} else {
+							anterior = l;
+						}
+					}
+					
+					Integer horac = jo/60;
+					Integer minutoc = jo%60;
+					LocalTime lc = LocalTime.of(horac, minutoc, 0, 0);
+					
+					jd.setJornada(lc);
+					ponto.setJornada(jd);
+				}
+				
 				if (this.legenda!=null && !this.legenda.equals("")) {
 					Legenda legenda = new Legenda();
 					legenda.setSigla(this.legenda);
