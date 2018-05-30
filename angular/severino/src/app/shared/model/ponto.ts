@@ -15,7 +15,7 @@ export class Ponto {
   saida2: string;
   saida3: string;
   saida4: string;
+  observacao: string;
   usuario: Usuario;
   legenda: Legenda;
-  
 }

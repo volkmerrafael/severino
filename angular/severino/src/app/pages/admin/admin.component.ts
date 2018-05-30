@@ -1,19 +1,20 @@
-import { Usuario } from './../../model/usuario';
+import { Usuario } from './../../shared/model/usuario';
 import { ImportacaoService } from './../../services/importacao.service';
-import { AnoMes } from './../../model/anomes';
+import { AnoMes } from './../../shared/model/anomes';
 import { Component, OnInit } from '@angular/core';
 import { PontoService } from '../../services/ponto.service';
-import { Ponto } from '../../model/ponto';
-import { ArquivoImportacao } from "../../model/arquivoimportacao";
+import { Ponto } from '../../shared/model/ponto';
+import { ArquivoImportacao } from "../../shared/model/arquivoimportacao";
 import { FileUploadModule } from 'primeng/fileupload';
-import { Importacao } from "../../model/importacao";
+import { Importacao } from "../../shared/model/importacao";
 import { MenubarModule } from 'primeng/menubar';
 import { MenuItem } from 'primeng/api';
-import { DateFormatPipe } from '../../components/pipes/pipe'
+import { DateFormatPipe } from '../../components/pipes/pipe';
 import { DropdownModule } from 'primeng/dropdown';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-admin',
@@ -24,15 +25,15 @@ export class AdminComponent implements OnInit {
 
   usuario: Usuario = new Usuario();
 
-  importacao: Importacao = new Importacao(); 
+  importacao: Importacao = new Importacao();
 
   importacoes: Importacao[] = new Array;
 
-  arqImportacao: ArquivoImportacao = new ArquivoImportacao();  
+  arqImportacao: ArquivoImportacao = new ArquivoImportacao();
 
-  constructor(private ImportacaoService: ImportacaoService) { 
+  constructor(private importacaoService: ImportacaoService) {
     this.usuario.nome = sessionStorage.getItem('nomeUsuario');
-    
+
     this.listarImportacao();
   }
 
@@ -41,31 +42,30 @@ export class AdminComponent implements OnInit {
   }
 
   onUpload(event) {
-    let arquivo = event.files[0];
+    const arquivo = event.files[0];
     this.importacao.nome = arquivo.name;
-    this.importacao.extensao = arquivo.name.substr(arquivo.name.lastIndexOf('.')+1);    
-    let leitor = new FileReader();
+    this.importacao.extensao = arquivo.name.substr(arquivo.name.lastIndexOf('.') + 1);
+    const leitor = new FileReader();
     leitor.onload = this._handleReaderLoaded.bind(this);
-    leitor.readAsDataURL(arquivo);       
+    leitor.readAsDataURL(arquivo);
   }
 
   listarImportacao() {
-    this.ImportacaoService.listarImportacao()
-                  .subscribe(res => { 
-                             this.importacoes = res });  
+    this.importacaoService.listarImportacao()
+                  .subscribe(res => {
+                             this.importacoes = res; });
   }
 
   _handleReaderLoaded(e) {
-    let reader = e.target;
-    let anexo = reader.result;
-    let res = anexo.toString().split(",");
-    let anexoDecode = res[1];
+    const reader = e.target;
+    const anexo = reader.result;
+    const res = anexo.toString().split(",");
+    const anexoDecode = res[1];
     this.arqImportacao.anexo = anexoDecode;
     this.importacao.arquivoimportacao = this.arqImportacao;
-    this.ImportacaoService.uploadArquivo(this.importacao).subscribe(res => { this.importacao });
-    setTimeout( () => {
-      this.listarImportacao();
-    }, 2000);
-  } 
+    this.importacaoService.uploadArquivo( this.importacao )
+                  .subscribe(result => {
+                            this.importacao = res; });
+  }
 
 }

@@ -6,9 +6,7 @@ import { PontoComponent } from "./pages/ponto/ponto.component";
 
 const rotas: Routes = [
   {path: 'login', component: LoginComponent},
-  {path: 'ponto', component: PontoComponent },
-  {path: 'admin', component: AdminComponent },
-  {path: '**', redirectTo: 'login' }
+  {path: '**', redirectTo: 'home' }
 ];
 
 @NgModule({

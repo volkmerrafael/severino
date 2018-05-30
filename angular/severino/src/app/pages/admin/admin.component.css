@@ -1,6 +1,7 @@
-#table {
-    margin: 10px;
+  #table {
     text-align: center;
+    margin-left: 200px;
+    margin-right: 200px;
   }
   
   #menu-lateral {
@@ -11,23 +12,21 @@
     text-align: center;
   }
   
-  #float-input{
-    text-align: center;
-    margin-top: 10px 10px 10px 10px;
-  }
-  
   #corpoPonto{
     padding-top: 100px;
-  }
-  
-  #btnCarregar{
-    margin: 0px 0px 0px 5px;
-  }
-  
-  #uploadInput{
-    margin-top: 10px;
-  }
+  } 
   
   #severino-icon{
     margin-bottom: 20px;
+  }
+
+  #btn-upload {
+    margin-right: 10px;
+  }
+
+  #btn-atualizar-lista-ponto {
+    margin-right: 10px;
+  }
+
+  #atualizarDiv {
   }
