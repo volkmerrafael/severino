@@ -1,12 +1,12 @@
-import { Usuario } from './../../shared/model/usuario';
+import { Usuario } from './../../model/usuario';
 import { ImportacaoService } from './../../services/importacao.service';
-import { AnoMes } from './../../shared/model/anomes';
+import { AnoMes } from './../../model/anomes';
 import { Component, OnInit } from '@angular/core';
 import { PontoService } from '../../services/ponto.service';
-import { Ponto } from '../../shared/model/ponto';
-import { ArquivoImportacao } from "../../shared/model/arquivoimportacao";
+import { Ponto } from '../../model/ponto';
+import { ArquivoImportacao } from "../../model/arquivoimportacao";
 import { FileUploadModule } from 'primeng/fileupload';
-import { Importacao } from "../../shared/model/importacao";
+import { Importacao } from "../../model/importacao";
 import { MenubarModule } from 'primeng/menubar';
 import { MenuItem } from 'primeng/api';
 import { DateFormatPipe } from '../../components/pipes/pipe';
@@ -28,7 +28,7 @@ import { TableModule } from 'primeng/table';
       MenubarModule,
       FileUploadModule,
       TableModule,
-      ButtonModule
+      ButtonModule,
     ],
     declarations: [
       AdminComponent

@@ -18,6 +18,13 @@ import { AdminComponent } from './pages/admin/admin.component';
 import { ImportacaoService } from './services/importacao.service';
 import { PontoModule } from './pages/ponto/ponto.module';
 import { AdminModule } from './pages/admin/admin.module';
+import {GrowlModule} from 'primeng/growl';
+import { MessageService } from 'primeng/components/common/messageservice';
+import { TratamentoErrosService } from "./services/tratamento-erros.service";
+import { MessageComponent } from './components/message/message.component';
+import { HomeComponent } from './pages/home/home.component';
+import { ButtonModule } from 'primeng/button';
+import { AuthGuardService } from './services/auth-guard.service'
 
 export const HttpInterceptorProviders = [
   { provide: HTTP_INTERCEPTORS, useClass: UserHttpInterceptor, multi: true  }
@@ -26,7 +33,9 @@ export const HttpInterceptorProviders = [
 @NgModule({
   declarations: [
     AppComponent,
-    DateFormatPipe
+    DateFormatPipe,
+    MessageComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -38,11 +47,16 @@ export const HttpInterceptorProviders = [
     MenubarModule,
     DropdownModule,
     PontoModule,
-    AdminModule
+    AdminModule,
+    GrowlModule,
+    ButtonModule
   ],
   providers: [
     HttpInterceptorProviders,
-    ImportacaoService
+    ImportacaoService,
+    MessageService,
+    TratamentoErrosService,
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })

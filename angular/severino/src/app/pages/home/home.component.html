@@ -1,0 +1,9 @@
+<div class="toolbar">
+    <div *ngIf="mostraLinks" class="ui-toolbar-group-right">
+      <button pButton type="button" (click)="logout()" label="Sair" class="ui-button-secondary"></button>
+    </div>
+</div>
+
+<div class="router">
+    <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,21 @@
+.ui-toolbar-group-right{
+    margin-right:50px; 
+    margin-top:12px
+ }
+
+ .toolbar{
+    background: rgb(26, 124, 204) !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%  !important;
+    border-radius: 0 !important;
+    height: 3rem !important;
+ }
+ 
+ .router{
+    margin-top: 3rem;
+    padding: 1px 16px 16px 16px;
+    background-color: #f3f3f3;
+ }

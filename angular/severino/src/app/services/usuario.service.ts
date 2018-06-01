@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from "rxjs/Observable";
+import { Observable, Subject, asapScheduler, pipe, of, from, interval, merge, fromEvent } from 'rxjs';
 import { environment } from "../../environments/environment";
-import { Login } from "../shared/model/login";
-import { Usuario } from "../shared/model/usuario";
-import { catchError } from 'rxjs/operators';
+import { Login } from "../model/login";
+import { Usuario } from "../model/usuario";
+import { catchError, tap  } from 'rxjs/operators';
 
 @Injectable()
 export class UsuarioService {
@@ -23,7 +23,6 @@ export class UsuarioService {
     ).pipe<Login>(
     );
   }
-
 
   cadastro( usuario: Usuario ): Observable<Usuario> {
     return this.http.post<Usuario>(

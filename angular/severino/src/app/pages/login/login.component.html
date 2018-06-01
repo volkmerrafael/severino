@@ -9,25 +9,16 @@
           <img src="assets/severino-icon-64.png" />
         </figure>
 
-        <form (ngSubmit)="login()" [formGroup]="login">
+        <form>
 
           <div class="form-group">
 
-            <input class="form-control"
-                    name="nomeacesso"
-                    type="text"
-                    placeholder="Nome de Acesso"
-                    [(ngModel)]="usuario.nomeacesso" />
+            <input class="form-control" name="nomeacesso" type="text" placeholder="Nome de Acesso" [(ngModel)]="usuario.nomeacesso" />
 
-            <input  class="form-control"
-                    placeholder="Senha"
-                    name="senha"
-                    type="password"
-                    [(ngModel)]="usuario.senha">
+            <input class="form-control" placeholder="Senha" name="senha" type="password" [(ngModel)]="usuario.senha">
           </div>
 
-          <button id="btEntrar" type="submit"
-                  class="btn btn-primary">Entrar</button>
+          <button id="btEntrar" type="submit" class="btn btn-primary" (click)="login()">Entrar</button>
         </form>
       </app-card>
 

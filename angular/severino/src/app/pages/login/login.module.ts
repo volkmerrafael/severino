@@ -6,6 +6,9 @@ import { CardModule } from "../../components/card/card.module";
 import { RouterModule } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { UsuarioService } from "../../services/usuario.service";
+import { MessageService } from 'primeng/components/common/messageservice';
+import { TratamentoErrosService } from "../../services/tratamento-erros.service";
+import {GrowlModule} from 'primeng/growl';
 
 @NgModule({
   imports: [
@@ -13,7 +16,8 @@ import { UsuarioService } from "../../services/usuario.service";
     RouterModule,
     FormsModule,
     TituloModule,
-    CardModule
+    CardModule,
+    GrowlModule
   ],
   declarations: [
     LoginComponent
@@ -22,7 +26,9 @@ import { UsuarioService } from "../../services/usuario.service";
     LoginComponent
   ],
   providers: [
-    UsuarioService
+    UsuarioService,
+    TratamentoErrosService,
+    MessageService
   ]
 })
 export class LoginModule {

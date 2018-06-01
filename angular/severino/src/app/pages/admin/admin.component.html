@@ -1,29 +1,38 @@
 <div id="corpoPonto" class="row justify-content-md-center">
 
   <div id="card" class="card">
-        
+
     <div class="card-body">
-          
+
       <div>
-  
+
         <img id="severino-icon" src="../../../assets/severino-icon-64.png" alt="Severino">
-  
+
       </div>
-          
+
       <div>
-  
-        Logado como: <strong>{{usuario.nome}}</strong>
-  
+
+        Logado como:
+        <strong>{{usuario.nome}}</strong>
+
       </div>
-  
+
       <br>
       <div>
-        <div id="uploadInput"> 
-          <p-fileUpload #fubauto id="btn-upload" mode="basic" auto="auto" name="myfile[]" (uploadHandler)="onUpload($event)" chooseLabel="Upload do Arquivo Ponto" [customUpload]="true" accept=".xls"></p-fileUpload>
+        <div id="uploadInput">
+          <p-fileUpload #form name="myfile[]" [customUpload]="true" showUploadButton="true" showCancelButton="true" (uploadHandler)="onUpload($event,form)"
+            accept=".xls" chooseLabel="Upload do Arquivo Ponto" cancelLabel="Cancelar" invalidFileTypeMessageSummary="Arquivo inválido: {0}"
+            invalidFileTypeMessageDetail='Tipos de arquivos permitidos: {0}.'>
+            <ng-template pTemplate="content">
+              <ul *ngIf="uploadedFiles.length">
+                <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+              </ul>
+            </ng-template>
+          </p-fileUpload>
         </div>
-
         <div id="atualizarDiv">
-          <p-button id="btn-atualizar-lista-ponto" label="Atualizar" icon="fa fa-fw fa-refresh" (onClick)="listarImportacao()" ></p-button>
+          <br>
+          <p-button id="btn-atualizar-lista-ponto" label="Atualizar" icon="fa fa-fw fa-refresh" (onClick)="listarImportacao()"></p-button>
         </div>
       </div>
 
@@ -37,7 +46,7 @@
 
             <ng-template pTemplate="header">
 
-              <tr> 
+              <tr>
 
                 <th>Nome</th>
 
@@ -106,7 +115,7 @@
       </div>
 
     </div>
-  
+
   </div>
-    
+
 </div>
