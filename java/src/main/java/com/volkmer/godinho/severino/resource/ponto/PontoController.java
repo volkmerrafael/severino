@@ -13,6 +13,7 @@ import com.volkmer.godinho.severino.entity.AnoMes;
 import com.volkmer.godinho.severino.entity.Ponto;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @Api("Ponto")
 @Path("/ponto")
@@ -24,9 +25,9 @@ public class PontoController {
 	@HeaderParam("session-token")
 	String sessionToken;
 
-	//Lista períodos em que o usuário tem o ponto importado
 	@GET
 	@Path("/listar/periodos")
+	@ApiOperation(value = "Listar Períodos que Usuário tem Ponto")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<AnoMes> listaPeriodoComInfo() throws Exception {
 		try (PontoResource pres = new PontoResource()) {
@@ -36,16 +37,27 @@ public class PontoController {
 		}
 	}
 	
-	//Lista o ponto de um período especifíco
 	@GET
 	@Path("/listar/{ano}/{mes}")
+	@ApiOperation(value = "Listar Pontos por Ano e Mês")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Ponto> listar(@PathParam("ano") Integer ano, @PathParam("mes") Integer mes) throws Exception {
 		try (PontoResource pres = new PontoResource()) {
-			return pres.listarPontos(userToken,ano,mes);	
+			return pres.listarPontos(userToken,ano,mes,null);	
 		} catch (Exception e) {
 			throw e;
 		}
 	}
-	
+
+	@GET
+	@Path("/listar/{ano}/{mes}/{status}")
+	@ApiOperation(value = "Listar Pontos por Ano e Mês")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Ponto> listarPosStatus(@PathParam("ano") Integer ano, @PathParam("mes") Integer mes, @PathParam("status") PontoStatus status) throws Exception {
+		try (PontoResource pres = new PontoResource()) {
+			return pres.listarPontos(userToken,ano,mes,status);	
+		} catch (Exception e) {
+			throw e;
+		}
+	}
 }
