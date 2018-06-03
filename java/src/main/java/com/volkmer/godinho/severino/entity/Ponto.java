@@ -137,6 +137,10 @@ public class Ponto {
 	@Column
 	@CampoInfo(descricao="Minutos Crédito", obrigatorio=true)
 	private Integer minutos_credito;
+
+	@Column
+	@CampoInfo(descricao="Tem Justificativa", obrigatorio=true)
+	private Integer tem_justificativa = 0;
 	
 	@Column(length=150)
 	@CampoInfo(descricao="Observação", obrigatorio=false)
