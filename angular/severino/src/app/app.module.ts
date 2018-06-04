@@ -30,6 +30,8 @@ import { EditarPerfilComponent } from './pages/editar-perfil/editar-perfil.compo
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MenuModule} from 'primeng/menu';
 import {TieredMenuModule} from 'primeng/tieredmenu';
+import { ControleHorasService } from './services/controle-horas.service';
+import { JornadaService } from './services/jornada.service';
 
 
 export const HttpInterceptorProviders = [
@@ -69,7 +71,9 @@ export const HttpInterceptorProviders = [
     ImportacaoService,
     MessageService,
     TratamentoErrosService,
-    AuthGuardService
+    AuthGuardService,
+    ControleHorasService,
+    JornadaService,
   ],
   bootstrap: [AppComponent]
 })

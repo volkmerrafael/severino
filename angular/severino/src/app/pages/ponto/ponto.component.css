@@ -64,3 +64,15 @@
   background-color: rgb(63, 118, 65) !important;
   color: #ffffff !important;
 }
+
+.ui-button-info {
+  background-color: rgb(86, 136, 169) !important;
+}
+
+.ui-button-success {
+  background-color: rgb(63, 118, 65) !important;
+}
+
+.ui-button-danger {
+  background-color: rgb(153, 59, 59) !important;
+}

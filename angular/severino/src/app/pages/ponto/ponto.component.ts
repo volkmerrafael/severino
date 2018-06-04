@@ -16,7 +16,9 @@ import { Legenda } from '../../shared/models/legenda';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { TratamentoErrosService } from '../../services/tratamento-erros.service';
 import { FormatarDataPipe } from '../../components/pipes/pipe';
-
+import { ControleHorasService } from '../../services/controle-horas.service';
+import { ControleHoras } from '../../shared/models/controle-horas';
+import { JornadaService } from '../../services/jornada.service';
 @Component({
   selector: 'app-ponto',
   templateUrl: './ponto.component.html',
@@ -40,18 +42,22 @@ export class PontoComponent implements OnInit {
   mensagemGrow: any;
   tituloGrow: any;
   tipoGrow: any;
+  horasCredito: string;
+  horasDebito: string;
+  jornada: string;
 
   constructor(
     private pontoService: PontoService,
     private messageService: MessageService,
     private tratamentoErrosService: TratamentoErrosService,
-    private formatarDataPipe: FormatarDataPipe
+    private formatarDataPipe: FormatarDataPipe,
+    private controleHorasService: ControleHorasService,
+    private jornadaService: JornadaService,
   ) {
 
     this.cols = [
       { field: 'data', pipe: 'formatarData', header: 'Data'},
       { field: 'diasemana', header: 'Dia da Semana'},
-      { field: 'jornada', header: 'Jornada' },
       { field: 'entrada1', header: 'Entrada'},
       { field: 'saida1', header: 'Saída'},
       { field: 'entrada2', header: 'Entrada'},
@@ -69,34 +75,17 @@ export class PontoComponent implements OnInit {
     this.usuario.pis = sessionStorage.getItem('pisUsuario');
     this.usuario.data_admissao = sessionStorage.getItem('dataAdmissao');
 
-    this.pontoService.listarPontoPorPeriodo(this.ano, this.mes)
-      .subscribe(res => {
-        this.pontos = res;
-      }, error => {
-        this.tratamentoErrosService.handleError(error);
-      });
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.consultaPontoPorPeriodo();
+   }
 
   showSuccess(tipo, titulo, mensagem) {
     this.messageService.add({ severity: tipo, summary: titulo, detail: mensagem });
   }
 
-  listarPeriodos() {
-    this.pontoService.listarPeriodos()
-      .subscribe(res => {
-        this.tipoGrow = "success";
-        this.tituloGrow = 'Sucesso';
-        this.mensagemGrow = "";
-        this.showSuccess(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
-        this.periodos = res;
-      }, error => {
-        this.tratamentoErrosService.handleError(error);
-      });
-  }
-
-  listarPontoPorPeriodo() {
+  consultaPontoPorPeriodo() {
     this.pontoService.listarPontoPorPeriodo(this.ano, this.mes)
       .subscribe(res => {
         this.tipoGrow = "success";
@@ -110,5 +99,32 @@ export class PontoComponent implements OnInit {
       }, error => {
         this.tratamentoErrosService.handleError(error);
       });
+  }
+
+  consultaControleHoras() {
+    this.controleHorasService.controleHoras(this.ano, this.mes)
+    .subscribe(res => {
+      this.horasCredito = res.horas_credito;
+      this.horasDebito = res.horas_debito;
+    }, error => {
+        this.tratamentoErrosService.handleError(error);
+      });
+  }
+
+  consultaJornada() {
+    this.jornadaService.consultaJornada(this.ano, this.mes)
+    .subscribe(res => {
+      res.forEach(jornada => {
+        this.jornada = jornada.periodo_jornada;
+      });
+    }, error => {
+      this.tratamentoErrosService.handleError(error);
+    });
+  }
+
+  listarConsultas() {
+    this.consultaControleHoras();
+    this.consultaJornada();
+    this.consultaPontoPorPeriodo();
   }
 }

@@ -38,7 +38,6 @@ export class LoginComponent {
   login() {
     this.usuarioService.login(this.usuario)
     .subscribe(res => {
-      console.log(res);
       this.user = res;
       sessionStorage.setItem('user', this.user);
       sessionStorage.setItem('nomeUsuario', res.usuario.nome);

@@ -27,4 +27,5 @@ export class PontoService {
       `${environment.server}ponto/listar/periodos`
     );
   }
+
 }

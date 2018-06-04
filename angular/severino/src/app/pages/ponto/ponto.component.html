@@ -17,11 +17,16 @@
 
         <input class="form-control" pInputText id="ano" name="ano" type="text" placeholder="Ano" [(ngModel)]="ano" />
 
-        <p-button id="btnPesquisar" label="Procurar" icon="fa fa-fw fa-search" (onClick)="listarPontoPorPeriodo()"></p-button>
+        <p-button id="btnPesquisar" label="Procurar" icon="fa fa-fw fa-search" (onClick)="listarConsultas()"></p-button>
 
       </div>
 
       <br>
+      <div>
+          <p>Credito: {{horasCredito}}</p>
+           <p>Debito: {{horasDebito}}</p>
+           <p>Jornada: {{jornada}}</p>
+      </div>
 
       <div>
           <p><button pButton type="button" class="ui-button-info"></button>Correto  
