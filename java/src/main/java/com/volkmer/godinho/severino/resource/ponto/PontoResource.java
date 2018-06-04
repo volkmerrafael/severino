@@ -7,9 +7,9 @@ import javax.persistence.TypedQuery;
 
 import com.volkmer.godinho.core.resource.ResourceCRUD;
 import com.volkmer.godinho.severino.entity.Acesso;
+import com.volkmer.godinho.severino.entity.AnoMes;
 import com.volkmer.godinho.severino.entity.Ponto;
 import com.volkmer.godinho.severino.entity.Usuario;
-import com.volkmer.godinho.severino.resource.ponto.modelos.AnoMes;
 
 public class PontoResource extends ResourceCRUD<Ponto> {
 	
@@ -21,31 +21,49 @@ public class PontoResource extends ResourceCRUD<Ponto> {
 		return Ponto.class;
 	}
 	
-	public List<Ponto> listarPontos(String token, Integer ano, Integer mes) {
-		
-		//Consulta token para buscar qual usuário esta requisitando o ponto
-		TypedQuery<Acesso> queryAcesso = this.getEm().createQuery("select a from Acesso a where a.token = :token", Acesso.class);
-		queryAcesso.setParameter("token", token);
-		Acesso acesso = queryAcesso.getSingleResult();
-		
-		//Consulta usuario para mostrar somente informações do mesmo
-		TypedQuery<Usuario> queryUsuario = this.getEm().createQuery("select u from Usuario u where u.acesso = :acesso", Usuario.class);
-		queryUsuario.setParameter("acesso", acesso);
-		Usuario usuario = queryUsuario.getSingleResult();
-		
+	public List<Ponto> listarPontos(String token, Integer ano, Integer mes, PontoStatus status) {
+	
 		//Usuário encontrado agora retorna a lista de ponto do usuário
-		TypedQuery<Ponto> queryPonto = this.getEm().createQuery("select p from Ponto p where p.usuario = :usuario and Month(p.data) = :mes and Year(p.data) = :ano", Ponto.class);
-		queryPonto.setParameter("usuario", usuario);
+		TypedQuery<Ponto> queryPonto = this.getEm().createQuery("select p from Ponto p where p.usuario = :usuario and Month(p.data) = :mes and Year(p.data) = :ano order by p.data asc", Ponto.class);
+		queryPonto.setParameter("usuario", this.buscaUsuarioPeloToken(token));
 		queryPonto.setParameter("mes", mes);
 		queryPonto.setParameter("ano", ano);
+		if (status!=null) {
+			queryPonto.setParameter("status", status);
+		}
 		List<Ponto> lista = queryPonto.getResultList();
-				
+		
+		lista.forEach(p -> p.getImportacao().setArquivoimportacao(null));
+		
 		return lista;
 		
 	}
 
 	public List<AnoMes> listarPeriodos(String token) {
 		
+		//Lista Mês e Ano em que o usuário tem ponto lançado
+		TypedQuery<Ponto> queryPonto = this.getEm().createQuery("select p from Ponto p where p.usuario = :usuario", Ponto.class);
+		queryPonto.setParameter("usuario", this.buscaUsuarioPeloToken(token));
+		List<Ponto> lista = queryPonto.getResultList();
+				
+		lista.forEach(p -> p.getImportacao().setArquivoimportacao(null));
+		
+		List<AnoMes> listaAnoMes = new ArrayList<AnoMes>();
+		
+		for (Ponto ponto : lista) {
+			
+			if (!listaAnoMes.contains(ponto.getAnomes())) {
+				listaAnoMes.add(ponto.getAnomes());
+			}
+				
+		}
+		
+		return listaAnoMes;
+		
+	}
+
+	private Usuario buscaUsuarioPeloToken(String token) {
+		
 		//Consulta token para buscar qual usuário esta requisitando o ponto
 		TypedQuery<Acesso> queryAcesso = this.getEm().createQuery("select a from Acesso a where a.token = :token", Acesso.class);
 		queryAcesso.setParameter("token", token);
@@ -55,42 +73,8 @@ public class PontoResource extends ResourceCRUD<Ponto> {
 		TypedQuery<Usuario> queryUsuario = this.getEm().createQuery("select u from Usuario u where u.acesso = :acesso", Usuario.class);
 		queryUsuario.setParameter("acesso", acesso);
 		Usuario usuario = queryUsuario.getSingleResult();
-		
-		//Usuário encontrado agora retorna a lista de Mês e Ano que o usuário tem ponto
-		TypedQuery<Ponto> queryPonto = this.getEm().createQuery("select p from Ponto p where p.usuario = :usuario", Ponto.class);
-		queryPonto.setParameter("usuario", usuario);
-		List<Ponto> lista = queryPonto.getResultList();
-				
-		List<AnoMes> listaAnoMes = new ArrayList<AnoMes>();
-		
-		if (lista!=null && lista.size()>0) {
-			for (Ponto ponto : lista) {
-				
-				AnoMes anomes = new AnoMes();
-				anomes.setAno(ponto.getData().getYear());
-				anomes.setMes(ponto.getData().getMonthValue());
-				
-				if (listaAnoMes==null || listaAnoMes.size()==0) {
-					listaAnoMes.add(anomes);
-				} else {
-					for (AnoMes anoMesNaLista : listaAnoMes) {
-						if (anoMesNaLista.getAno().equals(anomes.getAno()) && anoMesNaLista.getMes().equals(anomes.getMes())) {
-							break;
-						} else {
-							listaAnoMes.add(anomes);
-							break;
-						}
-					}
-				}
-				//if (!listaAnoMes.contains(anomes)) {
-				//	listaAnoMes.add(anomes);
-				//}
-				
-			}
-		}
-		
-		return listaAnoMes;
+	
+		return usuario;
 		
 	}
-	
 }

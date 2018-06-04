@@ -9,33 +9,55 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.volkmer.godinho.severino.entity.AnoMes;
 import com.volkmer.godinho.severino.entity.Ponto;
-import com.volkmer.godinho.severino.resource.ponto.modelos.AnoMes;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api("Ponto")
 @Path("/ponto")
 public class PontoController {
 
 	@HeaderParam("user-token")
 	String userToken;
+	
+	@HeaderParam("session-token")
+	String sessionToken;
 
-	//Lista períodos em que o usuário tem o ponto importado
-	@SuppressWarnings("resource")
 	@GET
 	@Path("/listar/periodos")
+	@ApiOperation(value = "Listar Períodos que Usuário tem Ponto")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<AnoMes> listaPeriodoComInfo() throws Exception {
-		return new PontoResource().listarPeriodos(userToken);		
-		
+		try (PontoResource pres = new PontoResource()) {
+			return pres.listarPeriodos(userToken);
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 	
-	//Lista o ponto de um período especifíco
-	@SuppressWarnings("resource")
 	@GET
 	@Path("/listar/{ano}/{mes}")
+	@ApiOperation(value = "Listar Pontos por Ano e Mês")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Ponto> listar(@PathParam("ano") Integer ano, @PathParam("mes") Integer mes) throws Exception {
-		return new PontoResource().listarPontos(userToken,ano,mes);		
-		
+		try (PontoResource pres = new PontoResource()) {
+			return pres.listarPontos(userToken,ano,mes,null);	
+		} catch (Exception e) {
+			throw e;
+		}
 	}
-	
+
+	@GET
+	@Path("/listar/{ano}/{mes}/{status}")
+	@ApiOperation(value = "Listar Pontos por Ano e Mês")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Ponto> listarPosStatus(@PathParam("ano") Integer ano, @PathParam("mes") Integer mes, @PathParam("status") PontoStatus status) throws Exception {
+		try (PontoResource pres = new PontoResource()) {
+			return pres.listarPontos(userToken,ano,mes,status);	
+		} catch (Exception e) {
+			throw e;
+		}
+	}
 }

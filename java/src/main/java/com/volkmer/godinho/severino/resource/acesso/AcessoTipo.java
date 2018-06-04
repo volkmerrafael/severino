@@ -4,7 +4,7 @@ public enum AcessoTipo {
 	
 	ADMIN,
 	NORMAL,
-	IMPORTADOR,
-	COORDENADOR;
+	COORDENADOR,
+	IMPORTADOR;
 	
 }

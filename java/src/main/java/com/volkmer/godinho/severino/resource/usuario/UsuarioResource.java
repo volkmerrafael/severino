@@ -38,7 +38,9 @@ public class UsuarioResource extends ResourceCRUD<Usuario> {
 		
 		if (model.getAcesso()!=null) {
 			Acesso acesso = model.getAcesso();
-			acesso.setTipo(AcessoTipo.NORMAL);
+			if (acesso.getTipo()==null) {
+				acesso.setTipo(AcessoTipo.NORMAL);
+			}
 			acesso.setSenha(new Crypto().criptografar(acesso.getSenha()));
 			acesso.setData(LocalDateTime.now());
 			acesso.setToken(

@@ -15,6 +15,9 @@ public abstract class ResourceCRUD<Model> implements AutoCloseable {
 	protected EntityManager getEm() {
 		if (this.em==null) {
 			this.em = EntityManagerUtil.getEntityManager();
+		} else if (!this.em.isOpen()) {
+			this.em = null;
+			this.em = EntityManagerUtil.getEntityManager();			
 		}
 		return em;
 	}

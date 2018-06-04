@@ -1,5 +1,6 @@
 package com.volkmer.godinho.severino.resource.teste;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,6 +21,9 @@ import com.volkmer.godinho.severino.entity.ObjetoTeste;
 import com.volkmer.godinho.severino.entity.Usuario;
 import com.volkmer.godinho.severino.resource.acesso.AcessoResource;
 
+import io.swagger.annotations.Api;
+
+@Api("Teste")
 @Path("/teste")
 public class TesteController {
 
@@ -31,7 +35,7 @@ public class TesteController {
 	
 	@GET
 	@Path("/ping")
-	@Produces(MediaType.TEXT_HTML)
+	@Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_HTML}) 
 	public String ping() {
 		String msg = "ping: " + LocalDateTime.now();
 		System.out.println(msg);
@@ -59,7 +63,7 @@ public class TesteController {
 	
 	@GET
 	@Path("/html")
-	@Produces(MediaType.TEXT_HTML)
+	@Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_HTML}) 
 	public String html() {
 		try {
 			new Email().sendEmail();
@@ -93,7 +97,7 @@ public class TesteController {
 	
 	@GET
 	@Path("/xml")
-	@Produces(MediaType.APPLICATION_XML)
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public ObjetoTeste xml() {
 		ObjetoTeste obj = new ObjetoTeste();
 		obj.criar();
@@ -129,6 +133,13 @@ public class TesteController {
 		}
 		
 		return false;
+	}
+	
+	@GET
+	@Path("/data")
+	@Produces(MediaType.APPLICATION_JSON)
+	public LocalDate dataAtual() {
+		return LocalDate.now();
 	}
 	
 }

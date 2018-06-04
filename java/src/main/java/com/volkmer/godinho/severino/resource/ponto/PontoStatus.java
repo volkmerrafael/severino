@@ -1,0 +1,18 @@
+package com.volkmer.godinho.severino.resource.ponto;
+
+public enum PontoStatus {
+	
+	CORRETO,
+	MARCACAO_INCORRETA,
+	DEBITO,
+	CREDITO,
+	JUSTIFICADO,
+	SEM_INFORMACAO,
+	FERIAS,
+	ATESTADO_MEDICO,
+	PONTO_FACULTATIVO,
+	FALTA_JUSTIFICADA,
+	NAO_ADMITIDO,
+	FERIADO;
+	
+}

@@ -1,12 +1,18 @@
-package com.volkmer.godinho.severino.resource.importador.modelos
-;
-import java.text.SimpleDateFormat;
+package com.volkmer.godinho.severino.resource.importador.modelos;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
+import java.util.ArrayList;
 
+import com.volkmer.godinho.severino.entity.DiaSemana;
+import com.volkmer.godinho.severino.entity.Jornada;
+import com.volkmer.godinho.severino.entity.Legenda;
 import com.volkmer.godinho.severino.entity.Ponto;
 
+import lombok.Data;
+
+@Data
 public class ObjetoPonto implements ObjetoPontoInterfaceImportacao {
 	
 	private Integer linha = 0;
@@ -17,233 +23,26 @@ public class ObjetoPonto implements ObjetoPontoInterfaceImportacao {
 	private static String funcao;
 	private static String departamento;
 	private static String periodo;
+	
 	private String data;
 	private String diasemana;
 	private String jornada;
-    private String legenda;
-    private String entrada1;
-    private String saida1;
-    private String entrada2;
-    private String saida2;
-    private String entrada3;
-    private String saida3;
-    private String entrada4;
-    private String saida4;
-    private String trabalhadas_diurno;
-    private String trabalhadas_noturno;
-    private String extra_diurno;
-    private String extra_noturno;
-    private String faltas_diurno;
-    private String faltas_noturno;
-    private String observacao;
-
-	public static String getFuncionario() {
-		return funcionario;
-	}
-
-	public static void setFuncionario(String funcionario) {
-		ObjetoPonto.funcionario = funcionario;
-	}
-
-	public static String getPis() {
-		return pis;
-	}
-
-	public static void setPis(String pis) {
-		ObjetoPonto.pis = pis;
-	}
-
-	public static String getData_admissao() {
-		return data_admissao;
-	}
-
-	public static void setData_admissao(String data_admissao) {
-		ObjetoPonto.data_admissao = data_admissao;
-	}
-
-	public static String getFuncao() {
-		return funcao;
-	}
-
-	public static void setFuncao(String funcao) {
-		ObjetoPonto.funcao = funcao;
-	}
-
-	public Integer getLinha() {
-		return linha;
-	}
-
-	public void setLinha(Integer linha) {
-		this.linha = linha;
-	}
-
-	public String getData() {
-		return data;
-	}
-
-	public void setData(String data) {
-		this.data = data;
-	}
-
-	public String getDiasemana() {
-		return diasemana;
-	}
-
-	public void setDiasemana(String diasemana) {
-		this.diasemana = diasemana;
-	}
-
-	public String getJornada() {
-		return jornada;
-	}
-
-	public void setJornada(String jornada) {
-		this.jornada = jornada;
-	}
-
-	public String getLegenda() {
-		return legenda;
-	}
-
-	public void setLegenda(String legenda) {
-		this.legenda = legenda;
-	}
-
-	public String getEntrada1() {
-		return entrada1;
-	}
-
-	public void setEntrada1(String entrada1) {
-		this.entrada1 = entrada1;
-	}
-
-	public String getSaida1() {
-		return saida1;
-	}
-
-	public void setSaida1(String saida1) {
-		this.saida1 = saida1;
-	}
-
-	public String getEntrada2() {
-		return entrada2;
-	}
-
-	public void setEntrada2(String entrada2) {
-		this.entrada2 = entrada2;
-	}
-
-	public String getSaida2() {
-		return saida2;
-	}
-
-	public void setSaida2(String saida2) {
-		this.saida2 = saida2;
-	}
-
-	public String getEntrada3() {
-		return entrada3;
-	}
-
-	public void setEntrada3(String entrada3) {
-		this.entrada3 = entrada3;
-	}
-
-	public String getSaida3() {
-		return saida3;
-	}
-
-	public void setSaida3(String saida3) {
-		this.saida3 = saida3;
-	}
-
-	public String getEntrada4() {
-		return entrada4;
-	}
-
-	public void setEntrada4(String entrada4) {
-		this.entrada4 = entrada4;
-	}
-
-	public String getSaida4() {
-		return saida4;
-	}
-
-	public void setSaida4(String saida4) {
-		this.saida4 = saida4;
-	}
-
-	public String getTrabalhadas_diurno() {
-		return trabalhadas_diurno;
-	}
-
-	public void setTrabalhadas_diurno(String trabalhadas_diurno) {
-		this.trabalhadas_diurno = trabalhadas_diurno;
-	}
-
-	public String getTrabalhadas_noturno() {
-		return trabalhadas_noturno;
-	}
-
-	public void setTrabalhadas_noturno(String trabalhadas_noturno) {
-		this.trabalhadas_noturno = trabalhadas_noturno;
-	}
-
-	public String getExtra_diurno() {
-		return extra_diurno;
-	}
-
-	public void setExtra_diurno(String extra_diurno) {
-		this.extra_diurno = extra_diurno;
-	}
-
-	public String getExtra_noturno() {
-		return extra_noturno;
-	}
-
-	public void setExtra_noturno(String extra_noturno) {
-		this.extra_noturno = extra_noturno;
-	}
-
-	public String getFaltas_diurno() {
-		return faltas_diurno;
-	}
-
-	public void setFaltas_diurno(String faltas_diurno) {
-		this.faltas_diurno = faltas_diurno;
-	}
-
-	public String getFaltas_noturno() {
-		return faltas_noturno;
-	}
-
-	public void setFaltas_noturno(String faltas_noturno) {
-		this.faltas_noturno = faltas_noturno;
-	}
-
-	public String getObservacao() {
-		return observacao;
-	}
-
-	public void setObservacao(String observacao) {
-		this.observacao = observacao;
-	}
-
-	public static String getDepartamento() {
-		return departamento;
-	}
-
-	public static void setDepartamento(String departamento) {
-		ObjetoPonto.departamento = departamento;
-	}
-
-	public static String getPeriodo() {
-		return periodo;
-	}
-
-	public static void setPeriodo(String periodo) {
-		ObjetoPonto.periodo = periodo;
-	}
+	private String legenda;
+	private String entrada1;
+	private String saida1;
+	private String entrada2;
+	private String saida2;
+	private String entrada3;
+	private String saida3;
+	private String entrada4;
+	private String saida4;
+	private String trabalhadas_diurno;
+	private String trabalhadas_noturno;
+	private String extra_diurno;
+	private String extra_noturno;
+	private String faltas_diurno;
+	private String faltas_noturno;
+	private String observacao;
 
 	@Override
 	public void setValor(Integer pos, Integer linha, String newValor, Object oldObject) {
@@ -256,6 +55,9 @@ public class ObjetoPonto implements ObjetoPontoInterfaceImportacao {
 				this.funcionario = newValor.replace("Funcionário: ", "");
 			} else 
 			if (pos.equals(20) && linha.equals(4) && newValor.indexOf("PIS:")!=-1) {
+				this.pis = newValor.replace("PIS: ", "");
+			} else 
+			if (pos.equals(24) && linha.equals(4) && newValor.indexOf("PIS:")!=-1) {
 				this.pis = newValor.replace("PIS: ", "");
 			} else
 			if (pos.equals(0) && linha.equals(6) && newValor.indexOf("Data Admissão:")!=-1) {
@@ -270,7 +72,7 @@ public class ObjetoPonto implements ObjetoPontoInterfaceImportacao {
 			if (pos.equals(11) && linha.equals(0) && newValor.indexOf("Período de")!=-1) {
 				this.periodo = newValor.replace("Período de ", "");
 			}
-			System.out.println("posicao: "+pos+" linha: "+linha+" newValor: "+newValor);
+			//System.out.println("posicao: "+pos+" linha: "+linha+" newValor: "+newValor);
 		} else
 		if (linha >= 13) {
 			//System.out.println("posicao: "+pos+" linha: "+linha+" newValor: "+newValor);
@@ -303,37 +105,37 @@ public class ObjetoPonto implements ObjetoPontoInterfaceImportacao {
 			case 7:
 				this.saida2 = newValor;
 				break;
-			case 8:
+			case 9:
 				this.entrada3 = newValor;
 				break;
-			case 9:
+			case 10:
 				this.saida3 = newValor;
 				break;
-			case 10:
+			case 12:
 				this.entrada4 = newValor;
 				break;
-			case 11:
+			case 13:
 				this.saida4 = newValor;
 				break;
-			case 12:
+			case 14:
 				this.trabalhadas_diurno = newValor;
 				break;
-			case 13:
+			case 15:
 				this.trabalhadas_noturno = newValor;
 				break;
-			case 14:
+			case 17:
 				this.extra_diurno = newValor;
 				break;
-			case 15:
+			case 18:
 				this.extra_noturno = newValor;
 				break;
-			case 16:
+			case 19:
 				this.faltas_diurno = newValor;
 				break;
-			case 17:
+			case 20:
 				this.faltas_noturno = newValor;
 				break;
-			case 18:
+			case 22:
 				this.observacao = newValor;
 				break;				
 			default:
@@ -348,16 +150,36 @@ public class ObjetoPonto implements ObjetoPontoInterfaceImportacao {
 	public ObjetoPontoCompleto atualizar() {
 
 		try {
+			
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 			    ObjetoPontoCompleto objetoPontoCompleto = new ObjetoPontoCompleto();
 				
 			    objetoPontoCompleto.setFuncao(this.funcao);
-			    objetoPontoCompleto.setData_admissao(this.data_admissao);
+			    objetoPontoCompleto.setData_admissao(LocalDate.parse(this.data_admissao,formatter));
 			    objetoPontoCompleto.setFuncionario(this.funcionario);
-			    objetoPontoCompleto.setPis(this.pis);
+			    objetoPontoCompleto.setPis(Long.parseLong(this.pis));
 			    objetoPontoCompleto.setDepartamento(this.departamento);
 			    
-				Ponto ponto = new Ponto();
+			    //System.out.println(this.periodo);
+			    
+				//rever
+				try {
+					if (this.periodo!=null) {
+						objetoPontoCompleto.setData_inicial_importacao(LocalDate.parse(this.periodo.substring(0, 10),formatter));
+					}
+				} catch (Exception e) {
+				}
+				//rever
+				try {
+					if (this.periodo!=null) {
+						objetoPontoCompleto.setData_final_importacao(LocalDate.parse(this.periodo.substring(13, this.periodo.length()),formatter));
+					}
+				} catch (Exception e) {
+				}
+			
+				
+			    Ponto ponto = new Ponto();
 				
 				if (this.data!=null && !this.data.equals("")) {
 					String dataCompleta = "";
@@ -368,18 +190,63 @@ public class ObjetoPonto implements ObjetoPontoInterfaceImportacao {
 					}
 					dataCompleta += this.periodo.substring(5, 10);
 					
+					//rever
 					try {
-						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-						LocalDate date = LocalDate.parse(dataCompleta,formatter);
-						ponto.setData(date);
+						ponto.setData(LocalDate.parse(dataCompleta,formatter));
 					} catch (Exception e) {
-						
 					}
 				}
 				
-				ponto.setDiasemana(this.diasemana);
-				ponto.setJornada(this.jornada);
-				ponto.setLegenda(this.legenda);
+				if (this.diasemana!=null) {
+					DiaSemana diasem = new DiaSemana();
+					diasem.setNome(this.diasemana);
+					ponto.setDiasemana(diasem);
+				}
+				
+				if (this.jornada!=null && !this.jornada.equals("")) {
+					Jornada jd = new Jornada();
+					jd.setPeriodo_jornada(this.jornada);
+					
+					String array[] = this.jornada.split(" ");
+					
+					ArrayList<LocalTime> listaLocalTime = new ArrayList<>();
+					
+					for (String string : array) {
+						string = string+":00";
+						LocalTime lt = LocalTime.parse(string);
+						listaLocalTime.add(lt);						
+					}
+					
+					LocalTime anterior = null;
+					Integer jo = 0;
+					Integer contador = 0;
+					
+					for (LocalTime l : listaLocalTime) {
+						contador++;
+						Duration duracao = null;
+						
+						if (contador!=1 && contador!=3) {
+							LocalTime atual = l;
+							duracao  = Duration.between(anterior, atual);
+							jo += (int) duracao.toMinutes();
+						} else {
+							anterior = l;
+						}
+					}
+					
+					Integer horac = jo/60;
+					Integer minutoc = jo%60;
+					LocalTime lc = LocalTime.of(horac, minutoc, 0, 0);
+					
+					jd.setJornada(lc);
+					ponto.setJornada(jd);
+				}
+				
+				if (this.legenda!=null && !this.legenda.equals("")) {
+					Legenda legenda = new Legenda();
+					legenda.setSigla(this.legenda);
+					ponto.setLegenda(legenda);
+				}
 				ponto.setEntrada1(this.entrada1);
 				ponto.setSaida1(this.saida1);
 				ponto.setEntrada2(this.entrada2);

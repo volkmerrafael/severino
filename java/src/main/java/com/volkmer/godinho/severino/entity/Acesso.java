@@ -14,7 +14,10 @@ import javax.persistence.Table;
 import com.volkmer.godinho.core.validacao.CampoInfo;
 import com.volkmer.godinho.severino.resource.acesso.AcessoTipo;
 
+import lombok.Data;
+
 @Table
+@Data
 @Entity
 public class Acesso {
 	
@@ -40,55 +43,7 @@ public class Acesso {
 	private String token;
 	
 	@Column
-	@Enumerated(EnumType.ORDINAL)
+	@Enumerated(EnumType.STRING)
 	private AcessoTipo tipo;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getNomeacesso() {
-		return nomeacesso;
-	}
-
-	public void setNomeacesso(String nomeacesso) {
-		this.nomeacesso = nomeacesso;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
-	public LocalDateTime getData() {
-		return data;
-	}
-
-	public void setData(LocalDateTime data) {
-		this.data = data;
-	}
-
-	public String getToken() {
-		return token;
-	}
-
-	public void setToken(String token) {
-		this.token = token;
-	}
-
-	public AcessoTipo getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(AcessoTipo tipo) {
-		this.tipo = tipo;
-	}
 	
 }

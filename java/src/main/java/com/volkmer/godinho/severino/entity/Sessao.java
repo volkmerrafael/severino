@@ -15,7 +15,10 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Data;
+
 @Entity
+@Data
 @Table
 public class Sessao {
 
@@ -40,52 +43,4 @@ public class Sessao {
 	@Column(length=128)
 	private String token;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Acesso getAcesso() {
-		return acesso;
-	}
-
-	public void setAcesso(Acesso acesso) {
-		this.acesso = acesso;
-	}
-
-	public LocalDateTime getData() {
-		return data;
-	}
-
-	public void setData(LocalDateTime data) {
-		this.data = data;
-	}
-
-	public String getIp() {
-		return ip;
-	}
-
-	public void setIp(String ip) {
-		this.ip = ip;
-	}
-
-	public String getUseragent() {
-		return useragent;
-	}
-
-	public void setUseragent(String useragent) {
-		this.useragent = useragent;
-	}
-
-	public String getToken() {
-		return token;
-	}
-
-	public void setToken(String token) {
-		this.token = token;
-	}
-	
 }

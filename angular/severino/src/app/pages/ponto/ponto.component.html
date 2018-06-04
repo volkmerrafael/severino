@@ -1,0 +1,75 @@
+<div id="corpoPonto" class="row justify-content-md-center">
+  <div id="card" class="card">
+
+    <div class="card-body">
+
+      <div>
+
+        <img id="severino-icon" src="../../../assets/severino-icon-64.png" alt="Severino">
+
+      </div>
+
+      <br>
+
+      <div class="form-group">
+
+        <input class="form-control" pInputText id="mes" name="mes" type="text" placeholder="Mês" [(ngModel)]="mes" />
+
+        <input class="form-control" pInputText id="ano" name="ano" type="text" placeholder="Ano" [(ngModel)]="ano" />
+
+        <p-button id="btnPesquisar" label="Procurar" icon="fa fa-fw fa-search" (onClick)="listarPontoPorPeriodo()"></p-button>
+
+      </div>
+
+      <br>
+
+      <div>
+          <p><button pButton type="button" class="ui-button-info"></button>Correto  
+          <button pButton type="button" class="ui-button-success"></button>Crédito  
+          <button pButton type="button" class="ui-button-danger"></button>Débito</p>
+      </div>
+
+      <div class="row">
+
+        <div id="table">
+
+          <p-table [columns]="cols" [value]="pontos" [resizableColumns]="true">
+
+            <ng-template pTemplate="colgroup" let-columns>
+              <colgroup>
+                <col *ngFor="let col of columns" [style.width]="col.width">
+              </colgroup>
+            </ng-template>
+
+            <ng-template pTemplate="header" let-columns>
+              <tr>
+                <th *ngFor="let col of columns" pResizableColumn>
+                  {{col.header}}
+                </th>
+                <th>
+                  L
+                </th>
+              </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+              <tr [ngClass]="rowData.status == 'CORRETO' ? 'linha-correta' : rowData.status == 'DEBITO' ? 'linha-debito' : rowData.status == 'CREDITO' ? 'linha-credito' : null ">
+                <td *ngFor="let col of columns" class="ui-resizable-column">
+                  {{rowData[col.field]}}
+                </td>
+                <td>
+                  <span *ngIf="rowData.legenda != undefined">{{rowData.legenda.sigla}}</span>
+                </td>
+              </tr>
+            </ng-template>
+
+          </p-table>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

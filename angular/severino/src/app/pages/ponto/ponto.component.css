@@ -1,0 +1,66 @@
+#table {
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+#menu-lateral {
+  text-align: center;
+}
+
+#card {
+  text-align: center;
+}
+
+#float-input{
+  text-align: center;
+  margin-top: 10px 10px 10px 10px;
+}
+
+#corpoPonto{
+  padding-top: 100px;
+}
+
+#btnPesquisar{
+  margin: 0px 0px 0px 5px;
+}
+
+#uploadInput{
+  margin-top: 10px;
+}
+
+#inputInfo {
+  text-align: center;
+}
+
+#severino-icon{
+  margin-bottom: 20px;
+}
+
+#ano {
+  margin-bottom: 10px;
+  text-align: center;
+  width: 100px;
+  display: inline-block;
+}
+
+#mes {
+  margin-bottom: 10px;
+  text-align: center;
+  width: 70px;
+  display: inline-block;
+}
+
+.linha-correta {
+  background-color: rgb(86, 136, 169) !important;
+  color: #ffffff !important;
+}
+
+.linha-debito {
+  background-color: rgb(153, 59, 59) !important;
+  color: #ffffff !important;
+}
+
+.linha-credito {
+  background-color: rgb(63, 118, 65) !important;
+  color: #ffffff !important;
+}

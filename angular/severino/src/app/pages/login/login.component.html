@@ -1,0 +1,25 @@
+<div class="container form-login" id="form-login">
+  <div class="row justify-content-md-center">
+    <div class="col-md-5 text-center">
+
+      <app-card>
+        <figure>
+          <img src="assets/severino-icon-64.png" />
+        </figure>
+
+        <form>
+
+          <div class="form-group">
+
+            <input class="form-control" name="nomeacesso" type="text" placeholder="Nome de Acesso" [(ngModel)]="usuario.nomeacesso" />
+
+            <input class="form-control" placeholder="Senha" name="senha" type="password" [(ngModel)]="usuario.senha">
+          </div>
+
+          <button id="btEntrar" type="submit" class="btn btn-primary" (click)="login()">Entrar</button>
+        </form>
+      </app-card>
+
+    </div>
+  </div>
+</div>

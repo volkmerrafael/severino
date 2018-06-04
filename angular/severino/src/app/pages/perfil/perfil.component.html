@@ -1,0 +1,37 @@
+<p-panel [style]="{margin:'5px'}" styleClass="ui-card-shadow">
+  <p-header style="font-size: 20px">Perfil</p-header>
+  <div class="div">
+      <br>
+      <span class="span">Nome: </span>
+      <a class="a"> {{usuario.nome}} </a>
+      <br>
+      <br>
+      <span class="span">E-mail:</span>
+      <a class="a"> {{usuario.email}} </a>
+      <br>
+      <br>
+      <span class="span">Nome de acesso: </span>
+      <a class="a"> {{acesso.nomeacesso}} </a>
+      <br>
+      <br>
+      <span class="span">Pis: </span>
+      <a class="a"> {{usuario.pis}} </a>
+      <br>
+      <br>
+      <span class="span">Departamento: </span>
+      <a class="a"> {{departamento.nome}} </a>
+      <br>
+      <br>
+      <span class="span">Função: </span>
+      <a class="a"> {{funcao.nome}} </a>
+      <br>
+      <br>
+      <span class="span">Data de emissão: </span>
+      <a class="a"> {{usuario.data_admissao}} </a>
+      <br>
+    </div>
+    <br>
+    <div>
+      <button pButton type="button" icon="fa fa-fw fa-reply" label="Voltar" class="ui-button-secondary" (click)="voltar()"></button>
+  </div>
+</p-panel>

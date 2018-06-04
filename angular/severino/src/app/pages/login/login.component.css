@@ -1,0 +1,21 @@
+input{
+  text-align: center;
+  margin-bottom: 10px;
+  border-radius: 10px 10px 10px 10px;
+  cursor: pointer;
+  padding: 5px;
+  border-width: 1px;
+  width: 300px;
+  display: inline-block;
+}
+
+#btEntrar{
+  width: 300px;
+  display: inline-block;
+  border-radius: 10px 10px 10px 10px;
+}
+
+.form-login {
+  padding-top: 200px;
+  padding-bottom: 200px;
+}

@@ -25,7 +25,7 @@ public class RequestFilter implements ContainerRequestFilter {
 	HttpServletRequest context;
 	
 	private boolean verificaPermissaoTotal(String pathInfo) {
-		return (pathInfo.equals("/login") || pathInfo.indexOf("/teste")==0 || pathInfo.lastIndexOf("/help")>=0);
+		return (pathInfo.equals("/login") || pathInfo.indexOf("/teste")==0 || pathInfo.endsWith("swagger.json") || pathInfo.endsWith("swagger.json") || pathInfo.lastIndexOf("/help")>=0);
 	}
 	
 	@Override
@@ -36,8 +36,8 @@ public class RequestFilter implements ContainerRequestFilter {
 			
 			String usuariotoken = context.getHeader("User-Token");
 			String sessaotoken = context.getHeader("Session-Token");
-			String useragent = context.getHeader("User-Agent");
-			String ip = context.getRemoteHost()+"-"+context.getRemoteAddr();
+			//String useragent = context.getHeader("User-Agent");
+			//String ip = context.getRemoteHost()+"-"+context.getRemoteAddr();
 			
 			if (usuariotoken==null || sessaotoken==null) {
 				throw new IOException("Permissão negada");
@@ -62,9 +62,10 @@ public class RequestFilter implements ContainerRequestFilter {
 					throw new IOException("Sessão expirada");
 				}
 				
-				//if (!sessao.getUseragent().equals(useragent) || !sessao.getIp().equals(ip)) {
-					//throw new IOException("Sessão expirada");
-				//}
+				/*if (!sessao.getUseragent().equals(useragent) || !sessao.getIp().equals(ip)) {
+					throw new IOException("Sessão expirada");
+				}*/
+				
 				
 			} catch (Exception e) {
 				throw new IOException(e);

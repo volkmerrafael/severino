@@ -1,7 +1,9 @@
 package com.volkmer.godinho.severino.resource.importador;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import com.volkmer.godinho.severino.entity.Importacao;
 import com.volkmer.godinho.severino.resource.importador.modelos.ObjetoPonto;
 import com.volkmer.godinho.severino.resource.importador.modelos.ObjetoPontoCompleto;
 import com.volkmer.godinho.severino.resource.importador.modelos.ObjetoPontoInterfaceImportacao;
@@ -36,20 +39,19 @@ public class ConverteExcelEmObjetoPonto {
 		return new ObjetoPonto();	
 	}
 	
-	public List<ObjetoPontoCompleto> importacao() throws Exception {
+	public List<ObjetoPontoCompleto> importacao(Importacao importacao) throws Exception {
 
 		try {	
 			
-			// Caminho do arquivo excel de ponto
-			String caminho = "D:\\repositorio\\severino\\excelponto\\Ponto.xls";
-			
 			Workbook arqExel = null;
 
-			String nomeArquivo = caminho;
-			int pos = nomeArquivo.lastIndexOf('.');
-			String extensaoArq = nomeArquivo.substring(pos);
+			String extensaoArq = importacao.getExtensao();
 			
-			File file = new File(caminho);
+			File file = new File("exel.xls");
+			BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
+			bos.write(importacao.getArquivoimportacao().getAnexo()); //Gravamos os bytes lá
+			bos.close(); //Fechamos o stream.
+			
 			FileInputStream fileIn = new FileInputStream(file);
 			
 	        if (extensaoArq.equals(".xlsx")) {
