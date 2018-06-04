@@ -19,6 +19,7 @@ import { FormatarDataPipe } from '../../components/pipes/pipe';
 import { ControleHorasService } from '../../services/controle-horas.service';
 import { ControleHoras } from '../../shared/models/controle-horas';
 import { JornadaService } from '../../services/jornada.service';
+import { Jornada } from '../../shared/models/jornada';
 @Component({
   selector: 'app-ponto',
   templateUrl: './ponto.component.html',
@@ -44,7 +45,8 @@ export class PontoComponent implements OnInit {
   tipoGrow: any;
   horasCredito: string;
   horasDebito: string;
-  jornada: string;
+  jornadas: Jornada[] = [];
+  n: any = 0;
 
   constructor(
     private pontoService: PontoService,
@@ -114,13 +116,15 @@ export class PontoComponent implements OnInit {
   consultaJornada() {
     this.jornadaService.consultaJornada(this.ano, this.mes)
     .subscribe(res => {
+      console.log(res);
+      this.n = 0;
       res.forEach(jornada => {
-        this.jornada = jornada.periodo_jornada;
-      });
-    }, error => {
+        this.jornadas[this.n] = jornada;
+        this.n = this.n + 1;
+    }); }, error => {
       this.tratamentoErrosService.handleError(error);
-    });
-  }
+  });
+}
 
   listarConsultas() {
     this.consultaControleHoras();

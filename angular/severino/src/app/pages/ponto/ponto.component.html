@@ -25,7 +25,8 @@
       <div>
           <p>Credito: {{horasCredito}}</p>
            <p>Debito: {{horasDebito}}</p>
-           <p>Jornada: {{jornada}}</p>
+           <p>Jornada(s): </p>
+           <p *ngFor="let jornada of jornadas">{{jornada.id}} - {{jornada.periodo_jornada}}</p>
       </div>
 
       <div>
@@ -48,6 +49,9 @@
 
             <ng-template pTemplate="header" let-columns>
               <tr>
+                <th>
+                  J
+                </th>
                 <th *ngFor="let col of columns" pResizableColumn>
                   {{col.header}}
                 </th>
@@ -59,6 +63,9 @@
 
             <ng-template pTemplate="body" let-rowData let-columns="columns">
               <tr [ngClass]="rowData.status == 'CORRETO' ? 'linha-correta' : rowData.status == 'DEBITO' ? 'linha-debito' : rowData.status == 'CREDITO' ? 'linha-credito' : null ">
+                <td>
+                  <span *ngIf="rowData.jornada != undefined">{{rowData.jornada.id}}</span>
+                </td>
                 <td *ngFor="let col of columns" class="ui-resizable-column">
                   {{rowData[col.field]}}
                 </td>
