@@ -47,11 +47,10 @@ export class AdminComponent implements OnInit {
     private messageService: MessageService,
   ) {
     this.usuario.nome = sessionStorage.getItem('nomeUsuario');
-    this.importacaoService.listarImportacao().subscribe(res => {});
   }
 
   ngOnInit() {
-
+    this.listarImportacao();
   }
   showSuccess(tipo, titulo, mensagem) {
     this.messageService.add({ severity: tipo, summary: titulo, detail: mensagem });
