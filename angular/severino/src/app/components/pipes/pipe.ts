@@ -1,12 +1,16 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { DatePipe } from '@angular/common';
+import * as moment from 'moment/moment';
 
 @Pipe({
-  name: 'dateFormat'
+  name: 'formatarData'
 })
 
-export class DateFormatPipe extends DatePipe implements PipeTransform {
-  transform(value: any, args?: any): any {
-    return super.transform(value, 'dd/mm/yyyy');
+export class FormatarDataPipe implements PipeTransform {
+  transform(value: string): string {
+    if (value) {
+      const dataFormatada = moment(value).format('DD/MM/YYYY');
+      return dataFormatada;
+    }
+    return '';
   }
 }

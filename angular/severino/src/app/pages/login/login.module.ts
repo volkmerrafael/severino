@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { LoginComponent } from "./login.component";
-import { TituloModule } from "../../components/titulo/titulo.module";
 import { CardModule } from "../../components/card/card.module";
 import { RouterModule } from "@angular/router";
 import { FormsModule } from "@angular/forms";
@@ -15,7 +14,6 @@ import {GrowlModule} from 'primeng/growl';
     BrowserModule,
     RouterModule,
     FormsModule,
-    TituloModule,
     CardModule,
     GrowlModule
   ],

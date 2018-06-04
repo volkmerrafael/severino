@@ -2,8 +2,8 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject, asapScheduler, pipe, of, from, interval, merge, fromEvent } from 'rxjs';
 import { environment } from "../../environments/environment";
-import { Login } from "../model/login";
-import { Usuario } from "../model/usuario";
+import { Login } from "../shared/models/login";
+import { Usuario } from "../shared/models/usuario";
 import { catchError, tap  } from 'rxjs/operators';
 
 @Injectable()
@@ -35,5 +35,12 @@ export class UsuarioService {
       `${environment.server}usuario/obterDadosUsuario`
     );
   }
+
+  usuario(id: number): Observable<Usuario> {
+    return this.http.get<Usuario>(
+      `${environment.server}/severino/rest/usuario/` + id
+    );
+  }
+
 
 }

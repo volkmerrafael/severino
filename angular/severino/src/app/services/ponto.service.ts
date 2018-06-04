@@ -1,12 +1,12 @@
-import { AnoMes } from './../model/anomes';
+import { AnoMes } from './../shared/models/anomes';
 import { Injectable } from "@angular/core";
 import { HttpClient} from '@angular/common/http';
 import { Http } from '@angular/http';
 import { Observable, Subject, asapScheduler, pipe, of, from, interval, merge, fromEvent } from 'rxjs';
 import { environment } from "../../environments/environment";
-import { Ponto } from "../model/ponto";
+import { Ponto } from "../shared/models/ponto";
 import { TableModule } from 'primeng/table';
-import { Importacao } from "../model/importacao";
+import { Importacao } from "../shared/models/importacao";
 import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()

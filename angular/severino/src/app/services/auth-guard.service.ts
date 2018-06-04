@@ -12,7 +12,7 @@ import { MessageService } from 'primeng/components/common/messageservice';
 @Injectable()
 export class AuthGuardService implements CanActivate, CanActivateChild, CanLoad {
 
-  perfilAdmin: boolean = false;
+  perfilAdmin: any = false;
   arrayGrow: Array<any> = new Array<any>();
   tipoUsuario: any;
   mensagemGrow;
@@ -27,7 +27,7 @@ export class AuthGuardService implements CanActivate, CanActivateChild, CanLoad 
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     this.url = route.url;
-    let url: string = state.url;
+    const url: string = state.url;
     if (url === '/admin') {
       return (this.checkLoginAdmin(url));
     } else {
@@ -40,7 +40,7 @@ export class AuthGuardService implements CanActivate, CanActivateChild, CanLoad 
   }
 
   canLoad(route: Route): boolean {
-    let url = `/${route.path}`;
+    const url = `/${route.path}`;
     return this.checkLogin(url);
   }
 
@@ -49,8 +49,8 @@ export class AuthGuardService implements CanActivate, CanActivateChild, CanLoad 
   }
 
   checkLogin(url: string): boolean {
-     let token = sessionStorage.getItem('usertoken');
-    if (token != null && token != undefined && token != '') {
+     const token = sessionStorage.getItem('usertoken');
+    if (token != null && token !== undefined && token !== '') {
       return (true);
     }
     this.tipoGrow = "error";
@@ -61,21 +61,21 @@ export class AuthGuardService implements CanActivate, CanActivateChild, CanLoad 
   }
 
   checkLoginAdmin(url: string): boolean {
-    let token = sessionStorage.getItem('usertoken');
+    const token = sessionStorage.getItem('usertoken');
     this.tipoUsuario = sessionStorage.getItem('tipo');
-    if(this.tipoUsuario == 'ADMIN'){
+    if (this.tipoUsuario === 'ADMIN') {
         this.perfilAdmin = true;
     }
-    if (token != null && token != undefined && token != '' && this.perfilAdmin == true) {
+    if (token != null && token !== undefined && token !== '' && this.perfilAdmin === true) {
       return (true);
     }
     this.tipoGrow = "error";
     this.tituloGrow = 'Erro';
     this.mensagemGrow = 'Você nao tem acesso a esse conteúdo.';
     this.showGrowl(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
-    this.logout()
+    this.logout();
     this.router.navigate(['/login']);
-    return (false)
+    return (false);
   }
   logout(): void {
     sessionStorage.removeItem('nomeUsuario');

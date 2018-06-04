@@ -2,6 +2,21 @@
     margin-right:50px; 
     margin-top:12px
  }
+ .ui-toolbar-group-left{
+    margin-left:50px; 
+    margin-top:12px
+ }
+ .perfil{
+    font-weight: bold;
+    font-size: 18px;
+ }
+ .links{
+    text-decoration: none;
+    margin-left: 10px;
+    cursor:  pointer;
+    font-weight: bold;
+    color: white !important;
+ }
 
  .toolbar{
     background: rgb(26, 124, 204) !important;

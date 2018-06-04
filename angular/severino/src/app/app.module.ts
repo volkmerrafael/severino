@@ -11,8 +11,6 @@ import { PontoService } from './services/ponto.service';
 import { UserHttpInterceptor } from './auth/user-http.interceptor';
 import { FileUploadModule } from 'primeng/fileupload';
 import { MenubarModule } from 'primeng/menubar';
-import { MenuItem } from 'primeng/api';
-import { DateFormatPipe } from './components/pipes/pipe';
 import { DropdownModule } from 'primeng/dropdown';
 import { AdminComponent } from './pages/admin/admin.component';
 import { ImportacaoService } from './services/importacao.service';
@@ -24,7 +22,15 @@ import { TratamentoErrosService } from "./services/tratamento-erros.service";
 import { MessageComponent } from './components/message/message.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ButtonModule } from 'primeng/button';
-import { AuthGuardService } from './services/auth-guard.service'
+import { AuthGuardService } from './services/auth-guard.service';
+import { PerfilComponent } from './pages/perfil/perfil.component';
+import {PanelModule} from 'primeng/panel';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { EditarPerfilComponent } from './pages/editar-perfil/editar-perfil.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MenuModule} from 'primeng/menu';
+import {TieredMenuModule} from 'primeng/tieredmenu';
+
 
 export const HttpInterceptorProviders = [
   { provide: HTTP_INTERCEPTORS, useClass: UserHttpInterceptor, multi: true  }
@@ -33,9 +39,10 @@ export const HttpInterceptorProviders = [
 @NgModule({
   declarations: [
     AppComponent,
-    DateFormatPipe,
     MessageComponent,
-    HomeComponent
+    HomeComponent,
+    PerfilComponent,
+    EditarPerfilComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +56,13 @@ export const HttpInterceptorProviders = [
     PontoModule,
     AdminModule,
     GrowlModule,
-    ButtonModule
+    ButtonModule,
+    PanelModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MenuModule,
+    TieredMenuModule,
   ],
   providers: [
     HttpInterceptorProviders,

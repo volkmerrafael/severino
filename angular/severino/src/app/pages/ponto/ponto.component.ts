@@ -1,26 +1,27 @@
-import { AnoMes } from './../../model/anomes';
+import { AnoMes } from './../../shared/models/anomes';
 import { Component, OnInit } from '@angular/core';
 import { PontoService } from '../../services/ponto.service';
-import { Ponto } from '../../model/ponto';
-import { ArquivoImportacao } from "../../model/arquivoimportacao";
+import { Ponto } from '../../shared/models/ponto';
+import { ArquivoImportacao } from "../../shared/models/arquivoimportacao";
 import { FileUploadModule } from 'primeng/fileupload';
-import { Importacao } from "../../model/importacao";
+import { Importacao } from "../../shared/models/importacao";
 import { MenubarModule } from 'primeng/menubar';
 import { MenuItem } from 'primeng/api';
-import { Usuario } from '../../model/usuario';
-import { DateFormatPipe } from '../../components/pipes/pipe';
+import { Usuario } from '../../shared/models/usuario';
 import { DropdownModule } from 'primeng/dropdown';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
-import { Legenda } from '../../model/legenda';
+import { Legenda } from '../../shared/models/legenda';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { TratamentoErrosService } from '../../services/tratamento-erros.service';
+import { FormatarDataPipe } from '../../components/pipes/pipe';
 
 @Component({
   selector: 'app-ponto',
   templateUrl: './ponto.component.html',
-  styleUrls: ['./ponto.component.css']
+  styleUrls: ['./ponto.component.css'],
+  providers: [FormatarDataPipe]
 })
 export class PontoComponent implements OnInit {
   myDate: Date = new Date();
@@ -34,8 +35,8 @@ export class PontoComponent implements OnInit {
   arqImportacao: ArquivoImportacao = new ArquivoImportacao();
   legendas: Legenda[] = [];
   cols: any[] = [];
-  cu1: string;
-  cu2: string;
+  departamento: string;
+  funcao: string;
   mensagemGrow: any;
   tituloGrow: any;
   tipoGrow: any;
@@ -44,27 +45,27 @@ export class PontoComponent implements OnInit {
     private pontoService: PontoService,
     private messageService: MessageService,
     private tratamentoErrosService: TratamentoErrosService,
+    private formatarDataPipe: FormatarDataPipe
   ) {
 
     this.cols = [
-      { field: 'data', header: 'Data', width: '8%' },
-      { field: 'diasemana', header: 'Dia da Semana', width: '6%' },
-      { field: 'jornada', header: 'Jornada', width: '12%' },
-      { field: 'entrada1', header: 'Entrada', width: '6%' },
-      { field: 'saida1', header: 'Saída', width: '6%' },
-      { field: 'entrada2', header: 'Entrada', width: '6%' },
-      { field: 'saida2', header: 'Saída', width: '6%' },
-      { field: 'entrada3', header: 'Entrada', width: '6%' },
-      { field: 'saida3', header: 'Saída', width: '6%' },
-      { field: 'entrada4', header: 'Entrada', width: '6%' },
-      { field: 'saida4', header: 'Saída', width: '6%' },
-      { field: 'status', header: 'Status', width: '11%' },
-      { field: 'observacao', header: 'Observação', width: '10%' }
+      { field: 'data', pipe: 'formatarData', header: 'Data'},
+      { field: 'diasemana', header: 'Dia da Semana'},
+      { field: 'jornada', header: 'Jornada' },
+      { field: 'entrada1', header: 'Entrada'},
+      { field: 'saida1', header: 'Saída'},
+      { field: 'entrada2', header: 'Entrada'},
+      { field: 'saida2', header: 'Saída'},
+      { field: 'entrada3', header: 'Entrada'},
+      { field: 'saida3', header: 'Saída'},
+      { field: 'entrada4', header: 'Entrada'},
+      { field: 'saida4', header: 'Saída' },
+      { field: 'observacao', header: 'Observação'}
     ];
 
     this.usuario.nome = sessionStorage.getItem('nomeUsuario');
-    this.cu1 = sessionStorage.getItem('departamentoUsuario');
-    this.cu2 = sessionStorage.getItem('funcaoUsuario');
+    this.departamento = sessionStorage.getItem('departamentoUsuario');
+    this.funcao = sessionStorage.getItem('funcaoUsuario');
     this.usuario.pis = sessionStorage.getItem('pisUsuario');
     this.usuario.data_admissao = sessionStorage.getItem('dataAdmissao');
 
@@ -85,7 +86,6 @@ export class PontoComponent implements OnInit {
   listarPeriodos() {
     this.pontoService.listarPeriodos()
       .subscribe(res => {
-        console.log(res)
         this.tipoGrow = "success";
         this.tituloGrow = 'Sucesso';
         this.mensagemGrow = "";
@@ -99,12 +99,14 @@ export class PontoComponent implements OnInit {
   listarPontoPorPeriodo() {
     this.pontoService.listarPontoPorPeriodo(this.ano, this.mes)
       .subscribe(res => {
-        console.log(res)
         this.tipoGrow = "success";
         this.tituloGrow = 'Sucesso';
         this.mensagemGrow = "";
         this.showSuccess(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
         this.pontos = res;
+        this.pontos.forEach(ponto => {
+          ponto.data = this.formatarDataPipe.transform(ponto.data);
+    });
       }, error => {
         this.tratamentoErrosService.handleError(error);
       });

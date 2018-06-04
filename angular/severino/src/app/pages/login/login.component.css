@@ -14,3 +14,8 @@ input{
   display: inline-block;
   border-radius: 10px 10px 10px 10px;
 }
+
+.form-login {
+  padding-top: 200px;
+  padding-bottom: 200px;
+}

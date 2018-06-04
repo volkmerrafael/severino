@@ -1,0 +1,16 @@
+.div {
+    width: 100%;
+    height: 100%;
+}
+
+.span {
+    font-weight: bold;
+    color: black;
+    font-family: Arial, sans-serif;
+    font-size: medium;
+}
+
+.a {
+    font-family: Arial, sans-serif;
+    font-size: medium;
+}

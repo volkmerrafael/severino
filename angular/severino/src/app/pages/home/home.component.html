@@ -1,8 +1,14 @@
 <div class="toolbar">
-    <div *ngIf="mostraLinks" class="ui-toolbar-group-right">
-      <button pButton type="button" (click)="logout()" label="Sair" class="ui-button-secondary"></button>
+    <div *ngIf='mostraLinks' class="ui-toolbar-group-right">
+        <a class="links" (click)="menu.toggle($event)">{{usuario.nome}}
+            <span class="fa fa-fw fa-ellipsis-v"></span>
+        </a>    
+    </div>
+    <div *ngIf='admin' class="ui-toolbar-group-left">
+        <p-button (click)="onClickNavigator('admin')" label="Importações"></p-button>
     </div>
 </div>
+<p-tieredMenu #menu [model]="items" [popup]="true" class="popup"></p-tieredMenu>
 
 <div class="router">
     <router-outlet></router-outlet>

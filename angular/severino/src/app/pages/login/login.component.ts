@@ -1,10 +1,11 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { UsuarioService } from "../../services/usuario.service";
-import { Login } from "../../model/login";
+import { Login } from "../../shared/models/login";
+import { Usuario } from '../../shared/models/usuario';
 import { MessageService } from "primeng/components/common/messageservice";
-import { TratamentoErrosService } from "../../services/tratamento-erros.service"
-import { Message } from "../../model/message";
+import { TratamentoErrosService } from "../../services/tratamento-erros.service";
+import { Message } from "../../shared/models/message";
 
 
 @Component({
@@ -14,6 +15,7 @@ import { Message } from "../../model/message";
 })
 export class LoginComponent {
 
+  user: any;
   usuario: Login;
   msgs: Message[] = [];
   mensagemGrow;
@@ -36,11 +38,15 @@ export class LoginComponent {
   login() {
     this.usuarioService.login(this.usuario)
     .subscribe(res => {
+      console.log(res);
+      this.user = res;
+      sessionStorage.setItem('user', this.user);
       sessionStorage.setItem('nomeUsuario', res.usuario.nome);
+      sessionStorage.setItem('emailUsuario', res.usuario.email);
       sessionStorage.setItem('usertoken', res.usertoken);
       sessionStorage.setItem('sessaotoken', res.sessaotoken);
       sessionStorage.setItem('nomeacesso', res.nomeacesso);
-      sessionStorage.setItem('tipo', res.usuario.acesso.tipo)
+      sessionStorage.setItem('tipo', res.usuario.acesso.tipo);
 
       if (res.usuario.acesso.tipo === "ADMIN") {
         this.router.navigate(['/admin']);
@@ -51,10 +57,6 @@ export class LoginComponent {
         sessionStorage.setItem('dataAdmissao', res.usuario.data_admissao);
         this.router.navigate(['/ponto']);
       }
-      this.tipoGrow = "success";
-      this.tituloGrow = 'Logado';
-      this.mensagemGrow = "";
-      this.showSuccess(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
     }, error => {
       this.tratamentoErrosService.handleError(error);
     });

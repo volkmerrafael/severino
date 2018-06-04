@@ -6,6 +6,7 @@ import { TableModule } from 'primeng/table';
 import { PontoService } from "../../services/ponto.service";
 import { PontoComponent } from "./ponto.component";
 import { ButtonModule } from 'primeng/button';
+import { FormatarDataPipe } from '../../components/pipes/pipe';
 
 @NgModule({
   imports: [
@@ -13,10 +14,11 @@ import { ButtonModule } from 'primeng/button';
     SelectButtonModule,
     FormsModule,
     TableModule,
-    ButtonModule
+    ButtonModule,
   ],
   declarations: [
-    PontoComponent
+    PontoComponent,
+    FormatarDataPipe
   ],
   exports: [
     PontoComponent

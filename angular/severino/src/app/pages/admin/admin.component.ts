@@ -1,15 +1,15 @@
-import { Usuario } from './../../model/usuario';
+import { Usuario } from './../../shared/models/usuario';
 import { ImportacaoService } from './../../services/importacao.service';
-import { AnoMes } from './../../model/anomes';
+import { AnoMes } from './../../shared/models/anomes';
 import { Component, OnInit } from '@angular/core';
 import { PontoService } from '../../services/ponto.service';
-import { Ponto } from '../../model/ponto';
-import { ArquivoImportacao } from "../../model/arquivoimportacao";
+import { Ponto } from '../../shared/models/ponto';
+import { ArquivoImportacao } from "../../shared/models/arquivoimportacao";
 import { FileUploadModule } from 'primeng/fileupload';
-import { Importacao } from "../../model/importacao";
+import { Importacao } from "../../shared/models/importacao";
 import { MenubarModule } from 'primeng/menubar';
 import { MenuItem } from 'primeng/api';
-import { DateFormatPipe } from '../../components/pipes/pipe';
+import { FormatarDataPipe } from '../../components/pipes/pipe';
 import { DropdownModule } from 'primeng/dropdown';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
@@ -37,7 +37,7 @@ export class AdminComponent implements OnInit {
   mensagemGrow: any;
   tituloGrow: any;
   tipoGrow: any;
-  token:any;
+  token: any;
   msgs: Message[];
   uploadedFiles: any[] = [];
 
@@ -47,11 +47,11 @@ export class AdminComponent implements OnInit {
     private messageService: MessageService,
   ) {
     this.usuario.nome = sessionStorage.getItem('nomeUsuario');
-    this.importacaoService.listarImportacao().subscribe(res => {})
+    this.importacaoService.listarImportacao().subscribe(res => {});
   }
 
   ngOnInit() {
-    
+
   }
   showSuccess(tipo, titulo, mensagem) {
     this.messageService.add({ severity: tipo, summary: titulo, detail: mensagem });
@@ -65,14 +65,13 @@ export class AdminComponent implements OnInit {
         this.tituloGrow = 'Atualizado';
         this.mensagemGrow = "";
         this.showSuccess(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
-        console.log(this.tituloGrow)
       }, error => {
         this.tratamentoErrosService.handleError(error);
       });
   }
 
-  onUpload(event,form) {
-    for(let file of event.files) {
+  onUpload(event, form) {
+    for (const file of event.files) {
       this.uploadedFiles.push(file);
     }
     const arquivo = event.files[0];

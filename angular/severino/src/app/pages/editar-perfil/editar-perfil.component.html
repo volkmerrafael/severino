@@ -1,0 +1,38 @@
+<div id="p-editar-perfil" style="padding-left: 300px; padding-right: 300px; padding-top: 100px; padding-bottom: 100px;">
+<p-panel [style]="{margin:'5px'}" styleClass="ui-card-shadow">  
+  <p-header style="font-size: 20px">Editar perfil:</p-header>
+  <div style="display: inline-block;">
+  <form style="margin: 20px" [formGroup]="perfilForm">
+    <div>
+      <label>Nome:</label>
+      <br>
+      <input size="50%" formControlName="inputNome" pInputText [(ngModel)]="usuario.nome" />
+      <br>
+    </div>
+    <div>
+      <br>
+      <label>Nome de acesso:</label>
+      <br>
+      <input size="50%" formControlName="inputNomeAcesso" pInputText [(ngModel)]="acesso.nomeacesso" />
+      <br>
+    </div>
+    <div>
+      <br>
+      <label>E-mail:</label>
+      <br>
+      <input size="50" formControlName="inputEmail" pInputText [(ngModel)]="usuario.email" />
+      <br>
+    </div>
+    <div>
+      <br>
+      <label>Senha:</label>
+      <br>
+      <input size="50" type='password' formControlName="inputSenha" pInputText [(ngModel)]="acesso.senha" />
+      <br>
+    </div>
+  </form>
+  <button pButton type="button" icon="fa fa-fw fa-reply" label="Voltar" class="ui-button-secondary" (click)="voltar()"></button>
+  <button pButton type="button" icon="fa fa-fw fa-chevron-down" label="Salvar" class="ui-button-success" (click)="editarUsuario()"></button>
+</div>
+</p-panel>
+</div>
