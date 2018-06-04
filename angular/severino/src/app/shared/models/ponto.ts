@@ -18,4 +18,5 @@ export class Ponto {
   observacao: string;
   usuario: Usuario;
   legenda: Legenda;
+  status: string;
 }

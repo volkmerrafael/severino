@@ -51,7 +51,7 @@
 }
 
 .linha-correta {
-  background-color: rgb(86, 136, 169) !important;
+  background-color: rgb(72, 157, 206) !important;
   color: #ffffff !important;
 }
 
@@ -61,18 +61,67 @@
 }
 
 .linha-credito {
-  background-color: rgb(63, 118, 65) !important;
+  background-color: rgb(64, 131, 66) !important;
   color: #ffffff !important;
 }
 
-.ui-button-info {
-  background-color: rgb(86, 136, 169) !important;
+.linha-justificado {
+  background-color: rgb(55, 103, 190) !important;
+  color: #ffffff !important;
 }
 
-.ui-button-success {
+.linha-marcacao-incorreta {
+  background-color: rgb(197, 108, 56) !important;
+  color: #ffffff !important;
+}
+
+.linha-sem-informacoes {
+  background-color: #ffffff !important;
+  color: black !important;
+   
+}
+
+.linha-ferias {
+  background-color: rgb(39, 163, 194) !important;
+  color: #ffffff !important;
+}
+
+.linha-atestado-medico {
+  background-color: #aea1b9f3 !important;
+  color: #ffffff !important;
+}
+
+.linha-ponto-facultativo {
+  background-color: #df7365f3 !important;
+  color: #ffffff !important;
+}
+
+.linha-falta-justificada {
+  background-color: rgb(192, 192, 112) !important;
+  color: #ffffff !important;
+}
+
+.linha-nao-admitido {
+  background-color: rgb(123, 130, 138) !important;
+  color: #ffffff !important;
+}
+
+.linha-feriado {
+  background-color: rgb(23, 190, 168) !important;
+  color: #ffffff !important;
+}
+
+.ui-button-correto {
+  background-color: rgb(72, 157, 206) !important;
+  border-color: rgb(72, 157, 206) !important;
+}
+
+.ui-button-credito {
   background-color: rgb(63, 118, 65) !important;
+  border-color: rgb(63, 118, 65) !important;
 }
 
-.ui-button-danger {
+.ui-button-debito {
   background-color: rgb(153, 59, 59) !important;
+  border-color: rgb(153, 59, 59) !important;
 }

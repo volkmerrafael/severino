@@ -7,6 +7,8 @@ import { PontoService } from "../../services/ponto.service";
 import { PontoComponent } from "./ponto.component";
 import { ButtonModule } from 'primeng/button';
 import { FormatarDataPipe } from '../../components/pipes/pipe';
+import {MultiSelectModule} from 'primeng/multiselect';
+import {PanelModule} from 'primeng/panel';
 
 @NgModule({
   imports: [
@@ -15,6 +17,8 @@ import { FormatarDataPipe } from '../../components/pipes/pipe';
     FormsModule,
     TableModule,
     ButtonModule,
+    MultiSelectModule,
+    PanelModule
   ],
   declarations: [
     PontoComponent,

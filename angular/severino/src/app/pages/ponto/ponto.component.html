@@ -28,11 +28,12 @@
            <p>Jornada(s): </p>
            <p *ngFor="let jornada of jornadas">{{jornada.id}} - {{jornada.periodo_jornada}}</p>
       </div>
+      
 
       <div>
-          <p><button pButton type="button" class="ui-button-info"></button>Correto  
-          <button pButton type="button" class="ui-button-success"></button>Crédito  
-          <button pButton type="button" class="ui-button-danger"></button>Débito</p>
+          <p><button pButton value="CORRETO" type="button" class="ui-button-correto"></button>Correto  
+          <button pButton type="button" class="ui-button-credito"></button>Crédito  
+          <button pButton type="button" class="ui-button-debito"></button>Débito </p>
       </div>
 
       <div class="row">
@@ -62,7 +63,19 @@
             </ng-template>
 
             <ng-template pTemplate="body" let-rowData let-columns="columns">
-              <tr [ngClass]="rowData.status == 'CORRETO' ? 'linha-correta' : rowData.status == 'DEBITO' ? 'linha-debito' : rowData.status == 'CREDITO' ? 'linha-credito' : null ">
+              <tr [ngClass]="rowData.status == 'CORRETO' ? 'linha-correta' : 
+              rowData.status == 'DEBITO' ? 'linha-debito' :
+              rowData.status == 'CREDITO' ? 'linha-credito' : 
+              rowData.status == 'JUSTIFICADO' ? 'linha-justificado' : 
+              rowData.status == 'MARCACAO_INCORRETA' ? 'linha-marcacao-incorreta' :
+              rowData.status == 'SEM_INFORMACAO' ? 'linha-sem-informacoes' :
+              rowData.status == 'FERIAS' ? 'linha-ferias' : 
+              rowData.status == 'ATESTADO_MEDICO' ? 'linha-atestado-medico' :
+              rowData.status == 'PONTO_FACULTATIVO' ? 'linha-ponto-facultativo' : 
+              rowData.status == 'FALTA_JUSTIFICADA' ? 'linha-falta-justificada' : 
+              rowData.status == 'NAO_ADMITIDO' ? 'linha-nao-admitido' : 
+              rowData.status == 'FERIADO' ? 'linha-feriado' :  
+              null ">
                 <td>
                   <span *ngIf="rowData.jornada != undefined">{{rowData.jornada.id}}</span>
                 </td>
@@ -76,6 +89,13 @@
             </ng-template>
 
           </p-table>
+          <p-panel>
+            <p-header>Total</p-header>
+            <p>Credito: {{horasCredito}}</p>
+           <p>Debito: {{horasDebito}}</p>
+           <p>Jornada(s): </p>
+           <p *ngFor="let jornada of jornadas">{{jornada.id}} - {{jornada.periodo_jornada}}</p>
+          </p-panel>
         </div>
 
       </div>

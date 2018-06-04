@@ -6,7 +6,7 @@ import { ArquivoImportacao } from "../../shared/models/arquivoimportacao";
 import { FileUploadModule } from 'primeng/fileupload';
 import { Importacao } from "../../shared/models/importacao";
 import { MenubarModule } from 'primeng/menubar';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, SelectItem } from 'primeng/api';
 import { Usuario } from '../../shared/models/usuario';
 import { DropdownModule } from 'primeng/dropdown';
 import { BrowserModule } from '@angular/platform-browser';
@@ -130,5 +130,45 @@ export class PontoComponent implements OnInit {
     this.consultaControleHoras();
     this.consultaJornada();
     this.consultaPontoPorPeriodo();
+  }
+
+  verificarStatus() {
+    let existeCorreto: any = false;
+    let existeDebito: any = false;
+    let existeCredito: any = false;
+    let existeJustificado: any = false;
+    let existeMarcInc: any = false;
+    let existeSemInf: any = false;
+    let existeFerias: any = false;
+    let existeAtestado: any = false;
+    let existeFacultativo: any = false;
+    let existeNaoAdimitido: any = false;
+    let existeFeriado: any = false;
+
+    this.pontos.forEach(ponto => {
+      if (ponto.status === 'CORRETO') {
+        existeCorreto = true;
+      } else if (ponto.status === 'DEBITO') {
+        existeDebito = true;
+      } else if (ponto.status === 'CREDITO') {
+        existeCredito = true;
+      } else if (ponto.status === 'JUSTIFICADO') {
+        existeJustificado = true;
+      } else if (ponto.status === 'MARCACAO_INCORRETA') {
+        existeMarcInc = true;
+      } else if (ponto.status === 'SEM_INFORMACAO') {
+        existeSemInf = true;
+      } else if (ponto.status === 'ATESTADO_MEDICO') {
+        existeAtestado = true;
+      } else if (ponto.status === 'PONTO_FACULTATIVO') {
+        existeFacultativo = true;
+      } else if (ponto.status === 'FALTA_JUSTIFICADA') {
+        existeFerias = true;
+      } else if (ponto.status === 'NAO_ADMITIDO') {
+        existeNaoAdimitido = true;
+      } else if (ponto.status === 'FERIADO') {
+        existeFeriado = true;
+      }
+    });
   }
 }
