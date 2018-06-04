@@ -40,14 +40,20 @@ public class ControleHoras {
 	private Importacao importacao;
 		
 	@Column
+	@JsonDeserialize(using = LocalTimeDeserializer.class)
+	@JsonSerialize(using = LocalTimeSerializer.class)
 	@CampoInfo(descricao="Horas Crédito", obrigatorio=false)
 	private LocalTime horas_credito;
 	
 	@Column
+	@JsonDeserialize(using = LocalTimeDeserializer.class)
+	@JsonSerialize(using = LocalTimeSerializer.class)
 	@CampoInfo(descricao="Horas Débito", obrigatorio=false)
 	private LocalTime horas_debito;
 
 	@Column
+	@JsonDeserialize(using = LocalTimeDeserializer.class)
+	@JsonSerialize(using = LocalTimeSerializer.class)
 	@CampoInfo(descricao="Banco de Horas", obrigatorio=false)
 	private LocalTime banco_de_horas;
 
