@@ -9,6 +9,9 @@ import { ButtonModule } from 'primeng/button';
 import { FormatarDataPipe } from '../../components/pipes/pipe';
 import {MultiSelectModule} from 'primeng/multiselect';
 import {PanelModule} from 'primeng/panel';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
+import {TooltipModule} from 'primeng/tooltip';
+import {DialogModule} from 'primeng/dialog';
 
 @NgModule({
   imports: [
@@ -18,7 +21,10 @@ import {PanelModule} from 'primeng/panel';
     TableModule,
     ButtonModule,
     MultiSelectModule,
-    PanelModule
+    PanelModule,
+    OverlayPanelModule,
+    TooltipModule,
+    DialogModule
   ],
   declarations: [
     PontoComponent,

@@ -1,107 +1,100 @@
+<div class="ui-g">
+  <div class="ui-g-12" style="text-align: center; padding-top: 30px;">
+    <div id="pesquisa" class="form-group">
+
+      <input class="form-control" pInputText id="mes" name="mes" type="text" placeholder="Mês" [(ngModel)]="mes" />
+
+      <input class="form-control" pInputText id="ano" name="ano" type="text" placeholder="Ano" [(ngModel)]="ano" />
+
+      <p-button id="btnPesquisar" label="Procurar" icon="fa fa-fw fa-search" (onClick)="listarConsultas()"></p-button>
+
+    </div>
+  </div>
+  <br>  
+</div>
+
 <div id="corpoPonto" class="row justify-content-md-center">
-  <div id="card" class="card">
 
     <div class="card-body">
 
-      <div>
-
-        <img id="severino-icon" src="../../../assets/severino-icon-64.png" alt="Severino">
-
-      </div>
-
-      <br>
-
-      <div class="form-group">
-
-        <input class="form-control" pInputText id="mes" name="mes" type="text" placeholder="Mês" [(ngModel)]="mes" />
-
-        <input class="form-control" pInputText id="ano" name="ano" type="text" placeholder="Ano" [(ngModel)]="ano" />
-
-        <p-button id="btnPesquisar" label="Procurar" icon="fa fa-fw fa-search" (onClick)="listarConsultas()"></p-button>
-
-      </div>
-
-      <br>
-
-      <div>
-        <span *ngIf="existeCorreto">
-          <svg height="15" width="15">
-              <circle cx="15" cy="15" r="40" fill="rgb(72, 157, 206)" />
-          </svg>
-          Correto
-        </span>
-        <span *ngIf="existeDebito">
-            <svg height="15" width="15">
-                <circle cx="15" cy="15" r="40" fill="rgb(153, 59, 59)" />
-            </svg>
-          Debito
-        </span>
-        <span *ngIf="existeCredito">
-            <svg height="15" width="15">
-                <circle cx="15" cy="15" r="40" fill="rgb(64, 131, 66)" />
-            </svg>
-          Crédito
-        </span>
-        <span *ngIf="existeJustificado">
-            <svg height="15" width="15">
-                <circle cx="15" cy="15" r="40" fill="rgb(55, 103, 190)" />
-            </svg>
-          Justificado
-        </span>
-        <span *ngIf="existeFaltaJust">
-            <svg height="15" width="15">
-                <circle cx="15" cy="15" r="40" fill="rgb(192, 192, 112)" />
-            </svg>
-          Falta Justificada
-        </span>
-        <span *ngIf="existeMarcInc">
-            <svg height="15" width="15">
-                <circle cx="15" cy="15" r="40" fill="rgb(197, 108, 56)" />
-            </svg>
-          Marcação Incorreta
-        </span>
-        <span *ngIf="existeSemInf">
-            <svg height="15" width="15">
-                <circle cx="15" cy="15" r="40" fill="white" />
-            </svg>
-          Sem Informção
-        </span>
-        <span *ngIf="existeFerias">
-            <svg height="15" width="15">
-                <circle cx="15" cy="15" r="40" fill="rgb(39, 163, 194)" />
-            </svg>
-          Férias
-        </span>
-        <span *ngIf="existeAtestado">
-            <svg height="15" width="15">
-                <circle cx="15" cy="15" r="40" fill="rgb(135, 140, 141) " />
-            </svg>
-          Atestado Médico
-        </span>
-        <span *ngIf="existeFacultativo">
-            <svg height="15" width="15">
-                <circle cx="15" cy="15" r="40" fill="rgb(206, 105, 66)" />
-            </svg>
-          Ponto Facultativo
-        </span>
-        <span *ngIf="existeNaoAdimitido">
-            <svg height="15" width="15">
-                <circle cx="15" cy="15" r="40" fill="rgb(123, 130, 138)" />
-            </svg>
-          Não Admitido
-        </span>
-        <span *ngIf="existeFeriado">
-            <svg height="15" width="15">
-                <circle cx="15" cy="15" r="40" fill="rgb(23, 190, 168)" />
-            </svg>
-          Feriado
-        </span>
-      </div>
-
       <div class="row">
 
-        <div id="table">
+          <div id="legenda" class="ui-g-12" style="text-align: right;">
+              <span *ngIf="existeCorreto">
+                <svg height="15" width="15">
+                  <circle cx="15" cy="15" r="40" fill="rgb(72, 157, 206)" />
+                </svg>
+                Correto
+              </span>
+              <span *ngIf="existeDebito">
+                <svg height="15" width="15">
+                  <circle cx="15" cy="15" r="40" fill="rgb(153, 59, 59)" />
+                </svg>
+                Debito
+              </span>
+              <span *ngIf="existeCredito">
+                <svg height="15" width="15">
+                  <circle cx="15" cy="15" r="40" fill="rgb(64, 131, 66)" />
+                </svg>
+                Crédito
+              </span>
+              <span *ngIf="existeJustificado">
+                <svg height="15" width="15">
+                  <circle cx="15" cy="15" r="40" fill="rgb(55, 103, 190)" />
+                </svg>
+                Justificado
+              </span>
+              <span *ngIf="existeFaltaJust">
+                <svg height="15" width="15">
+                  <circle cx="15" cy="15" r="40" fill="rgb(192, 192, 112)" />
+                </svg>
+                Falta Justificada
+              </span>
+              <span *ngIf="existeMarcInc">
+                <svg height="15" width="15">
+                  <circle cx="15" cy="15" r="40" fill="rgb(197, 108, 56)" />
+                </svg>
+                Marcação Incorreta
+              </span>
+              <span *ngIf="existeSemInf">
+                <svg height="15" width="15">
+                  <circle cx="15" cy="15" r="40" fill="white" />
+                </svg>
+                Sem Informção
+              </span>
+              <span *ngIf="existeFerias">
+                <svg height="15" width="15">
+                  <circle cx="15" cy="15" r="40" fill="rgb(39, 163, 194)" />
+                </svg>
+                Férias
+              </span>
+              <span *ngIf="existeAtestado">
+                <svg height="15" width="15">
+                  <circle cx="15" cy="15" r="40" fill="rgb(135, 140, 141) " />
+                </svg>
+                Atestado Médico
+              </span>
+              <span *ngIf="existeFacultativo">
+                <svg height="15" width="15">
+                  <circle cx="15" cy="15" r="40" fill="rgb(206, 105, 66)" />
+                </svg>
+                Ponto Facultativo
+              </span>
+              <span *ngIf="existeNaoAdimitido">
+                <svg height="15" width="15">
+                  <circle cx="15" cy="15" r="40" fill="rgb(123, 130, 138)" />
+                </svg>
+                Não Admitido
+              </span>
+              <span *ngIf="existeFeriado">
+                <svg height="15" width="15">
+                  <circle cx="15" cy="15" r="40" fill="rgb(23, 190, 168)" />
+                </svg>
+                Feriado
+              </span>
+            </div>
 
+        <div id="table">
           <p-table [columns]="cols" [value]="pontos" [resizableColumns]="true">
 
             <ng-template pTemplate="colgroup" let-columns>
@@ -112,14 +105,23 @@
 
             <ng-template pTemplate="header" let-columns>
               <tr>
-                <th>
-                  J
+                <th pResizableColumn>
+                  Dia
                 </th>
                 <th *ngFor="let col of columns" pResizableColumn>
                   {{col.header}}
                 </th>
-                <th>
-                  L
+                <th pResizableColumn style="width: 7%;">
+                  <button type="text" (click)="showDialogJornada()" pButton icon="fa-question-circle"></button> Jor.
+                  <p-dialog header="Jornadas" [(visible)]="displayJornada" [responsive]="true" [width]="350" [minWidth]="200" [minY]="70">
+                      <p *ngFor="let jornada of jornadas">Jornada(s): {{jornada.id}} - {{jornada.periodo_jornada}}</p>
+                  </p-dialog>
+                </th>
+                <th pResizableColumn style="width: 7%;">
+                    <button type="text" (click)="showDialogLegenda()" pButton icon="fa-question-circle"></button> Leg.
+                    <p-dialog header="Legendas" [(visible)]="displayLegenda" [responsive]="true" [width]="350" [minWidth]="200" [minY]="70">
+                        <p *ngFor="let legenda of legendas">Legendas(s): {{legenda.sigla}} - {{legenda.nome}}</p>
+                    </p-dialog>
                 </th>
               </tr>
             </ng-template>
@@ -138,31 +140,30 @@
               rowData.status == 'NAO_ADMITIDO' ? 'linha-nao-admitido' : 
               rowData.status == 'FERIADO' ? 'linha-feriado' :  
               null ">
-                <td>
-                  <span *ngIf="rowData.jornada != undefined">{{rowData.jornada.id}}</span>
+                <td class="ui-resizable-colum">
+                  <span *ngIf="rowData.diasemana != undefined">{{rowData.diasemana.nome}}</span>
                 </td>
                 <td *ngFor="let col of columns" class="ui-resizable-column">
                   {{rowData[col.field]}}
                 </td>
-                <td>
+                <td class="ui-resizable-colum">
+                  <span *ngIf="rowData.jornada != undefined">{{rowData.jornada.id}}</span>
+                </td>
+                <td class="ui-resizable-colum">
                   <span *ngIf="rowData.legenda != undefined">{{rowData.legenda.sigla}}</span>
                 </td>
               </tr>
             </ng-template>
 
           </p-table>
-          <p-panel class="ui-panel" >
+          <p-panel class="ui-panel">
             <p-header>Total</p-header>
             <p>Credito: {{horasCredito}}</p>
-           <p>Debito: {{horasDebito}}</p>
-           <p *ngFor="let jornada of jornadas">Jornada(s): {{jornada.id}} - {{jornada.periodo_jornada}}</p>
+            <p>Debito: {{horasDebito}}</p>            
           </p-panel>
         </div>
 
       </div>
 
-    </div>
-
-  </div>
-
+    </div>    
 </div>

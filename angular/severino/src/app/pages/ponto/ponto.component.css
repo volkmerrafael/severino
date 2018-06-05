@@ -3,6 +3,32 @@
   padding-right: 100px;
 }
 
+#mes {
+  margin-right: 10px;
+}
+
+#table{
+  text-align: center;
+}
+
+#legenda.ui-g-6{
+  padding-top: 0;
+  vertical-align: bottom;
+}
+
+#ano {
+  margin-right: 10px;
+}
+
+#pesquisa {
+  margin-bottom: 0;
+}
+
+#legenda {
+  padding-right: 100px;
+  text-align: right;
+}
+
 #menu-lateral {
   text-align: center;
 }
@@ -11,40 +37,21 @@
   text-align: center;
 }
 
-#float-input{
-  text-align: center;
-  margin-top: 10px 10px 10px 10px;
-}
-
-#corpoPonto{
-  padding-top: 100px;
-}
-
-#btnPesquisar{
-  margin: 0px 0px 0px 5px;
-}
-
-#uploadInput{
-  margin-top: 10px;
+#pesquisa {
+  padding-left: 100px; 
 }
 
 #inputInfo {
   text-align: center;
 }
 
-#severino-icon{
-  margin-bottom: 20px;
-}
-
 #ano {
-  margin-bottom: 10px;
   text-align: center;
   width: 100px;
   display: inline-block;
 }
 
 #mes {
-  margin-bottom: 10px;
   text-align: center;
   width: 70px;
   display: inline-block;

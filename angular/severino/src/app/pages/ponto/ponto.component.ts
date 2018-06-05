@@ -20,6 +20,9 @@ import { ControleHorasService } from '../../services/controle-horas.service';
 import { ControleHoras } from '../../shared/models/controle-horas';
 import { JornadaService } from '../../services/jornada.service';
 import { Jornada } from '../../shared/models/jornada';
+import { DiaSemana } from '../../shared/models/diasemana';
+import { Message } from 'primeng/components/common/message';
+
 @Component({
   selector: 'app-ponto',
   templateUrl: './ponto.component.html',
@@ -59,6 +62,9 @@ export class PontoComponent implements OnInit {
   existeFacultativo: any = false;
   existeNaoAdimitido: any = false;
   existeFeriado: any = false;
+  displayLegenda: any = false;
+  displayJornada: any = false;
+  msgs: Message[];
 
   constructor(
     private pontoService: PontoService,
@@ -70,17 +76,16 @@ export class PontoComponent implements OnInit {
   ) {
 
     this.cols = [
-      { field: 'data', pipe: 'formatarData', header: 'Data'},
-      { field: 'diasemana', header: 'Dia da Semana'},
-      { field: 'entrada1', header: 'Entrada'},
-      { field: 'saida1', header: 'Saída'},
-      { field: 'entrada2', header: 'Entrada'},
-      { field: 'saida2', header: 'Saída'},
-      { field: 'entrada3', header: 'Entrada'},
-      { field: 'saida3', header: 'Saída'},
-      { field: 'entrada4', header: 'Entrada'},
-      { field: 'saida4', header: 'Saída' },
-      { field: 'observacao', header: 'Observação'}
+      { field: 'data', pipe: 'formatarData', header: 'Data', width: '6%'},
+      { field: 'entrada1', header: 'Entrada', width: '10%'},
+      { field: 'saida1', header: 'Saída', width: '6%'},
+      { field: 'entrada2', header: 'Entrada', width: '6%'},
+      { field: 'saida2', header: 'Saída', width: '6%'},
+      { field: 'entrada3', header: 'Entrada', width: '6%'},
+      { field: 'saida3', header: 'Saída', width: '6%'},
+      { field: 'entrada4', header: 'Entrada', width: '6%'},
+      { field: 'saida4', header: 'Saída', width: '6%'},
+      { field: 'observacao', header: 'Observação', width: '6%'}
     ];
 
     this.usuario.nome = sessionStorage.getItem('nomeUsuario');
@@ -89,6 +94,14 @@ export class PontoComponent implements OnInit {
     this.usuario.pis = sessionStorage.getItem('pisUsuario');
     this.usuario.data_admissao = sessionStorage.getItem('dataAdmissao');
 
+  }
+
+  showDialogLegenda() {
+    this.displayLegenda = true;
+  }
+
+  showDialogJornada() {
+    this.displayJornada = true;
   }
 
   ngOnInit() {
@@ -102,6 +115,7 @@ export class PontoComponent implements OnInit {
   consultaPontoPorPeriodo() {
     this.pontoService.listarPontoPorPeriodo(this.ano, this.mes)
       .subscribe(res => {
+        console.log(res);
         this.tipoGrow = "success";
         this.tituloGrow = 'Sucesso';
         this.mensagemGrow = "";
