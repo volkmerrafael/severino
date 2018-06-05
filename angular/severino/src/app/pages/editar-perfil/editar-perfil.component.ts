@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router/src/directives/router_link';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Usuario } from '../../shared/models/usuario';
 import { Acesso } from '../../shared/models/acesso';
+import { Login } from '../../shared/models/login';
 import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
@@ -17,6 +18,8 @@ export class EditarPerfilComponent implements OnInit {
   usuario: Usuario = new Usuario();
   acesso: Acesso = new Acesso();
   myGroup: FormGroup;
+  login: Login;
+  id: number;
 
   constructor(
     private location: Location,
@@ -26,9 +29,14 @@ export class EditarPerfilComponent implements OnInit {
 
   ngOnInit() {
 
-    this.usuario.nome = sessionStorage.getItem('nomeUsuario');
-    this.acesso.nomeacesso = sessionStorage.getItem('nomeacesso');
-    this.usuario.email = sessionStorage.getItem('emailUsuario');
+    this.id = parseInt(sessionStorage.getItem('id'), 10);
+    console.log(this.id);
+    this.usuarioService.usuario(this.id)
+    .subscribe( res => {
+      this.usuario.nome = res.nome;
+      this.usuario.email = res.email;
+      console.log(res);
+    });
 
     this.perfilForm = this.fb.group({
       'inputNome': new FormControl('', [Validators.required]),
@@ -38,6 +46,11 @@ export class EditarPerfilComponent implements OnInit {
     });
   }
 
+  clickEditar() {
+    this.usuarioService.editar(this.usuario)
+    .subscribe( res => {
+    });
+  }
 
   voltar() {
     this.location.back();

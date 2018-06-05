@@ -6,6 +6,7 @@ import { Departamento } from '../../shared/models/departamento';
 import { Funcao } from '../../shared/models/funcao';
 import { Location } from '@angular/common';
 import { RouterLink } from '@angular/router/src/directives/router_link';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-perfil',
@@ -21,6 +22,7 @@ export class PerfilComponent implements OnInit {
 
   constructor(
     private location: Location,
+    private usuarioService: UsuarioService,
   ) {   }
 
   ngOnInit() {
@@ -32,6 +34,7 @@ export class PerfilComponent implements OnInit {
     this.funcao.nome = sessionStorage.getItem('funcaoUsuario');
     this.usuario.data_admissao = sessionStorage.getItem('dataAdmissao');
   }
+
 
   voltar() {
     this.location.back();

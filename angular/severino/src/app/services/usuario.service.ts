@@ -38,9 +38,14 @@ export class UsuarioService {
 
   usuario(id: number): Observable<Usuario> {
     return this.http.get<Usuario>(
-      `${environment.server}/severino/rest/usuario/` + id
+      `${environment.server}usuario/` + id
     );
   }
 
+  editar( usuario: Usuario ): Observable<Usuario> {
+    return this.http.put<Usuario>(
+      `${environment.server}usuario`, usuario
+    );
+  }
 
 }

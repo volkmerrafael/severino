@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/components/common/messageservice';
+import {Message} from 'primeng/api';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +9,7 @@ import { MessageService } from 'primeng/components/common/messageservice';
   providers: [MessageService]
 })
 export class AppComponent {
+
+  msgs: Message[] = [];
 
 }

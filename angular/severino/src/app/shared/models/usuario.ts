@@ -3,9 +3,8 @@ import { Departamento } from './departamento';
 import { Funcao } from './funcao';
 
 export class Usuario {
-
+  id: number;
   nome: string;
-  nomeacesso: string;
   senha: string;
   acesso: Acesso;
   departamento: Departamento;
