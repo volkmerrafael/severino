@@ -70,6 +70,11 @@
   color: #ffffff !important;
 }
 
+.linha-falta-justificada {
+  background-color: rgb(192, 192, 112) !important;
+  color: #ffffff !important;
+}
+
 .linha-marcacao-incorreta {
   background-color: rgb(197, 108, 56) !important;
   color: #ffffff !important;
@@ -78,7 +83,6 @@
 .linha-sem-informacoes {
   background-color: #ffffff !important;
   color: black !important;
-   
 }
 
 .linha-ferias {
@@ -87,17 +91,12 @@
 }
 
 .linha-atestado-medico {
-  background-color: #aea1b9f3 !important;
+  background-color: rgb(135, 140, 141) !important;
   color: #ffffff !important;
 }
 
 .linha-ponto-facultativo {
-  background-color: #df7365f3 !important;
-  color: #ffffff !important;
-}
-
-.linha-falta-justificada {
-  background-color: rgb(192, 192, 112) !important;
+  background-color: rgb(206, 105, 66) !important;
   color: #ffffff !important;
 }
 
@@ -111,17 +110,6 @@
   color: #ffffff !important;
 }
 
-.ui-button-correto {
-  background-color: rgb(72, 157, 206) !important;
-  border-color: rgb(72, 157, 206) !important;
-}
-
-.ui-button-credito {
-  background-color: rgb(63, 118, 65) !important;
-  border-color: rgb(63, 118, 65) !important;
-}
-
-.ui-button-debito {
-  background-color: rgb(153, 59, 59) !important;
-  border-color: rgb(153, 59, 59) !important;
+.ui-panel {
+  text-align: right !important;
 }

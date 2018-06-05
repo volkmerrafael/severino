@@ -47,6 +47,18 @@ export class PontoComponent implements OnInit {
   horasDebito: string;
   jornadas: Jornada[] = [];
   n: any = 0;
+  existeCorreto: any = false;
+  existeDebito: any = false;
+  existeCredito: any = false;
+  existeJustificado: any = false;
+  existeFaltaJust: any = false;
+  existeMarcInc: any = false;
+  existeSemInf: any = false;
+  existeFerias: any = false;
+  existeAtestado: any = false;
+  existeFacultativo: any = false;
+  existeNaoAdimitido: any = false;
+  existeFeriado: any = false;
 
   constructor(
     private pontoService: PontoService,
@@ -80,7 +92,7 @@ export class PontoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.consultaPontoPorPeriodo();
+    this.listarConsultas();
    }
 
   showSuccess(tipo, titulo, mensagem) {
@@ -95,6 +107,7 @@ export class PontoComponent implements OnInit {
         this.mensagemGrow = "";
         this.showSuccess(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
         this.pontos = res;
+        this.verificarStatus(res);
         this.pontos.forEach(ponto => {
           ponto.data = this.formatarDataPipe.transform(ponto.data);
     });
@@ -106,8 +119,10 @@ export class PontoComponent implements OnInit {
   consultaControleHoras() {
     this.controleHorasService.controleHoras(this.ano, this.mes)
     .subscribe(res => {
-      this.horasCredito = res.horas_credito;
-      this.horasDebito = res.horas_debito;
+      if (res != null) {
+        this.horasCredito = res.horas_credito;
+        this.horasDebito = res.horas_debito;
+      }
     }, error => {
         this.tratamentoErrosService.handleError(error);
       });
@@ -116,7 +131,6 @@ export class PontoComponent implements OnInit {
   consultaJornada() {
     this.jornadaService.consultaJornada(this.ano, this.mes)
     .subscribe(res => {
-      console.log(res);
       this.n = 0;
       res.forEach(jornada => {
         this.jornadas[this.n] = jornada;
@@ -132,42 +146,55 @@ export class PontoComponent implements OnInit {
     this.consultaPontoPorPeriodo();
   }
 
-  verificarStatus() {
-    let existeCorreto: any = false;
-    let existeDebito: any = false;
-    let existeCredito: any = false;
-    let existeJustificado: any = false;
-    let existeMarcInc: any = false;
-    let existeSemInf: any = false;
-    let existeFerias: any = false;
-    let existeAtestado: any = false;
-    let existeFacultativo: any = false;
-    let existeNaoAdimitido: any = false;
-    let existeFeriado: any = false;
-
-    this.pontos.forEach(ponto => {
+  verificarStatus(pontos: Ponto[]) {
+    this.existeCorreto = false;
+    this.existeDebito = false;
+    this.existeCredito = false;
+    this.existeJustificado = false;
+    this.existeFaltaJust = false;
+    this.existeMarcInc = false;
+    this.existeSemInf = false;
+    this.existeFerias = false;
+    this.existeAtestado = false;
+    this.existeFacultativo = false;
+    this.existeNaoAdimitido = false;
+    this.existeFeriado = false;
+      pontos.forEach(ponto => {
       if (ponto.status === 'CORRETO') {
-        existeCorreto = true;
-      } else if (ponto.status === 'DEBITO') {
-        existeDebito = true;
-      } else if (ponto.status === 'CREDITO') {
-        existeCredito = true;
-      } else if (ponto.status === 'JUSTIFICADO') {
-        existeJustificado = true;
-      } else if (ponto.status === 'MARCACAO_INCORRETA') {
-        existeMarcInc = true;
-      } else if (ponto.status === 'SEM_INFORMACAO') {
-        existeSemInf = true;
-      } else if (ponto.status === 'ATESTADO_MEDICO') {
-        existeAtestado = true;
-      } else if (ponto.status === 'PONTO_FACULTATIVO') {
-        existeFacultativo = true;
-      } else if (ponto.status === 'FALTA_JUSTIFICADA') {
-        existeFerias = true;
-      } else if (ponto.status === 'NAO_ADMITIDO') {
-        existeNaoAdimitido = true;
-      } else if (ponto.status === 'FERIADO') {
-        existeFeriado = true;
+        this.existeCorreto = true;
+      }
+      if (ponto.status === 'DEBITO') {
+        this.existeDebito = true;
+      }
+      if (ponto.status === 'CREDITO') {
+        this.existeCredito = true;
+      }
+      if (ponto.status === 'JUSTIFICADO') {
+        this.existeJustificado = true;
+      }
+      if (ponto.status === 'FALTA_JUSTIFICADA') {
+        this.existeFaltaJust = true;
+      }
+      if (ponto.status === 'MARCACAO_INCORRETA') {
+        this.existeMarcInc = true;
+      }
+      if (ponto.status === 'SEM_INFORMACAO') {
+        this.existeSemInf = true;
+      }
+      if (ponto.status === 'ATESTADO_MEDICO') {
+        this.existeAtestado = true;
+      }
+      if (ponto.status === 'PONTO_FACULTATIVO') {
+        this.existeFacultativo = true;
+      }
+      if (ponto.status === 'FERIAS') {
+        this.existeFerias = true;
+      }
+      if (ponto.status === 'NAO_ADMITIDO') {
+        this.existeNaoAdimitido = true;
+      }
+      if (ponto.status === 'FERIADO') {
+        this.existeFeriado = true;
       }
     });
   }
