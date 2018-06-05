@@ -22,6 +22,7 @@ import { JornadaService } from '../../services/jornada.service';
 import { Jornada } from '../../shared/models/jornada';
 import { DiaSemana } from '../../shared/models/diasemana';
 import { Message } from 'primeng/components/common/message';
+import { LegendaService } from '../../services/legenda.service';
 
 @Component({
   selector: 'app-ponto',
@@ -48,8 +49,10 @@ export class PontoComponent implements OnInit {
   tipoGrow: any;
   horasCredito: string;
   horasDebito: string;
+  saldoMes: string;
   jornadas: Jornada[] = [];
   n: any = 0;
+  l: any = 0;
   existeCorreto: any = false;
   existeDebito: any = false;
   existeCredito: any = false;
@@ -73,6 +76,7 @@ export class PontoComponent implements OnInit {
     private formatarDataPipe: FormatarDataPipe,
     private controleHorasService: ControleHorasService,
     private jornadaService: JornadaService,
+    private legendaService: LegendaService,
   ) {
 
     this.cols = [
@@ -105,7 +109,7 @@ export class PontoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.listarConsultas();
+    this.realizarConsultas();
    }
 
   showSuccess(tipo, titulo, mensagem) {
@@ -131,11 +135,15 @@ export class PontoComponent implements OnInit {
   }
 
   consultaControleHoras() {
+    this.horasCredito = "";
+    this.horasDebito = "";
+    this.saldoMes = "";
     this.controleHorasService.controleHoras(this.ano, this.mes)
     .subscribe(res => {
       if (res != null) {
         this.horasCredito = res.horas_credito;
         this.horasDebito = res.horas_debito;
+        this.saldoMes = res.horas_saldo;
       }
     }, error => {
         this.tratamentoErrosService.handleError(error);
@@ -143,6 +151,7 @@ export class PontoComponent implements OnInit {
   }
 
   consultaJornada() {
+    this.jornadas = [];
     this.jornadaService.consultaJornada(this.ano, this.mes)
     .subscribe(res => {
       this.n = 0;
@@ -154,10 +163,24 @@ export class PontoComponent implements OnInit {
   });
 }
 
-  listarConsultas() {
+  consultaLegenda() {
+    this.legendas = [];
+    this.legendaService.consultaLegenda(this.ano, this.mes)
+    .subscribe(res => {
+      this.l = 0;
+      res.forEach(legenda => {
+        this.legendas[this.l] = legenda;
+        this.l = this.l + 1;
+    }); }, error => {
+      this.tratamentoErrosService.handleError(error);
+  });
+  }
+
+  realizarConsultas() {
     this.consultaControleHoras();
     this.consultaJornada();
     this.consultaPontoPorPeriodo();
+    this.consultaLegenda();
   }
 
   verificarStatus(pontos: Ponto[]) {

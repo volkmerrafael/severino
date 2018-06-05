@@ -6,7 +6,7 @@
 
       <input class="form-control" pInputText id="ano" name="ano" type="text" placeholder="Ano" [(ngModel)]="ano" />
 
-      <p-button id="btnPesquisar" label="Procurar" icon="fa fa-fw fa-search" (onClick)="listarConsultas()"></p-button>
+      <p-button id="btnPesquisar" label="Procurar" icon="fa fa-fw fa-search" (onClick)="realizarConsultas()"></p-button>
 
     </div>
   </div>
@@ -55,12 +55,6 @@
                   <circle cx="15" cy="15" r="40" fill="rgb(197, 108, 56)" />
                 </svg>
                 Marcação Incorreta
-              </span>
-              <span *ngIf="existeSemInf">
-                <svg height="15" width="15">
-                  <circle cx="15" cy="15" r="40" fill="white" />
-                </svg>
-                Sem Informção
               </span>
               <span *ngIf="existeFerias">
                 <svg height="15" width="15">
@@ -158,8 +152,9 @@
           </p-table>
           <p-panel class="ui-panel">
             <p-header>Total</p-header>
-            <p>Credito: {{horasCredito}}</p>
-            <p>Debito: {{horasDebito}}</p>            
+            <p>Crédito: {{horasCredito}}</p>
+            <p>Débito: {{horasDebito}}</p> 
+            <p>Saldo do mês: {{saldoMes}}</p>           
           </p-panel>
         </div>
 

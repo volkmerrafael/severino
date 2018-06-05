@@ -10,5 +10,5 @@ export class ControleHoras {
   importacao: Importacao;
   horas_credito: string;
   horas_debito: string;
-  banco_de_horas: string;
+  horas_saldo: string;
 }

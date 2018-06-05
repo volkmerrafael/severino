@@ -32,6 +32,7 @@ import {MenuModule} from 'primeng/menu';
 import {TieredMenuModule} from 'primeng/tieredmenu';
 import { ControleHorasService } from './services/controle-horas.service';
 import { JornadaService } from './services/jornada.service';
+import { LegendaService } from './services/legenda.service';
 
 
 export const HttpInterceptorProviders = [
@@ -74,6 +75,7 @@ export const HttpInterceptorProviders = [
     AuthGuardService,
     ControleHorasService,
     JornadaService,
+    LegendaService
   ],
   bootstrap: [AppComponent]
 })
