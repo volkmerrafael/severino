@@ -13,6 +13,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.volkmer.godinho.core.mapperjson.LocalTimeDeserializer;
+import com.volkmer.godinho.core.mapperjson.LocalTimeSerializer;
 import com.volkmer.godinho.core.validacao.CampoInfo;
 
 import lombok.Data;

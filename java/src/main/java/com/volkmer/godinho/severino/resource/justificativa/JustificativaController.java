@@ -1,6 +1,5 @@
 package com.volkmer.godinho.severino.resource.justificativa;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -47,7 +46,7 @@ public class JustificativaController extends ControllerCRUD<Justificativa, Justi
 	@Path("/{data}")
 	@ApiOperation(value = "Listar Justificativa por Usuário e Data")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Justificativa listaJustificativas(@PathParam("data") LocalDate data) throws Exception {
+	public Justificativa listaJustificativas(@PathParam("data") String data) throws Exception {
 		try (JustificativaResource pres = new JustificativaResource()) {
 			return pres.justificativaPorData(userToken, data);
 		} catch (Exception e) {

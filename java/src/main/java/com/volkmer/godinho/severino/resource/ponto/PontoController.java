@@ -39,7 +39,7 @@ public class PontoController {
 	
 	@GET
 	@Path("/listar/{ano}/{mes}")
-	@ApiOperation(value = "Listar Pontos por Ano e Mês")
+	@ApiOperation(value = "Listar Pontos por Usuário - Ano - Mês")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Ponto> listar(@PathParam("ano") Integer ano, @PathParam("mes") Integer mes) throws Exception {
 		try (PontoResource pres = new PontoResource()) {
@@ -51,7 +51,7 @@ public class PontoController {
 
 	@GET
 	@Path("/listar/{ano}/{mes}/{status}")
-	@ApiOperation(value = "Listar Pontos por Ano e Mês")
+	@ApiOperation(value = "Listar Pontos por Usuário - Ano - Mês - Status")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Ponto> listarPosStatus(@PathParam("ano") Integer ano, @PathParam("mes") Integer mes, @PathParam("status") PontoStatus status) throws Exception {
 		try (PontoResource pres = new PontoResource()) {
@@ -60,4 +60,5 @@ public class PontoController {
 			throw e;
 		}
 	}
+	
 }

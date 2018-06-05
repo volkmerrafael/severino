@@ -1,6 +1,5 @@
 package com.volkmer.godinho.severino.resource.justificativa;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
@@ -49,7 +48,7 @@ public class JustificativaResource extends ResourceCRUD<Justificativa> {
 		
 	}
 
-	public Justificativa justificativaPorData(String token, LocalDate data) {
+	public Justificativa justificativaPorData(String token, String data) {
 
 		TypedQuery<Justificativa> queryJustificativa = this.getEm().createQuery("select p from Justificativa p where p.usuario = :usuario and data = :data", Justificativa.class);
 		queryJustificativa.setParameter("usuario", this.buscaUsuarioPeloToken(token));
