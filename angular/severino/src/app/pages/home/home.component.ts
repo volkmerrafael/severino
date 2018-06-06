@@ -19,6 +19,8 @@ export class HomeComponent implements OnInit {
   mostraLinks: any = false;
   items: MenuItem[];
   admin: any = false;
+  logado: any = false;
+  idUsuario: any;
 
   constructor(
     private router: Router,
@@ -27,9 +29,10 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.idUsuario = sessionStorage.getItem('idUsuario');
     this.items = [
       { label: 'Perfil', icon: 'fa-user-circle', routerLink: ['/perfil'] },
-      {label: 'Editar perfil', icon: 'fa fa-fw fa-edit', routerLink: ['/editar-perfil']},
+      {label: 'Editar perfil', icon: 'fa fa-fw fa-edit', routerLink: ['/editar-perfil'], queryParams: ['id']},
       {
         label: 'Sair', icon: 'fa-sign-out', routerLink: ['/login'], command: (event) => {
           event.originalEvent = this.logout();
@@ -69,6 +72,10 @@ export class HomeComponent implements OnInit {
   onClickNavigator(rota: String) {
   if (rota === 'admin') {
     this.router.navigate(['/admin']);
+  } else if (rota === 'lista') {
+    this.router.navigate(['/lista']);
+  } else if (rota === 'ponto') {
+    this.router.navigate(['/ponto']);
   }
   }
 }

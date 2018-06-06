@@ -7,6 +7,7 @@ import { Funcao } from '../../shared/models/funcao';
 import { Location } from '@angular/common';
 import { RouterLink } from '@angular/router/src/directives/router_link';
 import { UsuarioService } from '../../services/usuario.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-perfil',
@@ -19,22 +20,47 @@ export class PerfilComponent implements OnInit {
   acesso: Acesso = new Acesso();
   departamento: Departamento = new Departamento();
   funcao: Funcao = new Funcao;
+  id: number;
+  senha: string;
+  admin: boolean;
 
   constructor(
     private location: Location,
     private usuarioService: UsuarioService,
+    private route: ActivatedRoute,
   ) {   }
 
   ngOnInit() {
-    this.usuario.nome = sessionStorage.getItem('nomeUsuario');
-    this.acesso.nomeacesso = sessionStorage.getItem('nomeacesso');
-    this.usuario.email = sessionStorage.getItem('emailUsuario');
-    this.usuario.pis = sessionStorage.getItem('pisUsuario');
-    this.departamento.nome = sessionStorage.getItem('departamentoUsuario');
-    this.funcao.nome = sessionStorage.getItem('funcaoUsuario');
-    this.usuario.data_admissao = sessionStorage.getItem('dataAdmissao');
+    this.admin = false;
+    this.usuario.id = parseInt(sessionStorage.getItem('id'), 10);
+    this.perfil();
+    if (sessionStorage.getItem('tipo') === 'ADMIN') {
+      this.admin = true;
+    }
   }
 
+  perfil() {
+  this.usuarioService.usuario(this.usuario.id)
+    .subscribe( res => {
+      this.usuario = res;
+      this.acesso = this.usuario.acesso;
+      this.departamento = this.usuario.departamento;
+      this.funcao = this.usuario.funcao;
+      this.senha = "";
+    });
+  }
+
+  perfilColaborador() {
+    this.usuarioService.usuario(this.id)
+    .subscribe(res => {
+      this.usuario = res;
+      this.acesso = this.usuario.acesso;
+      this.departamento = this.usuario.departamento;
+      this.funcao = this.usuario.funcao;
+      this.senha = "";
+      console.log(res);
+    });
+  }
 
   voltar() {
     this.location.back();

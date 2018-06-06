@@ -5,6 +5,7 @@ import { environment } from "../../environments/environment";
 import { Login } from "../shared/models/login";
 import { Usuario } from "../shared/models/usuario";
 import { catchError, tap  } from 'rxjs/operators';
+import { Acesso } from "../shared/models/acesso";
 
 @Injectable()
 export class UsuarioService {
@@ -26,13 +27,13 @@ export class UsuarioService {
 
   cadastro( usuario: Usuario ): Observable<Usuario> {
     return this.http.post<Usuario>(
-      `${environment.server}usuario/public`, usuario
+      `${environment.server}usuario`, usuario
     );
   }
 
-  obterUsuario(): Observable<Usuario> {
+  listaUsuarios(): Observable<Usuario> {
     return this.http.get<Usuario>(
-      `${environment.server}usuario/obterDadosUsuario`
+      `${environment.server}usuario`
     );
   }
 
@@ -42,7 +43,7 @@ export class UsuarioService {
     );
   }
 
-  editar( usuario: Usuario ): Observable<Usuario> {
+  editar( usuario: Usuario): Observable<Usuario> {
     return this.http.put<Usuario>(
       `${environment.server}usuario`, usuario
     );

@@ -13,7 +13,7 @@
       <br>
       <label>Nome de acesso:</label>
       <br>
-      <input size="50%" formControlName="inputNomeAcesso" pInputText [(ngModel)]="acesso.nomeacesso" />
+      <input size="50%" formControlName="inputNomeAcesso" pInputText  [(ngModel)]="acesso.nomeacesso"/>
       <br>
     </div>
     <div>
@@ -27,12 +27,13 @@
       <br>
       <label>Senha:</label>
       <br>
-      <input size="50" type='password' formControlName="inputSenha" pInputText [(ngModel)]="acesso.senha" />
+      <input size="50" type='password' formControlName="inputSenha" pInputText [(ngModel)]="senha" />
       <br>
     </div>
   </form>
   <button pButton type="button" icon="fa fa-fw fa-reply" label="Voltar" class="ui-button-secondary" (click)="voltar()"></button>
-  <button pButton type="button" icon="fa fa-fw fa-chevron-down" label="Salvar" class="ui-button-success" (click)="clickEditar"></button>
+  <button pButton type="button" icon="fa fa-fw fa-ban" label="Cancelar" class="ui-button-danger" (click)="buscaPerfil()"></button>
+  <button pButton type="button" icon="fa fa-fw fa-chevron-down" label="Salvar" class="ui-button-success" (click)="clickEditar()"></button>
 </div>
 </p-panel>
 </div>

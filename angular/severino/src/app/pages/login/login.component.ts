@@ -40,7 +40,6 @@ export class LoginComponent {
     this.usuarioService.login(this.usuario)
     .subscribe(res => {
       this.user = res;
-      console.log(res);
       sessionStorage.setItem('id', '' + res.usuario.id);
       sessionStorage.setItem('nomeUsuario', res.usuario.nome);
       sessionStorage.setItem('emailUsuario', res.usuario.email);
@@ -59,13 +58,10 @@ export class LoginComponent {
         this.router.navigate(['/ponto']);
       }
     }, error => {
-      console.log(error);
-      if (error.status === 400) {
         this.tipoGrow = "error";
         this.tituloGrow = 'Ops';
         this.mensagemGrow = error.error;
         this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
-      }
     });
 
   }

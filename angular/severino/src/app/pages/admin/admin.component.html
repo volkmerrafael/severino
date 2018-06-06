@@ -1,23 +1,5 @@
 <div id="corpoPonto" class="row justify-content-md-center">
-
-  <div id="card" class="card">
-
-    <div class="card-body">
-
-      <div>
-
-        <img id="severino-icon" src="../../../assets/severino-icon-64.png" alt="Severino">
-
-      </div>
-
-      <div>
-
-        Logado como:
-        <strong>{{usuario.nome}}</strong>
-
-      </div>
-
-      <br>
+      
       <div>
         <div id="uploadInput">
           <p-fileUpload #form name="myfile[]" [customUpload]="true" showUploadButton="true" showCancelButton="true" (uploadHandler)="onUpload($event,form)"
@@ -113,9 +95,5 @@
         </div>
 
       </div>
-
-    </div>
-
-  </div>
 
 </div>

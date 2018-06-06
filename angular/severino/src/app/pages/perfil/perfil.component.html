@@ -14,6 +14,7 @@
       <a class="a"> {{acesso.nomeacesso}} </a>
       <br>
       <br>
+      <div *ngIf="admin == false">
       <span class="span">Pis: </span>
       <a class="a"> {{usuario.pis}} </a>
       <br>
@@ -29,6 +30,7 @@
       <span class="span">Data de emissão: </span>
       <a class="a"> {{usuario.data_admissao}} </a>
       <br>
+    </div>
     </div>
     <br>
     <div>

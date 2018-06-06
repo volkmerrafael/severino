@@ -8,7 +8,11 @@ export class ControleHoras {
   usuario: Usuario;
   anomes: AnoMes;
   importacao: Importacao;
-  horas_credito: string;
-  horas_debito: string;
-  horas_saldo: string;
+  credito: number;
+  debito: number;
+  saldo: number;
+  negativo: boolean;
+  banco_de_horas: number;
+  trabalhadas: number;
+  abono: number;
 }

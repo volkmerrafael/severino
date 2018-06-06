@@ -33,6 +33,8 @@ import {TieredMenuModule} from 'primeng/tieredmenu';
 import { ControleHorasService } from './services/controle-horas.service';
 import { JornadaService } from './services/jornada.service';
 import { LegendaService } from './services/legenda.service';
+import { ListaComponent } from './pages/lista/lista.component';
+import {CardModule} from 'primeng/card';
 
 
 export const HttpInterceptorProviders = [
@@ -45,7 +47,8 @@ export const HttpInterceptorProviders = [
     MessageComponent,
     HomeComponent,
     PerfilComponent,
-    EditarPerfilComponent
+    EditarPerfilComponent,
+    ListaComponent
   ],
   imports: [
     BrowserModule,
@@ -66,6 +69,7 @@ export const HttpInterceptorProviders = [
     ReactiveFormsModule,
     MenuModule,
     TieredMenuModule,
+    CardModule,
   ],
   providers: [
     HttpInterceptorProviders,

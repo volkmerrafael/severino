@@ -47,9 +47,12 @@ export class PontoComponent implements OnInit {
   mensagemGrow: any;
   tituloGrow: any;
   tipoGrow: any;
-  horasCredito: string;
-  horasDebito: string;
-  saldoMes: string;
+  horasCredito: number;
+  horasDebito: number;
+  saldoMes: number;
+  saldoNegativo: boolean;
+  horasTrabalhadas: number;
+  horasAbono: number;
   jornadas: Jornada[] = [];
   n: any = 0;
   l: any = 0;
@@ -119,7 +122,6 @@ export class PontoComponent implements OnInit {
   consultaPontoPorPeriodo() {
     this.pontoService.listarPontoPorPeriodo(this.ano, this.mes)
       .subscribe(res => {
-        console.log(res);
         this.tipoGrow = "success";
         this.tituloGrow = 'Sucesso';
         this.mensagemGrow = "";
@@ -135,15 +137,22 @@ export class PontoComponent implements OnInit {
   }
 
   consultaControleHoras() {
-    this.horasCredito = "";
-    this.horasDebito = "";
-    this.saldoMes = "";
+    this.horasCredito = 0;
+    this.horasDebito = 0;
+    this.saldoMes = 0;
+    this.saldoNegativo = false;
+    this.horasTrabalhadas = 0;
+    this.horasAbono = 0;
     this.controleHorasService.controleHoras(this.ano, this.mes)
     .subscribe(res => {
       if (res != null) {
-        this.horasCredito = res.horas_credito;
-        this.horasDebito = res.horas_debito;
-        this.saldoMes = res.horas_saldo;
+        console.log(res);
+        this.horasCredito = res.credito;
+        this.horasDebito = res.debito;
+        this.saldoMes = res.saldo;
+        this.saldoNegativo = res.negativo;
+        this.horasTrabalhadas = res.trabalhadas;
+        this.horasAbono = res.abono;
       }
     }, error => {
         this.tratamentoErrosService.handleError(error);
