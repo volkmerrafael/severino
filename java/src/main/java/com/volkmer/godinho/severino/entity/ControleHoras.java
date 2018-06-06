@@ -52,9 +52,15 @@ public class ControleHoras {
 	@Column
 	@JsonDeserialize(using = LocalTimeDeserializer.class)
 	@JsonSerialize(using = LocalTimeSerializer.class)
+	@CampoInfo(descricao="Horas Saldo Mês", obrigatorio=false)
+	private LocalTime horas_saldo;
+	
+	@Column
+	@JsonDeserialize(using = LocalTimeDeserializer.class)
+	@JsonSerialize(using = LocalTimeSerializer.class)
 	@CampoInfo(descricao="Horas Débito", obrigatorio=false)
 	private LocalTime horas_debito;
-
+	
 	@Column
 	@JsonDeserialize(using = LocalTimeDeserializer.class)
 	@JsonSerialize(using = LocalTimeSerializer.class)
