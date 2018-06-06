@@ -50,7 +50,7 @@ public class ControleHorasResource extends ResourceCRUD<Ponto> {
 			for (Ponto ponto : lista) {
 				if (ponto.getMinutos_credito()!=null) {
 					minutosCredito += ponto.getMinutos_credito();
-				} else if (ponto.getMinutos_credito()!=null) {
+				} else if (ponto.getMinutos_debito()!=null) {
 					minutosDebito += ponto.getMinutos_debito();
 				}
 			}
@@ -63,12 +63,13 @@ public class ControleHorasResource extends ResourceCRUD<Ponto> {
 			Integer horad = minutosDebito/60;
 			Integer minutod = minutosDebito%60;
 			LocalTime ld = LocalTime.of(horad, minutod, 0, 0);
+			ld.plusMinutes(minutod);
 			
 			ControleHoras ch = new ControleHoras();
 			ch.setAnomes(anomes);
 			ch.setHoras_credito(lc);
 			ch.setHoras_debito(ld);
-			//ch.setBanco_de_horas(lc.(ld));
+			ch.setHoras_saldo(lc.minusMinutes(minutosDebito));
 			
 			return ch;
 		}

@@ -26,9 +26,14 @@ public class UsuarioResource extends ResourceCRUD<Usuario> {
 	}
 	
 	@Override
-	protected void buscaPos(Usuario model) {
+	protected void buscaPos(Usuario model) throws Exception {
 		
-		model.setAcesso(null);
+		try (AcessoResource pres = new AcessoResource()) {
+			model.setAcesso(pres.busca(model.getId()));
+		} catch (Exception e) {
+			throw e;
+		}
+		//model.setAcesso(null);
 		
 	}
 	

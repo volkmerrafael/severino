@@ -54,7 +54,7 @@ public class Usuario {
 	@CampoInfo(descricao="P.I.S", obrigatorio=false)
 	private Long pis;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="acessoId", foreignKey=@ForeignKey(name="fk_usuario_acesso"))
 	private Acesso acesso;
 	
