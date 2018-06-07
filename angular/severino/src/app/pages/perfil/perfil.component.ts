@@ -20,6 +20,8 @@ export class PerfilComponent implements OnInit {
   acesso: Acesso = new Acesso();
   departamento: Departamento = new Departamento();
   funcao: Funcao = new Funcao;
+  listaId: any;
+  idAny: any;
   id: number;
   senha: string;
   admin: boolean;
@@ -28,29 +30,21 @@ export class PerfilComponent implements OnInit {
     private location: Location,
     private usuarioService: UsuarioService,
     private route: ActivatedRoute,
-  ) {   }
+  ) { }
 
   ngOnInit() {
-    this.admin = false;
-    this.usuario.id = parseInt(sessionStorage.getItem('id'), 10);
+    this.listaId = this.route.queryParams;
+    this.idAny = this.listaId.value;
+    this.id = parseInt((this.idAny.id), 10);
     this.perfil();
+    this.admin = false;
     if (sessionStorage.getItem('tipo') === 'ADMIN') {
       this.admin = true;
     }
   }
 
   perfil() {
-  this.usuarioService.usuario(this.usuario.id)
-    .subscribe( res => {
-      this.usuario = res;
-      this.acesso = this.usuario.acesso;
-      this.departamento = this.usuario.departamento;
-      this.funcao = this.usuario.funcao;
-      this.senha = "";
-    });
-  }
-
-  perfilColaborador() {
+    console.log(this.id);
     this.usuarioService.usuario(this.id)
     .subscribe(res => {
       this.usuario = res;
@@ -58,12 +52,10 @@ export class PerfilComponent implements OnInit {
       this.departamento = this.usuario.departamento;
       this.funcao = this.usuario.funcao;
       this.senha = "";
-      console.log(res);
     });
   }
 
   voltar() {
     this.location.back();
   }
-
 }

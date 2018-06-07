@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from './../../shared/models/usuario';
 import { RouterLink } from '@angular/router/src/directives/router_link';
-import { Router, NavigationStart, NavigationEnd, NavigationError, NavigationCancel, Event } from '@angular/router';
+import { Router, NavigationStart, NavigationEnd, NavigationError, NavigationCancel, Event, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { Navigation } from 'selenium-webdriver';
 import { MenuItem } from 'primeng/api';
@@ -20,19 +20,25 @@ export class HomeComponent implements OnInit {
   items: MenuItem[];
   admin: any = false;
   logado: any = false;
-  idUsuario: any;
+  idUsuarioLogado: any;
+  listaId: any;
+  idAny: any;
+  id: number;
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
   ) {
     this.routerEventsSubscription = this.router.events.subscribe((event: Event) => this.verificarEventosDeRota(event));
   }
 
   ngOnInit() {
-    this.idUsuario = sessionStorage.getItem('idUsuario');
     this.items = [
-      { label: 'Perfil', icon: 'fa-user-circle', routerLink: ['/perfil'] },
-      {label: 'Editar perfil', icon: 'fa fa-fw fa-edit', routerLink: ['/editar-perfil'], queryParams: ['id']},
+      { label: 'Perfil', icon: 'fa-user-circle', command: (event) => {
+          event.originalEvent = this.consultarUsuario(this.id);
+        }
+      },
+      {label: 'Editar perfil', icon: 'fa fa-fw fa-edit', routerLink: ['/editar-perfil']},
       {
         label: 'Sair', icon: 'fa-sign-out', routerLink: ['/login'], command: (event) => {
           event.originalEvent = this.logout();
@@ -77,5 +83,9 @@ export class HomeComponent implements OnInit {
   } else if (rota === 'ponto') {
     this.router.navigate(['/ponto']);
   }
+  }
+
+  consultarUsuario(id: any) {
+    this.router.navigate(['/perfil'], {queryParams: {id}});
   }
 }

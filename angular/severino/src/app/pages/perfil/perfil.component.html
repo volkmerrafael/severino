@@ -14,7 +14,7 @@
       <a class="a"> {{acesso.nomeacesso}} </a>
       <br>
       <br>
-      <div *ngIf="admin == false">
+      <div *ngIf="usuario.pis">
       <span class="span">Pis: </span>
       <a class="a"> {{usuario.pis}} </a>
       <br>
@@ -27,7 +27,7 @@
       <a class="a"> {{funcao.nome}} </a>
       <br>
       <br>
-      <span class="span">Data de emissão: </span>
+      <span class="span">Data de admissão: </span>
       <a class="a"> {{usuario.data_admissao}} </a>
       <br>
     </div>
@@ -35,5 +35,6 @@
     <br>
     <div>
       <button pButton type="button" icon="fa fa-fw fa-reply" label="Voltar" class="ui-button-secondary" (click)="voltar()"></button>
+      <button *ngIf="admin" pButton type="button" icon="fa fa-fw fa-edit" label="Editar Perfil" class="ui-button-secondary" (click)="voltar()"></button>
   </div>
 </p-panel>

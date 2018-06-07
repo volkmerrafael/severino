@@ -23,12 +23,13 @@ import { Jornada } from '../../shared/models/jornada';
 import { DiaSemana } from '../../shared/models/diasemana';
 import { Message } from 'primeng/components/common/message';
 import { LegendaService } from '../../services/legenda.service';
+import { FormatarMinutosPipe } from '../../shared/components/pipes/time.pipe';
 
 @Component({
   selector: 'app-ponto',
   templateUrl: './ponto.component.html',
   styleUrls: ['./ponto.component.css'],
-  providers: [FormatarDataPipe]
+  providers: [FormatarDataPipe, FormatarMinutosPipe]
 })
 export class PontoComponent implements OnInit {
   myDate: Date = new Date();
@@ -47,12 +48,12 @@ export class PontoComponent implements OnInit {
   mensagemGrow: any;
   tituloGrow: any;
   tipoGrow: any;
-  horasCredito: number;
-  horasDebito: number;
-  saldoMes: number;
+  horasCredito: string;
+  horasDebito: string;
+  horasSaldoMes: string;
   saldoNegativo: boolean;
-  horasTrabalhadas: number;
-  horasAbono: number;
+  horasTrabalhadas: string;
+  horasAbono: string;
   jornadas: Jornada[] = [];
   n: any = 0;
   l: any = 0;
@@ -80,6 +81,7 @@ export class PontoComponent implements OnInit {
     private controleHorasService: ControleHorasService,
     private jornadaService: JornadaService,
     private legendaService: LegendaService,
+    private formatarMinutosPipe: FormatarMinutosPipe,
   ) {
 
     this.cols = [
@@ -137,22 +139,15 @@ export class PontoComponent implements OnInit {
   }
 
   consultaControleHoras() {
-    this.horasCredito = 0;
-    this.horasDebito = 0;
-    this.saldoMes = 0;
-    this.saldoNegativo = false;
-    this.horasTrabalhadas = 0;
-    this.horasAbono = 0;
     this.controleHorasService.controleHoras(this.ano, this.mes)
     .subscribe(res => {
       if (res != null) {
-        console.log(res);
-        this.horasCredito = res.credito;
-        this.horasDebito = res.debito;
-        this.saldoMes = res.saldo;
+        this.horasCredito = this.formatarMinutosPipe.transform(res.credito);
+        this.horasDebito = this.formatarMinutosPipe.transform(res.debito);
+        this.horasSaldoMes = this.formatarMinutosPipe.transform(res.saldo);
         this.saldoNegativo = res.negativo;
-        this.horasTrabalhadas = res.trabalhadas;
-        this.horasAbono = res.abono;
+        this.horasTrabalhadas = this.formatarMinutosPipe.transform(res.trabalhadas);
+        this.horasAbono = this.formatarMinutosPipe.transform(res.abono);
       }
     }, error => {
         this.tratamentoErrosService.handleError(error);

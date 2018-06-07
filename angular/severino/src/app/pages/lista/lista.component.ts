@@ -31,7 +31,6 @@ export class ListaComponent implements OnInit {
 
   consultarUsuario(id: any) {
     this.router.navigate(['/perfil'], {queryParams: {id}});
-    console.log(id);
   }
 
 

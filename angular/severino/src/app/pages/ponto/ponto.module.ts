@@ -12,6 +12,7 @@ import {PanelModule} from 'primeng/panel';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
 import {TooltipModule} from 'primeng/tooltip';
 import {DialogModule} from 'primeng/dialog';
+import { FormatarMinutosPipe } from '../../shared/components/pipes/time.pipe';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import {DialogModule} from 'primeng/dialog';
   ],
   declarations: [
     PontoComponent,
-    FormatarDataPipe
+    FormatarDataPipe,
+    FormatarMinutosPipe,
   ],
   exports: [
     PontoComponent

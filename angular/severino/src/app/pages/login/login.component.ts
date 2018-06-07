@@ -16,7 +16,6 @@ import { Message } from "../../shared/models/message";
 })
 export class LoginComponent {
 
-  user: any;
   usuario: Login;
   msgs: Message[] = [];
   mensagemGrow;
@@ -39,8 +38,6 @@ export class LoginComponent {
   login() {
     this.usuarioService.login(this.usuario)
     .subscribe(res => {
-      this.user = res;
-      sessionStorage.setItem('id', '' + res.usuario.id);
       sessionStorage.setItem('nomeUsuario', res.usuario.nome);
       sessionStorage.setItem('emailUsuario', res.usuario.email);
       sessionStorage.setItem('usertoken', res.usertoken);
