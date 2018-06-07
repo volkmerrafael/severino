@@ -27,13 +27,9 @@ import { Message } from 'primeng/components/common/message';
 export class AdminComponent implements OnInit {
 
   usuario: Usuario = new Usuario();
-
   importacao: Importacao = new Importacao();
-
   importacoes: Importacao[] = new Array;
-
   arqImportacao: ArquivoImportacao = new ArquivoImportacao();
-
   mensagemGrow: any;
   tituloGrow: any;
   tipoGrow: any;
@@ -52,7 +48,7 @@ export class AdminComponent implements OnInit {
   ngOnInit() {
     this.listarImportacao();
   }
-  showSuccess(tipo, titulo, mensagem) {
+  showGrow(tipo, titulo, mensagem) {
     this.messageService.add({ severity: tipo, summary: titulo, detail: mensagem });
   }
 
@@ -63,9 +59,13 @@ export class AdminComponent implements OnInit {
         this.tipoGrow = "success";
         this.tituloGrow = 'Atualizado';
         this.mensagemGrow = "";
-        this.showSuccess(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
+        this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
       }, error => {
         this.tratamentoErrosService.handleError(error);
+        this.tipoGrow = "error";
+        this.tituloGrow = 'Ops';
+        this.mensagemGrow = error.error;
+        this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
       });
   }
 
@@ -93,9 +93,13 @@ export class AdminComponent implements OnInit {
     .subscribe(result => {
       this.tipoGrow = "success";
       this.tituloGrow = 'Sucesso';
-      this.showSuccess(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
+      this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
     }, error => {
       this.tratamentoErrosService.handleError(error);
+      this.tipoGrow = "error";
+      this.tituloGrow = 'Ops';
+      this.mensagemGrow = error.error;
+      this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
     });
   }
 }

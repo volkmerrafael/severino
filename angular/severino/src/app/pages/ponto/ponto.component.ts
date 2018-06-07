@@ -33,7 +33,7 @@ import { FormatarMinutosPipe } from '../../shared/components/pipes/time.pipe';
 })
 export class PontoComponent implements OnInit {
   myDate: Date = new Date();
-  mes: String = "" + this.myDate.getMonth();
+  mes: String = "" + (this.myDate.getMonth() + 1);
   ano: String = "" + this.myDate.getFullYear();
   pontos: Ponto[] = [];
   periodos: AnoMes[] = [];
@@ -54,6 +54,7 @@ export class PontoComponent implements OnInit {
   saldoNegativo: boolean;
   horasTrabalhadas: string;
   horasAbono: string;
+  absenteismo: string;
   jornadas: Jornada[] = [];
   n: any = 0;
   l: any = 0;
@@ -118,7 +119,7 @@ export class PontoComponent implements OnInit {
     this.realizarConsultas();
    }
 
-  showSuccess(tipo, titulo, mensagem) {
+  showGrow(tipo, titulo, mensagem) {
     this.messageService.add({ severity: tipo, summary: titulo, detail: mensagem });
   }
 
@@ -128,7 +129,7 @@ export class PontoComponent implements OnInit {
         this.tipoGrow = "success";
         this.tituloGrow = 'Sucesso';
         this.mensagemGrow = "";
-        this.showSuccess(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
+        this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
         this.pontos = res;
         this.verificarStatus(res);
         this.pontos.forEach(ponto => {
@@ -136,6 +137,10 @@ export class PontoComponent implements OnInit {
     });
       }, error => {
         this.tratamentoErrosService.handleError(error);
+        this.tipoGrow = "error";
+        this.tituloGrow = 'Sucesso';
+        this.mensagemGrow = error.error;
+        this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
       });
   }
 
@@ -154,10 +159,15 @@ export class PontoComponent implements OnInit {
         this.saldoNegativo = res.negativo;
         this.horasTrabalhadas = this.formatarMinutosPipe.transform(res.trabalhadas);
         this.horasAbono = this.formatarMinutosPipe.transform(res.abono);
+        this.absenteismo = res.absenteismo + "%";
       }
     }, error => {
-        this.tratamentoErrosService.handleError(error);
-      });
+      this.tratamentoErrosService.handleError(error);
+      this.tipoGrow = "error";
+      this.tituloGrow = 'Sucesso';
+      this.mensagemGrow = error.error;
+      this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
+    });
   }
 
   consultaJornada() {
@@ -170,7 +180,11 @@ export class PontoComponent implements OnInit {
         this.n = this.n + 1;
     }); }, error => {
       this.tratamentoErrosService.handleError(error);
-  });
+      this.tipoGrow = "error";
+      this.tituloGrow = 'Sucesso';
+      this.mensagemGrow = error.error;
+      this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
+    });
 }
 
   consultaLegenda() {
@@ -183,7 +197,11 @@ export class PontoComponent implements OnInit {
         this.l = this.l + 1;
     }); }, error => {
       this.tratamentoErrosService.handleError(error);
-  });
+      this.tipoGrow = "error";
+      this.tituloGrow = 'Sucesso';
+      this.mensagemGrow = error.error;
+      this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
+    });
   }
 
   realizarConsultas() {

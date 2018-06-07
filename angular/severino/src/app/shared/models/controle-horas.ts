@@ -15,4 +15,5 @@ export class ControleHoras {
   banco_de_horas: number;
   trabalhadas: number;
   abono: number;
+  absenteismo: number;
 }

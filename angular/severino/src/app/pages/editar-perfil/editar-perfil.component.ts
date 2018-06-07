@@ -62,6 +62,11 @@ export class EditarPerfilComponent implements OnInit {
         this.usuario = res;
         this.acesso = this.usuario.acesso;
         this.senha = "";
+      }, error => {
+        this.tipoGrow = "error";
+        this.tituloGrow = 'Ops';
+        this.mensagemGrow = error.error;
+        this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
       });
   }
 

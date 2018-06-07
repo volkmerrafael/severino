@@ -8,6 +8,7 @@ import { Location } from '@angular/common';
 import { RouterLink } from '@angular/router/src/directives/router_link';
 import { UsuarioService } from '../../services/usuario.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MessageService } from 'primeng/components/common/messageservice';
 
 @Component({
   selector: 'app-perfil',
@@ -25,12 +26,16 @@ export class PerfilComponent implements OnInit {
   id: number;
   senha: string;
   admin: boolean;
+  mensagemGrow;
+  tituloGrow;
+  tipoGrow;
 
   constructor(
     private location: Location,
     private usuarioService: UsuarioService,
     private route: ActivatedRoute,
     private router: Router,
+    private messageService: MessageService,
   ) { }
 
   ngOnInit() {
@@ -52,7 +57,16 @@ export class PerfilComponent implements OnInit {
       this.departamento = this.usuario.departamento;
       this.funcao = this.usuario.funcao;
       this.senha = "";
+    }, error => {
+      this.tipoGrow = "error";
+      this.tituloGrow = 'Ops';
+      this.mensagemGrow = error.error;
+      this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
     });
+  }
+
+  showGrow(tipo, titulo, mensagem) {
+    this.messageService.add({ severity: tipo, summary: titulo, detail: mensagem });
   }
 
   voltar() {
