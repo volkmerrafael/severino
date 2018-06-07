@@ -5,6 +5,7 @@ import { Router, NavigationStart, NavigationEnd, NavigationError, NavigationCanc
 import { Subscription } from 'rxjs/Subscription';
 import { Navigation } from 'selenium-webdriver';
 import { MenuItem } from 'primeng/api';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-home',
@@ -28,6 +29,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private usuarioService: UsuarioService,
   ) {
     this.routerEventsSubscription = this.router.events.subscribe((event: Event) => this.verificarEventosDeRota(event));
   }
@@ -35,10 +37,12 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.items = [
       { label: 'Perfil', icon: 'fa-user-circle', command: (event) => {
-          event.originalEvent = this.consultarUsuario(this.id);
+          event.originalEvent = this.consultarUsuario(parseInt(sessionStorage.getItem('id'), 10));
         }
       },
-      {label: 'Editar perfil', icon: 'fa fa-fw fa-edit', routerLink: ['/editar-perfil']},
+      {label: 'Editar perfil', icon: 'fa fa-fw fa-edit', command: (event) => {
+        event.originalEvent = this.editarUsuario(parseInt(sessionStorage.getItem('id'), 10));
+      }},
       {
         label: 'Sair', icon: 'fa-sign-out', routerLink: ['/login'], command: (event) => {
           event.originalEvent = this.logout();
@@ -72,6 +76,7 @@ export class HomeComponent implements OnInit {
     sessionStorage.removeItem('nomeacesso');
     sessionStorage.removeItem('tipo');
     this.token = '';
+    sessionStorage.removeItem('id');
     this.router.navigate(['/login']);
   }
 
@@ -87,5 +92,8 @@ export class HomeComponent implements OnInit {
 
   consultarUsuario(id: any) {
     this.router.navigate(['/perfil'], {queryParams: {id}});
+  }
+  editarUsuario(id: any) {
+    this.router.navigate(['/editar-perfil'], {queryParams: {id}});
   }
 }

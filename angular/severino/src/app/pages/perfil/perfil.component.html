@@ -35,6 +35,6 @@
     <br>
     <div>
       <button pButton type="button" icon="fa fa-fw fa-reply" label="Voltar" class="ui-button-secondary" (click)="voltar()"></button>
-      <button *ngIf="admin" pButton type="button" icon="fa fa-fw fa-edit" label="Editar Perfil" class="ui-button-secondary" (click)="voltar()"></button>
+      <button *ngIf="admin" pButton type="button" icon="fa fa-fw fa-edit" label="Editar Perfil" class="ui-button-secondary" (click)="editarUsuario(usuario.id)"></button>
   </div>
 </p-panel>

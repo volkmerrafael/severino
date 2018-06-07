@@ -21,6 +21,7 @@ export class LoginComponent {
   mensagemGrow;
   tituloGrow;
   tipoGrow;
+  id: any;
 
   constructor(
     private usuarioService: UsuarioService,
@@ -38,6 +39,7 @@ export class LoginComponent {
   login() {
     this.usuarioService.login(this.usuario)
     .subscribe(res => {
+      sessionStorage.setItem('id', '' + res.usuario.id);
       sessionStorage.setItem('nomeUsuario', res.usuario.nome);
       sessionStorage.setItem('emailUsuario', res.usuario.email);
       sessionStorage.setItem('usertoken', res.usertoken);
@@ -68,6 +70,8 @@ export class LoginComponent {
     sessionStorage.removeItem('usertoken');
     sessionStorage.removeItem('sessaotoken');
     sessionStorage.removeItem('nomeacesso');
+    sessionStorage.removeItem('id');
+    this.id = sessionStorage.getItem('id');
   }
 
 }

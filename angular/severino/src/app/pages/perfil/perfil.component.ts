@@ -7,7 +7,7 @@ import { Funcao } from '../../shared/models/funcao';
 import { Location } from '@angular/common';
 import { RouterLink } from '@angular/router/src/directives/router_link';
 import { UsuarioService } from '../../services/usuario.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-perfil',
@@ -30,6 +30,7 @@ export class PerfilComponent implements OnInit {
     private location: Location,
     private usuarioService: UsuarioService,
     private route: ActivatedRoute,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -44,7 +45,6 @@ export class PerfilComponent implements OnInit {
   }
 
   perfil() {
-    console.log(this.id);
     this.usuarioService.usuario(this.id)
     .subscribe(res => {
       this.usuario = res;
@@ -57,5 +57,9 @@ export class PerfilComponent implements OnInit {
 
   voltar() {
     this.location.back();
+  }
+
+  editarUsuario(id: any) {
+    this.router.navigate(['/editar-perfil'], {queryParams: {id}});
   }
 }

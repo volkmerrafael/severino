@@ -69,6 +69,7 @@ export class PontoComponent implements OnInit {
   existeFacultativo: any = false;
   existeNaoAdimitido: any = false;
   existeFeriado: any = false;
+  existeObito: any = false;
   displayLegenda: any = false;
   displayJornada: any = false;
   msgs: Message[];
@@ -145,6 +146,11 @@ export class PontoComponent implements OnInit {
         this.horasCredito = this.formatarMinutosPipe.transform(res.credito);
         this.horasDebito = this.formatarMinutosPipe.transform(res.debito);
         this.horasSaldoMes = this.formatarMinutosPipe.transform(res.saldo);
+        if (res.saldo < 0 && res.saldo !== undefined) {
+          this.horasSaldoMes = this.horasSaldoMes + " Débito";
+        } else if (res.saldo > 0 && res.saldo !== undefined) {
+          this.horasSaldoMes = this.horasSaldoMes + " Crédito";
+        }
         this.saldoNegativo = res.negativo;
         this.horasTrabalhadas = this.formatarMinutosPipe.transform(res.trabalhadas);
         this.horasAbono = this.formatarMinutosPipe.transform(res.abono);
@@ -200,6 +206,7 @@ export class PontoComponent implements OnInit {
     this.existeFacultativo = false;
     this.existeNaoAdimitido = false;
     this.existeFeriado = false;
+    this.existeObito = false;
       pontos.forEach(ponto => {
       if (ponto.status === 'CORRETO') {
         this.existeCorreto = true;
@@ -236,6 +243,9 @@ export class PontoComponent implements OnInit {
       }
       if (ponto.status === 'FERIADO') {
         this.existeFeriado = true;
+      }
+      if (ponto.status === 'CERTIDAO_DE_OBITO') {
+        this.existeObito = true;
       }
     });
   }

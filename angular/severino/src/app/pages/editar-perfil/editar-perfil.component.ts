@@ -7,7 +7,7 @@ import { Acesso } from '../../shared/models/acesso';
 import { Login } from '../../shared/models/login';
 import { UsuarioService } from '../../services/usuario.service';
 import { MessageService } from 'primeng/components/common/messageservice';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-editar-perfil',
@@ -26,6 +26,9 @@ export class EditarPerfilComponent implements OnInit {
   mensagemGrow;
   tituloGrow;
   tipoGrow;
+  listaId: any;
+  idAny: any;
+  admin: boolean;
 
   constructor(
     private location: Location,
@@ -33,9 +36,14 @@ export class EditarPerfilComponent implements OnInit {
     private usuarioService: UsuarioService,
     private messageService: MessageService,
     private router: Router,
+    private route: ActivatedRoute,
   ) { }
 
-  ngOnInit(  ) {
+  ngOnInit() {
+    this.admin = false;
+    this.listaId = this.route.queryParams;
+    this.idAny = this.listaId.value;
+    this.id = parseInt((this.idAny.id), 10);
     this.buscaPerfil();
     this.perfilForm = this.fb.group({
       'inputNome': new FormControl('', [Validators.required]),
@@ -43,39 +51,43 @@ export class EditarPerfilComponent implements OnInit {
       'inputEmail': new FormControl('', [Validators.required]),
       'inputSenha': new FormControl('', [Validators.required]),
     });
+    if (sessionStorage.getItem('tipo') === 'ADMIN') {
+      this.admin = true;
+    }
   }
 
   buscaPerfil() {
-    this.id = parseInt(sessionStorage.getItem('id'), 10);
     this.usuarioService.usuario(this.id)
-    .subscribe( res => {
-      this.usuario = res;
-      this.acesso = this.usuario.acesso;
-      this.senha = "";
-    });
+      .subscribe(res => {
+        this.usuario = res;
+        this.acesso = this.usuario.acesso;
+        this.senha = "";
+      });
   }
 
   clickEditar() {
     this.acesso.senha = this.senha;
     this.usuario.acesso = this.acesso;
     this.usuarioService.editar(this.usuario)
-    .subscribe( res => {
-      sessionStorage.setItem('id', '' + res.id);
-      sessionStorage.setItem('nomeUsuario', res.nome);
-      sessionStorage.setItem('emailUsuario', res.email);
-      this.acesso = res.acesso;
-      sessionStorage.setItem('usertoken', this.acesso.token);
-      sessionStorage.setItem('nomeacesso', this.acesso.nomeacesso);
-      this.tipoGrow = "success";
-      this.tituloGrow = 'Sucesso';
-      this.mensagemGrow = "Perfil atualizado";
-      this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
-    }, error => {
-      this.tipoGrow = "error";
-      this.tituloGrow = 'Ops';
-      this.mensagemGrow = error.error;
-      this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
-    });
+      .subscribe(res => {
+        if (this.admin === false) {
+          sessionStorage.setItem('id', '' + res.id);
+          sessionStorage.setItem('nomeUsuario', res.nome);
+          sessionStorage.setItem('emailUsuario', res.email);
+          this.acesso = res.acesso;
+          sessionStorage.setItem('usertoken', this.acesso.token);
+          sessionStorage.setItem('nomeacesso', this.acesso.nomeacesso);
+        }
+        this.tipoGrow = "success";
+        this.tituloGrow = 'Sucesso';
+        this.mensagemGrow = "Perfil atualizado";
+        this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
+      }, error => {
+        this.tipoGrow = "error";
+        this.tituloGrow = 'Ops';
+        this.mensagemGrow = error.error;
+        this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
+      });
   }
 
   showGrow(tipo, titulo, mensagem) {

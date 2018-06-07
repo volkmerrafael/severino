@@ -14,10 +14,14 @@ export class FormatarMinutosPipe implements PipeTransform {
     result: string;
 
     transform(value: number): string {
+        if (value < 0) {
+            value = value * -1;
+        }
         if (value === undefined) {
             this.result = "00:00";
         } else if (value < 60) {
             this.minutos = value;
+                this.result = "00:0" + this.minutos;
             if (this.minutos < 10) {
                 this.result = "00:0" + this.minutos;
             } else {
@@ -44,7 +48,7 @@ export class FormatarMinutosPipe implements PipeTransform {
             if (this.horas < 10) {
                 this.hora = "0" + this.horas;
             } else {
-                this.hora = "" + this.minutos;
+                this.hora = "" + this.horas;
             }
             this.result = this.hora + this.minuto;
             return this.result;
