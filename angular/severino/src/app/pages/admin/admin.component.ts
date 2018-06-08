@@ -28,7 +28,7 @@ export class AdminComponent implements OnInit {
 
   usuario: Usuario = new Usuario();
   importacao: Importacao = new Importacao();
-  importacoes: Importacao[] = new Array;
+  importacoes: any;
   arqImportacao: ArquivoImportacao = new ArquivoImportacao();
   mensagemGrow: any;
   tituloGrow: any;
@@ -36,6 +36,7 @@ export class AdminComponent implements OnInit {
   token: any;
   msgs: Message[];
   uploadedFiles: any[] = [];
+  cols: any[];
 
   constructor(
     private importacaoService: ImportacaoService,
@@ -56,6 +57,20 @@ export class AdminComponent implements OnInit {
     this.importacaoService.listarImportacao()
       .subscribe(res => {
         this.importacoes = res;
+        this.cols = [
+          { field: 'importacoes.nome', header: 'Nome' },
+          { field: 'importacoes.tamanho', header: 'Tamanho' },
+          { field: 'importacoes.inicio_periodo', header: 'Início' },
+          { field: 'importacoes.final_periodo', header: 'Final' },
+          { field: 'importacoes.data_hora_importacao', header: 'Data/Hora' },
+          { field: 'importacoes.quantidade_usuario', header: 'Usu.' },
+          { field: 'importacoes.usuario_com_debito_banco', header: 'Déb.' },
+          { field: 'importacoes.usuario_com_credito_banco', header: 'Cré.' },
+          { field: 'importacoes.usuario_com_marcacao_incorreta', header: 'Inc.' },
+          { field: 'importacoes.usuario_sem_pendencias', header: 'Cor.' },
+          { field: 'importacoes.tempo_importacao', header: 'Tempo Imp.' },
+          { field: 'importacoes.status', header: 'Sit.' },
+        ];
         this.tipoGrow = "success";
         this.tituloGrow = 'Atualizado';
         this.mensagemGrow = "";

@@ -13,7 +13,7 @@
   }
   
   #corpoPonto{
-    padding-top: 100px;
+    padding-top: 50px;
   } 
   
   #atualizarDiv {
@@ -31,4 +31,9 @@
   #btn-atualizar-lista-ponto {
     padding-bottom: 30px;
 
+  }
+
+  .table {
+    padding-left: 100px;
+    padding-right: 100px
   }
