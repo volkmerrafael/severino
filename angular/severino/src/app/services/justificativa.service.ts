@@ -22,4 +22,10 @@ export class JustificativaService {
     );
   }
 
+  justificativas(data: string): Observable<Justificativa> {
+    return this.http.get<Justificativa>(
+      `${environment.server}justificativa/` + data
+    );
+  }
+
 }

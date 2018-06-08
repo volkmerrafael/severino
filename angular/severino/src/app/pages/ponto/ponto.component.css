@@ -131,6 +131,11 @@
   color: #ffffff !important;
 }
 
+.linha-compensacao {
+  background-color: rgb(124, 59, 84) !important;
+  color: #ffffff !important;
+}
+
 .ui-panel {
   text-align: right !important;
 }

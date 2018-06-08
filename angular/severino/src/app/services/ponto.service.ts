@@ -28,4 +28,16 @@ export class PontoService {
     );
   }
 
+  ponto(): Observable<Ponto[]> {
+    return this.http.get<Ponto[]>(
+      `${environment.server}ponto`
+    );
+  }
+
+  alterarPonto(ponto: Ponto): Observable<Ponto> {
+    return this.http.put<Ponto>(
+      `${environment.server}ponto`, ponto
+    );
+  }
+
 }

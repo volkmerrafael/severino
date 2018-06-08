@@ -26,6 +26,7 @@ import { LegendaService } from '../../services/legenda.service';
 import { FormatarMinutosPipe } from '../../shared/components/pipes/time.pipe';
 import { JustificativaService } from '../../services/justificativa.service';
 import { Justificativa } from '../../shared/models/justificativa';
+import * as moment from 'moment/moment';
 
 @Component({
   selector: 'app-ponto',
@@ -78,7 +79,7 @@ export class PontoComponent implements OnInit {
   displayJustificativa: any = false;
   msgs: Message[];
   justificativa: Justificativa = new Justificativa;
-  textoJust: string;
+  pontoEditado: any;
 
   constructor(
     private pontoService: PontoService,
@@ -121,7 +122,17 @@ export class PontoComponent implements OnInit {
     this.displayJornada = true;
   }
 
-  showDialogJustificativa() {
+  showDialogJustificativa(ponto: any) {
+    this.pontoEditado = new Ponto();
+    this.pontoEditado = Object.assign(Ponto, ponto);
+    console.log(this.pontoEditado);
+    console.log(ponto);
+    if (this.pontoEditado.justificativa) {
+    this.justificativa = this.pontoEditado.justificativa;
+    } else {
+      this.justificativa = new Justificativa();
+    }
+    console.log(this.justificativa);
     this.displayJustificativa = true;
   }
 
@@ -137,9 +148,24 @@ export class PontoComponent implements OnInit {
     this.messageService.add({ severity: tipo, summary: titulo, detail: mensagem });
   }
 
+  justificarPonto(justificativa: Justificativa) {
+    this.pontoEditado.justificativa = justificativa;
+    console.log(this.pontoEditado);
+    console.log(this.pontos);
+    this.pontoEditado.data = this.formatarDataPipe.dataServidor(this.pontoEditado.data);
+    console.log(this.pontoEditado.data);
+    this.pontoService.alterarPonto(this.pontoEditado)
+    .subscribe( res => {
+      this.consultaPontoPorPeriodo();
+      this.closeDialogJustificativa();
+      console.log(res);
+    });
+  }
+
   consultaPontoPorPeriodo() {
     this.pontoService.listarPontoPorPeriodo(this.ano, this.mes)
       .subscribe(res => {
+        console.log(res);
         this.tipoGrow = "success";
         this.tituloGrow = 'Sucesso';
         this.mensagemGrow = "";
@@ -223,19 +249,6 @@ export class PontoComponent implements OnInit {
     this.consultaJornada();
     this.consultaPontoPorPeriodo();
     this.consultaLegenda();
-  }
-
-  justificar() {
-    this.justificativaService.justificar(this.justificativa)
-    .subscribe( res => {
-
-    }, error => {
-      this.tratamentoErrosService.handleError(error);
-      this.tipoGrow = "error";
-      this.tituloGrow = 'Ops';
-      this.mensagemGrow = error.error;
-      this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
-    });
   }
 
   verificarStatus(pontos: Ponto[]) {

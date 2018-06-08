@@ -142,7 +142,8 @@
               rowData.status == 'FALTA_JUSTIFICADA' ? 'linha-falta-justificada' : 
               rowData.status == 'NAO_ADMITIDO' ? 'linha-nao-admitido' : 
               rowData.status == 'FERIADO' ? 'linha-feriado' : 
-              rowData.status == 'CERTIDAO_DE_OBITO' ? 'linha-obito' :  
+              rowData.status == 'CERTIDAO_DE_OBITO' ? 'linha-obito' :
+              rowData.status == 'COMPENSACAO' ? 'linha-compensacao' :
               null ">
                 <td class="ui-resizable-colum">
                   <span *ngIf="rowData.diasemana != undefined">{{rowData.diasemana.nome}}</span>
@@ -152,10 +153,10 @@
                 </td>
                 <td class="ui-resizable-colum">
                     <span *ngIf="rowData.status == 'CREDITO' || rowData.status == 'DEBITO' || rowData.status == 'MARCACAO_INCORRETA'">
-                        <button type="text" (click)="showDialogJustificativa()"> + </button>
+                        <button type="text" (click)="showDialogJustificativa(rowData)"> + </button>
                         <p-dialog header="Justificativa" [(visible)]="displayJustificativa" [responsive]="true" [width]="350" [minWidth]="200" [minY]="70">
-                            <textarea rows="5" cols="30" class="textArea" pInputTextarea [(ngModel)]="textoJust"></textarea>
-                            <button pButton type="button" icon="fa fa-fw fa-check" label="Salvar" class="ui-button-success" (click)="justificar()"></button>
+                            <textarea rows="5" cols="30" class="textArea" pInputTextarea [(ngModel)]="justificativa.descricao"></textarea>
+                            <button pButton type="button" icon="fa fa-fw fa-check" label="Salvar" class="ui-button-success" (click)="justificarPonto(justificativa)"></button>
                             <button pButton type="button" icon="fa fa-fw fa-ban" label="Cancelar" class="ui-button-danger" (click)="closeDialogJustificativa()"></button>
                         </p-dialog>
                     </span>

@@ -1,3 +1,6 @@
+import { Usuario } from './usuario';
 export class Justificativa {
-    justificativa: string;
+    id: number;
+    descricao: string;
+    data: string;
 }
