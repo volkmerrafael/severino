@@ -35,6 +35,7 @@ import { JornadaService } from './services/jornada.service';
 import { LegendaService } from './services/legenda.service';
 import { ListaComponent } from './pages/lista/lista.component';
 import {CardModule} from 'primeng/card';
+import { JustificativaService } from './services/justificativa.service';
 
 
 export const HttpInterceptorProviders = [
@@ -79,7 +80,8 @@ export const HttpInterceptorProviders = [
     AuthGuardService,
     ControleHorasService,
     JornadaService,
-    LegendaService
+    LegendaService,
+    JustificativaService
   ],
   bootstrap: [AppComponent]
 })

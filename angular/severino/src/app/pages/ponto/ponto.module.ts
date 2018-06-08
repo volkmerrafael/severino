@@ -13,6 +13,7 @@ import {OverlayPanelModule} from 'primeng/overlaypanel';
 import {TooltipModule} from 'primeng/tooltip';
 import {DialogModule} from 'primeng/dialog';
 import { FormatarMinutosPipe } from '../../shared/components/pipes/time.pipe';
+import {InputTextareaModule} from 'primeng/inputtextarea';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { FormatarMinutosPipe } from '../../shared/components/pipes/time.pipe';
     PanelModule,
     OverlayPanelModule,
     TooltipModule,
-    DialogModule
+    DialogModule,
+    InputTextareaModule
   ],
   declarations: [
     PontoComponent,

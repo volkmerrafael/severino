@@ -24,6 +24,8 @@ import { DiaSemana } from '../../shared/models/diasemana';
 import { Message } from 'primeng/components/common/message';
 import { LegendaService } from '../../services/legenda.service';
 import { FormatarMinutosPipe } from '../../shared/components/pipes/time.pipe';
+import { JustificativaService } from '../../services/justificativa.service';
+import { Justificativa } from '../../shared/models/justificativa';
 
 @Component({
   selector: 'app-ponto',
@@ -73,7 +75,10 @@ export class PontoComponent implements OnInit {
   existeObito: any = false;
   displayLegenda: any = false;
   displayJornada: any = false;
+  displayJustificativa: any = false;
   msgs: Message[];
+  justificativa: Justificativa = new Justificativa;
+  textoJust: string;
 
   constructor(
     private pontoService: PontoService,
@@ -84,6 +89,7 @@ export class PontoComponent implements OnInit {
     private jornadaService: JornadaService,
     private legendaService: LegendaService,
     private formatarMinutosPipe: FormatarMinutosPipe,
+    private justificativaService: JustificativaService,
   ) {
 
     this.cols = [
@@ -96,7 +102,7 @@ export class PontoComponent implements OnInit {
       { field: 'saida3', header: 'Saída', width: '6%'},
       { field: 'entrada4', header: 'Entrada', width: '6%'},
       { field: 'saida4', header: 'Saída', width: '6%'},
-      { field: 'observacao', header: 'Observação', width: '6%'}
+      { field: 'observacao', header: 'Observação', width: '6%'},
     ];
 
     this.usuario.nome = sessionStorage.getItem('nomeUsuario');
@@ -113,6 +119,14 @@ export class PontoComponent implements OnInit {
 
   showDialogJornada() {
     this.displayJornada = true;
+  }
+
+  showDialogJustificativa() {
+    this.displayJustificativa = true;
+  }
+
+  closeDialogJustificativa() {
+    this.displayJustificativa = false;
   }
 
   ngOnInit() {
@@ -138,7 +152,7 @@ export class PontoComponent implements OnInit {
       }, error => {
         this.tratamentoErrosService.handleError(error);
         this.tipoGrow = "error";
-        this.tituloGrow = 'Sucesso';
+        this.tituloGrow = 'Ops';
         this.mensagemGrow = error.error;
         this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
       });
@@ -164,7 +178,7 @@ export class PontoComponent implements OnInit {
     }, error => {
       this.tratamentoErrosService.handleError(error);
       this.tipoGrow = "error";
-      this.tituloGrow = 'Sucesso';
+      this.tituloGrow = 'Ops';
       this.mensagemGrow = error.error;
       this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
     });
@@ -181,7 +195,7 @@ export class PontoComponent implements OnInit {
     }); }, error => {
       this.tratamentoErrosService.handleError(error);
       this.tipoGrow = "error";
-      this.tituloGrow = 'Sucesso';
+      this.tituloGrow = 'Ops';
       this.mensagemGrow = error.error;
       this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
     });
@@ -198,7 +212,7 @@ export class PontoComponent implements OnInit {
     }); }, error => {
       this.tratamentoErrosService.handleError(error);
       this.tipoGrow = "error";
-      this.tituloGrow = 'Sucesso';
+      this.tituloGrow = 'Ops';
       this.mensagemGrow = error.error;
       this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
     });
@@ -209,6 +223,19 @@ export class PontoComponent implements OnInit {
     this.consultaJornada();
     this.consultaPontoPorPeriodo();
     this.consultaLegenda();
+  }
+
+  justificar() {
+    this.justificativaService.justificar(this.justificativa)
+    .subscribe( res => {
+
+    }, error => {
+      this.tratamentoErrosService.handleError(error);
+      this.tipoGrow = "error";
+      this.tituloGrow = 'Ops';
+      this.mensagemGrow = error.error;
+      this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
+    });
   }
 
   verificarStatus(pontos: Ponto[]) {

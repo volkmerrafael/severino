@@ -112,6 +112,9 @@
                   {{col.header}}
                 </th>
                 <th pResizableColumn style="width: 7%;">
+                  Just.
+              </th>
+                <th pResizableColumn style="width: 7%;">
                   <button type="text" (click)="showDialogJornada()" pButton icon="fa-question-circle"></button> Jor.
                   <p-dialog header="Jornadas" [(visible)]="displayJornada" [responsive]="true" [width]="350" [minWidth]="200" [minY]="70">
                       <p *ngFor="let jornada of jornadas">Jornada(s): {{jornada.id}} - {{jornada.periodo_jornada}}</p>
@@ -148,9 +151,19 @@
                   {{rowData[col.field]}}
                 </td>
                 <td class="ui-resizable-colum">
+                    <span *ngIf="rowData.status == 'CREDITO' || rowData.status == 'DEBITO' || rowData.status == 'MARCACAO_INCORRETA'">
+                        <button type="text" (click)="showDialogJustificativa()"> + </button>
+                        <p-dialog header="Justificativa" [(visible)]="displayJustificativa" [responsive]="true" [width]="350" [minWidth]="200" [minY]="70">
+                            <textarea rows="5" cols="30" class="textArea" pInputTextarea [(ngModel)]="textoJust"></textarea>
+                            <button pButton type="button" icon="fa fa-fw fa-check" label="Salvar" class="ui-button-success" (click)="justificar()"></button>
+                            <button pButton type="button" icon="fa fa-fw fa-ban" label="Cancelar" class="ui-button-danger" (click)="closeDialogJustificativa()"></button>
+                        </p-dialog>
+                    </span>
+                  </td>
+                <td class="ui-resizable-colum">
                   <span *ngIf="rowData.jornada != undefined">{{rowData.jornada.id}}</span>
                 </td>
-                <td class="ui-resizable-colum">
+                <td  class="ui-resizable-colum">
                   <span *ngIf="rowData.legenda != undefined">{{rowData.legenda.sigla}}</span>
                 </td>
               </tr>

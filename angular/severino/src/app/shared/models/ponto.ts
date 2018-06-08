@@ -19,4 +19,5 @@ export class Ponto {
   usuario: Usuario;
   legenda: Legenda;
   status: string;
+  tem_justificativa: number;
 }
