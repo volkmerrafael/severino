@@ -5,7 +5,7 @@ import { Justificativa } from './justificativa';
 export class Ponto {
 
   id: number;
-  data: string;
+  data: any;
   diasemana: string;
   jornada: string;
   entrada1: string;

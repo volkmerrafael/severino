@@ -13,9 +13,9 @@ export class JornadaService {
 
    }
 
-  consultaJornada(ano: String, mes: String): Observable<Jornada[]> {
+  consultaJornada(usuario: number, ano: String, mes: String): Observable<Jornada[]> {
     return this.http.get<Jornada[]>(
-      `${environment.server}jornada/listar/` + ano + `/` + mes
+      `${environment.server}jornada/listar/` + usuario + `/` + ano + `/` + mes
     );
   }
 }

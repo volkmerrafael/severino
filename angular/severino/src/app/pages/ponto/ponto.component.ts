@@ -27,6 +27,7 @@ import { FormatarMinutosPipe } from '../../shared/components/pipes/time.pipe';
 import { JustificativaService } from '../../services/justificativa.service';
 import { Justificativa } from '../../shared/models/justificativa';
 import * as moment from 'moment/moment';
+import { PontoEditado } from '../../shared/models/pontoEditado';
 
 @Component({
   selector: 'app-ponto',
@@ -79,7 +80,9 @@ export class PontoComponent implements OnInit {
   displayJustificativa: any = false;
   msgs: Message[];
   justificativa: Justificativa = new Justificativa;
-  pontoEditado: any;
+  pontoEditado: PontoEditado = new PontoEditado();
+  pontosEditados: PontoEditado[] = [];
+  pontoAux: Ponto = new Ponto();
 
   constructor(
     private pontoService: PontoService,
@@ -94,8 +97,10 @@ export class PontoComponent implements OnInit {
   ) {
 
     this.cols = [
-      { field: 'data', pipe: 'formatarData', header: 'Data', width: '6%'},
-      { field: 'entrada1', header: 'Entrada', width: '10%'},
+      { field: 'diaSemana', header: 'Dia', width: '7%'},
+      { field: 'data', header: 'Data', width: '10%'},
+      { field: 'jornadaId', header: 'Jor.', width: '6%'},
+      { field: 'entrada1', header: 'Entrada', width: '6%'},
       { field: 'saida1', header: 'Saída', width: '6%'},
       { field: 'entrada2', header: 'Entrada', width: '6%'},
       { field: 'saida2', header: 'Saída', width: '6%'},
@@ -103,9 +108,11 @@ export class PontoComponent implements OnInit {
       { field: 'saida3', header: 'Saída', width: '6%'},
       { field: 'entrada4', header: 'Entrada', width: '6%'},
       { field: 'saida4', header: 'Saída', width: '6%'},
-      { field: 'observacao', header: 'Observação', width: '6%'},
+      { field: 'observacao', header: 'Observação', width: '20%'},
+      { field: 'justificativaId', header: 'Just.'},
+      { field: 'legendaId', header: 'Leg.'},
     ];
-
+    this.usuario.id = parseInt(sessionStorage.getItem('id'), 10);
     this.usuario.nome = sessionStorage.getItem('nomeUsuario');
     this.departamento = sessionStorage.getItem('departamentoUsuario');
     this.funcao = sessionStorage.getItem('funcaoUsuario');
@@ -123,16 +130,11 @@ export class PontoComponent implements OnInit {
   }
 
   showDialogJustificativa(ponto: any) {
-    this.pontoEditado = new Ponto();
-    this.pontoEditado = Object.assign(Ponto, ponto);
-    console.log(this.pontoEditado);
-    console.log(ponto);
+    console.log('Ponto', ponto);
+    this.pontoEditado = ponto;
     if (this.pontoEditado.justificativa) {
-    this.justificativa = this.pontoEditado.justificativa;
-    } else {
-      this.justificativa = new Justificativa();
+      this.justificativa = this.pontoEditado.justificativa;
     }
-    console.log(this.justificativa);
     this.displayJustificativa = true;
   }
 
@@ -148,13 +150,15 @@ export class PontoComponent implements OnInit {
     this.messageService.add({ severity: tipo, summary: titulo, detail: mensagem });
   }
 
-  justificarPonto(justificativa: Justificativa) {
-    this.pontoEditado.justificativa = justificativa;
-    console.log(this.pontoEditado);
-    console.log(this.pontos);
-    this.pontoEditado.data = this.formatarDataPipe.dataServidor(this.pontoEditado.data);
-    console.log(this.pontoEditado.data);
-    this.pontoService.alterarPonto(this.pontoEditado)
+  justificarPonto(justificativa: Justificativa, idPonto: any) {
+    this.pontos.forEach( ponto => {
+      if (ponto.id === idPonto) {
+        ponto.justificativa = justificativa;
+        this.pontoAux = ponto;
+        console.log(JSON.stringify(this.pontoAux));
+      }
+    });
+    this.pontoService.alterarPonto(this.pontoAux)
     .subscribe( res => {
       this.consultaPontoPorPeriodo();
       this.closeDialogJustificativa();
@@ -163,18 +167,17 @@ export class PontoComponent implements OnInit {
   }
 
   consultaPontoPorPeriodo() {
-    this.pontoService.listarPontoPorPeriodo(this.ano, this.mes)
+    this.pontoService.listarPontoPorPeriodo(this.usuario.id, this.ano, this.mes)
       .subscribe(res => {
         console.log(res);
+        this.pontos = res;
+        this.verificarStatus(res);
+        this.pontosEditados = [];
+        this.montaObjeto(res);
         this.tipoGrow = "success";
         this.tituloGrow = 'Sucesso';
         this.mensagemGrow = "";
         this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
-        this.pontos = res;
-        this.verificarStatus(res);
-        this.pontos.forEach(ponto => {
-          ponto.data = this.formatarDataPipe.transform(ponto.data);
-    });
       }, error => {
         this.tratamentoErrosService.handleError(error);
         this.tipoGrow = "error";
@@ -185,7 +188,7 @@ export class PontoComponent implements OnInit {
   }
 
   consultaControleHoras() {
-    this.controleHorasService.controleHoras(this.ano, this.mes)
+    this.controleHorasService.controleHoras(this.usuario.id, this.ano, this.mes)
     .subscribe(res => {
       if (res != null) {
         this.horasCredito = this.formatarMinutosPipe.transform(res.credito);
@@ -210,9 +213,52 @@ export class PontoComponent implements OnInit {
     });
   }
 
+  montaObjeto(pontos: any[]) {
+    let jornada: Jornada = new Jornada();
+    let legenda: Legenda = new Legenda();
+    let diaSemana: DiaSemana = new DiaSemana;
+    let justificativa: Justificativa = new Justificativa();
+    pontos.forEach( ponto => {
+      this.pontoEditado = new PontoEditado();
+      jornada = ponto.jornada;
+      if (ponto.justificativa) {
+        this.pontoEditado.justificativa = ponto.justificativa;
+        justificativa = ponto.justificativa;
+      } else {
+        this.pontoEditado.justificativa = new Justificativa();
+      }
+      legenda = ponto.legenda;
+      diaSemana = ponto.diasemana;
+      this.pontoEditado.id = ponto.id;
+      this.pontoEditado.diaSemana = diaSemana.nome;
+      this.pontoEditado.data = ponto.data;
+      if (jornada !== undefined) {
+      this.pontoEditado.jornadaId = jornada.id;
+      }
+      this.pontoEditado.entrada1 = ponto.entrada1;
+      this.pontoEditado.saida1 = ponto.saida1;
+      this.pontoEditado.entrada2 = ponto.entrada2;
+      this.pontoEditado.saida2 = ponto.saida2;
+      this.pontoEditado.entrada3 = ponto.entrada3;
+      this.pontoEditado.saida3 = ponto.saida3;
+      this.pontoEditado.entrada4 = ponto.entrada4;
+      this.pontoEditado.saida4 = ponto.saida4;
+      this.pontoEditado.observacao = ponto.observacao;
+      if (legenda !== undefined) {
+      this.pontoEditado.legendaId = legenda.id;
+      }
+      this.pontoEditado.status = ponto.status;
+      this.pontosEditados.push(this.pontoEditado);
+    });
+    console.log('pontos', this.pontosEditados);
+    this.pontosEditados.forEach( data => {
+        data.data = moment(data.data).format("DD/MM/YYYY");
+    });
+  }
+
   consultaJornada() {
     this.jornadas = [];
-    this.jornadaService.consultaJornada(this.ano, this.mes)
+    this.jornadaService.consultaJornada(this.usuario.id, this.ano, this.mes)
     .subscribe(res => {
       this.n = 0;
       res.forEach(jornada => {
@@ -229,7 +275,7 @@ export class PontoComponent implements OnInit {
 
   consultaLegenda() {
     this.legendas = [];
-    this.legendaService.consultaLegenda(this.ano, this.mes)
+    this.legendaService.consultaLegenda(this.usuario.id, this.ano, this.mes)
     .subscribe(res => {
       this.l = 0;
       res.forEach(legenda => {

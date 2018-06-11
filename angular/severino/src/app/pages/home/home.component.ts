@@ -87,7 +87,10 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/lista']);
   } else if (rota === 'ponto') {
     this.router.navigate(['/ponto']);
+  } else if (rota === 'jira') {
+    this.router.navigate(['/jira']);
   }
+
   }
 
   consultarUsuario(id: any) {

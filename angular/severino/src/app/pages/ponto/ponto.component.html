@@ -95,7 +95,7 @@
             </div>
 
         <div id="table">
-          <p-table [columns]="cols" [value]="pontos" [resizableColumns]="true">
+          <p-table [columns]="cols" [value]="pontosEditados" [resizableColumns]="true">
 
             <ng-template pTemplate="colgroup" let-columns>
               <colgroup>
@@ -105,26 +105,20 @@
 
             <ng-template pTemplate="header" let-columns>
               <tr>
-                <th pResizableColumn>
-                  Dia
-                </th>
+                
                 <th *ngFor="let col of columns" pResizableColumn>
                   {{col.header}}
-                </th>
-                <th pResizableColumn style="width: 7%;">
-                  Just.
-              </th>
-                <th pResizableColumn style="width: 7%;">
-                  <button type="text" (click)="showDialogJornada()" pButton icon="fa-question-circle"></button> Jor.
-                  <p-dialog header="Jornadas" [(visible)]="displayJornada" [responsive]="true" [width]="350" [minWidth]="200" [minY]="70">
-                      <p *ngFor="let jornada of jornadas">Jornada(s): {{jornada.id}} - {{jornada.periodo_jornada}}</p>
-                  </p-dialog>
-                </th>
-                <th pResizableColumn style="width: 7%;">
-                    <button type="text" (click)="showDialogLegenda()" pButton icon="fa-question-circle"></button> Leg.
-                    <p-dialog header="Legendas" [(visible)]="displayLegenda" [responsive]="true" [width]="350" [minWidth]="200" [minY]="70">
-                        <p *ngFor="let legenda of legendas">Legendas(s): {{legenda.sigla}} - {{legenda.nome}}</p>
-                    </p-dialog>
+                  <span *ngIf="col.header == 'Jor.'">
+                    <button type="text" (click)="showDialogJornada()" pButton icon="fa-question-circle"></button>
+                    <p-dialog header="Jornadas" [(visible)]="displayJornada" [responsive]="true" [width]="350" [minWidth]="200" [minY]="70">
+                        <p *ngFor="let jornada of jornadas">Jornada(s): {{jornada.id}} - {{jornada.periodo_jornada}}</p>
+                    </p-dialog></span>
+                    <span *ngIf="col.header == 'Leg.'">
+                        <button type="text" (click)="showDialogLegenda()" pButton icon="fa-question-circle"></button>
+                        <p-dialog header="Legendas" [(visible)]="displayLegenda" [responsive]="true" [width]="350" [minWidth]="200" [minY]="70">
+                            <p *ngFor="let legenda of legendas">Legendas(s): {{legenda.sigla}} - {{legenda.nome}}</p>
+                        </p-dialog>
+                    </span>
                 </th>
               </tr>
             </ng-template>
@@ -145,13 +139,18 @@
               rowData.status == 'CERTIDAO_DE_OBITO' ? 'linha-obito' :
               rowData.status == 'COMPENSACAO' ? 'linha-compensacao' :
               null ">
-                <td class="ui-resizable-colum">
-                  <span *ngIf="rowData.diasemana != undefined">{{rowData.diasemana.nome}}</span>
-                </td>
                 <td *ngFor="let col of columns" class="ui-resizable-column">
                   {{rowData[col.field]}}
+                  <span *ngIf="col.field == 'justificativaId' && rowData.status == 'CREDITO' || rowData.status == 'DEBITO' || rowData.status == 'MARCACAO_INCORRETA'">
+                      <button type="text" (click)="showDialogJustificativa(rowData)"> + </button>
+                      <p-dialog header="Justificativa" [(visible)]="displayJustificativa" [responsive]="true" [width]="350" [minWidth]="200" [minY]="70">
+                          <textarea rows="5" cols="30" class="textArea" pInputTextarea [(ngModel)]="justificativa.descricao"></textarea>
+                          <button pButton type="button" icon="fa fa-fw fa-check" label="Salvar" class="ui-button-success" (click)="justificarPonto(justificativa, rowData.id)"></button>
+                          <button pButton type="button" icon="fa fa-fw fa-ban" label="Cancelar" class="ui-button-danger" (click)="closeDialogJustificativa()"></button>
+                      </p-dialog>
+                  </span>
                 </td>
-                <td class="ui-resizable-colum">
+                <!--<td class="ui-resizable-colum">
                     <span *ngIf="rowData.status == 'CREDITO' || rowData.status == 'DEBITO' || rowData.status == 'MARCACAO_INCORRETA'">
                         <button type="text" (click)="showDialogJustificativa(rowData)"> + </button>
                         <p-dialog header="Justificativa" [(visible)]="displayJustificativa" [responsive]="true" [width]="350" [minWidth]="200" [minY]="70">
@@ -167,7 +166,7 @@
                 <td  class="ui-resizable-colum">
                   <span *ngIf="rowData.legenda != undefined">{{rowData.legenda.sigla}}</span>
                 </td>
-              </tr>
+              </tr>-->
             </ng-template>
 
           </p-table>

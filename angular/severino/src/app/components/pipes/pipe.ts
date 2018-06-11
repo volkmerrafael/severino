@@ -14,14 +14,17 @@ export class FormatarDataPipe implements PipeTransform {
     return '';
   }
 
-  dataServidor(value: string): string {
+ /* dataServidor(value: string): string {
     if (value) {
-      const ano: String = '' + moment(value).year;
-      const mes: String = '' + moment(value).month;
-      const dia: String = '' + moment(value).day;
-      const dataFormatada = ano + '-' + mes + '-' + dia;
+      console.log(moment(value).toDate());
+      const date: Date = moment(value).toDate();
+      const ano: any =  date.getDay();
+      const mes: any =  date.getMonth();
+      const dia: any =  date.getFullYear();
+      const dataFormatada = dia + '-' + mes + '-' + ano;
+      console.log(dataFormatada);
       return dataFormatada;
     }
     return '';
-  }
+  }*/
 }

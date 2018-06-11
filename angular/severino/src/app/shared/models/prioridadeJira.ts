@@ -1,0 +1,30 @@
+export class PrioridadeJira {
+    id: number;
+    project_name: string;
+    pkey: string;
+    issueenum: string;
+    summary: string;
+    cliente: string;
+    t: string;
+    ano_restante: string;
+    issueid: string;
+    project: string;
+    sitema: string;
+    classificacao: string;
+    interna_externa: string;
+    tipo_classificacao: string;
+    creator: string;
+    issuetype: string;
+    assignee: string;
+    priorityid: string;
+    resolution: string;
+    issuesstatus: string;
+    ano_estouro: string;
+    created: string;
+    updated: string;
+    pendenteem: string;
+    duedate: string;
+    timespent: string;
+    resolutiondate: string;
+    temp_atendimento: string;
+}

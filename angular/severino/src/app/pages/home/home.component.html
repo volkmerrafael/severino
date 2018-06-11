@@ -11,6 +11,9 @@
     <div *ngIf="admin == false && mostraLinks" class="ui-toolbar-group-left">
         <a class="links" (click)="onClickNavigator('ponto')">Ponto</a>
     </div>
+    <div class="ui-toolbar-group-left">
+        <a class="links" (click)="onClickNavigator('jira')">Jira</a>
+    </div>
 </div>
 <p-tieredMenu #menu [model]="items" [popup]="true" class="popup"></p-tieredMenu>
 

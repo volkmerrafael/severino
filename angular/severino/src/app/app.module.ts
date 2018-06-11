@@ -36,6 +36,9 @@ import { LegendaService } from './services/legenda.service';
 import { ListaComponent } from './pages/lista/lista.component';
 import {CardModule} from 'primeng/card';
 import { JustificativaService } from './services/justificativa.service';
+import { DashboardComponent } from './modules/jira/pages/dashboard/dashboard.component';
+import { JiraService } from './modules/jira/jira.service';
+import { JiraModule } from './modules/jira/jira.module';
 
 
 export const HttpInterceptorProviders = [
@@ -71,6 +74,7 @@ export const HttpInterceptorProviders = [
     MenuModule,
     TieredMenuModule,
     CardModule,
+    JiraModule
   ],
   providers: [
     HttpInterceptorProviders,
@@ -81,7 +85,8 @@ export const HttpInterceptorProviders = [
     ControleHorasService,
     JornadaService,
     LegendaService,
-    JustificativaService
+    JustificativaService,
+    JiraService
   ],
   bootstrap: [AppComponent]
 })

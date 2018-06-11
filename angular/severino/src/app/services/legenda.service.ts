@@ -13,9 +13,9 @@ export class LegendaService {
 
    }
 
-  consultaLegenda(ano: String, mes: String): Observable<Legenda[]> {
+  consultaLegenda(usuario: number, ano: String, mes: String): Observable<Legenda[]> {
     return this.http.get<Legenda[]>(
-      `${environment.server}legenda/listar/` + ano + `/` + mes
+      `${environment.server}legenda/listar/` + usuario + `/` + ano + `/` + mes
     );
   }
 }

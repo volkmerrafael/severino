@@ -13,9 +13,9 @@ export class ControleHorasService {
 
    }
 
-  controleHoras(ano: String, mes: String): Observable<ControleHoras> {
+  controleHoras(usuario: number, ano: String, mes: String): Observable<ControleHoras> {
     return this.http.get<ControleHoras>(
-      `${environment.server}controlehoras/listar/` + ano + `/` + mes
+      `${environment.server}controlehoras/listar/` + usuario + `/` + ano + `/` + mes
     );
   }
 }

@@ -8,6 +8,7 @@ import { PerfilComponent } from './pages/perfil/perfil.component';
 import { EditarPerfilComponent } from './pages/editar-perfil/editar-perfil.component';
 import { AuthGuardService } from "./services/auth-guard.service";
 import { ListaComponent } from "./pages/lista/lista.component";
+import { DashboardComponent } from './modules/jira/pages/dashboard/dashboard.component';
 
 const id: Number = 0;
 
@@ -18,6 +19,8 @@ const rotas: Routes = [
   {path: 'perfil', component: PerfilComponent, canActivate: [AuthGuardService] },
   {path: 'editar-perfil', component: EditarPerfilComponent, canActivate: [AuthGuardService] },
   {path: 'lista', component: ListaComponent, canActivate: [AuthGuardService] },
+  {path: 'jira/dashboard', component: DashboardComponent},
+  {path: 'jira', redirectTo: 'jira/dashboard'},
   {path: '**', redirectTo: 'login' }
 ];
 
