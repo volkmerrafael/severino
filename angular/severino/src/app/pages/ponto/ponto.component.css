@@ -139,3 +139,17 @@
 .ui-panel {
   text-align: right !important;
 }
+
+.btExclamation {
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+
+.btCheck {
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+
+.justificativa {
+  text-align: center;
+}

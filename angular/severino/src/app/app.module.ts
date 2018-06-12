@@ -39,6 +39,7 @@ import { JustificativaService } from './services/justificativa.service';
 import { DashboardComponent } from './modules/jira/pages/dashboard/dashboard.component';
 import { JiraService } from './modules/jira/jira.service';
 import { JiraModule } from './modules/jira/jira.module';
+import { WorklogJiraService } from './services/worklogJira.service';
 
 
 export const HttpInterceptorProviders = [
@@ -86,7 +87,8 @@ export const HttpInterceptorProviders = [
     JornadaService,
     LegendaService,
     JustificativaService,
-    JiraService
+    JiraService,
+    WorklogJiraService
   ],
   bootstrap: [AppComponent]
 })

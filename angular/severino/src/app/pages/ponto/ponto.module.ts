@@ -14,6 +14,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { DialogModule } from 'primeng/dialog';
 import { FormatarMinutosPipe } from '../../shared/components/pipes/time.pipe';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { ListboxModule } from 'primeng/listbox';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     OverlayPanelModule,
     TooltipModule,
     DialogModule,
-    InputTextareaModule
+    InputTextareaModule,
+    ListboxModule
   ],
   declarations: [
     PontoComponent,
