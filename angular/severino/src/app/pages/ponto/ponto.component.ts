@@ -90,9 +90,7 @@ export class PontoComponent implements OnInit {
   pontoEdicao: PontoEditado = new PontoEditado();
   idPonto: any;
   data: any;
-  dia: any;
   listaIssues: WorklogJira[];
-  listaIssueJson: any;
   selectedIssues: WorklogJira[];
 
   constructor(

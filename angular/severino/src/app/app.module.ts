@@ -40,6 +40,7 @@ import { DashboardComponent } from './modules/jira/pages/dashboard/dashboard.com
 import { JiraService } from './modules/jira/jira.service';
 import { JiraModule } from './modules/jira/jira.module';
 import { WorklogJiraService } from './services/worklogJira.service';
+import { UsuarioModule } from './modules/usuario/usuario.module';
 
 
 export const HttpInterceptorProviders = [
@@ -56,6 +57,7 @@ export const HttpInterceptorProviders = [
     ListaComponent
   ],
   imports: [
+    UsuarioModule,
     BrowserModule,
     HttpClientModule,
     LoginModule,
