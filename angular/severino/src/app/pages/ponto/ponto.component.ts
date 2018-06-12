@@ -64,6 +64,7 @@ export class PontoComponent implements OnInit {
   jornadas: Jornada[] = [];
   n: any = 0;
   l: any = 0;
+  w: any;
   existeCorreto: any = false;
   existeDebito: any = false;
   existeCredito: any = false;
@@ -90,7 +91,8 @@ export class PontoComponent implements OnInit {
   idPonto: any;
   data: any;
   dia: any;
-  listaIssues: WorklogJira[] = [];
+  listaIssues: WorklogJira[];
+  listaIssueJson: any;
   selectedIssues: WorklogJira[];
 
   constructor(
@@ -145,6 +147,14 @@ export class PontoComponent implements OnInit {
       if (res.id === this.idPonto) {
         this.data = res.data;
       }
+    });
+    this.worklogJiraService.listarIssues(this.usuario.id, this.data)
+    .subscribe( res => {
+      this.listaIssues = res;
+      this.listaIssues.forEach( issue => {
+        issue.issue = issue.issue + " - " + issue.summary + " (Iniciado em: " + issue.startdate +
+        " Tempo trabalhado: " + issue.timeworked + ")";
+      });
     });
     this.pontoEdicao = ponto;
     if (this.pontoEdicao.justificativa) {
