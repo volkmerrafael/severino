@@ -122,7 +122,7 @@ export class PontoComponent implements OnInit {
       { field: 'saida4', header: 'Saída', width: '6%'},
       { field: 'observacao', header: 'Observação', width: '20%'},
       { field: 'justificativaId', header: 'Just.'},
-      { field: 'legendaId', header: 'Leg.', width: '6%'},
+      { field: 'legenda', header: 'Leg.', width: '6%'},
     ];
     this.usuario.id = parseInt(sessionStorage.getItem('id'), 10);
     this.usuario.nome = sessionStorage.getItem('nomeUsuario');
@@ -275,7 +275,7 @@ export class PontoComponent implements OnInit {
       this.pontoEditado.saida4 = ponto.saida4;
       this.pontoEditado.observacao = ponto.observacao;
       if (legenda !== undefined) {
-      this.pontoEditado.legendaId = legenda.id;
+      this.pontoEditado.legenda = legenda.sigla;
       }
       this.pontoEditado.status = ponto.status;
       this.pontosEditados.push(this.pontoEditado);

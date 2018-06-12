@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Message } from 'primeng/components/common/message';
 import { PrioridadeJira } from '../../../../shared/models/prioridadeJira';
 import { MessageService } from 'primeng/components/common/messageservice';
-import { TratamentoErrosService } from '../../../../services/tratamento-erros.service';
 import { JiraService } from '../../jira.service';
 import * as moment from 'moment/moment';
+import { PrioridadeInfo } from '../../../../shared/models/prioridadeInfo';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,29 +15,27 @@ export class DashboardComponent implements OnInit {
   tituloGrow: any;
   tipoGrow: any;
   token: any;
-  msgs: Message[];
   uploadedFiles: any[] = [];
   cols: any[];
-  prioridadesJira: any;
+  prioridadeInfo: PrioridadeInfo = new PrioridadeInfo;
+  prioridadesJira: PrioridadeJira[] = [];
+  data: any;
 
   constructor(
-    private jiraService: JiraService,
-    private tratamentoErrosService: TratamentoErrosService,
-    private messageService: MessageService
+    private jiraService: JiraService
   ) { }
 
   ngOnInit() {
     this.listarJiraPrioridade();
-  }
-  showGrow(tipo, titulo, mensagem) {
-    this.messageService.add({ severity: tipo, summary: titulo, detail: mensagem });
+    this.carregarGraficos();
   }
 
   listarJiraPrioridade() {
     this.jiraService.listaPrioridadeJira()
       .subscribe(res => {
         console.log(res);
-        this.prioridadesJira = res;
+        this.prioridadesJira = res.lista_prioridades;
+        console.log(this.prioridadesJira);
         this.prioridadesJira.forEach(data => {
         data.pendenteem = moment(data.pendenteem).format("DD/MM/YYYY");
         });
@@ -56,8 +53,27 @@ export class DashboardComponent implements OnInit {
           { field: 't', header: '% Tempo Restante' },
         ];
       }, error => {
-        console.log(error);
       });
+  }
+
+  carregarGraficos() {
+    this.data = {
+      labels: ['A', 'B', 'C'],
+      datasets: [
+          {
+              data: [300, 50, 100],
+              backgroundColor: [
+                  "#FF6384",
+                  "#36A2EB",
+                  "#FFCE56"
+              ],
+              hoverBackgroundColor: [
+                  "#FF6384",
+                  "#36A2EB",
+                  "#FFCE56"
+              ]
+          }]
+      };
   }
 
 }

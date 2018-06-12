@@ -58,12 +58,11 @@
 }
 
 .textArea {
-  width: 300px;
-  height: 150px;
-  max-width: 300px;
-  max-height: 150px;
-  min-width: 300px;
-  min-height: 150px;
+  resize: none;
+  margin-top: 5px;
+  width: 90%;
+  height: 90%;
+  
 }
 
 .linha-correta {
@@ -152,8 +151,4 @@
 
 .justificativa {
   text-align: center;
-}
-
-.listbox {
-  text-align: left;
 }

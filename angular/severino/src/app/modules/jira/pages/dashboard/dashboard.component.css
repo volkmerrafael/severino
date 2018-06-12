@@ -2,4 +2,21 @@
     padding-top: 30px;
     padding-left: 100px;
     padding-right: 100px;
+    text-align: center;
+    font-size: 13px;
+}
+
+.tempo-estourado {
+    background-color: rgb(184, 36, 36) !important;
+    color: #ffffff !important;
+}
+  
+.tempo-preocupante {
+    background-color: rgb(158, 116, 38) !important;
+    color: #ffffff !important;
+}
+
+.tempo-razoavel {
+    background-color: rgb(38, 102, 38) !important;
+    color: #ffffff !important;
 }

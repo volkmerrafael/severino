@@ -171,14 +171,14 @@
 
     </div>    
 </div>
-
+<div class="divJustificativa">
 <p-dialog id="justificativa" header="Justificativa" [(visible)]="displayJustificativa" [responsive]="true" [width]="1200" [minWidth]="700" [minY]="70">
   <div class="ui-g">
     <div class="ui-g-6">
       <textarea rows="5" cols="30" class="textArea" pInputTextarea [(ngModel)]="justificativa.descricao"></textarea>
     </div>
     <div class="ui-g-6" style="width: auto;">
-      <p-listbox *ngIf="listaIssues" class="listbox" [style]="{'width':'500px'}" [options]="listaIssues" [(ngModel)]="selectedIssues" multiple="multiple" checkbox="checkbox" filter="filter" optionLabel="issue">
+      <p-listbox *ngIf="listaIssues" class="listbox" [style]="{'width':'500px'}" [listStyle]="{'max-height':'250px'}" [options]="listaIssues" [(ngModel)]="selectedIssues" multiple="multiple" checkbox="checkbox" filter="filter" optionLabel="issue">
         <p-header>
           Issues
         </p-header>
@@ -188,3 +188,4 @@
     <button pButton type="button" icon="fa fa-fw fa-check" label="Salvar" class="ui-button-success" (click)="justificarPonto(justificativa)"></button>
     <button pButton type="button" icon="fa fa-fw fa-ban" label="Cancelar" class="ui-button-danger" (click)="closeDialogJustificativa()"></button>
 </p-dialog>
+</div>

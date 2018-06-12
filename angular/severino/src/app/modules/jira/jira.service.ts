@@ -4,14 +4,15 @@ import { Observable, Subject, asapScheduler, pipe, of, from, interval, merge, fr
 import { environment } from "../../../environments/environment";
 import { catchError, tap  } from 'rxjs/operators';
 import { PrioridadeJira } from "../../shared/models/prioridadeJira";
+import { PrioridadeInfo } from "../../shared/models/prioridadeInfo";
 
 @Injectable()
 export class JiraService {
 
   constructor(private http: HttpClient) {}
 
-  listaPrioridadeJira(): Observable<PrioridadeJira[]> {
-    return this.http.get<PrioridadeJira[]>(
+  listaPrioridadeJira(): Observable<PrioridadeInfo> {
+    return this.http.get<PrioridadeInfo>(
       `${environment.server}jira/prioridade/listar`
     );
   }

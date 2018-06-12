@@ -15,6 +15,6 @@ export class PontoEditado {
     saida4: string;
     observacao: string;
     justificativa: Justificativa;
-    legendaId: number;
+    legenda: string;
     status: string;
 }

@@ -4,16 +4,17 @@ import { TableModule } from 'primeng/table';
 import { JiraService } from './jira.service';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { FormsModule } from "@angular/forms";
-import { Message } from 'primeng/components/common/message';
+import { ChartModule } from 'primeng/chart';
 
 @NgModule({
   imports: [
     CommonModule,
     TableModule,
-    FormsModule
+    FormsModule,
+    ChartModule
   ],
   declarations: [
-    DashboardComponent
+    DashboardComponent,
   ],
   exports: [
     DashboardComponent
