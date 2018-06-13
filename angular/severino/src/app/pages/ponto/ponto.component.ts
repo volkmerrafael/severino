@@ -3,33 +3,25 @@ import { Component, OnInit } from '@angular/core';
 import { PontoService } from '../../services/ponto.service';
 import { Ponto } from '../../shared/models/ponto';
 import { ArquivoImportacao } from "../../shared/models/arquivoimportacao";
-import { FileUploadModule } from 'primeng/fileupload';
 import { Importacao } from "../../shared/models/importacao";
-import { MenubarModule } from 'primeng/menubar';
-import { MenuItem, SelectItem } from 'primeng/api';
 import { Usuario } from '../../shared/models/usuario';
-import { DropdownModule } from 'primeng/dropdown';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
 import { Legenda } from '../../shared/models/legenda';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { TratamentoErrosService } from '../../services/tratamento-erros.service';
 import { FormatarDataPipe } from '../../components/pipes/pipe';
 import { ControleHorasService } from '../../services/controle-horas.service';
-import { ControleHoras } from '../../shared/models/controle-horas';
 import { JornadaService } from '../../services/jornada.service';
 import { Jornada } from '../../shared/models/jornada';
 import { DiaSemana } from '../../shared/models/diasemana';
 import { Message } from 'primeng/components/common/message';
 import { LegendaService } from '../../services/legenda.service';
 import { FormatarMinutosPipe } from '../../shared/components/pipes/time.pipe';
-import { JustificativaService } from '../../services/justificativa.service';
 import { Justificativa } from '../../shared/models/justificativa';
 import * as moment from 'moment/moment';
 import { PontoEditado } from '../../shared/models/pontoEditado';
 import { WorklogJiraService } from '../../services/worklogJira.service';
 import { WorklogJira } from '../../shared/models/worklogJira';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ponto',
@@ -97,13 +89,12 @@ export class PontoComponent implements OnInit {
     private pontoService: PontoService,
     private messageService: MessageService,
     private tratamentoErrosService: TratamentoErrosService,
-    private formatarDataPipe: FormatarDataPipe,
     private controleHorasService: ControleHorasService,
     private jornadaService: JornadaService,
     private legendaService: LegendaService,
     private formatarMinutosPipe: FormatarMinutosPipe,
-    private justificativaService: JustificativaService,
-    private worklogJiraService: WorklogJiraService
+    private worklogJiraService: WorklogJiraService,
+    private router: Router,
   ) {
 
     this.cols = [
@@ -169,7 +160,11 @@ export class PontoComponent implements OnInit {
 
   ngOnInit() {
     this.realizarConsultas();
-   }
+  }
+
+  gerarDeclaracaoHorExt() {
+    this.router.navigate(['usuario/ponto/declaracao']);
+  }
 
   showGrow(tipo, titulo, mensagem) {
     this.messageService.add({ severity: tipo, summary: titulo, detail: mensagem });
@@ -199,6 +194,7 @@ export class PontoComponent implements OnInit {
     this.pontoService.listarPontoPorPeriodo(this.usuario.id, this.ano, this.mes)
       .subscribe(res => {
         this.pontos = res;
+        console.log(res);
         this.verificarStatus(res);
         this.pontosEditados = [];
         this.montaObjeto(res);

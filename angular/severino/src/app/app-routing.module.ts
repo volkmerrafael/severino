@@ -21,7 +21,7 @@ const rotas: Routes = [
   {path: 'editar-perfil', component: EditarPerfilComponent, canActivate: [AuthGuardService] },
   {path: 'lista', component: ListaComponent, canActivate: [AuthGuardService] },
   {path: 'jira/dashboard', component: DashboardComponent},
-  {path: 'declaracao', component: DeclaracaoComponent},
+  {path: 'usuario/ponto/declaracao', component: DeclaracaoComponent},
   {path: 'jira', redirectTo: 'jira/dashboard'},
   {path: '**', redirectTo: 'login' }
 ];

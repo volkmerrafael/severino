@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { RouterLink } from '@angular/router/src/directives/router_link';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Usuario } from '../../shared/models/usuario';
 import { Acesso } from '../../shared/models/acesso';
@@ -20,6 +19,7 @@ export class EditarPerfilComponent implements OnInit {
   usuario: Usuario = new Usuario();
   acesso: Acesso = new Acesso();
   senha: string;
+  novaSenha: string;
   myGroup: FormGroup;
   login: Login;
   id: number;
@@ -46,10 +46,11 @@ export class EditarPerfilComponent implements OnInit {
     this.id = parseInt((this.idAny.id), 10);
     this.buscaPerfil();
     this.perfilForm = this.fb.group({
-      'inputNome': new FormControl('', [Validators.required]),
-      'inputNomeAcesso': new FormControl('', [Validators.required]),
-      'inputEmail': new FormControl('', [Validators.required]),
-      'inputSenha': new FormControl('', [Validators.required]),
+      'inputNome': new FormControl('', Validators.required),
+      'inputNomeAcesso': new FormControl('', Validators.required),
+      'inputEmail': new FormControl('', Validators.required),
+      'inputSenha': new FormControl('', Validators.required),
+      'inputNovaSenha': new FormControl('', Validators.required),
     });
     if (sessionStorage.getItem('tipo') === 'ADMIN') {
       this.admin = true;
@@ -71,7 +72,12 @@ export class EditarPerfilComponent implements OnInit {
   }
 
   clickEditar() {
-    this.acesso.senha = this.senha;
+    if (this.novaSenha !== '') {
+    this.acesso.senha = this.novaSenha;
+    } else {
+      this.acesso.senha = this.senha;
+    }
+    if (this.senha === this.usuario.senha) {
     this.usuario.acesso = this.acesso;
     this.usuarioService.editar(this.usuario)
       .subscribe(res => {
@@ -93,7 +99,13 @@ export class EditarPerfilComponent implements OnInit {
         this.mensagemGrow = error.error;
         this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
       });
+  } else {
+    this.tipoGrow = "error";
+        this.tituloGrow = 'Ops';
+        this.mensagemGrow = 'Senha incorreta';
+        this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
   }
+}
 
   showGrow(tipo, titulo, mensagem) {
     this.messageService.add({ severity: tipo, summary: titulo, detail: mensagem });

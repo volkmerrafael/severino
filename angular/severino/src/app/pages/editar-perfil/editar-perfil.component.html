@@ -30,6 +30,13 @@
       <input size="50" type='password' formControlName="inputSenha" pInputText [(ngModel)]="senha" />
       <br>
     </div>
+    <div>
+        <br>
+        <label>Nova senha:</label>
+        <br>
+        <input size="50" type='password' formControlName="inputNovaSenha" pInputText [(ngModel)]="novaSenha" />
+        <br>
+      </div>
   </form>
   <button pButton type="button" icon="fa fa-fw fa-reply" label="Voltar" class="ui-button-secondary" (click)="voltar()"></button>
   <button pButton type="button" icon="fa fa-fw fa-ban" label="Cancelar" class="ui-button-danger" (click)="buscaPerfil()"></button>

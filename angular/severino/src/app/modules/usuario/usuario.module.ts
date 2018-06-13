@@ -2,14 +2,19 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UsuarioService } from './usuario.service';
 import { DeclaracaoComponent } from './pages/declaracao/declaracao.component';
+import { EditorModule } from 'primeng/editor';
+import { QuillModule } from 'ngx-quill';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    EditorModule,
+    QuillModule,
+    ReactiveFormsModule
   ],
   declarations: [DeclaracaoComponent],
-  providers: [
-    UsuarioService
-  ]
+  exports: [DeclaracaoComponent],
+  providers: [UsuarioService]
 })
 export class UsuarioModule { }

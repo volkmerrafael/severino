@@ -1,3 +1,5 @@
-<p>
-  declaracao works!
-</p>
+<form [formGroup]="form">
+  <div id="pdf">{{form.controls.editor.value}}</div>
+  <button pButton (click)="download(form.controls.editor.value)"></button>
+  <quill-editor #editor [formControl]="form.controls['editor']"></quill-editor>
+</form>
