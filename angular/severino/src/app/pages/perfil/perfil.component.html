@@ -1,4 +1,4 @@
-<p-panel [style]="{margin:'5px'}" styleClass="ui-card-shadow">
+<p-panel id="panel" [style]="{margin:'5px'}" styleClass="ui-card-shadow">
   <p-header style="font-size: 20px">Perfil</p-header>
   <div class="div">
       <br>
@@ -34,7 +34,9 @@
     </div>
     <br>
     <div>
+      <div id="bt">
+        <button pButton type="button" icon="fa fa-fw fa-edit" label="Editar Perfil" class="ui-button-primary" (click)="editarUsuario(usuario.id)"></button>
       <button pButton type="button" icon="fa fa-fw fa-reply" label="Voltar" class="ui-button-secondary" (click)="voltar()"></button>
-      <button *ngIf="admin" pButton type="button" icon="fa fa-fw fa-edit" label="Editar Perfil" class="ui-button-secondary" (click)="editarUsuario(usuario.id)"></button>
+    </div>
   </div>
 </p-panel>
