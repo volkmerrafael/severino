@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from './../../shared/models/usuario';
-import { Login } from "../../shared/models/login";
 import { Acesso } from './../../shared/models/acesso';
 import { Departamento } from '../../shared/models/departamento';
 import { Funcao } from '../../shared/models/funcao';
 import { Location } from '@angular/common';
-import { RouterLink } from '@angular/router/src/directives/router_link';
 import { UsuarioService } from '../../services/usuario.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/components/common/messageservice';

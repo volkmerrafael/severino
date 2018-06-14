@@ -194,7 +194,6 @@ export class PontoComponent implements OnInit {
     this.pontoService.listarPontoPorPeriodo(this.usuario.id, this.ano, this.mes)
       .subscribe(res => {
         this.pontos = res;
-        console.log(res);
         this.verificarStatus(res);
         this.pontosEditados = [];
         this.montaObjeto(res);
@@ -204,6 +203,7 @@ export class PontoComponent implements OnInit {
         this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
       }, error => {
         this.tratamentoErrosService.handleError(error);
+        this.pontosEditados = [];
         this.tipoGrow = "error";
         this.tituloGrow = 'Ops';
         this.mensagemGrow = error.error;

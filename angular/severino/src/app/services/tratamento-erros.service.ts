@@ -22,7 +22,6 @@ export class TratamentoErrosService implements ErrorHandler {
         this.tituloGrow = 'Falha na conexão com a internet';
         this.mensagemGrow = 'Por gentileza, verifique sua conexão.';
       } else if (error.status === 400) {
-        console.log(error.status);
         // (error.status === 400)
         this.tipoGrow = "error";
         this.tituloGrow = 'Ocorreu um erro';
@@ -46,7 +45,6 @@ export class TratamentoErrosService implements ErrorHandler {
     }
 
     // Exibe mensagem de erro
-    console.log(this.tituloGrow);
     return this.showGrowl(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
   }
 

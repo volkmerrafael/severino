@@ -10,127 +10,128 @@
 
     </div>
   </div>
-  <br>  
+  <br>
 </div>
 
 <div id="corpoPonto" class="row justify-content-md-center">
 
-    <div class="card-body">
+  <div class="card-body">
 
-      <div class="row">
-          <button type="text" (click)="gerarDeclaracaoHorExt()" pButton icon="fa-file" label="Gerar declarações"></button>
-          <div id="legenda" class="ui-g-12" style="text-align: right;">
-              <span *ngIf="existeCorreto">
-                <svg height="15" width="15">
-                  <circle cx="15" cy="15" r="40" fill="rgb(72, 157, 206)" />
-                </svg>
-                Correto
-              </span>
-              <span *ngIf="existeDebito">
-                <svg height="15" width="15">
-                  <circle cx="15" cy="15" r="40" fill="rgb(153, 59, 59)" />
-                </svg>
-                Debito
-              </span>
-              <span *ngIf="existeCredito">
-                <svg height="15" width="15">
-                  <circle cx="15" cy="15" r="40" fill="rgb(64, 131, 66)" />
-                </svg>
-                Crédito
-              </span>
-              <span *ngIf="existeJustificado">
-                <svg height="15" width="15">
-                  <circle cx="15" cy="15" r="40" fill="rgb(55, 103, 190)" />
-                </svg>
-                Justificado
-              </span>
-              <span *ngIf="existeFaltaJust">
-                <svg height="15" width="15">
-                  <circle cx="15" cy="15" r="40" fill="rgb(192, 192, 112)" />
-                </svg>
-                Falta Justificada
-              </span>
-              <span *ngIf="existeMarcInc">
-                <svg height="15" width="15">
-                  <circle cx="15" cy="15" r="40" fill="rgb(197, 108, 56)" />
-                </svg>
-                Marcação Incorreta
-              </span>
-              <span *ngIf="existeFerias">
-                <svg height="15" width="15">
-                  <circle cx="15" cy="15" r="40" fill="rgb(39, 163, 194)" />
-                </svg>
-                Férias
-              </span>
-              <span *ngIf="existeAtestado">
-                <svg height="15" width="15">
-                  <circle cx="15" cy="15" r="40" fill="rgb(135, 140, 141) " />
-                </svg>
-                Atestado Médico
-              </span>
-              <span *ngIf="existeFacultativo">
-                <svg height="15" width="15">
-                  <circle cx="15" cy="15" r="40" fill="rgb(206, 105, 66)" />
-                </svg>
-                Ponto Facultativo
-              </span>
-              <span *ngIf="existeNaoAdimitido">
-                <svg height="15" width="15">
-                  <circle cx="15" cy="15" r="40" fill="rgb(123, 130, 138)" />
-                </svg>
-                Não Admitido
-              </span>
-              <span *ngIf="existeFeriado">
-                <svg height="15" width="15">
-                  <circle cx="15" cy="15" r="40" fill="rgb(23, 190, 168)" />
-                </svg>
-                Feriado
-              </span>
-              <span *ngIf="existeObito">
-                <svg height="15" width="15">
-                  <circle cx="15" cy="15" r="40" fill="rgb(116, 129, 136)" />
-                </svg>
-                Certidão de obito
-              </span>
-              <span *ngIf="existeCompensacao">
-                <svg height="15" width="15">
-                  <circle cx="15" cy="15" r="40" fill="rgb(124, 59, 84)" />
-                </svg>
-                Compensação de horas
-              </span>
-            </div>
+    <div class="row">
+      <button type="text" (click)="gerarDeclaracaoHorExt()" pButton icon="fa-file" label="Gerar declarações"></button>
+      <div id="legenda" class="ui-g-12" style="text-align: right;">
+        <span *ngIf="existeCorreto">
+          <svg height="15" width="15">
+            <circle cx="15" cy="15" r="40" fill="rgb(72, 157, 206)" />
+          </svg>
+          Correto
+        </span>
+        <span *ngIf="existeDebito">
+          <svg height="15" width="15">
+            <circle cx="15" cy="15" r="40" fill="rgb(153, 59, 59)" />
+          </svg>
+          Debito
+        </span>
+        <span *ngIf="existeCredito">
+          <svg height="15" width="15">
+            <circle cx="15" cy="15" r="40" fill="rgb(64, 131, 66)" />
+          </svg>
+          Crédito
+        </span>
+        <span *ngIf="existeJustificado">
+          <svg height="15" width="15">
+            <circle cx="15" cy="15" r="40" fill="rgb(55, 103, 190)" />
+          </svg>
+          Justificado
+        </span>
+        <span *ngIf="existeFaltaJust">
+          <svg height="15" width="15">
+            <circle cx="15" cy="15" r="40" fill="rgb(192, 192, 112)" />
+          </svg>
+          Falta Justificada
+        </span>
+        <span *ngIf="existeMarcInc">
+          <svg height="15" width="15">
+            <circle cx="15" cy="15" r="40" fill="rgb(197, 108, 56)" />
+          </svg>
+          Marcação Incorreta
+        </span>
+        <span *ngIf="existeFerias">
+          <svg height="15" width="15">
+            <circle cx="15" cy="15" r="40" fill="rgb(39, 163, 194)" />
+          </svg>
+          Férias
+        </span>
+        <span *ngIf="existeAtestado">
+          <svg height="15" width="15">
+            <circle cx="15" cy="15" r="40" fill="rgb(135, 140, 141) " />
+          </svg>
+          Atestado Médico
+        </span>
+        <span *ngIf="existeFacultativo">
+          <svg height="15" width="15">
+            <circle cx="15" cy="15" r="40" fill="rgb(206, 105, 66)" />
+          </svg>
+          Ponto Facultativo
+        </span>
+        <span *ngIf="existeNaoAdimitido">
+          <svg height="15" width="15">
+            <circle cx="15" cy="15" r="40" fill="rgb(123, 130, 138)" />
+          </svg>
+          Não Admitido
+        </span>
+        <span *ngIf="existeFeriado">
+          <svg height="15" width="15">
+            <circle cx="15" cy="15" r="40" fill="rgb(23, 190, 168)" />
+          </svg>
+          Feriado
+        </span>
+        <span *ngIf="existeObito">
+          <svg height="15" width="15">
+            <circle cx="15" cy="15" r="40" fill="rgb(116, 129, 136)" />
+          </svg>
+          Certidão de obito
+        </span>
+        <span *ngIf="existeCompensacao">
+          <svg height="15" width="15">
+            <circle cx="15" cy="15" r="40" fill="rgb(124, 59, 84)" />
+          </svg>
+          Compensação de horas
+        </span>
+      </div>
 
-        <div id="table">
-          <p-table [columns]="cols" [value]="pontosEditados" [resizableColumns]="true">
+      <div id="table">
+        <p-table [columns]="cols" [value]="pontosEditados" [resizableColumns]="true">
 
-            <ng-template pTemplate="colgroup" let-columns>
-              <colgroup>
-                <col *ngFor="let col of columns" [style.width]="col.width">
-              </colgroup>
-            </ng-template>
+          <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+              <col *ngFor="let col of columns" [style.width]="col.width">
+            </colgroup>
+          </ng-template>
 
-            <ng-template pTemplate="header" let-columns>
-              <tr>
-                
-                <th *ngFor="let col of columns" pResizableColumn>
-                  {{col.header}}
-                  <span *ngIf="col.header == 'Jor.'">
-                    <button type="text" (click)="showDialogJornada()" pButton icon="fa-question-circle"></button>
-                    <p-dialog header="Jornadas" [(visible)]="displayJornada" [responsive]="true" [width]="350" [minWidth]="200" [minY]="70">
-                        <p *ngFor="let jornada of jornadas">Jornada(s): {{jornada.id}} - {{jornada.periodo_jornada}}</p>
-                    </p-dialog></span>
-                    <span *ngIf="col.header == 'Leg.'">
-                        <button type="text" (click)="showDialogLegenda()" pButton icon="fa-question-circle"></button>
-                        <p-dialog header="Legendas" [(visible)]="displayLegenda" [responsive]="true" [width]="350" [minWidth]="200" [minY]="70">
-                            <p *ngFor="let legenda of legendas">Legendas(s): {{legenda.sigla}} - {{legenda.nome}}</p>
-                        </p-dialog>
-                    </span>
-                </th>
-              </tr>
-            </ng-template>
+          <ng-template pTemplate="header" let-columns>
+            <tr>
 
-            <ng-template pTemplate="body" let-rowData let-columns="columns">
-              <tr [ngClass]="rowData.status == 'CORRETO' ? 'linha-correta' : 
+              <th *ngFor="let col of columns" pResizableColumn>
+                {{col.header}}
+                <span *ngIf="col.header == 'Jor.'">
+                  <button type="text" (click)="showDialogJornada()" pButton icon="fa-question-circle"></button>
+                  <p-dialog header="Jornadas" [(visible)]="displayJornada" [responsive]="true" [width]="350" [minWidth]="200" [minY]="70">
+                    <p *ngFor="let jornada of jornadas">Jornada(s): {{jornada.id}} - {{jornada.periodo_jornada}}</p>
+                  </p-dialog>
+                </span>
+                <span *ngIf="col.header == 'Leg.'">
+                  <button type="text" (click)="showDialogLegenda()" pButton icon="fa-question-circle"></button>
+                  <p-dialog header="Legendas" [(visible)]="displayLegenda" [responsive]="true" [width]="350" [minWidth]="200" [minY]="70">
+                    <p *ngFor="let legenda of legendas">Legendas(s): {{legenda.sigla}} - {{legenda.nome}}</p>
+                  </p-dialog>
+                </span>
+              </th>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [ngClass]="rowData.status == 'CORRETO' ? 'linha-correta' : 
               rowData.status == 'DEBITO' ? 'linha-debito' :
               rowData.status == 'CREDITO' ? 'linha-credito' : 
               rowData.status == 'JUSTIFICADO' ? 'linha-justificado' : 
@@ -145,47 +146,50 @@
               rowData.status == 'CERTIDAO_DE_OBITO' ? 'linha-obito' :
               rowData.status == 'COMPENSACAO' ? 'linha-compensacao' :
               null ">
-                <td *ngFor="let col of columns" class="ui-resizable-column">
-                  {{rowData[col.field]}}
-                  <span *ngIf="col.field == 'justificativaId' && (rowData.status == 'CREDITO' || rowData.status == 'DEBITO' || rowData.status == 'MARCACAO_INCORRETA')">
-                      <button *ngIf="rowData.justificativa.descricao !== ''" pButton class="btCheck" type="text" icon="fas fa-check-circle" (click)="showDialogJustificativa(rowData)"></button>
-                      <button *ngIf="rowData.justificativa.descricao === ''" pButton class="btExclamation" type="text" icon="fas fa-exclamation-circle" (click)="showDialogJustificativa(rowData)"></button>
-                  </span>
-                </td>
-              </tr>
-            </ng-template>
+              <td *ngFor="let col of columns" class="ui-resizable-column">
+                {{rowData[col.field]}}
+                <span *ngIf="col.field == 'justificativaId' && (rowData.status == 'CREDITO' || rowData.status == 'DEBITO' || rowData.status == 'MARCACAO_INCORRETA')">
+                  <button *ngIf="rowData.justificativa.descricao !== ''" pButton class="btCheck" type="text" icon="fas fa-check-circle" (click)="showDialogJustificativa(rowData)"></button>
+                  <button *ngIf="rowData.justificativa.descricao === ''" pButton class="btExclamation" type="text" icon="fas fa-exclamation-circle"
+                    (click)="showDialogJustificativa(rowData)"></button>
+                </span>
+              </td>
+            </tr>
+          </ng-template>
 
-          </p-table>
-          <p-panel class="ui-panel">
-            <p-header>Total</p-header>
-            <p>Crédito: {{horasCredito}}</p>
-            <p>Débito: {{horasDebito}}</p>    
-            <p>Horas Trabalhadas: {{horasTrabalhadas}}</p>   
-            <p>Horas Abono: {{horasAbono}}</p>   
-            <p>Saldo do mês: {{horasSaldoMes}}</p> 
-            <p>Absenteismo: {{absenteismo}}</p>      
-          </p-panel>
-        </div>
-
+        </p-table>
+        <p-panel class="ui-panel">
+          <p-header>Total</p-header>
+          <p>Crédito: {{horasCredito}}</p>
+          <p>Débito: {{horasDebito}}</p>
+          <p>Horas Trabalhadas: {{horasTrabalhadas}}</p>
+          <p>Horas Abono: {{horasAbono}}</p>
+          <p>Saldo do mês: {{horasSaldoMes}}</p>
+          <p>Absenteismo: {{absenteismo}}</p>
+        </p-panel>
       </div>
 
-    </div>    
+    </div>
+
+  </div>
 </div>
 <div class="divJustificativa">
-<p-dialog id="justificativa" header="Justificativa" [(visible)]="displayJustificativa" [responsive]="true" [width]="1200" [minWidth]="700" [minY]="70">
-  <div class="ui-g">
-    <div class="ui-g-6">
-      <textarea rows="5" cols="30" class="textArea" pInputTextarea [(ngModel)]="justificativa.descricao"></textarea>
+  <p-dialog id="justificativa" header="Justificativa" [(visible)]="displayJustificativa" [responsive]="true" [width]="1200"
+    [minWidth]="700" [minY]="70">
+    <div class="ui-g">
+      <div class="ui-g-6">
+        <textarea rows="5" cols="30" class="textArea" pInputTextarea [(ngModel)]="justificativa.descricao"></textarea>
+      </div>
+      <div class="ui-g-6" style="width: auto;">
+        <p-listbox *ngIf="listaIssues" class="listbox" [style]="{'width':'500px'}" [listStyle]="{'max-height':'250px'}" [options]="listaIssues"
+          [(ngModel)]="selectedIssues" multiple="multiple" checkbox="checkbox" filter="filter" optionLabel="issue">
+          <p-header>
+            Issues
+          </p-header>
+        </p-listbox>
+      </div>
     </div>
-    <div class="ui-g-6" style="width: auto;">
-      <p-listbox *ngIf="listaIssues" class="listbox" [style]="{'width':'500px'}" [listStyle]="{'max-height':'250px'}" [options]="listaIssues" [(ngModel)]="selectedIssues" multiple="multiple" checkbox="checkbox" filter="filter" optionLabel="issue">
-        <p-header>
-          Issues
-        </p-header>
-      </p-listbox>
-    </div>
-</div> 
     <button pButton type="button" icon="fa fa-fw fa-check" label="Salvar" class="ui-button-success" (click)="justificarPonto(justificativa)"></button>
     <button pButton type="button" icon="fa fa-fw fa-ban" label="Cancelar" class="ui-button-danger" (click)="closeDialogJustificativa()"></button>
-</p-dialog>
+  </p-dialog>
 </div>
