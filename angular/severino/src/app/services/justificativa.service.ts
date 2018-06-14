@@ -28,4 +28,10 @@ export class JustificativaService {
     );
   }
 
+  listaJustificativasNoMes(usuario: number, ano: string, mes: string): Observable<Justificativa[]> {
+    return this.http.get<Justificativa[]>(
+      `${environment.server}justificativa/listar/` + usuario + `/` + ano + `/` + mes
+    );
+  }
+
 }

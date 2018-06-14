@@ -12,4 +12,5 @@ export class Usuario {
   pis: string;
   email: string;
   data_admissao: string;
+  usuario_jira: string;
 }

@@ -4,8 +4,7 @@ import { Observable, Subject, asapScheduler, pipe, of, from, interval, merge, fr
 import { environment } from "../../environments/environment";
 import { Login } from "../shared/models/login";
 import { Usuario } from "../shared/models/usuario";
-import { catchError, tap  } from 'rxjs/operators';
-import { Acesso } from "../shared/models/acesso";
+import { UsuarioJira } from '../shared/models/usuarioJira';
 
 @Injectable()
 export class UsuarioService {
@@ -46,6 +45,12 @@ export class UsuarioService {
   editar( usuario: Usuario): Observable<Usuario> {
     return this.http.put<Usuario>(
       `${environment.server}usuario`, usuario
+    );
+  }
+
+  usuarioJira(): Observable<UsuarioJira> {
+    return this.http.get<UsuarioJira>(
+      `${environment.server}configuracao`
     );
   }
 

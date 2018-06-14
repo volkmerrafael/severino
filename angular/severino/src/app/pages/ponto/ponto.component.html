@@ -18,7 +18,9 @@
   <div class="card-body">
 
     <div class="row">
-      <button type="text" (click)="gerarDeclaracaoHorExt()" pButton icon="fa-file" label="Gerar declarações"></button>
+      <div id="btDeclaracao">
+      <button type="text" (click)="gerarDeclaracao(usuario.id, ano, mes)" pButton icon="fa-file" label="Gerar declaração"></button>
+    </div>
       <div id="legenda" class="ui-g-12" style="text-align: right;">
         <span *ngIf="existeCorreto">
           <svg height="15" width="15">
@@ -149,8 +151,8 @@
               <td *ngFor="let col of columns" class="ui-resizable-column">
                 {{rowData[col.field]}}
                 <span *ngIf="col.field == 'justificativaId' && (rowData.status == 'CREDITO' || rowData.status == 'DEBITO' || rowData.status == 'MARCACAO_INCORRETA')">
-                  <button *ngIf="rowData.justificativa.descricao !== ''" pButton class="btCheck" type="text" icon="fas fa-check-circle" (click)="showDialogJustificativa(rowData)"></button>
-                  <button *ngIf="rowData.justificativa.descricao === ''" pButton class="btExclamation" type="text" icon="fas fa-exclamation-circle"
+                  <button *ngIf="rowData.justificativa.descricao !== '' && rowData.justificativa.id" pButton class="btCheck" type="text" icon="fas fa-check-circle" (click)="showDialogJustificativa(rowData)"></button>
+                  <button *ngIf="rowData.justificativa.descricao === '' || !rowData.justificativa.id" pButton class="btExclamation" type="text" icon="fas fa-exclamation-circle"
                     (click)="showDialogJustificativa(rowData)"></button>
                 </span>
               </td>

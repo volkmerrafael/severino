@@ -1,5 +1,7 @@
 <form [formGroup]="form">
-  <div id="pdf">{{form.controls.editor.value}}</div>
-  <button pButton (click)="download(form.controls.editor.value)"></button>
+    <span>{{form.controls.editor.value}}</span>
+  <div class="bt">
+  <button id="btExportar" pButton type="button" class="ui-button-primary" label="Exportar declaração" (click)="download02()"></button>
+</div>
   <quill-editor #editor [formControl]="form.controls['editor']"></quill-editor>
 </form>

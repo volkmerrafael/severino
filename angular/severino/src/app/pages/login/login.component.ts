@@ -62,10 +62,14 @@ export class LoginComponent {
         this.mensagemGrow = error.error;
         this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
     });
-
+    this.usuarioService.usuarioJira()
+    .subscribe( res => {
+      console.log(res);
+    });
   }
 
   logout(): void {
+    sessionStorage.removeItem('usuarioJira');
     sessionStorage.removeItem('nomeUsuario');
     sessionStorage.removeItem('usertoken');
     sessionStorage.removeItem('sessaotoken');

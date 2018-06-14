@@ -7,6 +7,7 @@ import { Location } from '@angular/common';
 import { UsuarioService } from '../../services/usuario.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/components/common/messageservice';
+import * as moment from 'moment/moment';
 
 @Component({
   selector: 'app-perfil',
@@ -51,6 +52,7 @@ export class PerfilComponent implements OnInit {
     this.usuarioService.usuario(this.id)
     .subscribe(res => {
       this.usuario = res;
+      this.usuario.data_admissao = moment(this.usuario.data_admissao).format('DD/MM/YYYY');
       this.acesso = this.usuario.acesso;
       this.departamento = this.usuario.departamento;
       this.funcao = this.usuario.funcao;

@@ -32,7 +32,8 @@
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
               "node_modules/primeui/primeui.js",
               "node_modules/quill/dist/quill.js",
-              "node_modules/jspdf/dist/jspdf.min.js"
+              "node_modules/jspdf/dist/jspdf.min.js",
+              "node_modules/rasterizehtml/dist/rasterizeHTML.allinone.js"
             ]
           },
           "configurations": {

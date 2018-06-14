@@ -122,6 +122,10 @@ export class PontoComponent implements OnInit {
 
   }
 
+  ngOnInit() {
+    this.realizarConsultas();
+  }
+
   showDialogLegenda() {
     this.displayLegenda = true;
   }
@@ -131,6 +135,7 @@ export class PontoComponent implements OnInit {
   }
 
   showDialogJustificativa(ponto: any) {
+    console.log(ponto.justificativa);
     this.idPonto = ponto.id;
     this.pontos.forEach(res => {
       if (res.id === this.idPonto) {
@@ -158,12 +163,8 @@ export class PontoComponent implements OnInit {
     this.displayJustificativa = false;
   }
 
-  ngOnInit() {
-    this.realizarConsultas();
-  }
-
-  gerarDeclaracaoHorExt() {
-    this.router.navigate(['usuario/ponto/declaracao']);
+  gerarDeclaracao(id: any, ano: string, mes: string) {
+    this.router.navigate(['usuario/ponto/declaracao'], {queryParams: {id, ano, mes}});
   }
 
   showGrow(tipo, titulo, mensagem) {
@@ -171,10 +172,12 @@ export class PontoComponent implements OnInit {
   }
 
   justificarPonto(justificativa: Justificativa) {
+    console.log(justificativa);
     this.pontos.forEach( ponto => {
       if (ponto.id === this.idPonto) {
         ponto.justificativa = justificativa;
         this.pontoAux = ponto;
+        console.log(this.pontoAux);
       }
     });
     this.pontoService.alterarPonto(this.pontoAux)
@@ -182,6 +185,7 @@ export class PontoComponent implements OnInit {
       this.consultaPontoPorPeriodo();
       this.closeDialogJustificativa();
     }, error => {
+      console.log(error);
       this.tratamentoErrosService.handleError(error);
       this.tipoGrow = "error";
       this.tituloGrow = 'Ops';
@@ -204,6 +208,12 @@ export class PontoComponent implements OnInit {
       }, error => {
         this.tratamentoErrosService.handleError(error);
         this.pontosEditados = [];
+        this.absenteismo = '';
+        this.horasAbono = '';
+        this.horasTrabalhadas = '';
+        this.horasSaldoMes = '';
+        this.horasDebito = '';
+        this.horasCredito = '';
         this.tipoGrow = "error";
         this.tituloGrow = 'Ops';
         this.mensagemGrow = error.error;

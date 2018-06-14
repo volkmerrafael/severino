@@ -65,6 +65,10 @@
   
 }
 
+#btDeclaracao {
+  padding-left: 100px;
+}
+
 .linha-correta {
   background-color: rgb(72, 157, 206) !important;
   color: #ffffff !important;
