@@ -46,7 +46,11 @@ export class LoginComponent {
       sessionStorage.setItem('sessaotoken', res.sessaotoken);
       sessionStorage.setItem('nomeacesso', res.nomeacesso);
       sessionStorage.setItem('tipo', res.usuario.acesso.tipo);
-
+      this.usuarioService.usuarioJira()
+      .subscribe(res1 => {
+        sessionStorage.setItem('usuarioJira', '' + res1.integra_jira);
+        console.log(res1);
+      });
       if (res.usuario.acesso.tipo === "ADMIN") {
         this.router.navigate(['/admin']);
       } else {
@@ -61,10 +65,6 @@ export class LoginComponent {
         this.tituloGrow = 'Ops';
         this.mensagemGrow = error.error;
         this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
-    });
-    this.usuarioService.usuarioJira()
-    .subscribe( res => {
-      console.log(res);
     });
   }
 

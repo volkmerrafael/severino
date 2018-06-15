@@ -7,11 +7,12 @@
     <div *ngIf='admin' class="ui-toolbar-group-left">
         <a class="links" (click)="onClickNavigator('lista')">Colaboradores</a>
         <a class="links" (click)="onClickNavigator('admin')">Importações</a>
+        <a class="links" (click)="onClickNavigator('admin/configuracao')">Configurações</a>
     </div>
     <div *ngIf="admin == false && mostraLinks" class="ui-toolbar-group-left">
         <a class="links" (click)="onClickNavigator('ponto')">Ponto</a>
     </div>
-    <div *ngIf='mostraLinks' class="ui-toolbar-group-left">
+    <div class="ui-toolbar-group-left">
         <a class="links" (click)="onClickNavigator('jira')">Jira</a>
     </div>
 </div>

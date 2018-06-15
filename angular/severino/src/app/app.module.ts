@@ -37,6 +37,9 @@ import { JiraService } from './modules/jira/jira.service';
 import { JiraModule } from './modules/jira/jira.module';
 import { WorklogJiraService } from './services/worklogJira.service';
 import { UsuarioModule } from './modules/usuario/usuario.module';
+import {CheckboxModule} from 'primeng/checkbox';
+import { Usuario1Service } from '../app/modules/usuario/usuario.service';
+
 
 
 export const HttpInterceptorProviders = [
@@ -50,7 +53,7 @@ export const HttpInterceptorProviders = [
     HomeComponent,
     PerfilComponent,
     EditarPerfilComponent,
-    ListaComponent
+    ListaComponent,
   ],
   imports: [
     UsuarioModule,
@@ -73,7 +76,8 @@ export const HttpInterceptorProviders = [
     MenuModule,
     TieredMenuModule,
     CardModule,
-    JiraModule
+    JiraModule,
+    CheckboxModule
   ],
   providers: [
     HttpInterceptorProviders,
@@ -86,7 +90,8 @@ export const HttpInterceptorProviders = [
     LegendaService,
     JustificativaService,
     JiraService,
-    WorklogJiraService
+    WorklogJiraService,
+    Usuario1Service
   ],
   bootstrap: [AppComponent]
 })

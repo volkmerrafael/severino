@@ -10,6 +10,7 @@ import { AuthGuardService } from "./services/auth-guard.service";
 import { ListaComponent } from "./pages/lista/lista.component";
 import { DashboardComponent } from './modules/jira/pages/dashboard/dashboard.component';
 import { DeclaracaoComponent } from './modules/usuario/pages/declaracao/declaracao.component';
+import { ConfiguracaoComponent } from './modules/usuario/pages/configuracao/configuracao.component';
 
 const id: Number = 0;
 
@@ -22,6 +23,7 @@ const rotas: Routes = [
   {path: 'lista', component: ListaComponent, canActivate: [AuthGuardService] },
   {path: 'jira/dashboard', component: DashboardComponent},
   {path: 'usuario/ponto/declaracao', component: DeclaracaoComponent},
+  {path: 'admin/configuracao', component: ConfiguracaoComponent},
   {path: 'jira', redirectTo: 'jira/dashboard'},
   {path: '**', redirectTo: 'login' }
 ];

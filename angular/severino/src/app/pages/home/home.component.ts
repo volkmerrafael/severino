@@ -89,6 +89,8 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/ponto']);
   } else if (rota === 'jira') {
     this.router.navigate(['/jira']);
+  } else if (rota === 'admin/configuracao') {
+    this.router.navigate(['/admin/configuracao']);
   }
 
   }

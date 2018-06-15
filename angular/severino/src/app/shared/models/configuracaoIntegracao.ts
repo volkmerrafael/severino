@@ -1,6 +1,6 @@
-export class UsuarioJira {
+export class ConfiguracaoIntegracao {
 
-    id: string;
+    id: number;
     integra_jira: boolean;
     integra_slack: boolean;
 }

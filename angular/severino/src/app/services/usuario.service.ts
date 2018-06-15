@@ -4,7 +4,7 @@ import { Observable, Subject, asapScheduler, pipe, of, from, interval, merge, fr
 import { environment } from "../../environments/environment";
 import { Login } from "../shared/models/login";
 import { Usuario } from "../shared/models/usuario";
-import { UsuarioJira } from '../shared/models/usuarioJira';
+import { ConfiguracaoIntegracao } from '../shared/models/configuracaoIntegracao';
 
 @Injectable()
 export class UsuarioService {
@@ -48,10 +48,9 @@ export class UsuarioService {
     );
   }
 
-  usuarioJira(): Observable<UsuarioJira> {
-    return this.http.get<UsuarioJira>(
+  usuarioJira(): Observable<ConfiguracaoIntegracao> {
+    return this.http.get<ConfiguracaoIntegracao>(
       `${environment.server}configuracao`
     );
   }
-
 }

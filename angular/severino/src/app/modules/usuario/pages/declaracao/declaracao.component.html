@@ -1,9 +1,11 @@
 <form [formGroup]="form">
-<div id="content">
-    <span>{{form.controls.editor.value}}</span>
-</div>
+  <div id="content">
+    <span>
+      {{form.controls.editor.value}}
+    </span>
+  </div>
   <div class="bt">
-  <button id="btExportar" pButton type="button" class="ui-button-primary" label="Exportar declaração" (click)="dowloadPDF()"></button>
-</div>
+    <button id="btExportar" pButton type="button" class="ui-button-primary" label="Exportar declaração" (click)="dowloadPDF()"></button>
+  </div>
   <quill-editor #editor [formControl]="form.controls['editor']"></quill-editor>
 </form>
