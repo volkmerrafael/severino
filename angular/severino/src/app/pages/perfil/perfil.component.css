@@ -14,3 +14,18 @@
     font-family: Arial, sans-serif;
     font-size: medium;
 }
+
+#panel {
+    padding-top: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+#bt button {
+    margin: 8px;
+}
+
+#bt {
+    display: flex;
+    justify-content: center;
+}

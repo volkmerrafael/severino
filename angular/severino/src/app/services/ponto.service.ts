@@ -16,9 +16,9 @@ export class PontoService {
 
    }
 
-  listarPontoPorPeriodo(ano: String, mes: String): Observable<Ponto[]> {
+  listarPontoPorPeriodo(usuario: number, ano: String, mes: String): Observable<Ponto[]> {
     return this.http.get<Ponto[]>(
-      `${environment.server}ponto/listar/` + ano + `/` + mes
+      `${environment.server}ponto/listar/` + usuario + `/` + ano + `/` + mes
     );
   }
 
@@ -27,4 +27,17 @@ export class PontoService {
       `${environment.server}ponto/listar/periodos`
     );
   }
+
+  ponto(): Observable<Ponto[]> {
+    return this.http.get<Ponto[]>(
+      `${environment.server}ponto`
+    );
+  }
+
+  alterarPonto(ponto: Ponto): Observable<Ponto> {
+    return this.http.put<Ponto>(
+      `${environment.server}ponto`, ponto
+    );
+  }
+
 }

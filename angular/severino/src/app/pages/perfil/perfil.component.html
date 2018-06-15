@@ -1,4 +1,4 @@
-<p-panel [style]="{margin:'5px'}" styleClass="ui-card-shadow">
+<p-panel id="panel" [style]="{margin:'5px'}" styleClass="ui-card-shadow">
   <p-header style="font-size: 20px">Perfil</p-header>
   <div class="div">
       <br>
@@ -14,6 +14,7 @@
       <a class="a"> {{acesso.nomeacesso}} </a>
       <br>
       <br>
+      <div *ngIf="usuario.pis">
       <span class="span">Pis: </span>
       <a class="a"> {{usuario.pis}} </a>
       <br>
@@ -26,12 +27,16 @@
       <a class="a"> {{funcao.nome}} </a>
       <br>
       <br>
-      <span class="span">Data de emissão: </span>
+      <span class="span">Data de admissão: </span>
       <a class="a"> {{usuario.data_admissao}} </a>
       <br>
     </div>
+    </div>
     <br>
     <div>
+      <div id="bt">
+        <button pButton type="button" icon="fa fa-fw fa-edit" label="Editar Perfil" class="ui-button-primary" (click)="editarUsuario(usuario.id)"></button>
       <button pButton type="button" icon="fa fa-fw fa-reply" label="Voltar" class="ui-button-secondary" (click)="voltar()"></button>
+    </div>
   </div>
 </p-panel>

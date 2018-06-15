@@ -1,0 +1,25 @@
+#table {
+    text-align: center;
+    margin-left: 200px;
+    margin-right: 200px;
+  }
+  
+  #menu-lateral {
+    text-align: center;
+  }
+  
+  #card {
+    text-align: center;
+  }
+  
+  #corpoPonto{
+    padding-top: 100px;
+  } 
+
+  .divMaior {
+    padding-left: 100px;
+    padding-right: 100px
+  }
+  .titulo {
+    font-size: 25px;
+  }

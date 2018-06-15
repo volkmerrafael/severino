@@ -1,10 +1,11 @@
 import { Usuario } from "./usuario";
 import { Legenda } from "./legenda";
+import { Justificativa } from './justificativa';
 
 export class Ponto {
 
   id: number;
-  data: string;
+  data: any;
   diasemana: string;
   jornada: string;
   entrada1: string;
@@ -18,4 +19,6 @@ export class Ponto {
   observacao: string;
   usuario: Usuario;
   legenda: Legenda;
+  status: string;
+  justificativa: Justificativa;
 }

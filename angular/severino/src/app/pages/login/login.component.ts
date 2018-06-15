@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { UsuarioService } from "../../services/usuario.service";
 import { Login } from "../../shared/models/login";
+import { Acesso } from '../../shared/models/acesso';
 import { Usuario } from '../../shared/models/usuario';
 import { MessageService } from "primeng/components/common/messageservice";
 import { TratamentoErrosService } from "../../services/tratamento-erros.service";
@@ -15,12 +16,12 @@ import { Message } from "../../shared/models/message";
 })
 export class LoginComponent {
 
-  user: any;
   usuario: Login;
   msgs: Message[] = [];
   mensagemGrow;
   tituloGrow;
   tipoGrow;
+  id: any;
 
   constructor(
     private usuarioService: UsuarioService,
@@ -31,16 +32,14 @@ export class LoginComponent {
     this.usuario = <Login>{};
   }
 
-  showSuccess(tipo, titulo, mensagem) {
+  showGrow(tipo, titulo, mensagem) {
     this.messageService.add({ severity: tipo, summary: titulo, detail: mensagem });
   }
 
   login() {
     this.usuarioService.login(this.usuario)
     .subscribe(res => {
-      console.log(res);
-      this.user = res;
-      sessionStorage.setItem('user', this.user);
+      sessionStorage.setItem('id', '' + res.usuario.id);
       sessionStorage.setItem('nomeUsuario', res.usuario.nome);
       sessionStorage.setItem('emailUsuario', res.usuario.email);
       sessionStorage.setItem('usertoken', res.usertoken);
@@ -58,16 +57,25 @@ export class LoginComponent {
         this.router.navigate(['/ponto']);
       }
     }, error => {
-      this.tratamentoErrosService.handleError(error);
+        this.tipoGrow = "error";
+        this.tituloGrow = 'Ops';
+        this.mensagemGrow = error.error;
+        this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
     });
-
+    this.usuarioService.usuarioJira()
+    .subscribe( res => {
+      console.log(res);
+    });
   }
 
   logout(): void {
+    sessionStorage.removeItem('usuarioJira');
     sessionStorage.removeItem('nomeUsuario');
     sessionStorage.removeItem('usertoken');
     sessionStorage.removeItem('sessaotoken');
     sessionStorage.removeItem('nomeacesso');
+    sessionStorage.removeItem('id');
+    this.id = sessionStorage.getItem('id');
   }
 
 }

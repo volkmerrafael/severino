@@ -6,13 +6,10 @@ import { LoginModule } from './pages/login/login.module';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TableModule } from 'primeng/table';
-import { HttpModule } from '@angular/http';
-import { PontoService } from './services/ponto.service';
 import { UserHttpInterceptor } from './auth/user-http.interceptor';
 import { FileUploadModule } from 'primeng/fileupload';
 import { MenubarModule } from 'primeng/menubar';
 import { DropdownModule } from 'primeng/dropdown';
-import { AdminComponent } from './pages/admin/admin.component';
 import { ImportacaoService } from './services/importacao.service';
 import { PontoModule } from './pages/ponto/ponto.module';
 import { AdminModule } from './pages/admin/admin.module';
@@ -30,6 +27,16 @@ import { EditarPerfilComponent } from './pages/editar-perfil/editar-perfil.compo
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MenuModule} from 'primeng/menu';
 import {TieredMenuModule} from 'primeng/tieredmenu';
+import { ControleHorasService } from './services/controle-horas.service';
+import { JornadaService } from './services/jornada.service';
+import { LegendaService } from './services/legenda.service';
+import { ListaComponent } from './pages/lista/lista.component';
+import {CardModule} from 'primeng/card';
+import { JustificativaService } from './services/justificativa.service';
+import { JiraService } from './modules/jira/jira.service';
+import { JiraModule } from './modules/jira/jira.module';
+import { WorklogJiraService } from './services/worklogJira.service';
+import { UsuarioModule } from './modules/usuario/usuario.module';
 
 
 export const HttpInterceptorProviders = [
@@ -42,9 +49,11 @@ export const HttpInterceptorProviders = [
     MessageComponent,
     HomeComponent,
     PerfilComponent,
-    EditarPerfilComponent
+    EditarPerfilComponent,
+    ListaComponent
   ],
   imports: [
+    UsuarioModule,
     BrowserModule,
     HttpClientModule,
     LoginModule,
@@ -63,13 +72,21 @@ export const HttpInterceptorProviders = [
     ReactiveFormsModule,
     MenuModule,
     TieredMenuModule,
+    CardModule,
+    JiraModule
   ],
   providers: [
     HttpInterceptorProviders,
     ImportacaoService,
     MessageService,
     TratamentoErrosService,
-    AuthGuardService
+    AuthGuardService,
+    ControleHorasService,
+    JornadaService,
+    LegendaService,
+    JustificativaService,
+    JiraService,
+    WorklogJiraService
   ],
   bootstrap: [AppComponent]
 })

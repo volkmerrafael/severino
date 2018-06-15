@@ -13,9 +13,13 @@
   }
   
   #corpoPonto{
-    padding-top: 100px;
+    padding-top: 50px;
   } 
   
+  #atualizarDiv {
+    text-align: center;
+  }
+
   #severino-icon{
     margin-bottom: 20px;
   }
@@ -25,8 +29,11 @@
   }
 
   #btn-atualizar-lista-ponto {
-    margin-right: 10px;
+    padding-bottom: 30px;
+
   }
 
-  #atualizarDiv {
+  .table {
+    padding-left: 100px;
+    padding-right: 100px
   }
