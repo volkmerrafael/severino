@@ -1,11 +1,12 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UsuarioService } from './usuario.service';
-import { DeclaracaoComponent } from './pages/declaracao/declaracao.component';
-import { EditorModule } from 'primeng/editor';
-import { QuillModule } from 'ngx-quill';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import {ButtonModule} from 'primeng/button';
+import { QuillModule } from 'ngx-quill';
+import { ButtonModule } from 'primeng/button';
+import { EditorModule } from 'primeng/editor';
+
+import { DeclaracaoComponent } from './pages/declaracao/declaracao.component';
+import { UsuarioService } from './usuario.service';
 
 @NgModule({
   imports: [

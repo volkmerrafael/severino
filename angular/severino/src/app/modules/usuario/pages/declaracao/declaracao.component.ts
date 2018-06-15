@@ -1,10 +1,10 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import * as jsPDF from 'jspdf';
+
 import { JustificativaService } from '../../../../services/justificativa.service';
 import { Usuario } from '../../../../shared/models/usuario';
-import { ActivatedRoute } from '@angular/router';
-import * as rasterizeHTML from 'rasterizehtml';
 
 @Component({
   selector: 'app-declaracao',
