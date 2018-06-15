@@ -1,8 +1,8 @@
 export class WorklogJira {
-    id: number;
-    issue: string;
-    summary: string;
     author: string;
+    gravada: boolean;
+    issue: string;
     startdate: string;
+    summary: string;
     timeworked: number;
 }

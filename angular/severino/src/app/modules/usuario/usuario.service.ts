@@ -19,8 +19,8 @@ export class Usuario1Service {
     );
   }
 
-  putConfiguracao(configuracao: ConfiguracaoIntegracao): Observable<ConfiguracaoIntegracao> {
-    return this.http.put<ConfiguracaoIntegracao>(
+  putConfiguracao(configuracao: ConfiguracaoIntegracao): Observable<ConfiguracaoIntegracao[]> {
+    return this.http.put<ConfiguracaoIntegracao[]>(
       `${environment.server}configuracao`, configuracao
     );
   }

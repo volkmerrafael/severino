@@ -27,17 +27,14 @@ export class ConfiguracaoComponent implements OnInit {
     this.usuario1Service.getConfiguracao()
     .subscribe(res => {
       res.forEach( item => {
-        console.log(item);
         this.configuracao = item;
       });
-      console.log(res);
     });
   }
 
   alteraConfiguracao() {
     this.usuario1Service.putConfiguracao(this.configuracao)
     .subscribe( res => {
-      console.log(res);
     });
   }
 

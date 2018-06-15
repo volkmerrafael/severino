@@ -84,6 +84,8 @@ export class PontoComponent implements OnInit {
   data: any;
   listaIssues: WorklogJira[];
   selectedIssues: WorklogJira[];
+  pontoEdicaoId: any;
+  worklogs: any;
 
   constructor(
     private pontoService: PontoService,
@@ -135,27 +137,26 @@ export class PontoComponent implements OnInit {
   }
 
   showDialogJustificativa(ponto: any) {
-    console.log(ponto.justificativa);
+    console.log(ponto);
     this.idPonto = ponto.id;
     this.pontos.forEach(res => {
       if (res.id === this.idPonto) {
         this.data = res.data;
+        this.worklogs = res.worklogs;
       }
     });
-    this.worklogJiraService.listarIssues(this.usuario.id, this.data)
-    .subscribe( res => {
-      this.listaIssues = res;
-      this.listaIssues.forEach( issue => {
+      this.worklogs.forEach( issue => {
         issue.issue = issue.issue + " - " + issue.summary + " (Iniciado em: " + issue.startdate +
         " Tempo trabalhado: " + issue.timeworked + ")";
       });
-    });
     this.pontoEdicao = ponto;
-    if (this.pontoEdicao.justificativa) {
+    this.pontoEdicaoId = this.pontoEdicao.justificativa;
+    if (this.pontoEdicaoId.id) {
       this.justificativa = this.pontoEdicao.justificativa;
     } else {
       this.justificativa = new Justificativa;
     }
+    console.log(this.justificativa);
     this.displayJustificativa = true;
   }
 
@@ -177,15 +178,14 @@ export class PontoComponent implements OnInit {
       if (ponto.id === this.idPonto) {
         ponto.justificativa = justificativa;
         this.pontoAux = ponto;
-        console.log(this.pontoAux);
       }
     });
+    console.log(this.pontoAux);
     this.pontoService.alterarPonto(this.pontoAux)
     .subscribe( res => {
       this.consultaPontoPorPeriodo();
       this.closeDialogJustificativa();
     }, error => {
-      console.log(error);
       this.tratamentoErrosService.handleError(error);
       this.tipoGrow = "error";
       this.tituloGrow = 'Ops';
@@ -197,6 +197,7 @@ export class PontoComponent implements OnInit {
   consultaPontoPorPeriodo() {
     this.pontoService.listarPontoPorPeriodo(this.usuario.id, this.ano, this.mes)
       .subscribe(res => {
+        console.log(res);
         this.pontos = res;
         this.verificarStatus(res);
         this.pontosEditados = [];
