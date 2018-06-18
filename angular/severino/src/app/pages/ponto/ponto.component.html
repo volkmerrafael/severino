@@ -183,7 +183,7 @@
         <textarea rows="5" cols="30" class="textArea" pInputTextarea [(ngModel)]="justificativa.descricao"></textarea>
       </div>
       <div class="ui-g-6" style="width: auto;">
-        <p-listbox *ngIf="listaIssues" class="listbox" [style]="{'width':'500px'}" [listStyle]="{'max-height':'250px'}" [options]="listaIssues"
+        <p-listbox *ngIf="issues" class="listbox" [style]="{'width':'500px'}" [listStyle]="{'max-height':'250px'}" [options]="issues"
           [(ngModel)]="selectedIssues" multiple="multiple" checkbox="checkbox" filter="filter" optionLabel="issue">
           <p-header>
             Issues

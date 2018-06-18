@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfiguracaoIntegracao } from '../../../../shared/models/configuracaoIntegracao';
 import { Usuario1Service } from '../../usuario.service';
-import { FormGroup, FormControl } from '@angular/forms';
-import { UsuarioService } from '../../../../services/usuario.service';
 
 @Component({
   selector: 'app-configuracao',
@@ -17,7 +15,6 @@ export class ConfiguracaoComponent implements OnInit {
 
   constructor(
     private usuario1Service: Usuario1Service,
-    private usuarioService: UsuarioService,
   ) {
     this.buscaConfiguracao(); }
 

@@ -22,6 +22,7 @@ import { PontoEditado } from '../../shared/models/pontoEditado';
 import { WorklogJiraService } from '../../services/worklogJira.service';
 import { WorklogJira } from '../../shared/models/worklogJira';
 import { Router } from '@angular/router';
+import { Issue } from '../../shared/models/issue';
 
 @Component({
   selector: 'app-ponto',
@@ -56,7 +57,7 @@ export class PontoComponent implements OnInit {
   jornadas: Jornada[] = [];
   n: any = 0;
   l: any = 0;
-  w: any;
+  w: any = 0;
   existeCorreto: any = false;
   existeDebito: any = false;
   existeCredito: any = false;
@@ -82,10 +83,12 @@ export class PontoComponent implements OnInit {
   pontoEdicao: PontoEditado = new PontoEditado();
   idPonto: any;
   data: any;
-  listaIssues: WorklogJira[];
-  selectedIssues: WorklogJira[];
+  selectedIssues: Issue[] = [];
+  worklogJira: WorklogJira = new WorklogJira;
+  issues: Issue[];
   pontoEdicaoId: any;
   worklogs: any;
+  declaracao: any;
 
   constructor(
     private pontoService: PontoService,
@@ -142,12 +145,15 @@ export class PontoComponent implements OnInit {
     this.pontos.forEach(res => {
       if (res.id === this.idPonto) {
         this.data = res.data;
-        this.worklogs = res.worklogs;
+        this.issues = res.worklogs;
       }
     });
-      this.worklogs.forEach( issue => {
-        issue.issue = issue.issue + " - " + issue.summary + " (Iniciado em: " + issue.startdate +
-        " Tempo trabalhado: " + issue.timeworked + ")";
+      this.issues.forEach( item => {
+        item.issue = item.issue + " - " + item.summary + " (Iniciado em: " + item.startdate +
+        " Tempo trabalhado: " + item.timeworked + ")";
+        if (item.gravada === true) {
+          this.selectedIssues.push(item);
+        }
       });
     this.pontoEdicao = ponto;
     this.pontoEdicaoId = this.pontoEdicao.justificativa;
@@ -156,7 +162,6 @@ export class PontoComponent implements OnInit {
     } else {
       this.justificativa = new Justificativa;
     }
-    console.log(this.justificativa);
     this.displayJustificativa = true;
   }
 
@@ -173,20 +178,23 @@ export class PontoComponent implements OnInit {
   }
 
   justificarPonto(justificativa: Justificativa) {
-    console.log(justificativa);
     this.pontos.forEach( ponto => {
       if (ponto.id === this.idPonto) {
+        this.selectedIssues.forEach( item => {
+          item.gravada = true;
+          this.declaracao = this.data + '  - ' + ponto.status + ' no banco de horas ' + ' - ' + item.issue;
+          this.justificativa.descricao = this.declaracao;
+        });
+        ponto.worklogs = this.selectedIssues;
         ponto.justificativa = justificativa;
         this.pontoAux = ponto;
       }
     });
-    console.log(this.pontoAux);
     this.pontoService.alterarPonto(this.pontoAux)
     .subscribe( res => {
       this.consultaPontoPorPeriodo();
       this.closeDialogJustificativa();
     }, error => {
-      this.tratamentoErrosService.handleError(error);
       this.tipoGrow = "error";
       this.tituloGrow = 'Ops';
       this.mensagemGrow = error.error;
@@ -197,7 +205,6 @@ export class PontoComponent implements OnInit {
   consultaPontoPorPeriodo() {
     this.pontoService.listarPontoPorPeriodo(this.usuario.id, this.ano, this.mes)
       .subscribe(res => {
-        console.log(res);
         this.pontos = res;
         this.verificarStatus(res);
         this.pontosEditados = [];
@@ -253,6 +260,7 @@ export class PontoComponent implements OnInit {
     let legenda: Legenda = new Legenda();
     let diaSemana: DiaSemana = new DiaSemana;
     let justificativa: Justificativa = new Justificativa();
+    let worklogs: WorklogJira = new WorklogJira();
     pontos.forEach( ponto => {
       this.pontoEditado = new PontoEditado();
       jornada = ponto.jornada;
@@ -262,8 +270,10 @@ export class PontoComponent implements OnInit {
       } else {
         this.pontoEditado.justificativa = new Justificativa();
       }
+      worklogs = ponto.worklogs;
       legenda = ponto.legenda;
       diaSemana = ponto.diasemana;
+      this.pontoEditado.worklogs = ponto.worklogs;
       this.pontoEditado.id = ponto.id;
       this.pontoEditado.diaSemana = diaSemana.nome;
       this.pontoEditado.data = ponto.data;

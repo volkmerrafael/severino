@@ -1,7 +1,7 @@
 import { Usuario } from "./usuario";
 import { Legenda } from "./legenda";
 import { Justificativa } from './justificativa';
-import { WorklogJira } from "./worklogJira";
+import { Issue } from "./issue";
 
 export class Ponto {
 
@@ -22,5 +22,5 @@ export class Ponto {
   legenda: Legenda;
   status: string;
   justificativa: Justificativa;
-  worklogs: WorklogJira;
+  worklogs: Issue[];
 }
