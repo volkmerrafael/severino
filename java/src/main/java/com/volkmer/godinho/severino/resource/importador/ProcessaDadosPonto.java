@@ -5,66 +5,100 @@ import java.time.LocalDateTime;
 import java.time.Month;
 
 import com.volkmer.godinho.severino.entity.Ponto;
-import com.volkmer.godinho.severino.resource.importador.modelos.ObjetoPontoCompleto;
 import com.volkmer.godinho.severino.resource.importador.modelos.Tempo;
 import com.volkmer.godinho.severino.resource.ponto.PontoStatus;
 
 public class ProcessaDadosPonto {
 
-	public void processar(ObjetoPontoCompleto objetoPontoCompleto) {
+	public void processar(Ponto ponto) {
 	
-		String e1 = objetoPontoCompleto.getPonto().getEntrada1();
-		String e2 = objetoPontoCompleto.getPonto().getEntrada2();
-		String e3 = objetoPontoCompleto.getPonto().getEntrada3();
-		String e4 = objetoPontoCompleto.getPonto().getEntrada4();
-		String s1 = objetoPontoCompleto.getPonto().getSaida1();
-		String s2 = objetoPontoCompleto.getPonto().getSaida2();
-		String s3 = objetoPontoCompleto.getPonto().getSaida3();
-		String s4 = objetoPontoCompleto.getPonto().getSaida4();
+		String e1 = ponto.getEntrada1();
+		String e2 = ponto.getEntrada2();
+		String e3 = ponto.getEntrada3();
+		String e4 = ponto.getEntrada4();
+		String s1 = ponto.getSaida1();
+		String s2 = ponto.getSaida2();
+		String s3 = ponto.getSaida3();
+		String s4 = ponto.getSaida4();
 		
 		if (!this.marcacoesEstaoCorretas(e1,s1,e2,s2,e3,s3,e4,s4)) {
-			objetoPontoCompleto.getPonto().setStatus(PontoStatus.MARCACAO_INCORRETA);
-			objetoPontoCompleto.getPonto().setObservacao("Marcações Incorretas");
+			ponto.setStatus(PontoStatus.MARCACAO_INCORRETA);
+			ponto.setObservacao("Marcações Incorretas");
 		} else {
-			this.calculaDebitoECredito(e1,s1,e2,s2,e3,s3,e4,s4, objetoPontoCompleto.getPonto());
+			this.calculaDebitoECreditoEAbonoETrabalhadas(e1,s1,e2,s2,e3,s3,e4,s4, ponto);
 		}
 		
-		if (objetoPontoCompleto.getPonto().getStatus()==null) {
+		if (ponto.getStatus()==null) {
 			
-			if (objetoPontoCompleto.getPonto().getDiasemana().getNome().equals("Sáb") || objetoPontoCompleto.getPonto().getDiasemana().getNome().equals("Dom")) {
-				objetoPontoCompleto.getPonto().setStatus(PontoStatus.SEM_INFORMACAO);
+			//Implementação referente a bug no sistema de ponto que gera descrições incorretas na observação
+			if (ponto.getObservacao()!="" 
+					&& (
+					   ponto.getObservacao().indexOf("-----:-- [C] H. Pagas")!=-1
+					|| ponto.getObservacao().indexOf("-----:-- [D] H. Pagas")!=-1   
+					|| ponto.getObservacao().indexOf("00:00 [C] H. Pagas")!=-1 
+					|| ponto.getObservacao().indexOf("00:00 [D] H. Pagas")!=-1 )
+					) {
+				
+				if (ponto.getLegenda()!=null && ponto.getLegenda().getSigla()!="") {
+					//Se legenda for A será setado Atestado médico na observação
+					if (ponto.getLegenda().getSigla().equals("A")) {
+						ponto.setObservacao("Atestado medico");
+					} else {
+						ponto.setObservacao("");
+					}
+				} else {
+					ponto.setObservacao("");
+				}
 			}
 			
-			if (objetoPontoCompleto.getPonto().getObservacao()!=null && !objetoPontoCompleto.getPonto().getObservacao().equals("")) {
-				if (objetoPontoCompleto.getPonto().getObservacao().equals("Férias")) {
-					objetoPontoCompleto.getPonto().setStatus(PontoStatus.FERIAS);
-				} else 
-				if (objetoPontoCompleto.getPonto().getObservacao().equals("Atestado medico")) {
-					objetoPontoCompleto.getPonto().setStatus(PontoStatus.ATESTADO_MEDICO);
-				} else 
-				if (objetoPontoCompleto.getPonto().getObservacao().equals("Ponto Facultativo")) {
-					objetoPontoCompleto.getPonto().setStatus(PontoStatus.PONTO_FACULTATIVO);
-				} else 
-				if (objetoPontoCompleto.getPonto().getObservacao().equals("Falta Justificada - (F)")) {
-					objetoPontoCompleto.getPonto().setStatus(PontoStatus.FALTA_JUSTIFICADA);
-				} else 
-				if (objetoPontoCompleto.getPonto().getObservacao().equals("Não Admitido")) {
-					objetoPontoCompleto.getPonto().setStatus(PontoStatus.NAO_ADMITIDO);
-				} 
+			if (ponto.getDiasemana().getNome().equals("Sáb") || ponto.getDiasemana().getNome().equals("Dom")) {
+				ponto.setStatus(PontoStatus.SEM_INFORMACAO);
 			}
 			
-			if (objetoPontoCompleto.getPonto().getLegenda()!=null && objetoPontoCompleto.getPonto().getLegenda().getSigla().equals("F")) {
-				objetoPontoCompleto.getPonto().setStatus(PontoStatus.FERIADO);
+			if (ponto.getObservacao()!=null && !ponto.getObservacao().equals("")) {
+				
+				//Trantando esse retorno na ultima linha = 00:00 [D] H. Pagas
+				
+				if (ponto.getObservacao().indexOf("[D] H. Pagas")!=-1) {
+
+				}
+				
+				if (ponto.getObservacao().equals("Férias")) {
+					ponto.setStatus(PontoStatus.FERIAS);
+				} else 
+				if (ponto.getObservacao().equals("Atestado medico")) {
+					ponto.setStatus(PontoStatus.ATESTADO_MEDICO);
+				} else 
+				if (ponto.getObservacao().equals("Certidão de Óbito")) {
+					ponto.setStatus(PontoStatus.CERTIDAO_DE_OBITO);
+				} else
+				if (ponto.getObservacao().equals("Ponto Facultativo")) {
+					ponto.setStatus(PontoStatus.PONTO_FACULTATIVO);
+				} else 
+				if (ponto.getObservacao().equals("Falta Justificada - (F)")) {
+					ponto.setStatus(PontoStatus.FALTA_JUSTIFICADA);
+				} else 
+				if (ponto.getObservacao().equals("Não Admitido")) {
+					ponto.setStatus(PontoStatus.NAO_ADMITIDO);
+				} else 
+				if (ponto.getObservacao().indexOf("Compensação do Feriado")!=-1) {
+					ponto.setStatus(PontoStatus.COMPENSACAO);
+				}
 			}
 			
-			if (objetoPontoCompleto.getPonto().getStatus()==null) {
-				objetoPontoCompleto.getPonto().setStatus(PontoStatus.CORRETO);	
+			if (ponto.getLegenda()!=null && ponto.getLegenda().getSigla().equals("F")) {
+				ponto.setStatus(PontoStatus.FERIADO);
+				ponto.setObservacao("Feriado");
+			}
+			
+			if (ponto.getStatus()==null) {
+				ponto.setStatus(PontoStatus.CORRETO);	
 			}
 			
 		}
 	}
 
-	private void calculaDebitoECredito(
+	private void calculaDebitoECreditoEAbonoETrabalhadas(
 			String e1, String s1, String e2, String s2, 
 			String e3, String s3, String e4, String s4,
 			Ponto obj) {
@@ -73,8 +107,8 @@ public class ProcessaDadosPonto {
 		
 		Integer jornada = 8*60;
 		
-		if (obj.getJornada()!=null && obj.getJornada().getJornada()!=null) {
-			jornada = (obj.getJornada().getJornada().getHour()*60) + obj.getJornada().getJornada().getMinute();
+		if (obj.getJornada()!=null && obj.getJornada().getHoras()!=null) {
+			jornada = (obj.getJornada().getHoras().getHour()*60) + obj.getJornada().getHoras().getMinute();
 		}
 		
 		Integer totalMinutosObrigatorios = jornada;
@@ -105,42 +139,85 @@ public class ProcessaDadosPonto {
 		Integer credito = 0;
 		
 		//Se tem joranada e não tem legenda quer dizer que deveria ter vindo trabalhar então será débito
-		if (obj.getJornada()!=null && obj.getJornada().getJornada()!=null && obj.getLegenda()==null && (obj.getObservacao()==null || obj.getObservacao().indexOf("Débito")!=-1)) {
+		if (jornada!=null && totalMinutosTrabalhados==0 && obj.getLegenda()==null && obj.getObservacao()!=null && obj.getObservacao().indexOf("Débito")!=-1) {
+			
 			debito = jornada; //recebe jornada pois era o período em que o funcionário deveria estar trabalhando
 			obj.setMinutos_debito(debito);
 			obj.setStatus(PontoStatus.DEBITO);
 			obj.setObservacao(this.transformaHoraMinutoEmString("-",debito)+" => Débito no BH");
+				
+		} else {
+			
+			//Se tem legenda separar horas trabalhadas de abono
+			
+			if (obj.getJornada()!=null && obj.getJornada().getHoras()!=null && obj.getLegenda()!=null && obj.getLegenda().getSigla()!="" && obj.getLegenda().getSigla().equals("A")) {
+				
+				obj.setMinutos_trabalhados(totalMinutosTrabalhados);
+				
+				if (totalMinutosTrabalhados<jornada) {
+					//so conta abono
+					//se não for compensação
+					//e se não for férias
+					if (obj.getObservacao()!=null && obj.getObservacao().indexOf("Compensação")==-1) {
+						if (obj.getObservacao()!=null && obj.getObservacao().indexOf("Férias")==-1) {
+							obj.setMinutos_abono(jornada-totalMinutosTrabalhados);
+						}
+					}
+					
+				}
+				
+			} else if (totalMinutosTrabalhados!=0) {
+				
+				//Horas trabalhadas considerando toleância
+				
+				if (totalMinutosTrabalhados>(totalMinutosObrigatorios+tolerancia) || totalMinutosTrabalhados<(totalMinutosObrigatorios-tolerancia)) {
+					
+					if (obj.getJornada()!=null && obj.getJornada().getHoras()!=null) {
+						if (totalMinutosTrabalhados<jornada) {					
+							obj.setMinutos_trabalhados(totalMinutosTrabalhados);
+						} else {
+							obj.setMinutos_trabalhados(jornada);
+						}
+					}
+				} else {
+					if (obj.getJornada()!=null && obj.getJornada().getHoras()!=null) {
+						obj.setMinutos_trabalhados(jornada);
+					}
+				}	
+				
+				//Quando é Feriado e Domingo duplica horas extra
+				//Se dia da semana for sabado ou domingo deve ser hora extra
+				
+				if (obj.getDiasemana().getNome().equals("Sáb")) {
+					credito = totalMinutosTrabalhados;
+					obj.setMinutos_credito(credito);
+					obj.setStatus(PontoStatus.CREDITO);
+					obj.setObservacao(this.transformaHoraMinutoEmString("+",credito)+" => Crédito BH");				
+				} else if (obj.getDiasemana().getNome().equals("Dom") || (obj.getLegenda()!=null && obj.getLegenda().getSigla()!=null && obj.getLegenda().getSigla().equals("F"))) {
+					credito = totalMinutosTrabalhados*2;
+					//obj.setMinutos_trabalhados(obj.getMinutos_trabalhados()*2);
+					obj.setMinutos_credito(credito);
+					obj.setStatus(PontoStatus.CREDITO);
+					obj.setObservacao(this.transformaHoraMinutoEmString("+",credito)+" => Crédito BH Especial");
+				} else if (totalMinutosTrabalhados<(totalMinutosObrigatorios-tolerancia)) {
+					//calcula débito somente se estorou a tolerancia
+					debito = totalMinutosObrigatorios-totalMinutosTrabalhados;
+					obj.setMinutos_debito(debito);
+					obj.setStatus(PontoStatus.DEBITO);
+					obj.setObservacao(this.transformaHoraMinutoEmString("-",debito)+" => Débito no BH");
+				} else if (totalMinutosTrabalhados>(totalMinutosObrigatorios+tolerancia)){
+					//calcula crédito somente se estourou tolerancia
+					credito = totalMinutosTrabalhados-totalMinutosObrigatorios;
+					obj.setMinutos_credito(credito);
+					obj.setStatus(PontoStatus.CREDITO);
+					obj.setObservacao(this.transformaHoraMinutoEmString("+",credito)+" => Crédito BH");
+				}
+				
+			}
+			
 		}
 		
-		if (totalMinutosTrabalhados!=0) {
-			
-			//Quando é Feriado e Domingo duplica horas extra
-			//Se dia da semana for sabado ou domingo deve ser hora extra
-			
-			if (obj.getDiasemana().getNome().equals("Sáb")) {
-				credito = totalMinutosTrabalhados;
-				obj.setMinutos_credito(credito);
-				obj.setStatus(PontoStatus.CREDITO);
-				obj.setObservacao(this.transformaHoraMinutoEmString("+",credito)+" => Crédito BH");				
-			} else if (obj.getDiasemana().getNome().equals("Dom") || (obj.getLegenda()!=null && obj.getLegenda().getSigla()!=null && obj.getLegenda().getSigla().equals("F"))) {
-				credito = totalMinutosTrabalhados;
-				obj.setMinutos_credito(credito);
-				obj.setStatus(PontoStatus.CREDITO);
-				obj.setObservacao(this.transformaHoraMinutoEmString("+",credito*2)+" => Crédito BH Especial");
-			} else if (totalMinutosTrabalhados<(totalMinutosObrigatorios-tolerancia)) {
-				//calcula débito somente se estorou a tolerancia
-				debito = totalMinutosObrigatorios-totalMinutosTrabalhados;
-				obj.setMinutos_debito(debito);
-				obj.setStatus(PontoStatus.DEBITO);
-				obj.setObservacao(this.transformaHoraMinutoEmString("-",debito)+" => Débito no BH");
-			} else if (totalMinutosTrabalhados>(totalMinutosObrigatorios+tolerancia)){
-				//calcula crédito somente se estourou tolerancia
-				credito = totalMinutosTrabalhados-totalMinutosObrigatorios;
-				obj.setMinutos_credito(credito);
-				obj.setStatus(PontoStatus.CREDITO);
-				obj.setObservacao(this.transformaHoraMinutoEmString("+",credito)+" => Crédito BH");
-			}
-		}
+
 				
 	}
 

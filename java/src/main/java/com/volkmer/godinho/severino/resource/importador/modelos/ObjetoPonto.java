@@ -5,10 +5,17 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import com.volkmer.godinho.severino.entity.AnoMes;
+import com.volkmer.godinho.severino.entity.Departamento;
 import com.volkmer.godinho.severino.entity.DiaSemana;
+import com.volkmer.godinho.severino.entity.Empresa;
+import com.volkmer.godinho.severino.entity.Funcao;
+import com.volkmer.godinho.severino.entity.Importacao;
 import com.volkmer.godinho.severino.entity.Jornada;
 import com.volkmer.godinho.severino.entity.Legenda;
 import com.volkmer.godinho.severino.entity.Ponto;
+import com.volkmer.godinho.severino.entity.Usuario;
+import com.volkmer.godinho.severino.resource.importador.ProcessaDadosPonto;
 
 import lombok.Data;
 
@@ -17,12 +24,17 @@ public class ObjetoPonto implements ObjetoPontoInterfaceImportacao {
 	
 	private Integer linha = 0;
 	
-	private static String funcionario;
-	private static String pis;
-	private static String data_admissao;
-	private static String funcao;
-	private static String departamento;
-	private static String periodo;
+	private static String usuario_nome;
+	private static String usuario_pis;
+	private static String usuario_data_admissao;
+	private static String nome_funcao;
+	private static String nome_departamento;
+	private static String importacao_periodo;
+	private static String empresa_razao_social;
+	private static String empresa_cnpj;
+	private static String empresa_endereco;
+	private static String empresa_cidade;
+	private static String empresa_uf;
 	
 	private String data;
 	private String diasemana;
@@ -51,26 +63,41 @@ public class ObjetoPonto implements ObjetoPontoInterfaceImportacao {
 		
 		newValor = newValor.trim();
 		if (linha < 13) {
+			if (pos.equals(0) && linha.equals(1) && newValor.indexOf("Empresa:")!=-1) {
+				empresa_razao_social = newValor.replace("Empresa: ", "");
+			} else
+			if (pos.equals(16) && linha.equals(1) && newValor.indexOf("CNPJ:")!=-1) {
+				empresa_cnpj = newValor.replace("CNPJ: ", "");
+			} else
+			if (pos.equals(0) && linha.equals(2) && newValor.indexOf("Endereço:")!=-1) {
+				empresa_endereco = newValor.replace("Endereço: ", "");
+			} else 
+			if (pos.equals(7) && linha.equals(3) && newValor.indexOf("UF:")!=-1) {
+				empresa_uf = newValor.replace("UF: ", "");
+			} else 
+			if (pos.equals(0) && linha.equals(3) && newValor.indexOf("Cidade:")!=-1) {
+				empresa_cidade = newValor.replace("Cidade: ", "");
+			} else					
 			if (pos.equals(0) && linha.equals(4) && newValor.indexOf("Funcionário:")!=-1) {
-				this.funcionario = newValor.replace("Funcionário: ", "");
+				usuario_nome = newValor.replace("Funcionário: ", "");
 			} else 
 			if (pos.equals(20) && linha.equals(4) && newValor.indexOf("PIS:")!=-1) {
-				this.pis = newValor.replace("PIS: ", "");
+				usuario_pis = newValor.replace("PIS: ", "");
 			} else 
 			if (pos.equals(24) && linha.equals(4) && newValor.indexOf("PIS:")!=-1) {
-				this.pis = newValor.replace("PIS: ", "");
+				usuario_pis = newValor.replace("PIS: ", "");
 			} else
 			if (pos.equals(0) && linha.equals(6) && newValor.indexOf("Data Admissão:")!=-1) {
-				this.data_admissao = newValor.replace("Data Admissão: ", "");
+				usuario_data_admissao = newValor.replace("Data Admissão: ", "");
 			} else
 			if (pos.equals(7) && linha.equals(5) && newValor.indexOf("Função:")!=-1) {
-				this.funcao = newValor.replace("Função: ", "");
+				nome_funcao = newValor.replace("Função: ", "");
 			} else
 			if (pos.equals(0) && linha.equals(5) && newValor.indexOf("Departamento:")!=-1) {
-				this.departamento = newValor.replace("Departamento: ", "");
+				nome_departamento = newValor.replace("Departamento: ", "");
 			} else 
 			if (pos.equals(11) && linha.equals(0) && newValor.indexOf("Período de")!=-1) {
-				this.periodo = newValor.replace("Período de ", "");
+				importacao_periodo = newValor.replace("Período de ", "");
 			}
 			//System.out.println("posicao: "+pos+" linha: "+linha+" newValor: "+newValor);
 		} else
@@ -147,106 +174,67 @@ public class ObjetoPonto implements ObjetoPontoInterfaceImportacao {
 	}
 	
 	@Override
-	public ObjetoPontoCompleto atualizar() {
+	public Ponto atualizar() {
 
 		try {
 			
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+			if (this.linha < 13 || (this.linha >= 13 && ((this.data==null || this.data.equals("") || this.data.indexOf("Saldo Banco de Horas")!=-1 || this.data.length()>6) && (this.diasemana==null || this.diasemana.equals(""))))) {
+				
+				Ponto ponto = new Ponto();
+				return ponto;
 
-			    ObjetoPontoCompleto objetoPontoCompleto = new ObjetoPontoCompleto();
+			} else {
 				
-			    objetoPontoCompleto.setFuncao(this.funcao);
-			    objetoPontoCompleto.setData_admissao(LocalDate.parse(this.data_admissao,formatter));
-			    objetoPontoCompleto.setFuncionario(this.funcionario);
-			    objetoPontoCompleto.setPis(Long.parseLong(this.pis));
-			    objetoPontoCompleto.setDepartamento(this.departamento);
-			    
-			    //System.out.println(this.periodo);
-			    
-				//rever
-				try {
-					if (this.periodo!=null) {
-						objetoPontoCompleto.setData_inicial_importacao(LocalDate.parse(this.periodo.substring(0, 10),formatter));
-					}
-				} catch (Exception e) {
-				}
-				//rever
-				try {
-					if (this.periodo!=null) {
-						objetoPontoCompleto.setData_final_importacao(LocalDate.parse(this.periodo.substring(13, this.periodo.length()),formatter));
-					}
-				} catch (Exception e) {
-				}
-			
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 				
-			    Ponto ponto = new Ponto();
+				Ponto ponto = new Ponto();
+				
+				ponto.setUsuario(new Usuario());
+				
+				ponto.getUsuario().setFuncao(new Funcao());
+				ponto.getUsuario().setDepartamento(new Departamento());
+				ponto.getUsuario().setEmpresa(new Empresa());
+	
+				ponto.getUsuario().getFuncao().setNome(nome_funcao);
+				ponto.getUsuario().getDepartamento().setNome(nome_departamento);
+				
+				ponto.getUsuario().setNome(usuario_nome);
+				ponto.getUsuario().setData_admissao(LocalDate.parse(usuario_data_admissao,formatter));
+				ponto.getUsuario().setPis(Long.parseLong(usuario_pis));
+				
+				ponto.getUsuario().getEmpresa().setCidade(empresa_cidade);
+				ponto.getUsuario().getEmpresa().setRazao_social(empresa_razao_social);
+				ponto.getUsuario().getEmpresa().setCnpj(empresa_cnpj);
+				ponto.getUsuario().getEmpresa().setEndereco(empresa_endereco);
+				ponto.getUsuario().getEmpresa().setUf(empresa_uf);
+				
+				if (importacao_periodo!=null) {
+					if (importacao_periodo.length()==23) { //01/01/2017 01/01/2018
+						ponto.setImportacao(new Importacao());
+						ponto.getImportacao().setInicio_periodo(LocalDate.parse(importacao_periodo.substring(0, 10),formatter));
+						ponto.getImportacao().setFinal_periodo(LocalDate.parse(importacao_periodo.substring(13, importacao_periodo.length()),formatter));
+					}
+				}
 				
 				if (this.data!=null && !this.data.equals("")) {
-					String dataCompleta = "";
-					if (this.data.length()==4) {
-						dataCompleta = this.data.substring(0, 3)+"0"+this.data.substring(3, 4);
-					} else {
-						dataCompleta = this.data;
-					}
-					dataCompleta += this.periodo.substring(5, 10);
-					
-					//rever
-					try {
-						ponto.setData(LocalDate.parse(dataCompleta,formatter));
-					} catch (Exception e) {
-					}
+					this.processaData(ponto);					
 				}
 				
 				if (this.diasemana!=null) {
-					DiaSemana diasem = new DiaSemana();
-					diasem.setNome(this.diasemana);
-					ponto.setDiasemana(diasem);
+					ponto.setDiasemana(new DiaSemana());
+					ponto.getDiasemana().setNome(this.diasemana);
 				}
 				
 				if (this.jornada!=null && !this.jornada.equals("")) {
-					Jornada jd = new Jornada();
-					jd.setPeriodo_jornada(this.jornada);
-					
-					String array[] = this.jornada.split(" ");
-					
-					ArrayList<LocalTime> listaLocalTime = new ArrayList<>();
-					
-					for (String string : array) {
-						string = string+":00";
-						LocalTime lt = LocalTime.parse(string);
-						listaLocalTime.add(lt);						
-					}
-					
-					LocalTime anterior = null;
-					Integer jo = 0;
-					Integer contador = 0;
-					
-					for (LocalTime l : listaLocalTime) {
-						contador++;
-						Duration duracao = null;
-						
-						if (contador!=1 && contador!=3) {
-							LocalTime atual = l;
-							duracao  = Duration.between(anterior, atual);
-							jo += (int) duracao.toMinutes();
-						} else {
-							anterior = l;
-						}
-					}
-					
-					Integer horac = jo/60;
-					Integer minutoc = jo%60;
-					LocalTime lc = LocalTime.of(horac, minutoc, 0, 0);
-					
-					jd.setJornada(lc);
-					ponto.setJornada(jd);
+					ponto.setJornada(new Jornada());
+					this.processaJornada(ponto);
 				}
 				
 				if (this.legenda!=null && !this.legenda.equals("")) {
-					Legenda legenda = new Legenda();
-					legenda.setSigla(this.legenda);
-					ponto.setLegenda(legenda);
+					ponto.setLegenda(new Legenda());
+					ponto.getLegenda().setSigla(this.legenda);
 				}
+
 				ponto.setEntrada1(this.entrada1);
 				ponto.setSaida1(this.saida1);
 				ponto.setEntrada2(this.entrada2);
@@ -263,9 +251,11 @@ public class ObjetoPonto implements ObjetoPontoInterfaceImportacao {
 				ponto.setFaltas_noturno(this.faltas_noturno);
 				ponto.setObservacao(this.observacao);
 				
-				objetoPontoCompleto.setPonto(ponto);
+				new ProcessaDadosPonto().processar(ponto);
 				
-				return objetoPontoCompleto;
+				return ponto;
+			
+			}
 					
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -274,11 +264,75 @@ public class ObjetoPonto implements ObjetoPontoInterfaceImportacao {
 		
 	}
 
+	private void processaData(Ponto ponto) {
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		
+		String dataCompleta = "";
+		if (this.data.length()==4) {
+			dataCompleta = this.data.substring(0, 3)+"0"+this.data.substring(3, 4);
+		} else {
+			dataCompleta = this.data;
+		}
+		dataCompleta += importacao_periodo.substring(5, 10);
+		
+		if (dataCompleta!=null && dataCompleta.length()==10) {
+			ponto.setData(LocalDate.parse(dataCompleta,formatter));
+			
+			AnoMes anomes = new AnoMes();
+			anomes.setAno(ponto.getData().getYear());
+			anomes.setMes(ponto.getData().getMonth().getValue());
+			
+			ponto.setAnomes(anomes);
+			
+		}
+		
+	}
+
+	private void processaJornada(Ponto ponto) {
+		
+		ponto.getJornada().setPeriodo_jornada(this.jornada);
+		
+		String array[] = this.jornada.split(" ");
+		
+		ArrayList<LocalTime> listaLocalTime = new ArrayList<>();
+		
+		for (String string : array) {
+			string = string+":00";
+			LocalTime lt = LocalTime.parse(string);
+			listaLocalTime.add(lt);						
+		}
+		
+		LocalTime anterior = null;
+		Integer jo = 0;
+		Integer contador = 0;
+		
+		for (LocalTime l : listaLocalTime) {
+			contador++;
+			Duration duracao = null;
+			
+			if (contador!=1 && contador!=3) {
+				LocalTime atual = l;
+				duracao  = Duration.between(anterior, atual);
+				jo += (int) duracao.toMinutes();
+			} else {
+				anterior = l;
+			}
+		}
+		
+		Integer horac = jo/60;
+		Integer minutoc = jo%60;
+		LocalTime lc = LocalTime.of(horac, minutoc, 0, 0);
+		
+		ponto.getJornada().setHoras(lc);
+		
+	}
+
 	@Override
 	public Boolean isFimArquivo() {
 		Boolean fimArquivo = false;
 		
-		if (this.linha>=13 && ((this.data==null || this.data.equals("")) && (this.diasemana==null || this.diasemana.equals("")))) {
+		if (this.linha>=13 && ((this.data==null || this.data.equals("") || this.data.indexOf("Saldo Banco de Horas")!=-1 || this.data.length()>6) && (this.diasemana==null || this.diasemana.equals("")))) {
 			fimArquivo = true;
 		}
 		return fimArquivo;

@@ -2,6 +2,7 @@ package com.volkmer.godinho.severino.resource.importacao;
 
 import java.util.List;
 
+import javax.persistence.NoResultException;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
@@ -10,9 +11,11 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.volkmer.godinho.core.rest.filters.RestException;
 import com.volkmer.godinho.severino.entity.Importacao;
 import com.volkmer.godinho.severino.entity.Usuario;
 import com.volkmer.godinho.severino.resource.ponto.PontoStatus;
+import com.volkmer.godinho.severino.resource.usuario.UsuarioResource;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,15 +32,24 @@ public class ImportacaoController {
 	@HeaderParam("session-token")
 	String sessionToken;
 	
+	private RestException erroAoRealizarImportacao = new RestException("Erro ao realizar Importação.");
+	private RestException naoForamEncontradasImportacoes = new RestException("Não Foram encontradas Importações");
+	private RestException operacaoSoPodeSerRealizadaPorUsuarioAdministrador = new RestException("Operação só pode ser realizada por usuário administrador.");
+	
 	@GET
 	@Path("/")
 	@ApiOperation(value = "Listar Arquivos Importados")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Importacao> listarImportacao() throws Exception {
 		try (ImportacaoResource imp = new ImportacaoResource()) {
-			return imp.listarImportacoes(userToken);
-		} catch (Exception e) {
-			throw e;
+			try (UsuarioResource usuRes = new UsuarioResource()) {
+				if (usuRes.ehUsarioAdmin(userToken)) {
+						return imp.listarImportacoes(userToken);
+				}
+			}
+			throw operacaoSoPodeSerRealizadaPorUsuarioAdministrador;
+		} catch (NoResultException e) {
+			throw naoForamEncontradasImportacoes;
 		}
 	}
 	
@@ -50,11 +62,17 @@ public class ImportacaoController {
 	    message="Importado com Sucesso",
 	    response = Importacao.class))
 	@Produces(MediaType.APPLICATION_JSON)
-	public Importacao gravar(Importacao importacao) throws Exception {
+	public Importacao importar(Importacao importacao) throws Exception {
 		try (ImportacaoResource imp = new ImportacaoResource()) {
-			return imp.gravar(userToken, importacao);
+			try (UsuarioResource usuRes = new UsuarioResource()) {
+				if (usuRes.ehUsarioAdmin(userToken)) {
+					return imp.importar(userToken, importacao);
+				}
+			}
+			throw operacaoSoPodeSerRealizadaPorUsuarioAdministrador;
 		} catch (Exception e) {
-			throw e;
+			e.printStackTrace();
+			throw erroAoRealizarImportacao;
 		}
 	}
 
@@ -64,7 +82,12 @@ public class ImportacaoController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Usuario> lsitarUsuariosPorStatus(@PathParam("importacao") Long importacao, @PathParam("status") PontoStatus status) throws Exception {
 		try (ImportacaoResource imp = new ImportacaoResource()) {
-			return imp.listarUsuarios(userToken, importacao, status);
+			try (UsuarioResource usuRes = new UsuarioResource()) {
+				if (usuRes.ehUsarioAdmin(userToken)) {
+					return imp.listarUsuarios(userToken, importacao, status);
+				}
+			}
+			throw operacaoSoPodeSerRealizadaPorUsuarioAdministrador;
 		} catch (Exception e) {
 			throw e;
 		}

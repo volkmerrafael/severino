@@ -31,11 +31,11 @@ public class JornadaController extends ControllerCRUD<Jornada, JornadaResource> 
 	
 	//Lista o ponto de um período especifíco
 	@GET
-	@Path("/listar/{ano}/{mes}")
+	@Path("/listar/{usuario}/{ano}/{mes}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Jornada> listar(@PathParam("ano") Integer ano, @PathParam("mes") Integer mes) throws Exception {
+	public List<Jornada> listar(@PathParam("usuario") Long usuarioid, @PathParam("ano") Integer ano, @PathParam("mes") Integer mes) throws Exception {
 		try (JornadaResource pres = new JornadaResource()) {
-			return pres.listarJornada(userToken,ano,mes);	
+			return pres.listarJornada(usuarioid,userToken,ano,mes);	
 		} catch (Exception e) {
 			throw e;
 		}

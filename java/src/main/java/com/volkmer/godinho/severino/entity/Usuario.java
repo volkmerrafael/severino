@@ -44,6 +44,10 @@ public class Usuario {
 	@CampoInfo(descricao="Email", obrigatorio=true)
 	private String email;
 	
+	@Column(length=200)
+	@CampoInfo(descricao="Usuário Jira", obrigatorio=true)
+	private String usuario_jira;
+	
 	@Column
 	@CampoInfo(descricao="Data Admissão", obrigatorio=false)
 	@JsonDeserialize(using = LocalDateDeserializer.class)
@@ -65,5 +69,9 @@ public class Usuario {
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="funcaoId", foreignKey=@ForeignKey(name="fk_usuario_funcao"))
 	private Funcao funcao;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="empresaId", foreignKey=@ForeignKey(name="fk_usuario_empresa"))
+	private Empresa empresa;
 	
 }

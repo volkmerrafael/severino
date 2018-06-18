@@ -8,6 +8,10 @@ public class QuestaoResource extends ResourceCRUD<Questao> {
 	public QuestaoResource() {
 	}
 	
+	public QuestaoResource(ResourceCRUD<?> res) {
+		super(res);
+	}
+	
 	@Override
 	public Class<Questao> getModelClass() {
 		return Questao.class;

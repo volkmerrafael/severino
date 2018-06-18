@@ -1,5 +1,7 @@
 package com.volkmer.godinho.severino.resource.controlehoras;
 
+import java.util.List;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Path;
@@ -23,11 +25,23 @@ public class ControleHorasController {
 	
 	//Lista o controle de horas
 	@GET
-	@Path("/listar/{ano}/{mes}")
+	@Path("/listar/{usuario}/{ano}/{mes}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public ControleHoras listar(@PathParam("ano") Integer ano, @PathParam("mes") Integer mes) throws Exception {
+	public ControleHoras listar(@PathParam("usuario") Long usuarioid, @PathParam("ano") Integer ano, @PathParam("mes") Integer mes) throws Exception {
 		try (ControleHorasResource pres = new ControleHorasResource()) {
-			return pres.listarControleHoras(userToken,ano,mes);	
+			return pres.listarControleHoras(usuarioid,userToken,ano,mes);	
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	//Lista o controle Horas Ano
+	@GET
+	@Path("/listar/{usuario}/{ano}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<ControleHoras> listar(@PathParam("usuario") Long usuarioid, @PathParam("ano") Integer ano) throws Exception {
+		try (ControleHorasResource pres = new ControleHorasResource()) {
+			return pres.listarControleHorasAno(usuarioid,userToken,ano);	
 		} catch (Exception e) {
 			throw e;
 		}

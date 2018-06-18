@@ -10,13 +10,14 @@ import javax.persistence.Table;
 
 import com.volkmer.godinho.core.validacao.CampoInfo;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Table(
 		indexes = { 
 				@Index(name = "funcao_nome_idx", columnList = "nome")
 		})
-@Data
+@Getter @Setter
 @Entity
 public class Funcao {
 	

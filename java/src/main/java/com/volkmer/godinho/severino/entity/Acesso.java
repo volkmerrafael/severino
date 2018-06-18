@@ -11,6 +11,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.volkmer.godinho.core.mapperjson.LocalDateTimeDeserializer;
+import com.volkmer.godinho.core.mapperjson.LocalDateTimeSerializer;
 import com.volkmer.godinho.core.validacao.CampoInfo;
 import com.volkmer.godinho.severino.resource.acesso.AcessoTipo;
 
@@ -36,6 +40,8 @@ public class Acesso {
 	
 	@Column
 	@CampoInfo(descricao="Data", obrigatorio=true)
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+	@JsonSerialize(using =  LocalDateTimeSerializer.class)
 	private LocalDateTime data;
 	
 	@Column(length=128)

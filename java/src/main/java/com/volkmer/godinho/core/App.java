@@ -46,7 +46,31 @@ public class App extends Application {
 					usuRes.incluir(admin);
 					
 				}
+	
+				/*//Coordenador
+				Acesso acesso = new Acesso();
+				acesso.setNomeacesso("fabiano.carniel");
+				acesso.setSenha("fabiano.carniel");
+				acesso.setTipo(AcessoTipo.COORDENADOR);
 				
+				Departamento departamento = new Departamento();
+				departamento.setId((long) 4);
+				departamento.setNome("Desenvolvimento Educação/Social");
+				
+				Funcao funcao = new Funcao();
+				funcao.setId((long) 20);
+				funcao.setNome("Coordenador");
+				
+				Usuario coordenandor = new Usuario();
+				coordenandor.setNome("FABIANO CARNIEL");
+				coordenandor.setEmail("fcarniel@ids.inf.br");
+				coordenandor.setAcesso(acesso);
+				coordenandor.setDepartamento(departamento);
+				coordenandor.setFuncao(funcao);
+				coordenandor.setData_admissao(LocalDate.now());
+				coordenandor.setPis((long) 123456); 
+				usuRes.incluir(coordenandor);
+				*/
 				
 			} catch (Exception e) {
 				e.printStackTrace();

@@ -97,6 +97,12 @@ public class Importacao {
 	private LocalTime tempo_importacao;
 	
 	@Column
+	@CampoInfo(descricao="Tempo de Processamento do Arquivo", obrigatorio=true)
+	@JsonDeserialize(using = LocalTimeDeserializer.class)
+	@JsonSerialize(using = LocalTimeSerializer.class)
+	private LocalTime tempo_processamento;
+	
+	@Column
 	@Enumerated(EnumType.STRING)
 	@CampoInfo(descricao="Status", obrigatorio=true)
 	private ImportacaoStatus status;

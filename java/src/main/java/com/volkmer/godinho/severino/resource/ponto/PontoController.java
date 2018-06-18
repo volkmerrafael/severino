@@ -9,7 +9,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.volkmer.godinho.severino.entity.AnoMes;
+import com.volkmer.godinho.core.rest.ControllerCRUD;
 import com.volkmer.godinho.severino.entity.Ponto;
 
 import io.swagger.annotations.Api;
@@ -17,7 +17,7 @@ import io.swagger.annotations.ApiOperation;
 
 @Api("Ponto")
 @Path("/ponto")
-public class PontoController {
+public class PontoController extends ControllerCRUD<Ponto, PontoResource> {
 
 	@HeaderParam("user-token")
 	String userToken;
@@ -25,37 +25,30 @@ public class PontoController {
 	@HeaderParam("session-token")
 	String sessionToken;
 
-	@GET
-	@Path("/listar/periodos")
-	@ApiOperation(value = "Listar Períodos que Usuário tem Ponto")
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<AnoMes> listaPeriodoComInfo() throws Exception {
-		try (PontoResource pres = new PontoResource()) {
-			return pres.listarPeriodos(userToken);
-		} catch (Exception e) {
-			throw e;
-		}
+	@Override
+	public PontoResource newResource() {
+		return new PontoResource();
 	}
 	
 	@GET
-	@Path("/listar/{ano}/{mes}")
+	@Path("/listar/{usuario}/{ano}/{mes}")
 	@ApiOperation(value = "Listar Pontos por Usuário - Ano - Mês")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Ponto> listar(@PathParam("ano") Integer ano, @PathParam("mes") Integer mes) throws Exception {
+	public List<Ponto> listar(@PathParam("usuario") Long usuarioid, @PathParam("ano") Integer ano, @PathParam("mes") Integer mes) throws Exception {
 		try (PontoResource pres = new PontoResource()) {
-			return pres.listarPontos(userToken,ano,mes,null);	
+			return pres.listarPontos(usuarioid,userToken,ano,mes,null);	
 		} catch (Exception e) {
 			throw e;
 		}
 	}
 
 	@GET
-	@Path("/listar/{ano}/{mes}/{status}")
+	@Path("/listar/{usuario}/{ano}/{mes}/{status}")
 	@ApiOperation(value = "Listar Pontos por Usuário - Ano - Mês - Status")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Ponto> listarPosStatus(@PathParam("ano") Integer ano, @PathParam("mes") Integer mes, @PathParam("status") PontoStatus status) throws Exception {
+	public List<Ponto> listarPosStatus(@PathParam("usuario") Long usuarioid, @PathParam("ano") Integer ano, @PathParam("mes") Integer mes, @PathParam("status") PontoStatus status) throws Exception {
 		try (PontoResource pres = new PontoResource()) {
-			return pres.listarPontos(userToken,ano,mes,status);	
+			return pres.listarPontos(usuarioid,userToken,ano,mes,status);	
 		} catch (Exception e) {
 			throw e;
 		}

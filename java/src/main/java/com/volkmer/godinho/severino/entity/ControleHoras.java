@@ -1,6 +1,6 @@
 package com.volkmer.godinho.severino.entity;
 
-import java.time.LocalTime;
+import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,10 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.volkmer.godinho.core.mapperjson.LocalTimeDeserializer;
-import com.volkmer.godinho.core.mapperjson.LocalTimeSerializer;
 import com.volkmer.godinho.core.validacao.CampoInfo;
 
 import lombok.Data;
@@ -32,39 +28,39 @@ public class ControleHoras {
 	private Long id;
 
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="usuarioId", foreignKey=@ForeignKey(name="fk_ponto_usuario"))
+	@JoinColumn(name="usuarioId", foreignKey=@ForeignKey(name="fk_controlehoras_usuario"))
 	private Usuario usuario;
 
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="anomesId", foreignKey=@ForeignKey(name="fk_ponto_anomes"))
+	@JoinColumn(name="anomesId", foreignKey=@ForeignKey(name="fk_controlehoras_anomes"))
 	private AnoMes anomes;
-
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="importacaoId", foreignKey=@ForeignKey(name="fk_ponto_importacao"))
-	private Importacao importacao;
 		
 	@Column
-	@JsonDeserialize(using = LocalTimeDeserializer.class)
-	@JsonSerialize(using = LocalTimeSerializer.class)
-	@CampoInfo(descricao="Horas Crédito", obrigatorio=false)
-	private LocalTime horas_credito;
+	@CampoInfo(descricao="Crédito", obrigatorio=false)
+	private Integer Credito;
 	
 	@Column
-	@JsonDeserialize(using = LocalTimeDeserializer.class)
-	@JsonSerialize(using = LocalTimeSerializer.class)
-	@CampoInfo(descricao="Horas Saldo Mês", obrigatorio=false)
-	private LocalTime horas_saldo;
+	@CampoInfo(descricao="Saldo Mês", obrigatorio=false)
+	private Integer saldo;
 	
 	@Column
-	@JsonDeserialize(using = LocalTimeDeserializer.class)
-	@JsonSerialize(using = LocalTimeSerializer.class)
-	@CampoInfo(descricao="Horas Débito", obrigatorio=false)
-	private LocalTime horas_debito;
+	@CampoInfo(descricao="Débito", obrigatorio=false)
+	private Integer debito;
+
+	@Column
+	@CampoInfo(descricao="Abono", obrigatorio=false)
+	private Integer abono;
 	
 	@Column
-	@JsonDeserialize(using = LocalTimeDeserializer.class)
-	@JsonSerialize(using = LocalTimeSerializer.class)
+	@CampoInfo(descricao="Trabalhadas", obrigatorio=false)
+	private Integer trabalhadas;
+	
+	@Column
 	@CampoInfo(descricao="Banco de Horas", obrigatorio=false)
-	private LocalTime banco_de_horas;
+	private Integer banco_de_horas;
+	
+	@Column
+	@CampoInfo(descricao="Absenteismo", obrigatorio=false)
+	private BigDecimal absenteismo;
 
 }

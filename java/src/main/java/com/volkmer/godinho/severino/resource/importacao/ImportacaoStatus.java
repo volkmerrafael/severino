@@ -4,6 +4,7 @@ public enum ImportacaoStatus {
 	
 	PENDENTE,
 	IMPORTACAO_PARCIAL,
-	CONCLUIDO;
+	CONCLUIDO,
+	ERRO;
 	
 }

@@ -31,24 +31,12 @@ public class JustificativaController extends ControllerCRUD<Justificativa, Justi
 	}
 	
 	@GET
-	@Path("/listar/{ano}/{mes}")
+	@Path("/listar/{usuario}/{ano}/{mes}")
 	@ApiOperation(value = "Listar Justificativa por Usuário Ano e Mês")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Justificativa> listaJustificativas(@PathParam("ano") Integer ano, @PathParam("mes") Integer mes) throws Exception {
+	public List<Justificativa> listaJustificativas(@PathParam("usuario") Long usuarioid, @PathParam("ano") Integer ano, @PathParam("mes") Integer mes) throws Exception {
 		try (JustificativaResource pres = new JustificativaResource()) {
-			return pres.listarJustificativa(userToken, ano, mes);
-		} catch (Exception e) {
-			throw e;
-		}
-	}
-
-	@GET
-	@Path("/{data}")
-	@ApiOperation(value = "Listar Justificativa por Usuário e Data")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Justificativa listaJustificativas(@PathParam("data") String data) throws Exception {
-		try (JustificativaResource pres = new JustificativaResource()) {
-			return pres.justificativaPorData(userToken, data);
+			return pres.listarJustificativa(usuarioid, userToken, ano, mes);
 		} catch (Exception e) {
 			throw e;
 		}
