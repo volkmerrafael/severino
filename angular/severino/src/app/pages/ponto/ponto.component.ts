@@ -169,8 +169,14 @@ export class PontoComponent implements OnInit {
     this.displayJustificativa = false;
   }
 
-  gerarDeclaracao(id: any, ano: string, mes: string) {
-    this.router.navigate(['usuario/ponto/declaracao'], {queryParams: {id, ano, mes}});
+  gerarDeclaracaoExt(id: any, ano: string, mes: string, tipo: string = 'ext') {
+    this.router.navigate(['usuario/ponto/declaracao'], {queryParams: {id, ano, mes, tipo}});
+  }
+  gerarDeclaracaoComp(id: any, ano: string, mes: string, tipo: string = 'comp') {
+    this.router.navigate(['usuario/ponto/declaracao'], {queryParams: {id, ano, mes, tipo}});
+  }
+  gerarDeclaracaoJust(id: any, ano: string, mes: string, tipo: string = 'just') {
+    this.router.navigate(['usuario/ponto/declaracao'], {queryParams: {id, ano, mes, tipo}});
   }
 
   showGrow(tipo, titulo, mensagem) {

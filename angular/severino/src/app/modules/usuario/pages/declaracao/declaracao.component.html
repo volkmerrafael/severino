@@ -5,6 +5,7 @@
     </span>
   </div>
   <div class="bt">
+  <button pButton type="button" icon="fa fa-fw fa-reply" label="Voltar" class="ui-button-secondary" (click)="voltar()"></button>
     <button id="btExportar" pButton type="button" class="ui-button-primary" label="Exportar declaração" (click)="dowloadPDF()"></button>
   </div>
   <quill-editor #editor [formControl]="form.controls['editor']"></quill-editor>

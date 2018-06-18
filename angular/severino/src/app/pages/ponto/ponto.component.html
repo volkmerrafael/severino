@@ -19,7 +19,13 @@
 
     <div class="row">
       <div id="btDeclaracao">
-      <button type="text" (click)="gerarDeclaracao(usuario.id, ano, mes)" pButton icon="fa-file" label="Gerar declaração"></button>
+      <button type="text" (click)="gerarDeclaracaoExt(usuario.id, ano, mes)" pButton icon="fa-file" label="Gerar declaração de hora extra"></button>
+      <br/>
+      <br/>
+      <button type="text" (click)="gerarDeclaracaoComp(usuario.id, ano, mes)" pButton icon="fa-file" label="Gerar declaração de compensação de horas"></button>
+      <br/>
+      <br/>
+      <button type="text" (click)="gerarDeclaracaoJust(usuario.id, ano, mes)" pButton icon="fa-file" label="Gerar declaração de justificativa ponto"></button>
     </div>
       <div id="legenda" class="ui-g-12" style="text-align: right;">
         <span *ngIf="existeCorreto">
