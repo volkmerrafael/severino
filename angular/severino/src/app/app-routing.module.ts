@@ -11,6 +11,7 @@ import { ListaComponent } from "./pages/lista/lista.component";
 import { DashboardComponent } from './modules/jira/pages/dashboard/dashboard.component';
 import { DeclaracaoComponent } from './modules/usuario/pages/declaracao/declaracao.component';
 import { ConfiguracaoComponent } from './modules/usuario/pages/configuracao/configuracao.component';
+import { FeedbackComponent } from './pages/feedback/feedback.component';
 
 const id: Number = 0;
 
@@ -25,6 +26,7 @@ const rotas: Routes = [
   {path: 'usuario/ponto/declaracao', component: DeclaracaoComponent},
   {path: 'admin/configuracao', component: ConfiguracaoComponent},
   {path: 'jira', redirectTo: 'jira/dashboard'},
+  {path: 'feedback', component: FeedbackComponent},
   {path: '**', redirectTo: 'login' }
 ];
 

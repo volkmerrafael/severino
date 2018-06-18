@@ -39,6 +39,7 @@ import { WorklogJiraService } from './services/worklogJira.service';
 import { UsuarioModule } from './modules/usuario/usuario.module';
 import {CheckboxModule} from 'primeng/checkbox';
 import { Usuario1Service } from '../app/modules/usuario/usuario.service';
+import { FeedbackComponent } from './pages/feedback/feedback.component';
 
 
 
@@ -54,6 +55,7 @@ export const HttpInterceptorProviders = [
     PerfilComponent,
     EditarPerfilComponent,
     ListaComponent,
+    FeedbackComponent,
   ],
   imports: [
     UsuarioModule,

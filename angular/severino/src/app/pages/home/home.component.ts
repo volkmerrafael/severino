@@ -40,11 +40,15 @@ export class HomeComponent implements OnInit {
           event.originalEvent = this.consultarUsuario(parseInt(sessionStorage.getItem('id'), 10));
         }
       },
-      {label: 'Editar perfil', icon: 'fa fa-fw fa-edit', command: (event) => {
+      { label: 'Editar perfil', icon: 'fa fa-fw fa-edit', command: (event) => {
         event.originalEvent = this.editarUsuario(parseInt(sessionStorage.getItem('id'), 10));
-      }},
-      {
-        label: 'Sair', icon: 'fa-sign-out', routerLink: ['/login'], command: (event) => {
+        }
+      },
+      { label: 'Feedback', icon: 'fa fa-fw fa-file', command: (event) => {
+        event.originalEvent = this.feedback();
+        }
+      },
+      { label: 'Sair', icon: 'fa-sign-out', routerLink: ['/login'], command: (event) => {
           event.originalEvent = this.logout();
         }
       },
@@ -100,5 +104,8 @@ export class HomeComponent implements OnInit {
   }
   editarUsuario(id: any) {
     this.router.navigate(['/editar-perfil'], {queryParams: {id}});
+  }
+  feedback() {
+    this.router.navigate(['/feedback']);
   }
 }
