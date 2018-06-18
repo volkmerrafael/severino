@@ -19,7 +19,6 @@ export class EditarPerfilComponent implements OnInit {
   usuario: Usuario = new Usuario();
   acesso: Acesso = new Acesso();
   senha: string;
-  novaSenha: string;
   myGroup: FormGroup;
   login: Login;
   id: number;
@@ -50,7 +49,6 @@ export class EditarPerfilComponent implements OnInit {
       'inputNomeAcesso': new FormControl('', [Validators.required]),
       'inputEmail': new FormControl('', [Validators.required]),
       'inputSenha': new FormControl('', [Validators.required]),
-      'inputNovaSenha': new FormControl('', [Validators.required]),
     });
     if (sessionStorage.getItem('tipo') === 'ADMIN') {
       this.admin = true;
