@@ -1,4 +1,11 @@
 .bt {
     padding: 10px;
+}
 
+#btVoltar {
+    margin: 8px;
+}
+
+#btExportar {
+    margin: 8px;
 }

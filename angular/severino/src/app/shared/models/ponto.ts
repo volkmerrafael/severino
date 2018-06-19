@@ -23,4 +23,5 @@ export class Ponto {
   status: string;
   justificativa: Justificativa;
   worklogs: Issue[];
+  minutos_trabalhados: number;
 }

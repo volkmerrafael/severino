@@ -20,7 +20,7 @@ import { FormsModule } from '@angular/forms';
     ButtonModule,
     CheckboxModule,
     PanelModule,
-    FormsModule
+    FormsModule,
   ],
   declarations: [DeclaracaoComponent, ConfiguracaoComponent],
   exports: [DeclaracaoComponent],

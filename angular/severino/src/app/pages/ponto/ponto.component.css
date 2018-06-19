@@ -69,6 +69,24 @@
   padding-left: 100px;
 }
 
+#bt1 {
+  background-color: rgb(64, 131, 66) !important;
+  border-color: rgb(64, 131, 66) !important;
+  margin: 8px;
+}
+
+#bt2 {
+  background-color: rgb(153, 59, 59) !important;
+  border-color: rgb(153, 59, 59) !important;
+  margin: 8px;
+}
+
+#bt3 {
+  background-color: rgb(197, 108, 56) !important;
+  border-color: rgb(197, 108, 56) !important;
+  margin: 8px;
+}
+
 .linha-correta {
   background-color: rgb(72, 157, 206) !important;
   color: #ffffff !important;
