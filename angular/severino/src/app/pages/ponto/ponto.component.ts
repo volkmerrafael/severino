@@ -100,6 +100,7 @@ export class PontoComponent implements OnInit {
   validaJust: Justificativa = new Justificativa();
   issuesOpcoes: IssueInf[] = [];
   issueOpcao: IssueInf = new IssueInf();
+  lista: String[] = [];
 
   constructor(
     private pontoService: PontoService,
@@ -109,7 +110,6 @@ export class PontoComponent implements OnInit {
     private jornadaService: JornadaService,
     private legendaService: LegendaService,
     private formatarMinutosPipe: FormatarMinutosPipe,
-    private worklogJiraService: WorklogJiraService,
     private router: Router,
   ) {
 
@@ -158,14 +158,21 @@ export class PontoComponent implements OnInit {
         this.issues = res.worklogs;
       }
     });
+  /*  let teste: any;
     this.issues.forEach(item => {
-      this.issueOpcao = new IssueInf();
-      this.issueOpcao.descricao = item.issue + " - " + item.summary + " (Iniciado as: "
+      teste = new Object();
+      teste.issue = item.issue;
+      teste.descricao = item.issue + " - " + item.summary + " (Iniciado as: "
       + this.formatarMinutosPipe.buscar(item.startdate, 11, 16)
       + " Tempo trabalhado: " + this.formatarMinutosPipe.horaTransform(item.timeworked) + ")";
-      this.issuesOpcoes.push(this.issueOpcao);
-      if (item.gravada === true) {
-        this.selectedIssues.push(item);
+      teste.gravada = item.gravada;
+      this.issuesOpcoes.push(teste);
+      this.lista.push(teste);
+    });
+    console.log(this.issuesOpcoes); */
+    this.issues.forEach( opcao => {
+      if (opcao.gravada === true) {
+        this.selectedIssues.push(opcao);
       }
     });
     this.pontoEdicao = ponto;
@@ -197,13 +204,17 @@ export class PontoComponent implements OnInit {
   }
 
   justificarPonto(justificativa: Justificativa) {
+    this.selectedIssues.forEach( issueSelecionada => {
+      this.issues.forEach( issueOriginal => {
+        if (issueOriginal.issue === issueSelecionada.issue) {
+          issueOriginal.gravada = true;
+        }
+      });
+    });
     this.pontos.forEach(ponto => {
       if (ponto.id === this.idPonto) {
-        this.selectedIssues.forEach(item => {
-          item.gravada = true;
-        });
-        ponto.worklogs = this.selectedIssues;
         ponto.justificativa = justificativa;
+        ponto.worklogs = this.issues;
         this.pontoAux = ponto;
       }
     });
@@ -222,7 +233,6 @@ export class PontoComponent implements OnInit {
   consultaPontoPorPeriodo() {
     this.pontoService.listarPontoPorPeriodo(this.usuario.id, this.ano, this.mes)
       .subscribe(res => {
-        console.log(res);
         this.pontos = res;
         this.verificarStatus(res);
         this.pontosEditados = [];

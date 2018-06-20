@@ -42,6 +42,7 @@ export class DeclaracaoComponent implements OnInit {
   justificativasMarcInc: Justificativa[] = [];
   worklogs: Issue[] = [];
   issue: string;
+  listaIssues: string[] = [];
 
   constructor(
     private justificativaService: JustificativaService,
@@ -91,7 +92,8 @@ export class DeclaracaoComponent implements OnInit {
               }
               this.worklogs.forEach( item => {
                 if (item.gravada === true) {
-                  this.issue = item.issue;
+                  this.issue = '';
+                  this.issue = this.issue + " - " + item.issue;
                 }
               });
               this.validaJust.descricao = ponto.data + " - " + this.validaJust.descricao + this.issue;
