@@ -40,7 +40,7 @@ import { UsuarioModule } from './modules/usuario/usuario.module';
 import {CheckboxModule} from 'primeng/checkbox';
 import { Usuario1Service } from '../app/modules/usuario/usuario.service';
 import { FeedbackComponent } from './pages/feedback/feedback.component';
-
+import {SplitButtonModule} from 'primeng/splitbutton';
 
 
 export const HttpInterceptorProviders = [
@@ -79,7 +79,8 @@ export const HttpInterceptorProviders = [
     TieredMenuModule,
     CardModule,
     JiraModule,
-    CheckboxModule
+    CheckboxModule,
+    SplitButtonModule
   ],
   providers: [
     HttpInterceptorProviders,

@@ -3,3 +3,7 @@
     width: 100%;
     height: 100px;
 }
+
+#bt button {
+    margin: 8px;
+}

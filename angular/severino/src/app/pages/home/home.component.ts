@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from './../../shared/models/usuario';
-import { RouterLink } from '@angular/router/src/directives/router_link';
 import { Router, NavigationStart, NavigationEnd, NavigationError, NavigationCancel, Event, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
-import { Navigation } from 'selenium-webdriver';
 import { MenuItem } from 'primeng/api';
 import { UsuarioService } from '../../services/usuario.service';
 
@@ -28,8 +26,6 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
-    private usuarioService: UsuarioService,
   ) {
     this.routerEventsSubscription = this.router.events.subscribe((event: Event) => this.verificarEventosDeRota(event));
   }

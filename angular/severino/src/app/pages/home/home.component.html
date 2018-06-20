@@ -1,23 +1,19 @@
 <div class="toolbar">
     <div *ngIf='mostraLinks' class="ui-toolbar-group-right">
-        <a class="links" (click)="menu.toggle($event)">{{usuario.nome}}
-            <span class="fa fa-fw fa-ellipsis-v"></span>
-        </a>    
+        <button id="bt" pButton label="{{usuario.nome}}" icon="fa fa-angle-down" (click)="menu.toggle($event)"></button>
     </div>
-    <div *ngIf='admin' class="ui-toolbar-group-left">
-        <a class="links" (click)="onClickNavigator('lista')">Colaboradores</a>
-        <a class="links" (click)="onClickNavigator('admin')">Importações</a>
-        <a class="links" (click)="onClickNavigator('admin/configuracao')">Configurações</a>
-    </div>
-    <div *ngIf="admin == false && mostraLinks" class="ui-toolbar-group-left">
-        <a class="links" (click)="onClickNavigator('ponto')">Ponto</a>
-    </div>
-    <div class="ui-toolbar-group-left">
-        <a class="links" (click)="onClickNavigator('jira')">Jira</a>
+    <div class="divBt">
+        <div class="ui-toolbar-group-left">
+            <img class="img" src="assets/icon-jira-logo (2).png" (click)="onClickNavigator('jira')"/>
+            <button id="bt" *ngIf='admin' pButton label="Colaboradores" icon="fa fa-users" (click)="onClickNavigator('lista')"></button>
+            <button id="bt" *ngIf='admin' pButton label="Importações" icon="fa fa-upload" (click)="onClickNavigator('admin')"></button>
+            <button id="bt" *ngIf='admin' pButton label="Configurações" icon="fa fa-cogs" (click)="onClickNavigator('admin/configuracao')"></button>
+            <button id="bt" *ngIf="admin == false && mostraLinks" pButton label="Ponto" icon="fa fa-file" (click)="onClickNavigator('ponto')"></button>
+        </div>
     </div>
 </div>
-<p-tieredMenu #menu [model]="items" [popup]="true" class="popup"></p-tieredMenu>
 
+<p-tieredMenu #menu [model]="items" [popup]="true" class="popup"></p-tieredMenu>
 <div class="router">
     <router-outlet></router-outlet>
 </div>
