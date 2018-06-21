@@ -85,6 +85,7 @@ export class PontoComponent implements OnInit {
   pontoEdicao: PontoEditado = new PontoEditado();
   idPonto: any;
   data: any;
+  dataFormatada: any;
   selectedIssues: Issue[] = [];
   worklogJira: WorklogJira = new WorklogJira;
   issues: Issue[];
@@ -101,6 +102,7 @@ export class PontoComponent implements OnInit {
   issuesOpcoes: IssueInf[] = [];
   issueOpcao: IssueInf = new IssueInf();
   lista: String[] = [];
+  statusJust: any;
 
   constructor(
     private pontoService: PontoService,
@@ -111,6 +113,7 @@ export class PontoComponent implements OnInit {
     private legendaService: LegendaService,
     private formatarMinutosPipe: FormatarMinutosPipe,
     private router: Router,
+    private formatarDataPipe: FormatarDataPipe
   ) {
 
     this.cols = [
@@ -152,9 +155,11 @@ export class PontoComponent implements OnInit {
 
   showDialogJustificativa(ponto: any) {
     this.idPonto = ponto.id;
+    this.statusJust = ponto.status;
     this.pontos.forEach(res => {
       if (res.id === this.idPonto) {
         this.data = res.data;
+        this.dataFormatada = this.formatarDataPipe.transform(this.data);
         this.issues = res.worklogs;
       }
     });
@@ -466,6 +471,24 @@ export class PontoComponent implements OnInit {
       }
       if (ponto.status === 'COMPENSACAO') {
         this.existeCompensacao = true;
+      }
+
+      if (ponto.entrada1.indexOf("*") !== -1) {
+        this.existeMarcInc = true;
+      } else if (ponto.entrada2.indexOf("*") !== -1) {
+        this.existeMarcInc = true;
+      } else if (ponto.entrada3.indexOf("*") !== -1) {
+        this.existeMarcInc = true;
+      } else if (ponto.entrada4.indexOf("*") !== -1) {
+        this.existeMarcInc = true;
+      } else if (ponto.saida1.indexOf("*") !== -1) {
+        this.existeMarcInc = true;
+      } else if (ponto.saida2.indexOf("*") !== -1) {
+        this.existeMarcInc = true;
+      } else if (ponto.saida3.indexOf("*") !== -1) {
+        this.existeMarcInc = true;
+      } else if (ponto.saida4.indexOf("*") !== -1) {
+        this.existeMarcInc = true;
       }
     });
   }

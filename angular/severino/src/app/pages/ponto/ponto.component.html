@@ -57,10 +57,7 @@
           Falta Justificada
         </span>
         <span *ngIf="existeMarcInc">
-          <svg height="15" width="15">
-            <circle cx="15" cy="15" r="40" fill="rgb(197, 108, 56)" />
-          </svg>
-          Marcação Incorreta
+         * Marcação Incorreta
         </span>
         <span *ngIf="existeFerias">
           <svg height="15" width="15">
@@ -180,9 +177,12 @@
   </div>
 </div>
 <div class="divJustificativa">
-  <p-dialog id="justificativa" header="Justificativa" [(visible)]="displayJustificativa" [responsive]="true" [width]="1200"
+  <p-dialog id="justificativa" header="Justificativa {{dataFormatada}}" [(visible)]="displayJustificativa" [responsive]="true" [width]="1200"
     [minWidth]="700" [minY]="70">
-    <div class="ui-g">
+    <div *ngIf="statusJust !== 'CREDITO'">
+      <textarea rows="5" cols="30" class="textArea" pInputTextarea [(ngModel)]="justificativa.descricao"></textarea>
+    </div>
+    <div *ngIf="statusJust === 'CREDITO'" class="ui-g">
       <div class="ui-g-6">
         <textarea rows="5" cols="30" class="textArea" pInputTextarea [(ngModel)]="justificativa.descricao"></textarea>
       </div>
