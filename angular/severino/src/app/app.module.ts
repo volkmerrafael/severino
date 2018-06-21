@@ -41,6 +41,8 @@ import {CheckboxModule} from 'primeng/checkbox';
 import { Usuario1Service } from '../app/modules/usuario/usuario.service';
 import { FeedbackComponent } from './pages/feedback/feedback.component';
 import {SplitButtonModule} from 'primeng/splitbutton';
+import {OrderListModule} from 'primeng/orderlist';
+import {AutoCompleteModule} from 'primeng/autocomplete';
 
 
 export const HttpInterceptorProviders = [
@@ -80,7 +82,9 @@ export const HttpInterceptorProviders = [
     CardModule,
     JiraModule,
     CheckboxModule,
-    SplitButtonModule
+    SplitButtonModule,
+    OrderListModule,
+    AutoCompleteModule
   ],
   providers: [
     HttpInterceptorProviders,

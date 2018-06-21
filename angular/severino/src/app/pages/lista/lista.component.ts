@@ -47,5 +47,9 @@ export class ListaComponent implements OnInit {
     this.router.navigate(['/perfil'], {queryParams: {id}});
   }
 
+  cadastrarUsuario(id: any) {
+    this.router.navigate(['/editar-perfil'], {queryParams: {id}});
+  }
+
 
 }

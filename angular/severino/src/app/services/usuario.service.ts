@@ -5,6 +5,8 @@ import { environment } from "../../environments/environment";
 import { Login } from "../shared/models/login";
 import { Usuario } from "../shared/models/usuario";
 import { ConfiguracaoIntegracao } from '../shared/models/configuracaoIntegracao';
+import { Departamento } from "../shared/models/departamento";
+import { Funcao } from "../shared/models/funcao";
 
 @Injectable()
 export class UsuarioService {
@@ -51,6 +53,18 @@ export class UsuarioService {
   usuarioJira(): Observable<ConfiguracaoIntegracao> {
     return this.http.get<ConfiguracaoIntegracao>(
       `${environment.server}configuracao`
+    );
+  }
+
+  departamentos(): Observable<Departamento[]> {
+    return this.http.get<Departamento[]>(
+      `${environment.server}departamento`
+    );
+  }
+
+  funcoes(): Observable<Funcao[]> {
+    return this.http.get<Funcao[]>(
+      `${environment.server}funcao`
     );
   }
 }

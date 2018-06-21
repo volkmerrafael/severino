@@ -10,19 +10,20 @@
                     <p-sortIcon [field]="col.field"></p-sortIcon>
                 </th>
                 <th style="width:80px;">
-                    <button pButton type="button" icon="fa fa-fw fa-plus" class="ui-button-secondary" ></button>
+                    <button pButton type="button" icon="fa fa-fw fa-plus" class="ui-button-secondary" (click)='cadastrarUsuario(0)'></button>
                 </th>
             </tr>
             <tr>
                 <th *ngFor="let col of columns" [ngSwitch]="col.field">
-                    <input *ngSwitchCase="'nome'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"
+                    <input *ngSwitchCase="'nome'" pInputText type="text" filterBy="usuarios" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"
                         style="width:100%" placeholder="Nome">
 
-                    <input *ngSwitchCase="'acesso.email'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"
+                    <input *ngSwitchCase="'acesso.email'" pInputText type="text" filterBy="usuarios" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"
                         style="width:100%" placeholder="E-mail">
                 </th>
             </tr>
         </ng-template>
+        
         <ng-template pTemplate="body" let-usuario let-columns="columns">
             <tr>
                 <td>{{usuario.nome}}</td>
