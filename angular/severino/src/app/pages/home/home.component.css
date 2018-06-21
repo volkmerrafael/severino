@@ -47,11 +47,10 @@
     font-size: 18px;
  }
 
-.divBt {
-    display: flex;
-    justify-content: left;
-}
 .img {
+    top: 0;
+    margin-bottom: 8px;
+    margin-right: 12px;
     width: 70px;
     height: 30px;
     cursor:  pointer;
