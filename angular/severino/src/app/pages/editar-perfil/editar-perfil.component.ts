@@ -9,6 +9,7 @@ import { MessageService } from 'primeng/components/common/messageservice';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Departamento } from '../../shared/models/departamento';
 import { Funcao } from '../../shared/models/funcao';
+import * as moment from 'moment/moment';
 
 @Component({
   selector: 'app-editar-perfil',
@@ -32,12 +33,17 @@ export class EditarPerfilComponent implements OnInit {
   listaId: any;
   idAny: any;
   admin: boolean;
-  departamentos: string[] = [];
-  funcoes: string[] = [];
+  departamentos: Departamento[] = [];
+  funcoes: Funcao[] = [];
+  tipos: string[] = ['Administrador', 'Coordenador', 'Colaborador', 'Importador'];
   results: string[];
   texto: string;
   filteredDepartamentos: any[];
   filteredFuncoes: any[];
+  filteredTipos: any[];
+  pt: any;
+  dataAdmissao: any;
+  submitted: boolean;
 
   constructor(
     private location: Location,
@@ -49,6 +55,17 @@ export class EditarPerfilComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.pt = {
+      firstDayOfWeek: 0,
+      dayNames: ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabado"],
+      dayNamesShort: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"],
+      dayNamesMin: ["Do", "Se", "Te", "Qa", "Qu", "Se", "Sa"],
+      monthNames: [ "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro",
+      "Novembro", "Dezembro" ],
+      monthNamesShort: [ "Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez" ],
+      today: 'Hoje',
+      clear: 'Clear'
+  };
     this.listaFuncoes();
     this.listaDepartamentos();
     this.admin = false;
@@ -59,15 +76,15 @@ export class EditarPerfilComponent implements OnInit {
     this.buscaPerfil();
     }
     this.perfilForm = this.fb.group({
-      'inputNome': new FormControl('', [Validators.required]),
+      'inputNome': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
       'inputPIS': new FormControl('', [Validators.required]),
-      'inputNomeAcesso': new FormControl('', [Validators.required]),
-      'inputEmail': new FormControl('', [Validators.required]),
+      'inputNomeAcesso': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
+      'inputEmail': new FormControl('', Validators.compose([Validators.required, Validators.email])),
       'inputDataAdmissao': new FormControl('', [Validators.required]),
       'inputDepartamento': new FormControl('', [Validators.required]),
       'inputFuncao': new FormControl('', [Validators.required]),
       'inputTipoAcesso': new FormControl('', [Validators.required]),
-      'inputSenha': new FormControl(''),
+      'inputSenha': new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)])),
     });
     if (sessionStorage.getItem('tipo') === 'ADMIN') {
       this.admin = true;
@@ -78,7 +95,10 @@ export class EditarPerfilComponent implements OnInit {
     this.usuarioService.usuario(this.id)
       .subscribe(res => {
         this.usuario = res;
+        this.usuario.data_admissao = moment(this.usuario.data_admissao).format("DD/MM/YYYY");
         this.acesso = this.usuario.acesso;
+        this.departamento = this.usuario.departamento;
+        this.funcao = this.usuario.funcao;
         this.senha = "";
       }, error => {
         this.tipoGrow = "error";
@@ -88,10 +108,16 @@ export class EditarPerfilComponent implements OnInit {
       });
   }
 
+  onSubmit(value: string) {
+    this.submitted = true;
+}
+
   clickEditar() {
     this.acesso.senha = this.senha;
     this.usuario.acesso = this.acesso;
-    /*if (this.id !== null || this.id !== undefined || this.id !== 0) {
+    this.dataAdmissao = moment(this.usuario.data_admissao).format();
+    this.usuario.data_admissao = moment(this.dataAdmissao).format('YYYY-MM-DD');
+    if (this.id !== 0) {
     this.usuarioService.editar(this.usuario)
       .subscribe(res => {
         if (this.admin === false) {
@@ -113,13 +139,42 @@ export class EditarPerfilComponent implements OnInit {
         this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
       });
     } else {
-      console.log(this.usuario);
-       this.usuarioService.editar(this.usuario)
-      .subscribe( res => {
-        console.log(res);
+      this.usuario.id = undefined;
+      this.departamentos.forEach( res => {
+        if (res.nome === this.departamento.nome) {
+          this.departamento.id = res.id;
+        }
       });
-    } */
-}
+      this.usuario.departamento = this.departamento;
+      this.funcoes.forEach( res => {
+        if (res.nome === this.funcao.nome) {
+          this.funcao.id = res.id;
+        }
+      });
+      this.usuario.funcao = this.funcao;
+      if (this.acesso.tipo === 'Administrador') {
+        this.acesso.tipo = 'ADMIN';
+      } else if (this.acesso.tipo === 'Coordenador') {
+        this.acesso.tipo = 'COORDENADOR';
+      } else if (this.acesso.tipo === 'Colaborador') {
+        this.acesso.tipo = 'NORMAL';
+      } else if (this.acesso.tipo === 'Importador') {
+        this.acesso.tipo = 'IMPORTADOR ';
+      }
+       this.usuarioService.cadastro(this.usuario)
+      .subscribe( res => {
+        this.tipoGrow = "success";
+        this.tituloGrow = 'Sucesso';
+        this.mensagemGrow = "Perfil cadastrado";
+        this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
+      }, error => {
+        this.tipoGrow = "error";
+        this.tituloGrow = 'Ops';
+        this.mensagemGrow = error.error;
+        this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
+      });
+    }
+  }
 
   showGrow(tipo, titulo, mensagem) {
     this.messageService.add({ severity: tipo, summary: titulo, detail: mensagem });
@@ -132,25 +187,21 @@ export class EditarPerfilComponent implements OnInit {
   listaDepartamentos() {
     this.usuarioService.departamentos()
     .subscribe( res => {
-      res.forEach( departamento => {
-        this.departamentos.push(departamento.nome);
-      });
+        this.departamentos = res;
     });
   }
 
   listaFuncoes() {
     this.usuarioService.funcoes()
     .subscribe( res => {
-      res.forEach( funcao => {
-        this.funcoes.push(funcao.nome);
-      });
+        this.funcoes = res;
     });
   }
 
   search(event) {
     this.filteredDepartamentos = [];
     this.departamentos.forEach( res => {
-        const brand = res;
+        const brand = res.nome;
         if (brand.toLowerCase().indexOf(event.query.toLowerCase()) === 0) {
             this.filteredDepartamentos.push(brand);
         }
@@ -160,9 +211,19 @@ export class EditarPerfilComponent implements OnInit {
   searchFuncao(event) {
     this.filteredFuncoes = [];
     this.funcoes.forEach( res => {
-        const brand = res;
+        const brand = res.nome;
         if (brand.toLowerCase().indexOf(event.query.toLowerCase()) === 0) {
             this.filteredFuncoes.push(brand);
+        }
+    });
+  }
+
+  searchTipo(event) {
+    this.filteredTipos = [];
+    this.tipos.forEach( res => {
+        const brand = res;
+        if (brand.toLowerCase().indexOf(event.query.toLowerCase()) === 0) {
+            this.filteredTipos.push(brand);
         }
     });
   }

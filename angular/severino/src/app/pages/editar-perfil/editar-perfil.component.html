@@ -1,26 +1,16 @@
 <div id="p-editar-perfil" style="padding-left: 300px; padding-right: 300px; padding-top: 20px;">
   <p-panel id="panel" [style]="{margin:'5px'}" styleClass="ui-card-shadow">
-    <p-header style="font-size: 20px">Editar perfil:</p-header>
+    <p-header *ngIf="id !== 0" style="font-size: 20px">Editar perfil:</p-header>
+    <p-header *ngIf="id === 0" style="font-size: 20px">Cadastro:</p-header>
     <div style="display: inline-block;">
-      <form style="margin: 20px" [formGroup]="perfilForm">
+      <form style="margin: 20px" [formGroup]="perfilForm" (ngSubmit)="onSubmit(perfilForm.value)">
         <div>
           <label>Nome:</label>
           <br>
           <input size="50%" formControlName="inputNome" pInputText [(ngModel)]="usuario.nome" />
           <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!perfilForm.controls['inputNome'].valid && perfilForm.controls['inputNome'].dirty">
             <i class="fa fa-close"></i>
-            Nome é obrigatório
-          </div>
-          <br>
-          <br>
-        </div>
-        <div *ngIf="id === 0">
-          <label>PIS:</label>
-          <br>
-          <input size="50%" formControlName="inputPIS" pInputText [(ngModel)]="usuario.pis" />
-          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!perfilForm.controls['inputPIS'].valid && perfilForm.controls['inputPIS'].dirty">
-            <i class="fa fa-close"></i>
-            PIS é obrigatório
+            Deve ter mais de 3 caracteres
           </div>
           <br>
           <br>
@@ -31,7 +21,7 @@
           <input size="50%" formControlName="inputNomeAcesso" pInputText [(ngModel)]="acesso.nomeacesso" />
           <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!perfilForm.controls['inputNomeAcesso'].valid && perfilForm.controls['inputNomeAcesso'].dirty">
             <i class="fa fa-close"></i>
-            Nome de acesso é obrigatório
+            Deve ter mais de 3 caracteres
           </div>
           <br>
           <br>
@@ -42,26 +32,37 @@
           <input size="50" formControlName="inputEmail" pInputText [(ngModel)]="usuario.email" />
           <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!perfilForm.controls['inputEmail'].valid && perfilForm.controls['inputEmail'].dirty">
             <i class="fa fa-close"></i>
-            E-mail é obrigatório
+            E-mail inválido
           </div>
           <br>
           <br>
         </div>
-        <div *ngIf="id === 0">
+        <div *ngIf="id === 0 || admin">
+          <label>PIS:</label>
+          <br>
+          <input size="50%" formControlName="inputPIS" pInputText [(ngModel)]="usuario.pis" />
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!perfilForm.controls['inputPIS'].valid && perfilForm.controls['inputPIS'].dirty">
+            <i class="fa fa-close"></i>
+            PIS é obrigatório
+          </div>
+          <br>
+          <br>
+        </div>
+        <div *ngIf="id === 0 || admin">
           <label>Data de admissão:</label>
           <br>
-          <input size="50%" formControlName="inputDataAdmissao" pInputText [(ngModel)]="usuario.data_admissao" />
-          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!perfilForm.controls['inputDataAdmissao'].valid && perfilForm.controls['inputDataAdmissao'].dirty">
+          <p-calendar [(ngModel)]="usuario.data_admissao" formControlName="inputDataAdmissao" dateFormat="dd/mm/yy" [locale]="pt" [showIcon]="true"></p-calendar>
+          <div style="padding-left: 40px" class="ui-message ui-messages-error ui-corner-all" *ngIf="!perfilForm.controls['inputDataAdmissao'].valid && perfilForm.controls['inputDataAdmissao'].dirty">
             <i class="fa fa-close"></i>
             Data é obrigatório
           </div>
           <br>
           <br>
         </div>
-        <div *ngIf="id === 0">
+        <div *ngIf="id === 0 || admin">
           <label>Departamento:</label>
           <br>
-          <p-autoComplete formControlName="inputDepartamento" [(ngModel)]="departamento.nome" [suggestions]="filteredDepartamentos" (completeMethod)="search($event)" [size]="30"
+          <p-autoComplete formControlName="inputDepartamento" [(ngModel)]="departamento.nome" [suggestions]="filteredDepartamentos" (completeMethod)="search($event)" [size]="43"
           [minLength]="1" [dropdown]="true">
           <ng-template let-texto pTemplate="item">
               <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
@@ -76,10 +77,10 @@
           <br>
           <br>
         </div>
-        <div *ngIf="id === 0">
+        <div *ngIf="id === 0 || admin">
           <label>Função:</label>
           <br>
-          <p-autoComplete formControlName="inputFuncao" [(ngModel)]="funcao.nome" [suggestions]="filteredFuncoes" (completeMethod)="searchFuncao($event)" [size]="30"
+          <p-autoComplete formControlName="inputFuncao" [(ngModel)]="funcao.nome" [suggestions]="filteredFuncoes" (completeMethod)="searchFuncao($event)" [size]="43"
           [minLength]="1" [dropdown]="true">
           <ng-template let-texto pTemplate="item">
               <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
@@ -94,10 +95,17 @@
           <br>
           <br>
         </div>
-        <div *ngIf="id === 0">
+        <div *ngIf="id === 0 || admin">
           <label>Tipo de acesso:</label>
           <br>
-          <input size="50%" formControlName="inputTipoAcesso" pInputText [(ngModel)]="acesso.tipo" />
+          <p-autoComplete formControlName="inputTipoAcesso" [(ngModel)]="acesso.tipo" [suggestions]="filteredTipos" (completeMethod)="searchTipo($event)" [size]="43"
+          [minLength]="1" [dropdown]="true">
+          <ng-template let-texto pTemplate="item">
+              <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
+                  <div >{{texto}}</div>
+              </div>
+          </ng-template>
+          </p-autoComplete>
           <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!perfilForm.controls['inputTipoAcesso'].valid && perfilForm.controls['inputTipoAcesso'].dirty">
             <i class="fa fa-close"></i>
             Tipo é obrigatório
@@ -109,6 +117,10 @@
           <label>Senha:</label>
           <br>
           <input size="50" type='password' formControlName="inputSenha" pInputText [(ngModel)]="senha" />
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!perfilForm.controls['inputSenha'].valid && perfilForm.controls['inputSenha'].dirty">
+            <i class="fa fa-close"></i>
+            Deve ter mais de 6 caracteres
+          </div>
           <br>
           <br>
         </div>
@@ -116,7 +128,7 @@
       <div id="bt">
         <button pButton type="button" icon="fa fa-fw fa-reply" label="Voltar" class="ui-button-secondary" (click)="voltar()"></button>
         <button pButton type="button" icon="fa fa-fw fa-ban" label="Cancelar" class="ui-button-danger" (click)="buscaPerfil()"></button>
-        <button pButton type="button" icon="fa fa-fw fa-chevron-down" label="Salvar" class="ui-button-success" (click)="clickEditar()"></button>
+        <button pButton type="button" icon="fa fa-fw fa-chevron-down" label="Salvar" [disabled]="!perfilForm.valid" class="ui-button-success" (click)="clickEditar()"></button>
       </div>
     </div>
   </p-panel>
