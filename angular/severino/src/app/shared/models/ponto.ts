@@ -2,6 +2,7 @@ import { Usuario } from "./usuario";
 import { Legenda } from "./legenda";
 import { Justificativa } from './justificativa';
 import { Issue } from "./issue";
+import { Issues } from "./issues";
 
 export class Ponto {
 
@@ -22,6 +23,8 @@ export class Ponto {
   legenda: Legenda;
   status: string;
   justificativa: Justificativa;
-  worklogs: Issue[];
+  issues: Issues[];
   minutos_trabalhados: number;
+  minutos_debito: number;
+  minutos_credito: number;
 }

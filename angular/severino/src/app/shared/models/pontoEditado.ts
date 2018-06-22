@@ -1,5 +1,7 @@
 import { Justificativa } from "./justificativa";
 import { WorklogJira } from "./worklogJira";
+import { Issue } from "./issue";
+import { Issues } from "./issues";
 
 export class PontoEditado {
     id: number;
@@ -18,5 +20,6 @@ export class PontoEditado {
     justificativa: Justificativa;
     legenda: string;
     status: string;
+    issues: Issues[];
     worklogs: WorklogJira;
 }

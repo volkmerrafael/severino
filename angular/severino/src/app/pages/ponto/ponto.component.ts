@@ -19,12 +19,11 @@ import { FormatarMinutosPipe } from '../../shared/components/pipes/time.pipe';
 import { Justificativa } from '../../shared/models/justificativa';
 import * as moment from 'moment/moment';
 import { PontoEditado } from '../../shared/models/pontoEditado';
-import { WorklogJiraService } from '../../services/worklogJira.service';
 import { WorklogJira } from '../../shared/models/worklogJira';
 import { Router } from '@angular/router';
-import { Issue } from '../../shared/models/issue';
 import { PontoInf } from '../../shared/models/pontoInfo';
 import { IssueInf } from '../../shared/models/issueInf';
+import { Issues } from '../../shared/models/issues';
 
 @Component({
   selector: 'app-ponto',
@@ -86,9 +85,9 @@ export class PontoComponent implements OnInit {
   idPonto: any;
   data: any;
   dataFormatada: any;
-  selectedIssues: Issue[] = [];
+  selectedIssues: Issues[] = [];
   worklogJira: WorklogJira = new WorklogJira;
-  issues: Issue[];
+  issues: Issues[];
   pontoEdicaoId: any;
   worklogs: any;
   declaracao: any;
@@ -113,7 +112,7 @@ export class PontoComponent implements OnInit {
     private legendaService: LegendaService,
     private formatarMinutosPipe: FormatarMinutosPipe,
     private router: Router,
-    private formatarDataPipe: FormatarDataPipe
+    private formatarDataPipe: FormatarDataPipe,
   ) {
 
     this.cols = [
@@ -160,7 +159,12 @@ export class PontoComponent implements OnInit {
       if (res.id === this.idPonto) {
         this.data = res.data;
         this.dataFormatada = this.formatarDataPipe.transform(this.data);
-        this.issues = res.worklogs;
+        this.issues = res.issues;
+      }
+    });
+    this.issues.forEach( res => {
+      if (res.id) {
+        this.selectedIssues.push(res);
       }
     });
   /*  let teste: any;
@@ -175,11 +179,6 @@ export class PontoComponent implements OnInit {
       this.lista.push(teste);
     });
     console.log(this.issuesOpcoes); */
-    this.issues.forEach( opcao => {
-      if (opcao.gravada === true) {
-        this.selectedIssues.push(opcao);
-      }
-    });
     this.pontoEdicao = ponto;
     this.pontoEdicaoId = this.pontoEdicao.justificativa;
     if (this.pontoEdicaoId.id) {
@@ -192,6 +191,8 @@ export class PontoComponent implements OnInit {
 
   closeDialogJustificativa() {
     this.displayJustificativa = false;
+    this.issues = [];
+    this.selectedIssues = [];
   }
 
   gerarDeclaracaoExt(id: any, ano: string, mes: string, tipo: string = 'ext') {
@@ -209,17 +210,11 @@ export class PontoComponent implements OnInit {
   }
 
   justificarPonto(justificativa: Justificativa) {
-    this.selectedIssues.forEach( issueSelecionada => {
-      this.issues.forEach( issueOriginal => {
-        if (issueOriginal.issue === issueSelecionada.issue) {
-          issueOriginal.gravada = true;
-        }
-      });
-    });
     this.pontos.forEach(ponto => {
       if (ponto.id === this.idPonto) {
         ponto.justificativa = justificativa;
-        ponto.worklogs = this.issues;
+        ponto.issues = [];
+        ponto.issues = this.selectedIssues;
         this.pontoAux = ponto;
       }
     });
@@ -228,6 +223,8 @@ export class PontoComponent implements OnInit {
         this.consultaPontoPorPeriodo();
         this.closeDialogJustificativa();
       }, error => {
+        this.consultaPontoPorPeriodo();
+        this.closeDialogJustificativa();
         this.tipoGrow = "error";
         this.tituloGrow = 'Ops';
         this.mensagemGrow = error.error;
@@ -238,6 +235,8 @@ export class PontoComponent implements OnInit {
   consultaPontoPorPeriodo() {
     this.pontoService.listarPontoPorPeriodo(this.usuario.id, this.ano, this.mes)
       .subscribe(res => {
+        console.log(res);
+        this.pontos = [];
         this.pontos = res;
         this.verificarStatus(res);
         this.pontosEditados = [];
@@ -318,7 +317,6 @@ export class PontoComponent implements OnInit {
           this.absenteismo = res.absenteismo + "%";
         }
       }, error => {
-        this.tratamentoErrosService.handleError(error);
         this.tipoGrow = "error";
         this.tituloGrow = 'Ops';
         this.mensagemGrow = error.error;
@@ -344,7 +342,7 @@ export class PontoComponent implements OnInit {
       worklogs = ponto.worklogs;
       legenda = ponto.legenda;
       diaSemana = ponto.diasemana;
-      this.pontoEditado.worklogs = ponto.worklogs;
+      this.pontoEditado.issues = ponto.issues;
       this.pontoEditado.id = ponto.id;
       this.pontoEditado.diaSemana = diaSemana.nome;
       this.pontoEditado.data = ponto.data;

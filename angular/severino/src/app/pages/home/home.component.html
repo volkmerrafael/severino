@@ -1,5 +1,6 @@
 <div class="toolbar">
     <div *ngIf='mostraLinks' class="ui-toolbar-group-right">
+        <button id="bt" pButton label="Feedback" icon='fa fa-fw fa-edit' (click)="onClickNavigator('feedback')"></button>
         <button id="bt" pButton label="{{usuario.nome}}" icon="fa fa-angle-down" (click)="menu.toggle($event)"></button>
     </div>
         <div class="ui-toolbar-group-left">

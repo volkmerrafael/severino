@@ -37,6 +37,17 @@ export class LoginComponent {
   }
 
   login() {
+    if (this.usuario.nomeacesso === undefined) {
+    this.tipoGrow = "error";
+    this.tituloGrow = 'Ops';
+    this.mensagemGrow = "Preencha o campo nome";
+    this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
+  } else if (this.usuario.senha === undefined) {
+      this.tipoGrow = "error";
+      this.tituloGrow = 'Ops';
+      this.mensagemGrow = "Preencha o campo senha";
+      this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
+    } else {
     this.usuarioService.login(this.usuario)
     .subscribe(res => {
       sessionStorage.setItem('id', '' + res.usuario.id);
@@ -49,7 +60,6 @@ export class LoginComponent {
       this.usuarioService.usuarioJira()
       .subscribe(res1 => {
         sessionStorage.setItem('usuarioJira', '' + res1.integra_jira);
-        console.log(res1);
       });
       if (res.usuario.acesso.tipo === "ADMIN") {
         this.router.navigate(['/admin']);
@@ -66,6 +76,7 @@ export class LoginComponent {
         this.mensagemGrow = error.error;
         this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
     });
+  }
   }
 
   logout(): void {

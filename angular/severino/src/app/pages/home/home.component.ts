@@ -43,11 +43,6 @@ export class HomeComponent implements OnInit {
         }
       },
       {
-        label: 'Feedback', icon: 'fa fa-fw fa-file', command: (event) => {
-          event.originalEvent = this.feedback();
-        }
-      },
-      {
         label: 'Sair', icon: 'fa-sign-out', routerLink: ['/login'], command: (event) => {
           event.originalEvent = this.logout();
         }
@@ -95,6 +90,8 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['/jira']);
     } else if (rota === 'admin/configuracao') {
       this.router.navigate(['/admin/configuracao']);
+    } else if (rota === 'feedback') {
+      this.router.navigate(['/feedback']);
     }
 
   }

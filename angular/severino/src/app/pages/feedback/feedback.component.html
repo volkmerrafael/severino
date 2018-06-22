@@ -4,12 +4,12 @@
       <div>
         <span style="font-size: 18px;">Deixe aqui seu comentário com sugestões, críticas, elogios, etc.</span>
         <br/>
-        <textarea class="textArea" pInputTextarea></textarea>
+        <textarea class="textArea" pInputTextarea [(ngModel)]="texto"></textarea>
         <br/>
         <br/>
         <div id="bt">
         <button pButton type="button" icon="fa fa-fw fa-reply" label="Voltar" class="ui-button-secondary" (click)="voltar()"></button>
-        <button pButton type="button" icon="fa fa-fw fa-chevron-down" label="Salvar" class="ui-button-success" ></button>
+        <button pButton type="button" icon="fa fa-fw fa-chevron-down" label="Salvar" class="ui-button-success" (click)="salvar()"></button>
         </div>
       </div>
     </p-panel>

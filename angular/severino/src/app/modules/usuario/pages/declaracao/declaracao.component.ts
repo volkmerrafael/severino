@@ -1,16 +1,14 @@
 import { Component, OnInit, Inject, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import * as jsPDF from 'jspdf';
-import { JustificativaService } from '../../../../services/justificativa.service';
 import { Usuario } from '../../../../shared/models/usuario';
 import { ActivatedRoute } from '@angular/router';
-import { WorklogJiraService } from '../../../../services/worklogJira.service';
 import { Location } from '@angular/common';
 import { PontoService } from '../../../../services/ponto.service';
 import { Justificativa } from '../../../../shared/models/justificativa';
-import { Issue } from '../../../../shared/models/issue';
 import { FormatarMinutosPipe } from '../../../../shared/components/pipes/time.pipe';
 import { FormatarDataPipe } from '../../../../components/pipes/pipe';
+import { Issues } from '../../../../shared/models/issues';
 
 
 @Component({
@@ -42,14 +40,13 @@ export class DeclaracaoComponent implements OnInit {
   justificativasDebito: Justificativa[] = [];
   justificativasCredito: Justificativa[] = [];
   justificativasMarcInc: Justificativa[] = [];
-  worklogs: Issue[] = [];
+  worklogs: Issues[] = [];
   issue: string;
   listaIssues: string[] = [];
   horarioAlterado: string;
+  myDate: Date = new Date();
 
   constructor(
-    private justificativaService: JustificativaService,
-    private worklogJiraService: WorklogJiraService,
     private route: ActivatedRoute,
     private location: Location,
     private pontoService: PontoService,
@@ -77,7 +74,7 @@ export class DeclaracaoComponent implements OnInit {
       + "<strong>&nbsp;</strong></p><p style='text-align:center'><strong>_________________________________________________</strong>"
       + "</p><p style='text-align:center'><strong>&nbsp;</strong></p><p style='text-align:center'><strong>Assinatura do funcionário"
       + "</strong></p><p style='text-align:center'><br></p><p style='text-align:center'><br></p><p style='text-align:center'>"
-      + "<strong>Entregue dia: </strong></p><p><br></p>";
+      + "<strong>Entregue dia: " + this.myDate.toLocaleDateString() + "</strong></p><p><br></p>";
     this.usuario.id = parseInt(sessionStorage.getItem('id'), 10);
     this.params = this.route.queryParams;
     this.dadosRota = this.params.value;
@@ -91,25 +88,26 @@ export class DeclaracaoComponent implements OnInit {
         res.forEach(ponto => {
           if (ponto.justificativa) {
             this.validaJust = ponto.justificativa;
-            if (ponto.worklogs) {
-              this.worklogs = ponto.worklogs;
+            if (ponto.issues) {
+              this.worklogs = ponto.issues;
             }
             this.issue = '';
             this.worklogs.forEach(item => {
-              if (item.gravada === true) {
-                this.issue = this.issue + " - " + item.issue + " - " + item.summary + " (Iniciado as: "
+              if (item.id) {
+                this.issue = this.issue + " - " + item.issue + " - " + item.summary /* + " (Iniciado as: "
                   + this.formatarMinutosPipe.buscar(item.startdate, 11, 16)
-                  + " Tempo trabalhado: " + this.formatarMinutosPipe.horaTransform(item.timeworked) + ") <br>";
+                  + " Tempo trabalhado: " + this.formatarMinutosPipe.horaTransform(item.timeworked) + ") <br>" */;
               }
             });
             if (ponto.status === 'CREDITO') {
-              this.validaJust.descricao = this.formatarDataPipe.transform(ponto.data) + " - " + this.validaJust.descricao + "<br>"
-                + this.issue;
+              this.validaJust.descricao = this.formatarDataPipe.transform(ponto.data) + " - "
+              + this.formatarMinutosPipe.transform(ponto.minutos_credito) + "<br>" + this.validaJust.descricao + "<br>"
+               + this.issue;
               this.justificativasCredito.push(this.validaJust);
             }
             if (ponto.status === 'DEBITO') {
-              this.validaJust.descricao = this.formatarDataPipe.transform(ponto.data) + " - " + ponto.observacao
-              + " - " + this.validaJust.descricao + "<br>";
+              this.validaJust.descricao = this.formatarDataPipe.transform(ponto.data) + " - "
+              + this.formatarMinutosPipe.transform(ponto.minutos_debito) + "<br>" + " - " + this.validaJust.descricao + "<br>";
               this.justificativasDebito.push(this.validaJust);
             }
             if (ponto.status === 'MARCACAO_INCORRETA') {
