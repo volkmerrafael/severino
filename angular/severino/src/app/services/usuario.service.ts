@@ -38,6 +38,12 @@ export class UsuarioService {
     );
   }
 
+  listaUsuariosPorDp(): Observable<Usuario> {
+    return this.http.get<Usuario>(
+      `${environment.server}usuario/listar`
+    );
+  }
+
   usuario(id: number): Observable<Usuario> {
     return this.http.get<Usuario>(
       `${environment.server}usuario/` + id
@@ -67,4 +73,5 @@ export class UsuarioService {
       `${environment.server}funcao`
     );
   }
+
 }

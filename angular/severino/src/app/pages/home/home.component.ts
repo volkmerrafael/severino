@@ -22,6 +22,8 @@ export class HomeComponent implements OnInit {
   listaId: any;
   idAny: any;
   id: number;
+  coordenador: any = false;
+  tipo: string;
 
   constructor(
     private router: Router,
@@ -52,17 +54,13 @@ export class HomeComponent implements OnInit {
   verificarEventosDeRota(event: Event) {
     this.usuario.nome = sessionStorage.getItem('nomeUsuario');
     this.token = sessionStorage.getItem("usertoken");
+    this.tipo = sessionStorage.getItem('tipo');
     if (event instanceof NavigationEnd) {
       if (this.token !== '' && this.token !== undefined && this.token != null) {
         this.mostraLinks = true;
       } else {
         this.mostraLinks = false;
       }
-    }
-    if (sessionStorage.getItem('tipo') === 'ADMIN') {
-      this.admin = true;
-    } else {
-      this.admin = false;
     }
   }
 
@@ -74,6 +72,7 @@ export class HomeComponent implements OnInit {
     sessionStorage.removeItem('nomeacesso');
     sessionStorage.removeItem('tipo');
     this.token = '';
+    this.tipo = '';
     sessionStorage.removeItem('id');
     this.router.navigate(['/login']);
   }
@@ -81,8 +80,6 @@ export class HomeComponent implements OnInit {
   onClickNavigator(rota: String) {
     if (rota === 'admin') {
       this.router.navigate(['/admin']);
-    } else if (rota === 'lista') {
-      this.router.navigate(['/lista']);
     } else if (rota === 'ponto') {
       this.router.navigate(['/ponto']);
     } else if (rota === 'jira') {
@@ -91,6 +88,8 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['/admin/configuracao']);
     } else if (rota === 'feedback') {
       this.router.navigate(['/feedback']);
+    } else if (rota === 'lista') {
+      this.router.navigate(['/lista']);
     }
 
   }

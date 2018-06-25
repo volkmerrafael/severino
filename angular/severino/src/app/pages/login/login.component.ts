@@ -63,6 +63,8 @@ export class LoginComponent {
       });
       if (res.usuario.acesso.tipo === "ADMIN") {
         this.router.navigate(['/admin']);
+      } else if (res.usuario.acesso.tipo === "COORDENADOR") {
+        this.router.navigate(['/lista']);
       } else {
         sessionStorage.setItem('departamentoUsuario', res.usuario.departamento.nome);
         sessionStorage.setItem('pisUsuario', res.usuario.pis);

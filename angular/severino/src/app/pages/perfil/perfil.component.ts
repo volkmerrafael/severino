@@ -24,7 +24,7 @@ export class PerfilComponent implements OnInit {
   idAny: any;
   id: number;
   senha: string;
-  admin: boolean;
+  tipo: string;
   mensagemGrow;
   tituloGrow;
   tipoGrow;
@@ -35,17 +35,15 @@ export class PerfilComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private messageService: MessageService,
-  ) { }
+  ) {
+    this.tipo = sessionStorage.getItem('tipo');
+  }
 
   ngOnInit() {
     this.listaId = this.route.queryParams;
     this.idAny = this.listaId.value;
     this.id = parseInt((this.idAny.id), 10);
     this.perfil();
-    this.admin = false;
-    if (sessionStorage.getItem('tipo') === 'ADMIN') {
-      this.admin = true;
-    }
   }
 
   perfil() {
@@ -75,5 +73,9 @@ export class PerfilComponent implements OnInit {
 
   editarUsuario(id: any) {
     this.router.navigate(['/editar-perfil'], {queryParams: {id}});
+  }
+
+  pontoUsuario(id: any) {
+    this.router.navigate(['/ponto'], {queryParams: {id}});
   }
 }

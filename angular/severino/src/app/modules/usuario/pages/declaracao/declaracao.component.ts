@@ -55,26 +55,22 @@ export class DeclaracaoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.cabecalho1 = "<p style='text-align:center'>DECLARAÇÃO DE HORAS EXTRAS</p><p style='text-align:center'>Eu "
+    this.cabecalho1 = "<p style='text-align:center'><strong>DECLARAÇÃO DE HORAS EXTRAS</strong></p><br><p style='text-align:center'>Eu "
       + sessionStorage.getItem('nomeUsuario') + " portador(a) do número PIS: " + sessionStorage.getItem('pisUsuario')
-      + " nos termos do banco de horas vigente, declaro que realizei atividades pertinentes ao meu cargo nos dias e horarios a seguir: </p>"
-      + "<p style='text-align:center'><br></p>";
-    this.cabecalho2 = "<p style='text-align:center'>DECLARAÇÃO DE COMPENSAÇÃO HORAS</p><p style='text-align:center'>Eu "
-      + sessionStorage.getItem('nomeUsuario') + " portador(a) do número PIS: " + sessionStorage.getItem('pisUsuario')
-      + " nos termos do banco de horas vigente, declaro que realizei compensação de horas nos dias e horarios a seguir : </p>"
-      + "<p style='text-align:center'><br></p>";
-    this.cabecalho3 = "<p style='text-align:center'>DECLARAÇÃO DE JUSTIFICATIVA PONTO</p><p style='text-align:center'>Eu "
-      + sessionStorage.getItem('nomeUsuario') + " portador(a) do número PIS: " + sessionStorage.getItem('pisUsuario')
-      + " solicito que seja feito o ajuste do ponto, pois não registrei pelos motivos de: </p>"
-      + "<p style='text-align:center'><br></p>";
+      + " nos termos do banco de horas vigente, declaro que realizei atividades pertinentes ao meu cargo nos dias e horarios a seguir: "
+      + "<br><br>";
+    this.cabecalho2 = "<p style='text-align:center'><strong>DECLARAÇÃO DE COMPENSAÇÃO HORAS</strong></p><br><p style='text-align:center'>"
+      + "Eu " + sessionStorage.getItem('nomeUsuario') + " portador(a) do número PIS: " + sessionStorage.getItem('pisUsuario')
+      + " nos termos do banco de horas vigente, declaro que realizei compensação de horas nos dias e horarios a seguir: "
+      + "<br><br>";
+    this.cabecalho3 = "<p style='text-align:center'><strong>DECLARAÇÃO DE JUSTIFICATIVA PONTO</strong></p><br><p style='text-align:center'>"
+      + "Eu " + sessionStorage.getItem('nomeUsuario') + " portador(a) do número PIS: " + sessionStorage.getItem('pisUsuario')
+      + " solicito que seja feito o ajuste do ponto, pois não registrei pelos motivos de: <br><br>";
     this.rodape = "<p style='text-align:center'><strong>________________________________________________</strong></p>"
-      + "<p style='text-align:center'><br></p><p style='text-align:center'>"
-      + "<strong>Assinatura do responsável pela empresa ou departamento do funcionário</strong></p><p style='text-align:center'>"
-      + "<strong>&nbsp;</strong></p><p style='text-align:center'><strong>&nbsp;</strong></p><p style='text-align:center'>"
-      + "<strong>&nbsp;</strong></p><p style='text-align:center'><strong>_________________________________________________</strong>"
-      + "</p><p style='text-align:center'><strong>&nbsp;</strong></p><p style='text-align:center'><strong>Assinatura do funcionário"
-      + "</strong></p><p style='text-align:center'><br></p><p style='text-align:center'><br></p><p style='text-align:center'>"
-      + "<strong>Entregue dia: " + this.myDate.toLocaleDateString() + "</strong></p><p><br></p>";
+      + "<p style='text-align:center'><strong>Assinatura do responsável pela empresa ou departamento do funcionário</strong></p><br><br>"
+      + "<p style='text-align:center'><strong>_________________________________________________</strong></p>"
+      + "<p style='text-align:center'><strong>Assinatura do funcionário</strong></p><br>"
+      + "<p style='text-align:center'><strong>Entregue dia: " + this.myDate.toLocaleDateString() + "</strong></p>";
     this.usuario.id = parseInt(sessionStorage.getItem('id'), 10);
     this.params = this.route.queryParams;
     this.dadosRota = this.params.value;

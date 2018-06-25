@@ -20,12 +20,12 @@ import { Justificativa } from '../../shared/models/justificativa';
 import * as moment from 'moment/moment';
 import { PontoEditado } from '../../shared/models/pontoEditado';
 import { WorklogJira } from '../../shared/models/worklogJira';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { PontoInf } from '../../shared/models/pontoInfo';
 import { IssueInf } from '../../shared/models/issueInf';
 import { Issues } from '../../shared/models/issues';
 import { WorklogJiraService } from '../../services/worklogJira.service';
-import { Issue } from '../../shared/models/issue';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-ponto',
@@ -104,6 +104,11 @@ export class PontoComponent implements OnInit {
   lista: String[] = [];
   statusJust: any;
   worklogs: WorklogJira[] = [];
+  idRota: any;
+  rotaValue: any;
+  rota: any;
+  tipo: any;
+  nomeUsuario: string;
 
   constructor(
     private pontoService: PontoService,
@@ -116,8 +121,11 @@ export class PontoComponent implements OnInit {
     private router: Router,
     private formatarDataPipe: FormatarDataPipe,
     private worklogJiraService: WorklogJiraService,
+    private route: ActivatedRoute,
+    private usuarioServive: UsuarioService,
   ) {
 
+    this.tipo = sessionStorage.getItem('tipo');
     this.cols = [
       { field: 'diaSemana', header: 'Dia', width: '7%' },
       { field: 'data', header: 'Data', width: '8%' },
@@ -144,6 +152,16 @@ export class PontoComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.rota = this.route.queryParams;
+    this.rotaValue = this.rota.value;
+    this.idRota = this.rotaValue.id;
+    if ( this.idRota ) {
+      this.usuario.id = this.idRota;
+      this.usuarioServive.usuario(this.usuario.id)
+      .subscribe( res => {
+        this.nomeUsuario = res.nome;
+      });
+    }
     this.realizarConsultas();
   }
 

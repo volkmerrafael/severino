@@ -1,6 +1,7 @@
 <div class="ui-g">
   <div class="ui-g-12" style="text-align: center; padding-top: 30px;">
     <div id="pesquisa" class="form-group">
+      <h5 *ngIf="tipo === 'COORDENADOR'">{{nomeUsuario}}</h5>
 
       <input class="form-control" pInputText id="mes" name="mes" type="text" placeholder="Mês" [(ngModel)]="mes" />
       
@@ -19,11 +20,11 @@
 
     <div class="row">
       <div id="btDeclaracao">
-      <button *ngIf="existeCredito && justCredito" id="bt1" type="text" (click)="gerarDeclaracaoExt(usuario.id, ano, mes)" pButton icon="fa-file" label="Gerar declaração de hora extra"></button>
+      <button *ngIf="existeCredito && justCredito && tipo !== 'COORDENADOR'" id="bt1" type="text" (click)="gerarDeclaracaoExt(usuario.id, ano, mes)" pButton icon="fa-file" label="Gerar declaração de hora extra"></button>
       
-      <button *ngIf="existeDebito && justDebito" id="bt2" type="text" (click)="gerarDeclaracaoComp(usuario.id, ano, mes)" pButton icon="fa-file" label="Gerar declaração de compensação de horas"></button>
+      <button *ngIf="existeDebito && justDebito && tipo !== 'COORDENADOR'" id="bt2" type="text" (click)="gerarDeclaracaoComp(usuario.id, ano, mes)" pButton icon="fa-file" label="Gerar declaração de compensação de horas"></button>
       
-      <button *ngIf="existeMarcInc && justJustificado" id="bt3" type="text" (click)="gerarDeclaracaoJust(usuario.id, ano, mes)" pButton icon="fa-file" label="Gerar declaração de justificativa ponto"></button>
+      <button *ngIf="existeMarcInc && justJustificado && tipo !== 'COORDENADOR'" id="bt3" type="text" (click)="gerarDeclaracaoJust(usuario.id, ano, mes)" pButton icon="fa-file" label="Gerar declaração de justificativa ponto"></button>
     </div>
       <div id="legenda" class="ui-g-12" style="text-align: right;">
         <span *ngIf="existeCorreto">
@@ -204,7 +205,7 @@
         </p-listbox>
       </div>
     </div>
-    <button pButton type="button" icon="fa fa-fw fa-check" label="Salvar" class="ui-button-success" (click)="justificarPonto(justificativa)"></button>
-    <button pButton type="button" icon="fa fa-fw fa-ban" label="Cancelar" class="ui-button-danger" (click)="closeDialogJustificativa()"></button>
+    <button *ngIf="tipo !== 'COORDENADOR'" pButton type="button" icon="fa fa-fw fa-check" label="Salvar" class="ui-button-success" (click)="justificarPonto(justificativa)"></button>
+    <button *ngIf="tipo !== 'COORDENADOR'" pButton type="button" icon="fa fa-fw fa-ban" label="Cancelar" class="ui-button-danger" (click)="closeDialogJustificativa()"></button>
   </p-dialog>
 </div>

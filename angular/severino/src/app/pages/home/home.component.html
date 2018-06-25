@@ -5,10 +5,10 @@
     </div>
         <div class="ui-toolbar-group-left">
             <img class="img" src="assets/icon-jira-logo.png" (click)="onClickNavigator('jira')"/>
-            <button id="bt" *ngIf='admin' pButton label="Colaboradores" icon="fa fa-users" (click)="onClickNavigator('lista')"></button>
-            <button id="bt" *ngIf='admin' pButton label="Importações" icon="fa fa-upload" (click)="onClickNavigator('admin')"></button>
-            <button id="bt" *ngIf='admin' pButton label="Configurações" icon="fa fa-cogs" (click)="onClickNavigator('admin/configuracao')"></button>
-            <button id="bt" *ngIf="admin == false && mostraLinks" pButton label="Ponto" icon="fa fa-file" (click)="onClickNavigator('ponto')"></button>
+            <button id="bt" *ngIf="tipo === 'ADMIN' || tipo === 'COORDENADOR'" pButton label="Colaboradores" icon="fa fa-users" (click)="onClickNavigator('lista')"></button>
+            <button id="bt" *ngIf="tipo === 'ADMIN'" pButton label="Importações" icon="fa fa-upload" (click)="onClickNavigator('admin')"></button>
+            <button id="bt" *ngIf="tipo === 'ADMIN'" pButton label="Configurações" icon="fa fa-cogs" (click)="onClickNavigator('admin/configuracao')"></button>
+            <button id="bt" *ngIf="tipo !== 'ADMIN' && tipo !== 'COORDENADOR' && mostraLinks" pButton label="Ponto" icon="fa fa-file" (click)="onClickNavigator('ponto')"></button>
         </div>
 </div>
 
