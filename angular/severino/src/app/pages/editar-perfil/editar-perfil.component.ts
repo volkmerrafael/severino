@@ -10,6 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Departamento } from '../../shared/models/departamento';
 import { Funcao } from '../../shared/models/funcao';
 import * as moment from 'moment/moment';
+import { Empresa } from '../../shared/models/empresa';
 
 @Component({
   selector: 'app-editar-perfil',
@@ -22,6 +23,7 @@ export class EditarPerfilComponent implements OnInit {
   usuario: Usuario = new Usuario();
   acesso: Acesso = new Acesso();
   funcao: Funcao = new Funcao();
+  empresa: Empresa = new Empresa();
   departamento: Departamento = new Departamento();
   senha: string;
   myGroup: FormGroup;
@@ -33,11 +35,13 @@ export class EditarPerfilComponent implements OnInit {
   listaId: any;
   idAny: any;
   admin: boolean;
+  empresas: Empresa[] = [];
   departamentos: Departamento[] = [];
   funcoes: Funcao[] = [];
   tipos: string[] = ['Administrador', 'Coordenador', 'Colaborador', 'Importador'];
   results: string[];
   texto: string;
+  filteredEmpresas: any[];
   filteredDepartamentos: any[];
   filteredFuncoes: any[];
   filteredTipos: any[];
@@ -66,6 +70,7 @@ export class EditarPerfilComponent implements OnInit {
       today: 'Hoje',
       clear: 'Clear'
   };
+    this.listaEmpresas();
     this.listaFuncoes();
     this.listaDepartamentos();
     this.admin = false;
@@ -81,6 +86,7 @@ export class EditarPerfilComponent implements OnInit {
       'inputNomeAcesso': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
       'inputEmail': new FormControl('', Validators.compose([Validators.required, Validators.email])),
       'inputDataAdmissao': new FormControl('', [Validators.required]),
+      'inputEmpresa': new FormControl('', [Validators.required]),
       'inputDepartamento': new FormControl('', [Validators.required]),
       'inputFuncao': new FormControl('', [Validators.required]),
       'inputTipoAcesso': new FormControl('', [Validators.required]),
@@ -97,6 +103,7 @@ export class EditarPerfilComponent implements OnInit {
         this.usuario = res;
         this.usuario.data_admissao = moment(this.usuario.data_admissao).format("DD/MM/YYYY");
         this.acesso = this.usuario.acesso;
+        this.empresa = this.usuario.empresa;
         this.departamento = this.usuario.departamento;
         this.funcao = this.usuario.funcao;
         this.senha = "";
@@ -140,6 +147,12 @@ export class EditarPerfilComponent implements OnInit {
       });
     } else {
       this.usuario.id = undefined;
+      this.empresas.forEach( res => {
+        if (res.razao_social === this.empresa.razao_social ) {
+          this.empresa.id = res.id;
+        }
+      });
+      this.usuario.empresa = this.empresa;
       this.departamentos.forEach( res => {
         if (res.nome === this.departamento.nome) {
           this.departamento.id = res.id;
@@ -184,6 +197,13 @@ export class EditarPerfilComponent implements OnInit {
     this.location.back();
   }
 
+  listaEmpresas() {
+    this.usuarioService.empresas()
+    .subscribe( res => {
+        this.empresas = res;
+    });
+  }
+
   listaDepartamentos() {
     this.usuarioService.departamentos()
     .subscribe( res => {
@@ -224,6 +244,16 @@ export class EditarPerfilComponent implements OnInit {
         const brand = res;
         if (brand.toLowerCase().indexOf(event.query.toLowerCase()) === 0) {
             this.filteredTipos.push(brand);
+        }
+    });
+  }
+
+  searchEmpresa(event) {
+    this.filteredEmpresas = [];
+    this.empresas.forEach( res => {
+        const brand = res.razao_social;
+        if (brand.toLowerCase().indexOf(event.query.toLowerCase()) === 0) {
+            this.filteredEmpresas.push(brand);
         }
     });
   }

@@ -253,6 +253,7 @@ export class PontoComponent implements OnInit {
   consultaPontoPorPeriodo() {
     this.pontoService.listarPontoPorPeriodo(this.usuario.id, this.ano, this.mes)
       .subscribe(res => {
+        console.log(res);
         this.pontos = [];
         this.pontos = res;
         this.verificarStatus(res);

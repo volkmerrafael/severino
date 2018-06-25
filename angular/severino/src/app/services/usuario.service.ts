@@ -7,6 +7,7 @@ import { Usuario } from "../shared/models/usuario";
 import { ConfiguracaoIntegracao } from '../shared/models/configuracaoIntegracao';
 import { Departamento } from "../shared/models/departamento";
 import { Funcao } from "../shared/models/funcao";
+import { Empresa } from "../shared/models/empresa";
 
 @Injectable()
 export class UsuarioService {
@@ -71,6 +72,12 @@ export class UsuarioService {
   funcoes(): Observable<Funcao[]> {
     return this.http.get<Funcao[]>(
       `${environment.server}funcao`
+    );
+  }
+
+  empresas(): Observable<Empresa[]> {
+    return this.http.get<Empresa[]>(
+      `${environment.server}empresa`
     );
   }
 

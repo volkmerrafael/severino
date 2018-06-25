@@ -59,6 +59,26 @@
           <br>
           <br>
         </div>
+
+        <div *ngIf="id === 0 || admin">
+            <label>Empresa:</label>
+            <br>
+            <p-autoComplete formControlName="inputEmpresa" [(ngModel)]="empresa.razao_social" [suggestions]="filteredEmpresas" (completeMethod)="searchEmpresa($event)" [size]="43"
+            [minLength]="1" [dropdown]="true">
+            <ng-template let-texto pTemplate="item">
+                <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
+                    <div >{{texto}}</div>
+                </div>
+            </ng-template>
+            </p-autoComplete>
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!perfilForm.controls['inputDepartamento'].valid && perfilForm.controls['inputDepartamento'].dirty">
+              <i class="fa fa-close"></i>
+              Departamento é obrigatório
+            </div>
+            <br>
+            <br>
+          </div>
+
         <div *ngIf="id === 0 || admin">
           <label>Departamento:</label>
           <br>

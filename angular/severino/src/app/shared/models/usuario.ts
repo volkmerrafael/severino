@@ -1,6 +1,7 @@
 import { Acesso } from './acesso';
 import { Departamento } from './departamento';
 import { Funcao } from './funcao';
+import { Empresa } from './empresa';
 
 export class Usuario {
   id: number;
@@ -13,4 +14,5 @@ export class Usuario {
   email: string;
   data_admissao: string;
   usuario_jira: string;
+  empresa: Empresa;
 }
