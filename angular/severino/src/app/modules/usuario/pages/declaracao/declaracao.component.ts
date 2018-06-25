@@ -94,20 +94,19 @@ export class DeclaracaoComponent implements OnInit {
             this.issue = '';
             this.worklogs.forEach(item => {
               if (item.id) {
-                this.issue = this.issue + " - " + item.issue + " - " + item.summary /* + " (Iniciado as: "
-                  + this.formatarMinutosPipe.buscar(item.startdate, 11, 16)
-                  + " Tempo trabalhado: " + this.formatarMinutosPipe.horaTransform(item.timeworked) + ") <br>" */;
+                this.issue = this.issue + " - " + item.issue + " - " + item.summary;
               }
             });
             if (ponto.status === 'CREDITO') {
-              this.validaJust.descricao = this.formatarDataPipe.transform(ponto.data) + " - "
+              this.validaJust.descricao = this.formatarDataPipe.transform(ponto.data) + " - Tempo: "
               + this.formatarMinutosPipe.transform(ponto.minutos_credito) + "<br>" + this.validaJust.descricao + "<br>"
                + this.issue;
               this.justificativasCredito.push(this.validaJust);
             }
             if (ponto.status === 'DEBITO') {
-              this.validaJust.descricao = this.formatarDataPipe.transform(ponto.data) + " - "
-              + this.formatarMinutosPipe.transform(ponto.minutos_debito) + "<br>" + " - " + this.validaJust.descricao + "<br>";
+              this.validaJust.descricao = this.formatarDataPipe.transform(ponto.data) + " - Tempo: "
+              + this.formatarMinutosPipe.transform(ponto.minutos_debito) + "<br>" + " - " + this.validaJust.descricao + "<br>"
+              + this.issue;
               this.justificativasDebito.push(this.validaJust);
             }
             if (ponto.status === 'MARCACAO_INCORRETA') {

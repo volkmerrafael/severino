@@ -43,7 +43,6 @@ import { FeedbackComponent } from './pages/feedback/feedback.component';
 import {SplitButtonModule} from 'primeng/splitbutton';
 import {OrderListModule} from 'primeng/orderlist';
 import {AutoCompleteModule} from 'primeng/autocomplete';
-import {AccordionModule} from 'primeng/accordion';
 import {CalendarModule} from 'primeng/calendar';
 
 
@@ -87,7 +86,6 @@ export const HttpInterceptorProviders = [
     SplitButtonModule,
     OrderListModule,
     AutoCompleteModule,
-    AccordionModule,
     CalendarModule
   ],
   providers: [

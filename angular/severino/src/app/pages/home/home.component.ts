@@ -3,7 +3,6 @@ import { Usuario } from './../../shared/models/usuario';
 import { Router, NavigationStart, NavigationEnd, NavigationError, NavigationCancel, Event, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { MenuItem } from 'primeng/api';
-import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-home',

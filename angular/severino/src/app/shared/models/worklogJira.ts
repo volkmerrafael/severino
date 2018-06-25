@@ -1,5 +1,10 @@
 import { Issue } from "./issue";
+import { Issues } from "./issues";
 
 export class WorklogJira {
-    issues: Issue[];
+    issue: Issues;
+    id: number;
+    startdate: string;
+    timeworked:	number;
+    autor: string;
 }

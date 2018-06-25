@@ -152,8 +152,8 @@
               <td *ngFor="let col of columns" class="ui-resizable-column">
                 {{rowData[col.field]}}
                 <span *ngIf="col.field == 'justificativaId' && (rowData.status == 'CREDITO' || rowData.status == 'DEBITO' || rowData.status == 'MARCACAO_INCORRETA')">
-                  <button *ngIf="rowData.justificativa.descricao !== '' && rowData.justificativa.id" pButton class="btCheck" type="text" icon="fas fa-check-circle" (click)="showDialogJustificativa(rowData)"></button>
-                  <button *ngIf="rowData.justificativa.descricao === '' || !rowData.justificativa.id" pButton class="btExclamation" type="text" icon="fas fa-exclamation-circle"
+                  <button *ngIf="rowData.justificativa.descricao" pButton class="btCheck" type="text" icon="fas fa-check-circle" (click)="showDialogJustificativa(rowData)"></button>
+                  <button *ngIf="!rowData.justificativa.descricao" pButton class="btExclamation" type="text" icon="fas fa-exclamation-circle"
                     (click)="showDialogJustificativa(rowData)"></button>
                 </span>
               </td>
@@ -179,14 +179,23 @@
 <div class="divJustificativa">
   <p-dialog id="justificativa" header="Justificativa {{dataFormatada}}" [(visible)]="displayJustificativa" [responsive]="true" [width]="1200"
     [minWidth]="700" [minY]="70">
-    <div *ngIf="statusJust !== 'CREDITO'">
+    <div *ngIf="statusJust === 'MARCACAO_INCORRETA'">
       <textarea rows="5" cols="30" class="textArea" pInputTextarea [(ngModel)]="justificativa.descricao"></textarea>
     </div>
-    <div *ngIf="statusJust === 'CREDITO'" class="ui-g">
+    <div *ngIf="statusJust === 'CREDITO' || statusJust === 'DEBITO'" class="ui-g">
       <div class="ui-g-6">
         <textarea rows="5" cols="30" class="textArea" pInputTextarea [(ngModel)]="justificativa.descricao"></textarea>
       </div>
-      <div class="ui-g-6" style="width: auto;">
+      <div class="ui-g-6">
+        <p-accordion [style]="{'width':'500px'}">
+            <p-accordionTab header="Worklog" >
+                <span *ngFor="let worklog of worklogs"> 
+                   {{worklog.issue.issue}} ({{worklog.issue.summary}}) <br>
+                  Iniciado as: {{worklog.startdate}} <br><br>
+                  </span>
+            </p-accordionTab>
+        </p-accordion>
+        <br>
         <p-listbox *ngIf="issues" class="listbox" [style]="{'width':'500px'}" [listStyle]="{'max-height':'250px'}" [options]="issues"
           [(ngModel)]="selectedIssues" multiple="multiple" checkbox="checkbox" filter="filter" optionLabel="issue">
           <p-header>

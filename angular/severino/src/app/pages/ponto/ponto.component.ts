@@ -24,6 +24,8 @@ import { Router } from '@angular/router';
 import { PontoInf } from '../../shared/models/pontoInfo';
 import { IssueInf } from '../../shared/models/issueInf';
 import { Issues } from '../../shared/models/issues';
+import { WorklogJiraService } from '../../services/worklogJira.service';
+import { Issue } from '../../shared/models/issue';
 
 @Component({
   selector: 'app-ponto',
@@ -89,7 +91,6 @@ export class PontoComponent implements OnInit {
   worklogJira: WorklogJira = new WorklogJira;
   issues: Issues[];
   pontoEdicaoId: any;
-  worklogs: any;
   declaracao: any;
   pontosInf: PontoInf[] = [];
   pontoInf: PontoInf = new PontoInf();
@@ -102,6 +103,7 @@ export class PontoComponent implements OnInit {
   issueOpcao: IssueInf = new IssueInf();
   lista: String[] = [];
   statusJust: any;
+  worklogs: WorklogJira[] = [];
 
   constructor(
     private pontoService: PontoService,
@@ -113,6 +115,7 @@ export class PontoComponent implements OnInit {
     private formatarMinutosPipe: FormatarMinutosPipe,
     private router: Router,
     private formatarDataPipe: FormatarDataPipe,
+    private worklogJiraService: WorklogJiraService,
   ) {
 
     this.cols = [
@@ -167,18 +170,6 @@ export class PontoComponent implements OnInit {
         this.selectedIssues.push(res);
       }
     });
-  /*  let teste: any;
-    this.issues.forEach(item => {
-      teste = new Object();
-      teste.issue = item.issue;
-      teste.descricao = item.issue + " - " + item.summary + " (Iniciado as: "
-      + this.formatarMinutosPipe.buscar(item.startdate, 11, 16)
-      + " Tempo trabalhado: " + this.formatarMinutosPipe.horaTransform(item.timeworked) + ")";
-      teste.gravada = item.gravada;
-      this.issuesOpcoes.push(teste);
-      this.lista.push(teste);
-    });
-    console.log(this.issuesOpcoes); */
     this.pontoEdicao = ponto;
     this.pontoEdicaoId = this.pontoEdicao.justificativa;
     if (this.pontoEdicaoId.id) {
@@ -186,6 +177,15 @@ export class PontoComponent implements OnInit {
     } else {
       this.justificativa = new Justificativa;
     }
+    this.worklogs = [];
+    this.worklogJiraService.listarIssues(this.usuario.id, this.data)
+    .subscribe( worklog => {
+      worklog.forEach( item => {
+        item.startdate = this.formatarMinutosPipe.buscar(item.startdate, 11, 16) + " Tempo trabalhado: "
+        + this.formatarMinutosPipe.horaTransform(item.timeworked);
+        this.worklogs.push(item);
+      });
+    });
     this.displayJustificativa = true;
   }
 
@@ -235,7 +235,6 @@ export class PontoComponent implements OnInit {
   consultaPontoPorPeriodo() {
     this.pontoService.listarPontoPorPeriodo(this.usuario.id, this.ano, this.mes)
       .subscribe(res => {
-        console.log(res);
         this.pontos = [];
         this.pontos = res;
         this.verificarStatus(res);
