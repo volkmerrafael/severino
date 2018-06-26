@@ -39,13 +39,9 @@ export class PontoComponent implements OnInit {
   mes: String = "" + (this.myDate.getMonth() + 1);
   ano: String = "" + this.myDate.getFullYear();
   pontos: Ponto[] = [];
-  periodos: AnoMes[] = [];
-  periodoSelecionado: AnoMes;
   usuario: Usuario = new Usuario();
   importacao: Importacao = new Importacao();
-  arqImportacao: ArquivoImportacao = new ArquivoImportacao();
   legendas: Legenda[] = [];
-  cols: any[] = [];
   departamento: string;
   funcao: string;
   mensagemGrow: any;
@@ -59,9 +55,6 @@ export class PontoComponent implements OnInit {
   horasAbono: string;
   absenteismo: string;
   jornadas: Jornada[] = [];
-  n: any = 0;
-  l: any = 0;
-  w: any = 0;
   existeCorreto: any = false;
   existeDebito: any = false;
   existeCredito: any = false;
@@ -79,7 +72,6 @@ export class PontoComponent implements OnInit {
   displayLegenda: any = false;
   displayJornada: any = false;
   displayJustificativa: any = false;
-  msgs: Message[];
   justificativa: Justificativa = new Justificativa;
   pontoEditado: PontoEditado = new PontoEditado();
   pontosEditados: PontoEditado[] = [];
@@ -100,8 +92,6 @@ export class PontoComponent implements OnInit {
   justCredito: boolean;
   justJustificado: boolean;
   validaJust: Justificativa = new Justificativa();
-  issuesOpcoes: IssueInf[] = [];
-  issueOpcao: IssueInf = new IssueInf();
   lista: String[] = [];
   statusJust: any;
   worklogs: WorklogJira[] = [];
@@ -111,11 +101,18 @@ export class PontoComponent implements OnInit {
   tipo: any;
   nomeUsuario: string;
   tabela: Tabela[] = [];
+  entrada1: any = false;
+  entrada2: any = false;
+  entrada3: any = false;
+  entrada4: any = false;
+  saida1: any = false;
+  saida2: any = false;
+  saida3: any = false;
+  saida4: any = false;
 
   constructor(
     private pontoService: PontoService,
     private messageService: MessageService,
-    private tratamentoErrosService: TratamentoErrosService,
     private controleHorasService: ControleHorasService,
     private jornadaService: JornadaService,
     private legendaService: LegendaService,
@@ -128,36 +125,6 @@ export class PontoComponent implements OnInit {
   ) {
 
     this.tipo = sessionStorage.getItem('tipo');
-    this.tabela.push({ field: 'diaSemana', header: 'Dia', width: '7%' });
-    this.tabela.push({ field: 'data', header: 'Data', width: '8%' });
-    this.tabela.push({ field: 'jornadaId', header: 'Jor.', width: '6%' });
-    this.tabela.push({ field: 'entrada1', header: 'Entrada', width: '6%' });
-    this.tabela.push({ field: 'saida1', header: 'Saída', width: '6%' });
-    this.tabela.push({ field: 'entrada2', header: 'Entrada', width: '6%' });
-    this.tabela.push({ field: 'saida2', header: 'Saída', width: '6%' });
-    this.tabela.push({ field: 'entrada3', header: 'Entrada', width: '6%' });
-    this.tabela.push({ field: 'saida3', header: 'Saída', width: '6%' });
-    this.tabela.push({ field: 'entrada4', header: 'Entrada', width: '6%' });
-    this.tabela.push({ field: 'saida4', header: 'Saída', width: '6%' });
-    this.tabela.push({ field: 'observacao', header: 'Observação', width: '20%' });
-    this.tabela.push({ field: 'justificativaId', header: 'Just.', width: '' });
-    this.tabela.push({ field: 'legenda', header: 'Leg.', width: '6%' });
-    this.cols = [
-      { field: 'diaSemana', header: 'Dia', width: '7%' },
-      { field: 'data', header: 'Data', width: '8%' },
-      { field: 'jornadaId', header: 'Jor.', width: '6%' },
-      { field: 'entrada1', header: 'Entrada', width: '6%' },
-      { field: 'saida1', header: 'Saída', width: '6%' },
-      { field: 'entrada2', header: 'Entrada', width: '6%' },
-      { field: 'saida2', header: 'Saída', width: '6%' },
-      { field: 'entrada3', header: 'Entrada', width: '6%' },
-      { field: 'saida3', header: 'Saída', width: '6%' },
-      { field: 'entrada4', header: 'Entrada', width: '6%' },
-      { field: 'saida4', header: 'Saída', width: '6%' },
-      { field: 'observacao', header: 'Observação', width: '20%' },
-      { field: 'justificativaId', header: 'Just.' },
-      { field: 'legenda', header: 'Leg.', width: '6%' },
-    ];
     this.usuario.id = parseInt(sessionStorage.getItem('id'), 10);
     this.usuario.nome = sessionStorage.getItem('nomeUsuario');
     this.departamento = sessionStorage.getItem('departamentoUsuario');
@@ -179,6 +146,34 @@ export class PontoComponent implements OnInit {
       });
     }
     this.realizarConsultas();
+  }
+
+  montarTabela() {
+    this.tabela = [];
+    this.tabela.push({ field: 'diaSemana', header: 'Dia', width: '7%' });
+    this.tabela.push({ field: 'data', header: 'Data', width: '8%' });
+    this.tabela.push({ field: 'jornadaId', header: 'Jor.', width: '6%' });
+    if (this.entrada1) {
+    this.tabela.push({ field: 'entrada1', header: 'Entrada', width: '6%' });
+    } if (this.saida1) {
+    this.tabela.push({ field: 'saida1', header: 'Saída', width: '6%' });
+    } if (this.entrada2) {
+    this.tabela.push({ field: 'entrada2', header: 'Entrada', width: '6%' });
+    } if (this.saida2) {
+    this.tabela.push({ field: 'saida2', header: 'Saída', width: '6%' });
+    } if (this.entrada3) {
+    this.tabela.push({ field: 'entrada3', header: 'Entrada', width: '6%' });
+    } if (this.saida3) {
+    this.tabela.push({ field: 'saida3', header: 'Saída', width: '6%' });
+    } if (this.entrada4) {
+    this.tabela.push({ field: 'entrada4', header: 'Entrada', width: '6%' });
+    } if (this.saida4) {
+    this.tabela.push({ field: 'saida4', header: 'Saída', width: '6%' });
+    }
+    this.tabela.push({ field: 'worklog_diario', header: 'Worklog', width: '8%' });
+    this.tabela.push({ field: 'observacao', header: 'Observação', width: ' ' });
+    this.tabela.push({ field: 'justificativaId', header: 'Just.', width: '6%' });
+    this.tabela.push({ field: 'legenda', header: 'Leg.', width: '6%' });
   }
 
   showDialogLegenda() {
@@ -275,6 +270,8 @@ export class PontoComponent implements OnInit {
         this.tituloGrow = 'Sucesso';
         this.mensagemGrow = "";
         this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
+        this.consultaColunas(res);
+        this.montarTabela();
       }, error => {
         this.pontosEditados = [];
         this.absenteismo = '';
@@ -287,6 +284,43 @@ export class PontoComponent implements OnInit {
         this.tituloGrow = 'Ops';
         this.mensagemGrow = error.error;
         this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
+      });
+  }
+
+  consultaColunas(pontos: any[]) {
+    this.entrada1 = false;
+    this.entrada2 = false;
+    this.entrada3 = false;
+    this.entrada4 = false;
+    this.saida1 = false;
+    this.saida2 = false;
+    this.saida3 = false;
+    this.saida4 = false;
+      pontos.forEach(ponto => {
+        if (ponto.entrada1) {
+          this.entrada1 = true;
+        }
+        if (ponto.entrada2) {
+          this.entrada2 = true;
+        }
+        if (ponto.entrada3) {
+          this.entrada3 = true;
+        }
+        if (ponto.entrada4) {
+          this.entrada4 = true;
+        }
+        if (ponto.saida1) {
+          this.saida1 = true;
+        }
+        if (ponto.saida2) {
+          this.saida2 = true;
+        }
+        if (ponto.saida3) {
+          this.saida3 = true;
+        }
+        if (ponto.saida4) {
+          this.saida4 = true;
+        }
       });
   }
 
@@ -373,7 +407,7 @@ export class PontoComponent implements OnInit {
       this.pontoEditado.issues = ponto.issues;
       this.pontoEditado.id = ponto.id;
       this.pontoEditado.diaSemana = diaSemana.nome;
-      this.pontoEditado.data = ponto.data;
+      this.pontoEditado.data = moment(ponto.data).format("DD/MM/YYYY");
       if (jornada !== undefined) {
         this.pontoEditado.jornadaId = jornada.id;
       }
@@ -386,14 +420,12 @@ export class PontoComponent implements OnInit {
       this.pontoEditado.entrada4 = ponto.entrada4;
       this.pontoEditado.saida4 = ponto.saida4;
       this.pontoEditado.observacao = ponto.observacao;
+      this.pontoEditado.worklog_diario = ponto.worklog_diario;
       if (legenda !== undefined) {
         this.pontoEditado.legenda = legenda.sigla;
       }
       this.pontoEditado.status = ponto.status;
       this.pontosEditados.push(this.pontoEditado);
-    });
-    this.pontosEditados.forEach(data => {
-      data.data = moment(data.data).format("DD/MM/YYYY");
     });
   }
 
@@ -401,13 +433,10 @@ export class PontoComponent implements OnInit {
     this.jornadas = [];
     this.jornadaService.consultaJornada(this.usuario.id, this.ano, this.mes)
       .subscribe(res => {
-        this.n = 0;
         res.forEach(jornada => {
-          this.jornadas[this.n] = jornada;
-          this.n = this.n + 1;
+          this.jornadas.push(jornada);
         });
       }, error => {
-        this.tratamentoErrosService.handleError(error);
         this.tipoGrow = "error";
         this.tituloGrow = 'Ops';
         this.mensagemGrow = error.error;
@@ -419,13 +448,10 @@ export class PontoComponent implements OnInit {
     this.legendas = [];
     this.legendaService.consultaLegenda(this.usuario.id, this.ano, this.mes)
       .subscribe(res => {
-        this.l = 0;
         res.forEach(legenda => {
-          this.legendas[this.l] = legenda;
-          this.l = this.l + 1;
+          this.legendas.push(legenda);
         });
       }, error => {
-        this.tratamentoErrosService.handleError(error);
         this.tipoGrow = "error";
         this.tituloGrow = 'Ops';
         this.mensagemGrow = error.error;
@@ -456,47 +482,21 @@ export class PontoComponent implements OnInit {
     this.existeObito = false;
     this.existeCompensacao = false;
     pontos.forEach(ponto => {
-      if (ponto.status === 'CORRETO') {
-        this.existeCorreto = true;
-      }
-      if (ponto.status === 'DEBITO') {
-        this.existeDebito = true;
-      }
-      if (ponto.status === 'CREDITO') {
-        this.existeCredito = true;
-      }
-      if (ponto.status === 'JUSTIFICADO') {
-        this.existeJustificado = true;
-      }
-      if (ponto.status === 'FALTA_JUSTIFICADA') {
-        this.existeFaltaJust = true;
-      }
-      if (ponto.status === 'MARCACAO_INCORRETA') {
-        this.existeMarcInc = true;
-      }
-      if (ponto.status === 'SEM_INFORMACAO') {
-        this.existeSemInf = true;
-      }
-      if (ponto.status === 'ATESTADO_MEDICO') {
-        this.existeAtestado = true;
-      }
-      if (ponto.status === 'PONTO_FACULTATIVO') {
-        this.existeFacultativo = true;
-      }
-      if (ponto.status === 'FERIAS') {
-        this.existeFerias = true;
-      }
-      if (ponto.status === 'NAO_ADMITIDO') {
-        this.existeNaoAdimitido = true;
-      }
-      if (ponto.status === 'FERIADO') {
-        this.existeFeriado = true;
-      }
-      if (ponto.status === 'CERTIDAO_DE_OBITO') {
-        this.existeObito = true;
-      }
-      if (ponto.status === 'COMPENSACAO') {
-        this.existeCompensacao = true;
+      switch (ponto.status) {
+        case 'CORRETO':  this.existeCorreto = true; break;
+        case 'DEBITO':  this.existeDebito = true; break;
+        case 'CREDITO': this.existeCredito = true; break;
+        case 'JUSTIFICADO': this.existeJustificado = true; break;
+        case 'FALTA_JUSTIFICADA': this.existeFaltaJust = true; break;
+        case 'MARCACAO_INCORRETA': this.existeMarcInc = true; break;
+        case 'SEM_INFORMACAO': this.existeSemInf = true; break;
+        case 'ATESTADO_MEDICO': this.existeAtestado = true; break;
+        case 'PONTO_FACULTATIVO': this.existeFacultativo = true; break;
+        case 'FERIAS': this.existeFerias = true; break;
+        case 'NAO_ADMITIDO': this.existeNaoAdimitido = true; break;
+        case 'FERIADO': this.existeFeriado = true; break;
+        case 'CERTIDAO_DE_OBITO': this.existeObito = true; break;
+        case 'COMPENSACAO': this.existeCompensacao = true; break;
       }
 
       if (ponto.entrada1.indexOf("*") !== -1) {

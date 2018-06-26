@@ -25,6 +25,24 @@
       </div>
     </p-panel>
 
+    <p-panel>
+        <p-header style="font-size: 20px">Feedbacks:</p-header>
+        <div *ngFor="let feed of feedbacksPorUsuario">
+                <br>
+                <span class="span">Descrição: </span>
+                <a class="a"> {{feed.descricao}} </a>
+                <br>
+                <span class="span">Data e hora: </span>
+                <a class="a"> {{feed.data_hora}} </a>
+                <br>
+                <span class="span">Tipo: </span>
+                <a class="a"> {{feed.tipo}} </a>
+                <br>
+                <span class="span">Status: </span>
+                <a class="a"> {{feed.status}} </a>
+              </div>
+    </p-panel>
+
     <p-panel *ngIf="tipoUsuario === 'ADMIN'">
         <p-header style="font-size: 20px">Feedbacks</p-header>
       

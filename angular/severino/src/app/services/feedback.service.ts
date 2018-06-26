@@ -28,4 +28,10 @@ export class FeedbackService {
       `${environment.server}questao/` + id
     );
   }
+
+  listaFeedbackPorUsuario(): Observable<Feedback[]> {
+    return this.http.get<Feedback[]>(
+      `${environment.server}questao/listar`
+    );
+  }
 }

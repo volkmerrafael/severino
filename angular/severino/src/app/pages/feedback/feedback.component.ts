@@ -27,6 +27,7 @@ export class FeedbackComponent implements OnInit {
   cols: any[];
   feedbacks: any;
   usuariosFeedback: Usuario[] = [];
+  feedbacksPorUsuario: Feedback[] = [];
 
   constructor(
     private location: Location,
@@ -63,6 +64,15 @@ export class FeedbackComponent implements OnInit {
           { field: 'data', header: 'Data' },
           { field: 'tipo', header: 'Tipo' }
         ];
+      });
+    } else {
+      this.feedbackService.listaFeedbackPorUsuario()
+      .subscribe( res => {
+        this.feedbacksPorUsuario = res;
+        this.feedbacksPorUsuario.forEach( item => {
+          item.data_hora = moment(item.data_hora).format('DD/MM/YYYY');
+        });
+        console.log(res);
       });
     }
   }

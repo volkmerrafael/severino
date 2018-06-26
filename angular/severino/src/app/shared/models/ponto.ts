@@ -27,4 +27,5 @@ export class Ponto {
   minutos_trabalhados: number;
   minutos_debito: number;
   minutos_credito: number;
+  worklog_diario: number;
 }
