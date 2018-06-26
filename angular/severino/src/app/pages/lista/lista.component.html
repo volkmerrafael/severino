@@ -9,7 +9,7 @@
                     {{col.header}}
                     <p-sortIcon [field]="col.field"></p-sortIcon>
                 </th>
-                <th style="width:80px;">
+                <th style="width:80px; text-align:center;">
                     <button pButton type="button" icon="fa fa-fw fa-plus" class="ui-button-secondary" (click)='cadastrarUsuario(0)'></button>
                 </th>
             </tr>
@@ -18,7 +18,7 @@
                     <input *ngSwitchCase="'nome'" pInputText type="text" filterBy="usuarios" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"
                         style="width:100%" placeholder="Nome">
 
-                    <input *ngSwitchCase="'acesso.email'" pInputText type="text" filterBy="usuarios" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"
+                    <input *ngSwitchCase="'email'" pInputText type="text" filterBy="usuarios" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"
                         style="width:100%" placeholder="E-mail">
                 </th>
             </tr>

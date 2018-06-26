@@ -23,4 +23,9 @@ export class FeedbackService {
     );
   }
 
+  buscaFeedback(id: number): Observable<Feedback> {
+    return this.http.get<Feedback>(
+      `${environment.server}questao/` + id
+    );
+  }
 }

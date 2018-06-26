@@ -74,6 +74,7 @@ export class DeclaracaoComponent implements OnInit {
     this.usuario.id = parseInt(sessionStorage.getItem('id'), 10);
     this.params = this.route.queryParams;
     this.dadosRota = this.params.value;
+    console.log(this.dadosRota);
     this.justificativasPorStatus();
   }
 

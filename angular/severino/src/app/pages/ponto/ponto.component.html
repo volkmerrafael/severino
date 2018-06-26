@@ -20,11 +20,11 @@
 
     <div class="row">
       <div id="btDeclaracao">
-      <button *ngIf="existeCredito && justCredito && tipo !== 'COORDENADOR'" id="bt1" type="text" (click)="gerarDeclaracaoExt(usuario.id, ano, mes)" pButton icon="fa-file" label="Gerar declaração de hora extra"></button>
+      <button *ngIf="existeCredito && justCredito && tipo !== 'COORDENADOR'" id="bt1" type="text" (click)="gerarDeclaracao(usuario.id, ano, mes, 'ext')" pButton icon="fa-file" label="Gerar declaração de hora extra"></button>
       
-      <button *ngIf="existeDebito && justDebito && tipo !== 'COORDENADOR'" id="bt2" type="text" (click)="gerarDeclaracaoComp(usuario.id, ano, mes)" pButton icon="fa-file" label="Gerar declaração de compensação de horas"></button>
+      <button *ngIf="existeDebito && justDebito && tipo !== 'COORDENADOR'" id="bt2" type="text" (click)="gerarDeclaracao(usuario.id, ano, mes, 'comp')" pButton icon="fa-file" label="Gerar declaração de compensação de horas"></button>
       
-      <button *ngIf="existeMarcInc && justJustificado && tipo !== 'COORDENADOR'" id="bt3" type="text" (click)="gerarDeclaracaoJust(usuario.id, ano, mes)" pButton icon="fa-file" label="Gerar declaração de justificativa ponto"></button>
+      <button *ngIf="existeMarcInc && justJustificado && tipo !== 'COORDENADOR'" id="bt3" type="text" (click)="gerarDeclaracao(usuario.id, ano, mes, 'just')" pButton icon="fa-file" label="Gerar declaração de justificativa ponto"></button>
     </div>
       <div id="legenda" class="ui-g-12" style="text-align: right;">
         <span *ngIf="existeCorreto">
@@ -105,7 +105,7 @@
       </div>
 
       <div id="table">
-        <p-table [columns]="cols" [value]="pontosEditados" [resizableColumns]="true">
+        <p-table [columns]="tabela" [value]="pontosEditados" [resizableColumns]="true">
 
           <ng-template pTemplate="colgroup" let-columns>
             <colgroup>
@@ -181,11 +181,11 @@
   <p-dialog id="justificativa" header="Justificativa {{dataFormatada}}" [(visible)]="displayJustificativa" [responsive]="true" [width]="1200"
     [minWidth]="700" [minY]="70">
     <div *ngIf="statusJust === 'MARCACAO_INCORRETA'">
-      <textarea rows="5" cols="30" class="textArea" pInputTextarea [(ngModel)]="justificativa.descricao"></textarea>
+      <textarea rows="5" tabela="30" class="textArea" pInputTextarea [(ngModel)]="justificativa.descricao"></textarea>
     </div>
     <div *ngIf="statusJust === 'CREDITO' || statusJust === 'DEBITO'" class="ui-g">
       <div class="ui-g-6">
-        <textarea rows="5" cols="30" class="textArea" pInputTextarea [(ngModel)]="justificativa.descricao"></textarea>
+        <textarea rows="5" tabela="30" class="textArea" pInputTextarea [(ngModel)]="justificativa.descricao"></textarea>
       </div>
       <div class="ui-g-6">
         <p-accordion [style]="{'width':'500px'}">

@@ -1,16 +1,56 @@
 <div class="divMaior">
-    <p-panel id="panel">
+    <p-panel id="panel" *ngIf="tipoUsuario !== 'ADMIN'">
       <p-header style="font-size: 20px">Feedback:</p-header>
       <div>
-        <span style="font-size: 18px;">Deixe aqui seu comentário com sugestões, críticas, elogios, etc.</span>
-        <br/>
-        <textarea class="textArea" pInputTextarea [(ngModel)]="texto"></textarea>
+          <label>Tipo:</label>
+          <br>
+          <p-autoComplete [(ngModel)]="feedback.tipo" [suggestions]="filteredTipo" (completeMethod)="search($event)" [size]="43"
+          [minLength]="1" [dropdown]="true">
+          <ng-template let-texto pTemplate="item">
+              <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
+                  <div >{{texto}}</div>
+              </div>
+          </ng-template>
+          </p-autoComplete>
+          <br>
+          <br>
+          <label>Descrição:</label>
+        <textarea class="textArea" pInputTextarea [(ngModel)]="feedback.descricao"></textarea>
         <br/>
         <br/>
         <div id="bt">
         <button pButton type="button" icon="fa fa-fw fa-reply" label="Voltar" class="ui-button-secondary" (click)="voltar()"></button>
-        <button pButton type="button" icon="fa fa-fw fa-chevron-down" label="Salvar" class="ui-button-success" (click)="salvar()"></button>
+        <button pButton type="button" icon="fa fa-fw fa-chevron-down" label="Salvar" class="ui-button-success" (click)="gravar()"></button>
         </div>
       </div>
     </p-panel>
+
+    <p-panel *ngIf="tipoUsuario === 'ADMIN'">
+        <p-header style="font-size: 20px">Feedbacks</p-header>
+      
+        <p-table #dt [columns]="cols" [value]="feedbacks" [paginator]="true" [rows]="20">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                        {{col.header}}
+                        <p-sortIcon [field]="col.field"></p-sortIcon>
+                    </th>
+                    <th style="width:80px;">
+                    </th>
+                </tr>
+            </ng-template>
+            
+            <ng-template pTemplate="body" let-feedback let-columns="columns">
+                <tr>
+                    <td>{{feedback.usuario.nome}}</td>
+                    <td>{{feedback.data_hora}}</td>
+                    <td>{{feedback.tipo}}</td>
+                    <td style="text-align:center; width: 10px">
+                        <button pButton type="button" icon="fa fa-fw fa-eye" class="ui-button-secondary" (click)="visualizarFeedback(feedback.id)"></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </p-panel>
+    
   </div>

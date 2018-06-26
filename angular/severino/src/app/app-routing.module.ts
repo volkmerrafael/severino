@@ -12,6 +12,7 @@ import { DashboardComponent } from './modules/jira/pages/dashboard/dashboard.com
 import { DeclaracaoComponent } from './modules/usuario/pages/declaracao/declaracao.component';
 import { ConfiguracaoComponent } from './modules/usuario/pages/configuracao/configuracao.component';
 import { FeedbackComponent } from './pages/feedback/feedback.component';
+import { VisualizaFeedbackComponent } from './pages/visualiza-feedback/visualiza-feedback.component';
 
 const id: Number = 0;
 
@@ -27,6 +28,7 @@ const rotas: Routes = [
   {path: 'admin/configuracao', component: ConfiguracaoComponent},
   {path: 'jira', redirectTo: 'jira/dashboard'},
   {path: 'feedback', component: FeedbackComponent},
+  {path: 'visualiza-feedback', component: VisualizaFeedbackComponent},
   {path: '**', redirectTo: 'login' }
 ];
 

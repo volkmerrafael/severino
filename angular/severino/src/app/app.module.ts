@@ -44,6 +44,7 @@ import {SplitButtonModule} from 'primeng/splitbutton';
 import {OrderListModule} from 'primeng/orderlist';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import {CalendarModule} from 'primeng/calendar';
+import { VisualizaFeedbackComponent } from './pages/visualiza-feedback/visualiza-feedback.component';
 
 
 export const HttpInterceptorProviders = [
@@ -59,6 +60,7 @@ export const HttpInterceptorProviders = [
     EditarPerfilComponent,
     ListaComponent,
     FeedbackComponent,
+    VisualizaFeedbackComponent,
   ],
   imports: [
     UsuarioModule,

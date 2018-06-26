@@ -26,6 +26,7 @@ import { IssueInf } from '../../shared/models/issueInf';
 import { Issues } from '../../shared/models/issues';
 import { WorklogJiraService } from '../../services/worklogJira.service';
 import { UsuarioService } from '../../services/usuario.service';
+import { Tabela } from '../../shared/models/tabela';
 
 @Component({
   selector: 'app-ponto',
@@ -109,6 +110,7 @@ export class PontoComponent implements OnInit {
   rota: any;
   tipo: any;
   nomeUsuario: string;
+  tabela: Tabela[] = [];
 
   constructor(
     private pontoService: PontoService,
@@ -126,6 +128,20 @@ export class PontoComponent implements OnInit {
   ) {
 
     this.tipo = sessionStorage.getItem('tipo');
+    this.tabela.push({ field: 'diaSemana', header: 'Dia', width: '7%' });
+    this.tabela.push({ field: 'data', header: 'Data', width: '8%' });
+    this.tabela.push({ field: 'jornadaId', header: 'Jor.', width: '6%' });
+    this.tabela.push({ field: 'entrada1', header: 'Entrada', width: '6%' });
+    this.tabela.push({ field: 'saida1', header: 'Saída', width: '6%' });
+    this.tabela.push({ field: 'entrada2', header: 'Entrada', width: '6%' });
+    this.tabela.push({ field: 'saida2', header: 'Saída', width: '6%' });
+    this.tabela.push({ field: 'entrada3', header: 'Entrada', width: '6%' });
+    this.tabela.push({ field: 'saida3', header: 'Saída', width: '6%' });
+    this.tabela.push({ field: 'entrada4', header: 'Entrada', width: '6%' });
+    this.tabela.push({ field: 'saida4', header: 'Saída', width: '6%' });
+    this.tabela.push({ field: 'observacao', header: 'Observação', width: '20%' });
+    this.tabela.push({ field: 'justificativaId', header: 'Just.', width: '' });
+    this.tabela.push({ field: 'legenda', header: 'Leg.', width: '6%' });
     this.cols = [
       { field: 'diaSemana', header: 'Dia', width: '7%' },
       { field: 'data', header: 'Data', width: '8%' },
@@ -213,13 +229,7 @@ export class PontoComponent implements OnInit {
     this.selectedIssues = [];
   }
 
-  gerarDeclaracaoExt(id: any, ano: string, mes: string, tipo: string = 'ext') {
-    this.router.navigate(['usuario/ponto/declaracao'], { queryParams: { id, ano, mes, tipo } });
-  }
-  gerarDeclaracaoComp(id: any, ano: string, mes: string, tipo: string = 'comp') {
-    this.router.navigate(['usuario/ponto/declaracao'], { queryParams: { id, ano, mes, tipo } });
-  }
-  gerarDeclaracaoJust(id: any, ano: string, mes: string, tipo: string = 'just') {
+  gerarDeclaracao(id: any, ano: string, mes: string, tipo: string ) {
     this.router.navigate(['usuario/ponto/declaracao'], { queryParams: { id, ano, mes, tipo } });
   }
 

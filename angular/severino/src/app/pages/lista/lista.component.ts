@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from '../../services/usuario.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/components/common/messageservice';
+import { Acesso } from '../../shared/models/acesso';
 
 @Component({
   selector: 'app-lista',
@@ -17,6 +18,7 @@ export class ListaComponent implements OnInit {
   tituloGrow;
   tipoGrow;
   tipo: any;
+  acesso: Acesso[] = [];
 
   constructor(
     private usuarioService: UsuarioService,
@@ -40,7 +42,7 @@ export class ListaComponent implements OnInit {
       this.usuarios = res;
       this.cols = [
         { field: 'nome', header: 'Nome' },
-        { field: 'acesso.email', header: 'E-mail' }
+        { field: 'email', header: 'E-mail' }
       ];
     }, error => {
       this.tipoGrow = "error";
