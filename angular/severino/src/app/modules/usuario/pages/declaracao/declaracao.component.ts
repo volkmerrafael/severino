@@ -74,7 +74,6 @@ export class DeclaracaoComponent implements OnInit {
     this.usuario.id = parseInt(sessionStorage.getItem('id'), 10);
     this.params = this.route.queryParams;
     this.dadosRota = this.params.value;
-    console.log(this.dadosRota);
     this.justificativasPorStatus();
   }
 
@@ -95,15 +94,25 @@ export class DeclaracaoComponent implements OnInit {
               }
             });
             if (ponto.status === 'CREDITO') {
+              if (this.validaJust.descricao) {
               this.validaJust.descricao = this.formatarDataPipe.transform(ponto.data) + " - Tempo: "
               + this.formatarMinutosPipe.transform(ponto.minutos_credito) + "<br>" + this.validaJust.descricao + "<br>"
                + this.issue;
+              } else {
+                this.validaJust.descricao = this.formatarDataPipe.transform(ponto.data) + " - Tempo: "
+              + this.formatarMinutosPipe.transform(ponto.minutos_credito) + "<br>" + this.issue;
+              }
               this.justificativasCredito.push(this.validaJust);
             }
             if (ponto.status === 'DEBITO') {
+              if (this.validaJust.descricao) {
               this.validaJust.descricao = this.formatarDataPipe.transform(ponto.data) + " - Tempo: "
               + this.formatarMinutosPipe.transform(ponto.minutos_debito) + "<br>" + " - " + this.validaJust.descricao + "<br>"
               + this.issue;
+              } else {
+                this.validaJust.descricao = this.formatarDataPipe.transform(ponto.data) + " - Tempo: "
+              + this.formatarMinutosPipe.transform(ponto.minutos_debito) + "<br>" + this.issue;
+              }
               this.justificativasDebito.push(this.validaJust);
             }
             if (ponto.status === 'MARCACAO_INCORRETA') {
@@ -141,7 +150,7 @@ export class DeclaracaoComponent implements OnInit {
         if (this.dadosRota.tipo === 'ext') {
           this.justificativasCredito.forEach(dado => {
             this.justificativaTxt = "<ul><li>" + dado.descricao + "</li></ul>" + "<br>";
-            this.txtEditor = this.txtEditor + this.justificativaTxt + "<br>";
+            this.txtEditor = this.txtEditor + this.justificativaTxt;
             this.form.controls.editor.setValue(this.cabecalho1 + this.txtEditor + this.rodape);
           });
         } else if (this.dadosRota.tipo === 'comp') {
