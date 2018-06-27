@@ -72,7 +72,6 @@ export class FeedbackComponent implements OnInit {
         this.feedbacksPorUsuario.forEach( item => {
           item.data_hora = moment(item.data_hora).format('DD/MM/YYYY');
         });
-        console.log(res);
       });
     }
   }

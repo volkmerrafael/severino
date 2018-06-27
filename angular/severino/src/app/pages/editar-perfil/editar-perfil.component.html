@@ -51,7 +51,7 @@
         <div *ngIf="id === 0 || admin">
           <label>Data de admissão:</label>
           <br>
-          <p-calendar [(ngModel)]="usuario.data_admissao" formControlName="inputDataAdmissao" dateFormat="dd/mm/yy" [locale]="pt" [showIcon]="true"></p-calendar>
+          <p-calendar [(ngModel)]="dataAdmissao" formControlName="inputDataAdmissao" dateFormat="dd/mm/yy" [showIcon]="true"></p-calendar>
           <div style="padding-left: 40px" class="ui-message ui-messages-error ui-corner-all" *ngIf="!perfilForm.controls['inputDataAdmissao'].valid && perfilForm.controls['inputDataAdmissao'].dirty">
             <i class="fa fa-close"></i>
             Data é obrigatório
@@ -148,7 +148,7 @@
       <div id="bt">
         <button pButton type="button" icon="fa fa-fw fa-reply" label="Voltar" class="ui-button-secondary" (click)="voltar()"></button>
         <button pButton type="button" icon="fa fa-fw fa-ban" label="Cancelar" class="ui-button-danger" (click)="buscaPerfil()"></button>
-        <button pButton type="button" icon="fa fa-fw fa-chevron-down" label="Salvar" [disabled]="!perfilForm.valid" class="ui-button-success" (click)="clickEditar()"></button>
+        <button pButton type="button" icon="fa fa-fw fa-chevron-down" label="Salvar" class="ui-button-success" (click)="clickEditar()"></button>
       </div>
     </div>
   </p-panel>

@@ -36,8 +36,8 @@
     <div>
       <div id="bt">
         <button pButton type="button" icon="fa fa-fw fa-reply" label="Voltar" class="ui-button-secondary" (click)="voltar()"></button>
-        <button pButton *ngIf="tipo !== 'COORDENADOR'" type="button" icon="fa fa-fw fa-edit" label="Editar Perfil" class="ui-button-primary" (click)="editarUsuario(usuario.id)"></button>
-        <button pButton *ngIf="tipo === 'COORDENADOR'" type="button" icon="fa fa-file" label="Ponto" class="ui-button-primary" (click)="pontoUsuario(usuario.id)"></button>
+        <button pButton *ngIf="tipo !== 'COORDENADOR' || tipo === 'COORDENADOR' && id === idUsuario" type="button" icon="fa fa-fw fa-edit" label="Editar Perfil" class="ui-button-primary" (click)="editarUsuario(usuario.id)"></button>
+        <button pButton *ngIf="tipo === 'COORDENADOR' && id !== idUsuario" type="button" icon="fa fa-file" label="Ponto" class="ui-button-primary" (click)="pontoUsuario(usuario.id)"></button>
     </div>
   </div>
 </p-panel>

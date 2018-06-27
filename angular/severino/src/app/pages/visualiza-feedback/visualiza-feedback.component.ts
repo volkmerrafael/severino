@@ -44,7 +44,6 @@ export class VisualizaFeedbackComponent implements OnInit {
       if (res.status === undefined) {
         this.feedback.status = ' ';
       }
-      console.log(res.tipo);
     });
   }
 

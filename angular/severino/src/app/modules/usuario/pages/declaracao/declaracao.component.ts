@@ -45,6 +45,8 @@ export class DeclaracaoComponent implements OnInit {
   listaIssues: string[] = [];
   horarioAlterado: string;
   myDate: Date = new Date();
+  titulo: string;
+  descricao: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -55,22 +57,19 @@ export class DeclaracaoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.cabecalho1 = "<p style='text-align:center'><strong>DECLARAÇÃO DE HORAS EXTRAS</strong></p><br><p style='text-align:center'>Eu "
-      + sessionStorage.getItem('nomeUsuario') + " portador(a) do número PIS: " + sessionStorage.getItem('pisUsuario')
-      + " nos termos do banco de horas vigente, declaro que realizei atividades pertinentes ao meu cargo nos dias e horarios a seguir: "
-      + "<br><br>";
-    this.cabecalho2 = "<p style='text-align:center'><strong>DECLARAÇÃO DE COMPENSAÇÃO HORAS</strong></p><br><p style='text-align:center'>"
-      + "Eu " + sessionStorage.getItem('nomeUsuario') + " portador(a) do número PIS: " + sessionStorage.getItem('pisUsuario')
-      + " nos termos do banco de horas vigente, declaro que realizei compensação de horas nos dias e horarios a seguir: "
-      + "<br><br>";
-    this.cabecalho3 = "<p style='text-align:center'><strong>DECLARAÇÃO DE JUSTIFICATIVA PONTO</strong></p><br><p style='text-align:center'>"
-      + "Eu " + sessionStorage.getItem('nomeUsuario') + " portador(a) do número PIS: " + sessionStorage.getItem('pisUsuario')
-      + " solicito que seja feito o ajuste do ponto, pois não registrei pelos motivos de: <br><br>";
-    this.rodape = "<p style='text-align:center'><strong>________________________________________________</strong></p>"
+    this.cabecalho1 = "Eu <strong>" + sessionStorage.getItem('nomeUsuario') + "</strong> portador(a) do número PIS: <strong>"
+    + sessionStorage.getItem('pisUsuario') + "</strong> nos termos do banco de horas vigente, declaro que realizei atividades"
+    + " pertinentes ao meu cargo nos dias e horários a seguir: <br><br>";
+    this.cabecalho2 = "Eu <strong>" + sessionStorage.getItem('nomeUsuario') + "</strong> portador(a) do número PIS: <strong>"
+    + sessionStorage.getItem('pisUsuario') + "</strong> nos termos do banco de horas vigente, declaro que realizei compensação"
+    + " de horas nos dias e horários a seguir: <br><br>";
+    this.cabecalho3 = "Eu <strong>" + sessionStorage.getItem('nomeUsuario') + "</strong> portador(a) do número PIS: <strong>"
+      + sessionStorage.getItem('pisUsuario') + "</strong> solicito que seja feito o ajuste do ponto nos dias e horários a seguir: <br><br>";
+    this.rodape = "<br><br><p style='text-align:center'><strong>__________________________________________________</strong></p>"
       + "<p style='text-align:center'><strong>Assinatura do responsável pela empresa ou departamento do funcionário</strong></p><br><br>"
-      + "<p style='text-align:center'><strong>_________________________________________________</strong></p>"
+      + "<p style='text-align:center'><strong>__________________________________________________</strong></p>"
       + "<p style='text-align:center'><strong>Assinatura do funcionário</strong></p><br>"
-      + "<p style='text-align:center'><strong>Entregue dia: " + this.myDate.toLocaleDateString() + "</strong></p>";
+      + "<p style='text-align:center'><strong>Impresso dia: " + this.myDate.toLocaleDateString() + "</strong></p>";
     this.usuario.id = parseInt(sessionStorage.getItem('id'), 10);
     this.params = this.route.queryParams;
     this.dadosRota = this.params.value;
@@ -82,8 +81,10 @@ export class DeclaracaoComponent implements OnInit {
       .subscribe(res => {
         this.validaJust = new Justificativa();
         res.forEach(ponto => {
+          this.descricao = '';
           if (ponto.justificativa) {
             this.validaJust = ponto.justificativa;
+          }
             if (ponto.issues) {
               this.worklogs = ponto.issues;
             }
@@ -95,73 +96,46 @@ export class DeclaracaoComponent implements OnInit {
             });
             if (ponto.status === 'CREDITO') {
               if (this.validaJust.descricao) {
-              this.validaJust.descricao = this.formatarDataPipe.transform(ponto.data) + " - Tempo: "
-              + this.formatarMinutosPipe.transform(ponto.minutos_credito) + "<br>" + this.validaJust.descricao + "<br>"
-               + this.issue;
+                this.validaJust.descricao = "<br>" + "-- " + this.validaJust.descricao;
               } else {
-                this.validaJust.descricao = this.formatarDataPipe.transform(ponto.data) + " - Tempo: "
-              + this.formatarMinutosPipe.transform(ponto.minutos_credito) + "<br>" + this.issue;
+                this.validaJust.descricao = '';
               }
+              this.validaJust.descricao = this.formatarDataPipe.transform(ponto.data) + " - "
+              + this.formatarMinutosPipe.transform(ponto.minutos_credito) + this.issue + this.validaJust.descricao + "<br>";
               this.justificativasCredito.push(this.validaJust);
             }
             if (ponto.status === 'DEBITO') {
               if (this.validaJust.descricao) {
-              this.validaJust.descricao = this.formatarDataPipe.transform(ponto.data) + " - Tempo: "
-              + this.formatarMinutosPipe.transform(ponto.minutos_debito) + "<br>" + " - " + this.validaJust.descricao + "<br>"
-              + this.issue;
-              } else {
-                this.validaJust.descricao = this.formatarDataPipe.transform(ponto.data) + " - Tempo: "
-              + this.formatarMinutosPipe.transform(ponto.minutos_debito) + "<br>" + this.issue;
+                this.descricao = "<br>" + "-- " + this.validaJust.descricao;
               }
+              this.validaJust.descricao = this.formatarDataPipe.transform(ponto.data) + " - "
+              + this.formatarMinutosPipe.transform(ponto.minutos_debito) + this.issue + this.descricao + "<br>";
               this.justificativasDebito.push(this.validaJust);
             }
             if (ponto.status === 'MARCACAO_INCORRETA') {
-              this.horarioAlterado = "";
-              if (ponto.entrada1.indexOf("*") !== -1) {
-                this.horarioAlterado = " - " + ponto.entrada1 + this.horarioAlterado;
-              }
-              if (ponto.entrada2.indexOf("*") !== -1) {
-                this.horarioAlterado = " - " + ponto.entrada2 + this.horarioAlterado;
-              }
-              if (ponto.entrada3.indexOf("*") !== -1) {
-                this.horarioAlterado = " - " + ponto.entrada3 + this.horarioAlterado;
-              }
-              if (ponto.entrada4.indexOf("*") !== -1) {
-                this.horarioAlterado = " - " + ponto.entrada4 + this.horarioAlterado;
-              }
-              if (ponto.saida1.indexOf("*") !== -1) {
-                this.horarioAlterado = " - " + ponto.saida1 + this.horarioAlterado;
-              }
-              if (ponto.saida2.indexOf("*") !== -1) {
-                this.horarioAlterado = " - " + ponto.saida2 + this.horarioAlterado;
-              }
-              if (ponto.saida3.indexOf("*") !== -1) {
-                this.horarioAlterado = " - " + ponto.saida3 + this.horarioAlterado;
-              }
-              if (ponto.saida4.indexOf("*") !== -1) {
-                this.horarioAlterado = " - " + ponto.saida4 + this.horarioAlterado;
-              }
-              this.validaJust.descricao = this.formatarDataPipe.transform(ponto.data) + this.horarioAlterado;
+              this.validaJust.descricao = this.formatarDataPipe.transform(ponto.data) + ' ' + this.validaJust.descricao;
               this.justificativasMarcInc.push(this.validaJust);
             }
-          }
         });
         this.justificativaTxt = "";
         if (this.dadosRota.tipo === 'ext') {
+          this.titulo = "<strong>DECLARAÇÃO DE HORAS EXTRAS</strong>";
           this.justificativasCredito.forEach(dado => {
-            this.justificativaTxt = "<ul><li>" + dado.descricao + "</li></ul>" + "<br>";
+            this.justificativaTxt = "<li>" + dado.descricao + "</li>";
             this.txtEditor = this.txtEditor + this.justificativaTxt;
             this.form.controls.editor.setValue(this.cabecalho1 + this.txtEditor + this.rodape);
           });
         } else if (this.dadosRota.tipo === 'comp') {
+          this.titulo = "<strong>DECLARAÇÃO DE COMPENSAÇÃO HORAS</strong>";
           this.justificativasDebito.forEach(dado => {
-            this.justificativaTxt = "<ul><li>" + dado.descricao + "</li></ul>" + "<br>";
+            this.justificativaTxt = "<li>" + dado.descricao + "</li>" + "<br>";
             this.txtEditor = this.txtEditor + this.justificativaTxt + "<br>";
             this.form.controls.editor.setValue(this.cabecalho2 + this.txtEditor + this.rodape);
           });
         } else {
           this.justificativasMarcInc.forEach(dado => {
-            this.justificativaTxt = "<ul><li>" + dado.descricao + "</li></ul>" + "<br>";
+            this.titulo = "<strong>DECLARAÇÃO DE JUSTIFICATIVA PONTO</strong>";
+            this.justificativaTxt = "<li>" + dado.descricao + "</li>" + "<br>";
             this.txtEditor = this.txtEditor + this.justificativaTxt + "<br>";
             this.form.controls.editor.setValue(this.cabecalho3 + this.txtEditor + this.rodape);
           });
@@ -175,10 +149,15 @@ export class DeclaracaoComponent implements OnInit {
 
   public dowloadPDF() {
     const doc = new jsPDF();
+    doc.fromHTML(this.titulo, 60, 10, {
+      'width': 100,
+    });
     doc.fromHTML(this.form.controls.editor.value, 15, 15, {
       'width': 190,
     });
-    doc.save('test.pdf');
+    doc.getFontList();
+    doc.setFont('arial');
+    doc.save('Declaração.pdf');
   }
 
 }

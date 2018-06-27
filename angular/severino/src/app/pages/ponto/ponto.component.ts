@@ -61,6 +61,7 @@ export class PontoComponent implements OnInit {
   existeJustificado: any = false;
   existeFaltaJust: any = false;
   existeMarcInc: any = false;
+  existeMarcAlt: any = false;
   existeSemInf: any = false;
   existeFerias: any = false;
   existeAtestado: any = false;
@@ -258,7 +259,6 @@ export class PontoComponent implements OnInit {
   consultaPontoPorPeriodo() {
     this.pontoService.listarPontoPorPeriodo(this.usuario.id, this.ano, this.mes)
       .subscribe(res => {
-        console.log(res);
         this.pontos = [];
         this.pontos = res;
         this.verificarStatus(res);
@@ -299,27 +299,51 @@ export class PontoComponent implements OnInit {
       pontos.forEach(ponto => {
         if (ponto.entrada1) {
           this.entrada1 = true;
+          if (ponto.entrada1.indexOf('*') !== -1) {
+            this.existeMarcAlt = true;
+          }
         }
         if (ponto.entrada2) {
           this.entrada2 = true;
+          if (ponto.entrada2.indexOf('*') !== -1) {
+            this.existeMarcAlt = true;
+          }
         }
         if (ponto.entrada3) {
           this.entrada3 = true;
+          if (ponto.entrada3.indexOf('*') !== -1) {
+            this.existeMarcAlt = true;
+          }
         }
         if (ponto.entrada4) {
           this.entrada4 = true;
+          if (ponto.entrada4.indexOf('*') !== -1) {
+            this.existeMarcAlt = true;
+          }
         }
         if (ponto.saida1) {
           this.saida1 = true;
+          if (ponto.saida1.indexOf('*') !== -1) {
+            this.existeMarcAlt = true;
+          }
         }
         if (ponto.saida2) {
           this.saida2 = true;
+          if (ponto.saida2.indexOf('*') !== -1) {
+            this.existeMarcAlt = true;
+          }
         }
         if (ponto.saida3) {
           this.saida3 = true;
+          if (ponto.saida3.indexOf('*') !== -1) {
+            this.existeMarcAlt = true;
+          }
         }
         if (ponto.saida4) {
           this.saida4 = true;
+          if (ponto.saida4.indexOf('*') !== -1) {
+            this.existeMarcAlt = true;
+          }
         }
       });
   }
@@ -473,6 +497,7 @@ export class PontoComponent implements OnInit {
     this.existeJustificado = false;
     this.existeFaltaJust = false;
     this.existeMarcInc = false;
+    this.existeMarcAlt = false;
     this.existeSemInf = false;
     this.existeFerias = false;
     this.existeAtestado = false;
@@ -497,24 +522,6 @@ export class PontoComponent implements OnInit {
         case 'FERIADO': this.existeFeriado = true; break;
         case 'CERTIDAO_DE_OBITO': this.existeObito = true; break;
         case 'COMPENSACAO': this.existeCompensacao = true; break;
-      }
-
-      if (ponto.entrada1.indexOf("*") !== -1) {
-        this.existeMarcInc = true;
-      } else if (ponto.entrada2.indexOf("*") !== -1) {
-        this.existeMarcInc = true;
-      } else if (ponto.entrada3.indexOf("*") !== -1) {
-        this.existeMarcInc = true;
-      } else if (ponto.entrada4.indexOf("*") !== -1) {
-        this.existeMarcInc = true;
-      } else if (ponto.saida1.indexOf("*") !== -1) {
-        this.existeMarcInc = true;
-      } else if (ponto.saida2.indexOf("*") !== -1) {
-        this.existeMarcInc = true;
-      } else if (ponto.saida3.indexOf("*") !== -1) {
-        this.existeMarcInc = true;
-      } else if (ponto.saida4.indexOf("*") !== -1) {
-        this.existeMarcInc = true;
       }
     });
   }

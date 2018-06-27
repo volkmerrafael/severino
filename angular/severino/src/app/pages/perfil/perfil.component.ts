@@ -23,6 +23,7 @@ export class PerfilComponent implements OnInit {
   listaId: any;
   idAny: any;
   id: number;
+  idUsuario: number;
   senha: string;
   tipo: string;
   mensagemGrow;
@@ -37,6 +38,7 @@ export class PerfilComponent implements OnInit {
     private messageService: MessageService,
   ) {
     this.tipo = sessionStorage.getItem('tipo');
+    this.idUsuario = parseInt(sessionStorage.getItem('id'), 10);
   }
 
   ngOnInit() {

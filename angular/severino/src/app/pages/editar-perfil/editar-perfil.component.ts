@@ -64,12 +64,12 @@ export class EditarPerfilComponent implements OnInit {
       dayNames: ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabado"],
       dayNamesShort: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"],
       dayNamesMin: ["Do", "Se", "Te", "Qa", "Qu", "Se", "Sa"],
-      monthNames: [ "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro",
-      "Novembro", "Dezembro" ],
-      monthNamesShort: [ "Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez" ],
+      monthNames: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro",
+        "Novembro", "Dezembro"],
+      monthNamesShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
       today: 'Hoje',
       clear: 'Clear'
-  };
+    };
     this.listaEmpresas();
     this.listaFuncoes();
     this.listaDepartamentos();
@@ -78,7 +78,7 @@ export class EditarPerfilComponent implements OnInit {
     this.idAny = this.listaId.value;
     this.id = parseInt((this.idAny.id), 10);
     if (this.id !== 0) {
-    this.buscaPerfil();
+      this.buscaPerfil();
     }
     this.perfilForm = this.fb.group({
       'inputNome': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
@@ -101,12 +101,20 @@ export class EditarPerfilComponent implements OnInit {
     this.usuarioService.usuario(this.id)
       .subscribe(res => {
         this.usuario = res;
-        this.usuario.data_admissao = moment(this.usuario.data_admissao).format("DD/MM/YYYY");
         this.acesso = this.usuario.acesso;
-        this.empresa = this.usuario.empresa;
-        this.departamento = this.usuario.departamento;
-        this.funcao = this.usuario.funcao;
         this.senha = "";
+        if (this.admin) {
+          this.dataAdmissao = moment(this.usuario.data_admissao).format("DD/MM/YYYY");
+          if (this.usuario.empresa) {
+            this.empresa = this.usuario.empresa;
+          }
+          if (this.usuario.departamento) {
+            this.departamento = this.usuario.departamento;
+          }
+          if (this.usuario.funcao) {
+            this.funcao = this.usuario.funcao;
+          }
+        }
       }, error => {
         this.tipoGrow = "error";
         this.tituloGrow = 'Ops';
@@ -117,75 +125,67 @@ export class EditarPerfilComponent implements OnInit {
 
   onSubmit(value: string) {
     this.submitted = true;
-}
+  }
 
   clickEditar() {
     this.acesso.senha = this.senha;
     this.usuario.acesso = this.acesso;
-    this.dataAdmissao = moment(this.usuario.data_admissao).format();
-    this.usuario.data_admissao = moment(this.dataAdmissao).format('YYYY-MM-DD');
-    if (this.id !== 0) {
-    this.usuarioService.editar(this.usuario)
-      .subscribe(res => {
-        if (this.admin === false) {
-          sessionStorage.setItem('id', '' + res.id);
-          sessionStorage.setItem('nomeUsuario', res.nome);
-          sessionStorage.setItem('emailUsuario', res.email);
-          this.acesso = res.acesso;
-          sessionStorage.setItem('usertoken', this.acesso.token);
-          sessionStorage.setItem('nomeacesso', this.acesso.nomeacesso);
-        }
-        this.tipoGrow = "success";
-        this.tituloGrow = 'Sucesso';
-        this.mensagemGrow = "Perfil atualizado";
-        this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
-      }, error => {
-        this.tipoGrow = "error";
-        this.tituloGrow = 'Ops';
-        this.mensagemGrow = error.error;
-        this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
-      });
-    } else {
-      this.usuario.id = undefined;
-      this.empresas.forEach( res => {
-        if (res.razao_social === this.empresa.razao_social ) {
+    if (this.admin === true) {
+      this.usuario.data_admissao = moment(this.dataAdmissao).format('YYYY-MM-DD');
+      this.empresas.forEach(res => {
+        if (res.razao_social === this.empresa.razao_social) {
           this.empresa.id = res.id;
+          this.empresa.razao_social = res.razao_social;
         }
       });
       this.usuario.empresa = this.empresa;
-      this.departamentos.forEach( res => {
+      this.departamentos.forEach(res => {
         if (res.nome === this.departamento.nome) {
           this.departamento.id = res.id;
+          this.departamento.nome = res.nome;
         }
       });
       this.usuario.departamento = this.departamento;
-      this.funcoes.forEach( res => {
+      this.funcoes.forEach(res => {
         if (res.nome === this.funcao.nome) {
           this.funcao.id = res.id;
+          this.funcao.nome = res.nome;
         }
       });
       this.usuario.funcao = this.funcao;
-      if (this.acesso.tipo === 'Administrador') {
-        this.acesso.tipo = 'ADMIN';
-      } else if (this.acesso.tipo === 'Coordenador') {
-        this.acesso.tipo = 'COORDENADOR';
-      } else if (this.acesso.tipo === 'Colaborador') {
-        this.acesso.tipo = 'NORMAL';
-      } else if (this.acesso.tipo === 'Importador') {
-        this.acesso.tipo = 'IMPORTADOR ';
+      switch (this.acesso.tipo) {
+        case 'Administrador': this.acesso.tipo = 'ADMIN'; break;
+        case 'Coordenador': this.acesso.tipo = 'COORDENADOR'; break;
+        case 'Colaborador': this.acesso.tipo = 'NORMAL'; break;
+        case 'Importador': this.acesso.tipo = 'IMPORTADOR'; break;
       }
-       this.usuarioService.cadastro(this.usuario)
-      .subscribe( res => {
-        this.tipoGrow = "success";
-        this.tituloGrow = 'Sucesso';
-        this.mensagemGrow = "Perfil cadastrado";
-        this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
-      }, error => {
-        this.tipoGrow = "error";
-        this.tituloGrow = 'Ops';
-        this.mensagemGrow = error.error;
-        this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
-      });
+    }
+    if (this.id !== 0) {
+      this.usuarioService.editar(this.usuario)
+        .subscribe(res => {
+          if (this.admin === false) {
+            sessionStorage.setItem('id', '' + res.id);
+            sessionStorage.setItem('nomeUsuario', res.nome);
+            sessionStorage.setItem('emailUsuario', res.email);
+            this.acesso = res.acesso;
+            sessionStorage.setItem('usertoken', this.acesso.token);
+            sessionStorage.setItem('nomeacesso', this.acesso.nomeacesso);
+          }
+          this.tipoGrow = "success";
+          this.tituloGrow = 'Sucesso';
+          this.mensagemGrow = "Perfil atualizado";
+          this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
+        }, error => {
+          this.tipoGrow = "error";
+          this.tituloGrow = 'Ops';
+          this.mensagemGrow = error.error;
+          this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
+        });
+    } else {
+      this.usuario.id = undefined;
+      this.usuarioService.cadastro(this.usuario)
+        .subscribe(res => {
+        });
     }
   }
 
@@ -199,62 +199,62 @@ export class EditarPerfilComponent implements OnInit {
 
   listaEmpresas() {
     this.usuarioService.empresas()
-    .subscribe( res => {
+      .subscribe(res => {
         this.empresas = res;
-    });
+      });
   }
 
   listaDepartamentos() {
     this.usuarioService.departamentos()
-    .subscribe( res => {
+      .subscribe(res => {
         this.departamentos = res;
-    });
+      });
   }
 
   listaFuncoes() {
     this.usuarioService.funcoes()
-    .subscribe( res => {
+      .subscribe(res => {
         this.funcoes = res;
-    });
+      });
   }
 
   search(event) {
     this.filteredDepartamentos = [];
-    this.departamentos.forEach( res => {
-        const brand = res.nome;
-        if (brand.toLowerCase().indexOf(event.query.toLowerCase()) === 0) {
-            this.filteredDepartamentos.push(brand);
-        }
+    this.departamentos.forEach(res => {
+      const brand = res.nome;
+      if (brand.toLowerCase().indexOf(event.query.toLowerCase()) === 0) {
+        this.filteredDepartamentos.push(brand);
+      }
     });
   }
 
   searchFuncao(event) {
     this.filteredFuncoes = [];
-    this.funcoes.forEach( res => {
-        const brand = res.nome;
-        if (brand.toLowerCase().indexOf(event.query.toLowerCase()) === 0) {
-            this.filteredFuncoes.push(brand);
-        }
+    this.funcoes.forEach(res => {
+      const brand = res.nome;
+      if (brand.toLowerCase().indexOf(event.query.toLowerCase()) === 0) {
+        this.filteredFuncoes.push(brand);
+      }
     });
   }
 
   searchTipo(event) {
     this.filteredTipos = [];
-    this.tipos.forEach( res => {
-        const brand = res;
-        if (brand.toLowerCase().indexOf(event.query.toLowerCase()) === 0) {
-            this.filteredTipos.push(brand);
-        }
+    this.tipos.forEach(res => {
+      const brand = res;
+      if (brand.toLowerCase().indexOf(event.query.toLowerCase()) === 0) {
+        this.filteredTipos.push(brand);
+      }
     });
   }
 
   searchEmpresa(event) {
     this.filteredEmpresas = [];
-    this.empresas.forEach( res => {
-        const brand = res.razao_social;
-        if (brand.toLowerCase().indexOf(event.query.toLowerCase()) === 0) {
-            this.filteredEmpresas.push(brand);
-        }
+    this.empresas.forEach(res => {
+      const brand = res.razao_social;
+      if (brand.toLowerCase().indexOf(event.query.toLowerCase()) === 0) {
+        this.filteredEmpresas.push(brand);
+      }
     });
   }
 

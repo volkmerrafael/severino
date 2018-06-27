@@ -60,14 +60,17 @@
           </svg>
           Falta Justificada
         </span>
-        <span *ngIf="existeMarcInc">
-          * Marcação Incorreta
-        </span>
         <span *ngIf="existeFerias">
           <svg height="15" width="15">
             <circle cx="15" cy="15" r="40" fill="rgb(39, 163, 194)" />
           </svg>
           Férias
+        </span>
+        <span *ngIf="existeMarcInc">
+          <svg height="15" width="15">
+            <circle cx="15" cy="15" r="40" fill="rgb(197, 108, 56)" />
+          </svg>
+          Marcação Incorreta
         </span>
         <span *ngIf="existeAtestado">
           <svg height="15" width="15">
@@ -104,6 +107,9 @@
             <circle cx="15" cy="15" r="40" fill="rgb(124, 59, 84)" />
           </svg>
           Compensação de horas
+        </span>
+        <span *ngIf="existeMarcAlt">
+          * Marcação Alterada
         </span>
       </div>
 
