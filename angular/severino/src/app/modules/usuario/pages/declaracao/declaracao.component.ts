@@ -96,13 +96,15 @@ export class DeclaracaoComponent implements OnInit {
             });
             if (ponto.status === 'CREDITO') {
               if (this.validaJust.descricao) {
-                this.validaJust.descricao = "<br>" + "-- " + this.validaJust.descricao;
-              } else {
-                this.validaJust.descricao = '';
-              }
-              this.validaJust.descricao = this.formatarDataPipe.transform(ponto.data) + " - "
-              + this.formatarMinutosPipe.transform(ponto.minutos_credito) + this.issue + this.validaJust.descricao + "<br>";
+                this.validaJust.descricao = this.formatarDataPipe.transform(ponto.data) + " - "
+              + this.formatarMinutosPipe.transform(ponto.minutos_credito) + this.issue + "<br>" + "-- " + this.validaJust.descricao
+              + "<br>";
               this.justificativasCredito.push(this.validaJust);
+              } else if (this.issue) {
+                this.validaJust.descricao = this.formatarDataPipe.transform(ponto.data) + " - "
+              + this.formatarMinutosPipe.transform(ponto.minutos_credito) + this.issue + "<br>";
+              this.justificativasCredito.push(this.validaJust);
+              }
             }
             if (ponto.status === 'DEBITO') {
               if (this.validaJust.descricao) {
@@ -149,14 +151,15 @@ export class DeclaracaoComponent implements OnInit {
 
   public dowloadPDF() {
     const doc = new jsPDF();
+    doc.addFont('ArialMS', 'Arial', 'normal');
+    doc.setFont('Arial');
+    doc.getFontList();
     doc.fromHTML(this.titulo, 60, 10, {
       'width': 100,
     });
     doc.fromHTML(this.form.controls.editor.value, 15, 15, {
       'width': 190,
     });
-    doc.getFontList();
-    doc.setFont('arial');
     doc.save('Declaração.pdf');
   }
 

@@ -48,6 +48,7 @@ export class EditarPerfilComponent implements OnInit {
   pt: any;
   dataAdmissao: any;
   submitted: boolean;
+  dataFormatada: any;
 
   constructor(
     private location: Location,
@@ -104,7 +105,8 @@ export class EditarPerfilComponent implements OnInit {
         this.acesso = this.usuario.acesso;
         this.senha = "";
         if (this.admin) {
-          this.dataAdmissao = moment(this.usuario.data_admissao).format("DD/MM/YYYY");
+          this.dataAdmissao = moment(this.usuario.data_admissao).format('DD/MM/YYYY');
+          this.dataFormatada = moment(this.usuario.data_admissao).format('DD/MM/YYYY');
           if (this.usuario.empresa) {
             this.empresa = this.usuario.empresa;
           }
@@ -131,7 +133,9 @@ export class EditarPerfilComponent implements OnInit {
     this.acesso.senha = this.senha;
     this.usuario.acesso = this.acesso;
     if (this.admin === true) {
+      if (this.dataAdmissao !== this.dataFormatada) {
       this.usuario.data_admissao = moment(this.dataAdmissao).format('YYYY-MM-DD');
+      }
       this.empresas.forEach(res => {
         if (res.razao_social === this.empresa.razao_social) {
           this.empresa.id = res.id;
@@ -175,6 +179,7 @@ export class EditarPerfilComponent implements OnInit {
           this.tituloGrow = 'Sucesso';
           this.mensagemGrow = "Perfil atualizado";
           this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
+          this.voltar();
         }, error => {
           this.tipoGrow = "error";
           this.tituloGrow = 'Ops';
@@ -185,6 +190,12 @@ export class EditarPerfilComponent implements OnInit {
       this.usuario.id = undefined;
       this.usuarioService.cadastro(this.usuario)
         .subscribe(res => {
+          this.voltar();
+        }, error => {
+          this.tipoGrow = "error";
+          this.tituloGrow = 'Ops';
+          this.mensagemGrow = error.error;
+          this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
         });
     }
   }

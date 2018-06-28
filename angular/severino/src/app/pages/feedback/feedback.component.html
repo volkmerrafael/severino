@@ -25,7 +25,7 @@
       </div>
     </p-panel>
 
-    <p-panel>
+    <p-panel *ngIf="tipoUsuario !== 'ADMIN'">
         <p-header style="font-size: 20px">Feedbacks:</p-header>
         <div *ngFor="let feed of feedbacksPorUsuario">
                 <br>

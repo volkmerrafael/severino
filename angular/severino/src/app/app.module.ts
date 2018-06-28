@@ -45,6 +45,8 @@ import {OrderListModule} from 'primeng/orderlist';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import {CalendarModule} from 'primeng/calendar';
 import { VisualizaFeedbackComponent } from './pages/visualiza-feedback/visualiza-feedback.component';
+import {PanelMenuModule} from 'primeng/panelmenu';
+import {AccordionModule} from 'primeng/accordion';
 
 
 export const HttpInterceptorProviders = [
@@ -88,7 +90,9 @@ export const HttpInterceptorProviders = [
     SplitButtonModule,
     OrderListModule,
     AutoCompleteModule,
-    CalendarModule
+    CalendarModule,
+    PanelMenuModule,
+    AccordionModule
   ],
   providers: [
     HttpInterceptorProviders,

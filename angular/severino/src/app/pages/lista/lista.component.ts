@@ -13,7 +13,6 @@ export class ListaComponent implements OnInit {
 
   usuarios: any;
   cols: any[];
-  idUsuario: string;
   mensagemGrow;
   tituloGrow;
   tipoGrow;
@@ -42,7 +41,7 @@ export class ListaComponent implements OnInit {
       this.usuarios = res;
       this.cols = [
         { field: 'nome', header: 'Nome' },
-        { field: 'email', header: 'E-mail' }
+        { field: 'email', header: 'E-mail' },
       ];
     }, error => {
       this.tipoGrow = "error";

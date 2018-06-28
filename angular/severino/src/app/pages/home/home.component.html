@@ -1,18 +1,19 @@
 <div class="toolbar">
     <div *ngIf='mostraLinks' class="ui-toolbar-group-right">
-        <button id="bt" pButton label="Feedback" icon='fa fa-fw fa-edit' (click)="onClickNavigator('feedback')"></button>
         <button id="bt" pButton label="{{usuario.nome}}" icon="fa fa-angle-down" (click)="menu.toggle($event)"></button>
     </div>
-        <div class="ui-toolbar-group-left">
-            <img class="img" src="assets/icon-jira-logo.png" (click)="onClickNavigator('jira')"/>
-            <button id="bt" *ngIf="tipo === 'ADMIN' || tipo === 'COORDENADOR'" pButton label="Colaboradores" icon="fa fa-users" (click)="onClickNavigator('lista')"></button>
-            <button id="bt" *ngIf="tipo === 'ADMIN'" pButton label="Importações" icon="fa fa-upload" (click)="onClickNavigator('admin')"></button>
-            <button id="bt" *ngIf="tipo === 'ADMIN'" pButton label="Configurações" icon="fa fa-cogs" (click)="onClickNavigator('admin/configuracao')"></button>
-            <button id="bt" *ngIf="tipo !== 'ADMIN' && tipo !== 'COORDENADOR' && mostraLinks" pButton label="Ponto" icon="fa fa-file" (click)="onClickNavigator('ponto')"></button>
-        </div>
+    <div class="ui-toolbar-group-left">
+        <img class="img" src="assets/icon-jira-logo.png" (click)="onClickNavigator('jira')" />
+    </div>
+</div>
+<p-tieredMenu #menu [model]="items" [popup]="true" class="popup"></p-tieredMenu>
+
+<div *ngIf='mostraLinks' class="menuLateral">
+    <p-card class="panel" [style]="{height: '100%'}">
+        <p-panelMenu [model]="menuLateral" [multiple]="false"></p-panelMenu>
+    </p-card>
 </div>
 
-<p-tieredMenu #menu [model]="items" [popup]="true" class="popup"></p-tieredMenu>
 <div class="router">
     <router-outlet></router-outlet>
 </div>

@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
   routerEventsSubscription: Subscription;
   mostraLinks: any = false;
   items: MenuItem[];
+  menuLateral: MenuItem[];
   admin: any = false;
   logado: any = false;
   idUsuarioLogado: any;
@@ -27,11 +28,13 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
   ) {
     this.routerEventsSubscription = this.router.events.subscribe((event: Event) => this.verificarEventosDeRota(event));
   }
 
   ngOnInit() {
+    this.tipo = sessionStorage.getItem('tipo');
     this.items = [
       {
         label: 'Perfil', icon: 'fa-user-circle', command: (event) => {
@@ -55,6 +58,7 @@ export class HomeComponent implements OnInit {
     this.usuario.nome = sessionStorage.getItem('nomeUsuario');
     this.token = sessionStorage.getItem("usertoken");
     this.tipo = sessionStorage.getItem('tipo');
+    this.montaMenu();
     if (event instanceof NavigationEnd) {
       if (this.token !== '' && this.token !== undefined && this.token != null) {
         this.mostraLinks = true;
@@ -64,8 +68,59 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  montaMenu() {
+    this.menuLateral = [];
+    if (this.tipo === 'ADMIN' || this.tipo === 'COORDENADOR') {
+      this.menuLateral.push({
+        label: 'Colaboradores',
+        items: [{
+          label: 'Lista', icon: 'fa fa-user', command: (event) => {
+            event.originalEvent = this.onClickNavigator('lista');
+          }
+        },
+        {
+          label: 'Cadastro', icon: 'fa fa-fw fa-plus', command: (event) => {
+            event.originalEvent = this.editarUsuario(0);
+          }
+        },
+        ]
+      }
+      );
+    }
+    if (this.tipo === 'NORMAL') {
+      this.menuLateral.push({
+        label: 'Ponto', icon: 'fa fa-fw fa-file-o', command: (event) => {
+          event.originalEvent = this.onClickNavigator('ponto');
+        }
+      }
+      );
+    }
+    if (this.tipo === 'NORMAL' || this.tipo === 'ADMIN' || this.tipo === 'COORDENADOR' || this.tipo === 'IMPORTADOR') {
+      this.menuLateral.push({
+        label: 'Feedback', icon: 'fa fa-fw fa-edit', command: (event) => {
+          event.originalEvent = this.onClickNavigator('feedback');
+        }
+      }
+      );
+    }
+    if (this.tipo === 'ADMIN') {
+      this.menuLateral.push({
+        label: 'Configurações', icon: 'fa fa-cogs', command: (event) => {
+          event.originalEvent = this.onClickNavigator('admin/configuracao');
+        }
+      },
+        {
+          label: 'Importações', icon: 'fa fa-upload', command: (event) => {
+            event.originalEvent = this.onClickNavigator('admin');
+          }
+        }
+      );
+    }
+  }
+
   logout(): void {
     this.usuario = new Usuario();
+    this.menuLateral = [];
     sessionStorage.removeItem('nomeUsuario');
     sessionStorage.removeItem('usertoken');
     sessionStorage.removeItem('sessaotoken');

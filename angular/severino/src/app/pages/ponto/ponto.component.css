@@ -22,6 +22,11 @@
 
 #pesquisa {
   margin-bottom: 0;
+  display: inline-block;
+}
+ 
+#btnPesquisar {
+  display: inline-block;
 }
 
 #legenda {
