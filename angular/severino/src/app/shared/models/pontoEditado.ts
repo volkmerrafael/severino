@@ -15,7 +15,7 @@ export class PontoEditado {
     entrada4: string;
     saida4: string;
     observacao: string;
-    justificativa: Justificativa;
+    justificativa: string;
     legenda: string;
     status: string;
     issues: Issues[];

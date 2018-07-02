@@ -5,7 +5,7 @@ export class PontoInf {
 
     status: string;
     temJust: boolean;
-    justificativa: Justificativa;
+    justificativa: string;
     diaSemana: DiaSemana;
     data: string;
     minutosTrab: number;

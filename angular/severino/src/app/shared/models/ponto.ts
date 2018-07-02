@@ -22,7 +22,7 @@ export class Ponto {
   usuario: Usuario;
   legenda: Legenda;
   status: string;
-  justificativa: Justificativa;
+  justificativa: string;
   issues: Issues[];
   minutos_trabalhados: number;
   minutos_debito: number;

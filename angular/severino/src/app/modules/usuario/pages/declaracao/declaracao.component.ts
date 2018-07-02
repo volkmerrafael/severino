@@ -36,10 +36,10 @@ export class DeclaracaoComponent implements OnInit {
   cabecalho3: string;
   rodape: string;
   justificativaTxt: string;
-  validaJust: Justificativa = new Justificativa();
-  justificativasDebito: Justificativa[] = [];
-  justificativasCredito: Justificativa[] = [];
-  justificativasMarcInc: Justificativa[] = [];
+  validaJust: String;
+  justificativasDebito: String[] = [];
+  justificativasCredito: String[] = [];
+  justificativasMarcInc: String[] = [];
   worklogs: Issues[] = [];
   issue: string;
   listaIssues: string[] = [];
@@ -79,8 +79,8 @@ export class DeclaracaoComponent implements OnInit {
   justificativasPorStatus() {
     this.pontoService.listarPontoPorPeriodo(this.usuario.id, this.dadosRota.ano, this.dadosRota.mes)
       .subscribe(res => {
-        this.validaJust = new Justificativa();
         res.forEach(ponto => {
+          this.validaJust = '';
           this.descricao = '';
           if (ponto.justificativa) {
             this.validaJust = ponto.justificativa;
@@ -95,27 +95,27 @@ export class DeclaracaoComponent implements OnInit {
               }
             });
             if (ponto.status === 'CREDITO') {
-              if (this.validaJust.descricao) {
-                this.validaJust.descricao = this.formatarDataPipe.transform(ponto.data) + " - "
-              + this.formatarMinutosPipe.transform(ponto.minutos_credito) + this.issue + "<br>" + "-- " + this.validaJust.descricao
+              if (this.validaJust) {
+                this.validaJust = this.formatarDataPipe.transform(ponto.data) + " - "
+              + this.formatarMinutosPipe.transform(ponto.minutos_credito) + this.issue + "<br>" + "-- " + this.validaJust
               + "<br>";
               this.justificativasCredito.push(this.validaJust);
               } else if (this.issue) {
-                this.validaJust.descricao = this.formatarDataPipe.transform(ponto.data) + " - "
+                this.validaJust = this.formatarDataPipe.transform(ponto.data) + " - "
               + this.formatarMinutosPipe.transform(ponto.minutos_credito) + this.issue + "<br>";
               this.justificativasCredito.push(this.validaJust);
               }
             }
             if (ponto.status === 'DEBITO') {
-              if (this.validaJust.descricao) {
-                this.descricao = "<br>" + "-- " + this.validaJust.descricao;
+              if (this.validaJust) {
+                this.descricao = "<br>" + "-- " + this.validaJust;
               }
-              this.validaJust.descricao = this.formatarDataPipe.transform(ponto.data) + " - "
+              this.validaJust = this.formatarDataPipe.transform(ponto.data) + " - "
               + this.formatarMinutosPipe.transform(ponto.minutos_debito) + this.issue + this.descricao + "<br>";
               this.justificativasDebito.push(this.validaJust);
             }
             if (ponto.status === 'MARCACAO_INCORRETA') {
-              this.validaJust.descricao = this.formatarDataPipe.transform(ponto.data) + ' ' + this.validaJust.descricao;
+              this.validaJust = this.formatarDataPipe.transform(ponto.data) + ' ' + this.validaJust;
               this.justificativasMarcInc.push(this.validaJust);
             }
         });
@@ -123,21 +123,21 @@ export class DeclaracaoComponent implements OnInit {
         if (this.dadosRota.tipo === 'ext') {
           this.titulo = "<strong>DECLARAÇÃO DE HORAS EXTRAS</strong>";
           this.justificativasCredito.forEach(dado => {
-            this.justificativaTxt = "<li>" + dado.descricao + "</li>";
+            this.justificativaTxt = "<li>" + dado + "</li>";
             this.txtEditor = this.txtEditor + this.justificativaTxt;
             this.form.controls.editor.setValue(this.cabecalho1 + this.txtEditor + this.rodape);
           });
         } else if (this.dadosRota.tipo === 'comp') {
           this.titulo = "<strong>DECLARAÇÃO DE COMPENSAÇÃO HORAS</strong>";
           this.justificativasDebito.forEach(dado => {
-            this.justificativaTxt = "<li>" + dado.descricao + "</li>" + "<br>";
+            this.justificativaTxt = "<li>" + dado + "</li>" + "<br>";
             this.txtEditor = this.txtEditor + this.justificativaTxt + "<br>";
             this.form.controls.editor.setValue(this.cabecalho2 + this.txtEditor + this.rodape);
           });
         } else {
           this.justificativasMarcInc.forEach(dado => {
             this.titulo = "<strong>DECLARAÇÃO DE JUSTIFICATIVA PONTO</strong>";
-            this.justificativaTxt = "<li>" + dado.descricao + "</li>" + "<br>";
+            this.justificativaTxt = "<li>" + dado + "</li>" + "<br>";
             this.txtEditor = this.txtEditor + this.justificativaTxt + "<br>";
             this.form.controls.editor.setValue(this.cabecalho3 + this.txtEditor + this.rodape);
           });

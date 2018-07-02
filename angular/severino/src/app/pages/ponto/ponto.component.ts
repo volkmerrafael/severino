@@ -44,6 +44,7 @@ export class PontoComponent implements OnInit {
   legendas: Legenda[] = [];
   departamento: string;
   funcao: string;
+  textoJustificativa: string;
   mensagemGrow: any;
   tituloGrow: any;
   tipoGrow: any;
@@ -73,24 +74,23 @@ export class PontoComponent implements OnInit {
   displayLegenda: any = false;
   displayJornada: any = false;
   displayJustificativa: any = false;
-  justificativa: Justificativa = new Justificativa;
+  justificativa: String;
   pontoEditado: PontoEditado = new PontoEditado();
   pontosEditados: PontoEditado[] = [];
   pontoAux: Ponto = new Ponto();
   idPonto: any;
   data: any;
-  dataFormatada: any;
   selectedIssues: Issues[] = [];
   worklogJira: WorklogJira = new WorklogJira;
   issues: Issues[];
   declaracao: any;
   pontosInf: PontoInf[] = [];
   pontoInf: PontoInf = new PontoInf();
-  justificativaInf: Justificativa = new Justificativa();
+  justificativaInf: string;
   justDebito: boolean;
   justCredito: boolean;
   justJustificado: boolean;
-  validaJust: Justificativa = new Justificativa();
+  validaJust: string;
   lista: String[] = [];
   statusJust: any;
   worklogs: WorklogJira[] = [];
@@ -197,7 +197,24 @@ export class PontoComponent implements OnInit {
     this.pontos.forEach(res => {
       if (res.id === this.idPonto) {
         this.data = res.data;
-        this.dataFormatada = this.formatarDataPipe.transform(this.data);
+        this.textoJustificativa =
+          this.formatarDataPipe.transform(this.data);
+
+        if (res.observacao !== "") {
+          this.textoJustificativa += " - " + res.observacao;
+        }
+        if (res.entrada1 !== "") {
+          this.textoJustificativa += " - (" + res.entrada1 + " às " + res.saida1 + ")";
+        }
+        if (res.entrada2 !== "") {
+          this.textoJustificativa += " - (" + res.entrada2 + " às " + res.saida2 + ")";
+        }
+        if (res.entrada3 !== "") {
+          this.textoJustificativa += " - (" + res.entrada3 + " às " + res.saida3 + ")";
+        }
+        if (res.entrada4 !== "") {
+          this.textoJustificativa += " - (" + res.entrada4 + " às " + res.saida4 + ")";
+        }
         this.issues = res.issues;
       }
     });
@@ -209,7 +226,7 @@ export class PontoComponent implements OnInit {
     if (ponto.justificativa) {
       this.justificativa = ponto.justificativa;
     } else {
-      this.justificativa = new Justificativa;
+      this.justificativa = "";
     }
     this.worklogs = [];
     this.worklogJiraService.listarIssues(this.usuario.id, this.data)
@@ -237,7 +254,7 @@ export class PontoComponent implements OnInit {
     this.messageService.add({ severity: tipo, summary: titulo, detail: mensagem });
   }
 
-  justificarPonto(justificativa: Justificativa) {
+  justificarPonto(justificativa: string) {
     this.pontos.forEach(ponto => {
       if (ponto.id === this.idPonto) {
         ponto.justificativa = justificativa;
@@ -372,7 +389,7 @@ export class PontoComponent implements OnInit {
       this.pontoInf.minutosTrab = ponto.minutos_trabalhados;
       if (ponto.justificativa) {
         this.justificativaInf = ponto.justificativa;
-        if (this.justificativaInf.descricao) {
+        if (this.justificativaInf) {
           this.pontoInf.justificativa = this.justificativaInf;
           this.pontoInf.temJust = true;
         }
@@ -388,13 +405,13 @@ export class PontoComponent implements OnInit {
     this.justJustificado = false;
     pontos.forEach(res => {
       if (res.justificativa) {
-        this.validaJust = new Justificativa();
+        this.validaJust = '';
         this.validaJust = res.justificativa;
-        if (this.validaJust.descricao && res.status === 'DEBITO') {
+        if (this.validaJust && res.status === 'DEBITO') {
           this.justDebito = true;
-        } else if (this.validaJust.descricao && res.status === 'CREDITO') {
+        } else if (this.validaJust && res.status === 'CREDITO') {
           this.justCredito = true;
-        } else if (this.validaJust.descricao && res.status === 'MARCACAO_INCORRETA') {
+        } else if (this.validaJust && res.status === 'MARCACAO_INCORRETA') {
           this.justJustificado = true;
         }
       }
@@ -430,7 +447,7 @@ export class PontoComponent implements OnInit {
     let jornada: Jornada = new Jornada();
     let legenda: Legenda = new Legenda();
     let diaSemana: DiaSemana = new DiaSemana;
-    let justificativa: Justificativa = new Justificativa();
+    let justificativa: string;
     pontos.forEach(ponto => {
       this.pontoEditado = new PontoEditado();
       jornada = ponto.jornada;
@@ -438,7 +455,7 @@ export class PontoComponent implements OnInit {
         this.pontoEditado.justificativa = ponto.justificativa;
         justificativa = ponto.justificativa;
       } else {
-        this.pontoEditado.justificativa = new Justificativa();
+        this.pontoEditado.justificativa = "";
       }
       legenda = ponto.legenda;
       diaSemana = ponto.diasemana;

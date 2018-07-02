@@ -162,8 +162,8 @@
               <td *ngFor="let col of columns" class="ui-resizable-column">
                 {{rowData[col.field]}}
                 <span *ngIf="col.field == 'justificativaId' && (rowData.status == 'CREDITO' || rowData.status == 'DEBITO' || rowData.status == 'MARCACAO_INCORRETA')">
-                  <button *ngIf="rowData.justificativa.descricao" pButton class="btCheck" type="text" icon="fas fa-check-circle" (click)="showDialogJustificativa(rowData)"></button>
-                  <button *ngIf="!rowData.justificativa.descricao" pButton class="btExclamation" type="text" icon="fas fa-exclamation-circle"
+                  <button *ngIf="rowData.justificativa" pButton class="btCheck" type="text" icon="fas fa-check-circle" (click)="showDialogJustificativa(rowData)"></button>
+                  <button *ngIf="!rowData.justificativa" pButton class="btExclamation" type="text" icon="fas fa-exclamation-circle"
                     (click)="showDialogJustificativa(rowData)"></button>
                 </span>
               </td>
@@ -187,10 +187,10 @@
   </div>
 </div>
 <div class="divJustificativa">
-  <p-dialog id="justificativa" header="Justificativa {{dataFormatada}}" [(visible)]="displayJustificativa" [responsive]="true"
+  <p-dialog id="justificativa" header="Justificativa - {{textoJustificativa}}" [(visible)]="displayJustificativa" [responsive]="true"
     [width]="1200" [minWidth]="700" [minY]="70">
     <div *ngIf="statusJust === 'MARCACAO_INCORRETA'">
-      <textarea rows="5" tabela="30" class="textArea" pInputTextarea [(ngModel)]="justificativa.descricao"></textarea>
+      <textarea rows="5" tabela="30" class="textArea" pInputTextarea [(ngModel)]="justificativa"></textarea>
     </div>
     <div *ngIf="statusJust === 'CREDITO' || statusJust === 'DEBITO'" class="ui-g">
       <div class="ui-g-6">
@@ -208,7 +208,7 @@
     </div>
       <div class="ui-g-6">
         <span>Descrição:</span>
-        <textarea rows="5" tabela="30" class="textArea" pInputTextarea [(ngModel)]="justificativa.descricao"></textarea>
+        <textarea rows="5" tabela="30" class="textArea" pInputTextarea [(ngModel)]="justificativa"></textarea>
 
         <br>
         <p-listbox *ngIf="issues" class="listbox" [style]="{'width':'500px'}" [listStyle]="{'max-height':'250px'}" [options]="issues"
