@@ -47,6 +47,7 @@ export class DeclaracaoComponent implements OnInit {
   myDate: Date = new Date();
   titulo: string;
   descricao: string;
+  totalHorasComp: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -79,6 +80,7 @@ export class DeclaracaoComponent implements OnInit {
   justificativasPorStatus() {
     this.pontoService.listarPontoPorPeriodo(this.usuario.id, this.dadosRota.ano, this.dadosRota.mes)
       .subscribe(res => {
+        this.totalHorasComp = 0;
         res.forEach(ponto => {
           this.validaJust = '';
           this.descricao = '';
@@ -113,6 +115,7 @@ export class DeclaracaoComponent implements OnInit {
               this.validaJust = this.formatarDataPipe.transform(ponto.data) + " - "
               + this.formatarMinutosPipe.transform(ponto.minutos_debito) + this.issue + this.descricao + "<br>";
               this.justificativasDebito.push(this.validaJust);
+              this.totalHorasComp = this.totalHorasComp + ponto.minutos_debito;
             }
             if (ponto.status === 'MARCACAO_INCORRETA') {
               this.validaJust = this.formatarDataPipe.transform(ponto.data) + ' ' + this.validaJust;
@@ -131,8 +134,10 @@ export class DeclaracaoComponent implements OnInit {
           this.titulo = "<strong>DECLARAÇÃO DE COMPENSAÇÃO HORAS</strong>";
           this.justificativasDebito.forEach(dado => {
             this.justificativaTxt = "<li>" + dado + "</li>" + "<br>";
-            this.txtEditor = this.txtEditor + this.justificativaTxt + "<br>";
-            this.form.controls.editor.setValue(this.cabecalho2 + this.txtEditor + this.rodape);
+            this.txtEditor = this.txtEditor + this.justificativaTxt;
+            this.form.controls.editor.setValue(this.cabecalho2 + this.txtEditor
+            + "Total: " + this.formatarMinutosPipe.transform(this.totalHorasComp)
+            + this.rodape);
           });
         } else {
           this.justificativasMarcInc.forEach(dado => {

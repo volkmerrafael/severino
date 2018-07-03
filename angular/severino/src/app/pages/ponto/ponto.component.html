@@ -162,8 +162,8 @@
               <td *ngFor="let col of columns" class="ui-resizable-column">
                 {{rowData[col.field]}}
                 <span *ngIf="col.field == 'justificativaId' && (rowData.status == 'CREDITO' || rowData.status == 'DEBITO' || rowData.status == 'MARCACAO_INCORRETA')">
-                  <button *ngIf="rowData.justificativa" pButton class="btCheck" type="text" icon="fas fa-check-circle" (click)="showDialogJustificativa(rowData)"></button>
-                  <button *ngIf="!rowData.justificativa" pButton class="btExclamation" type="text" icon="fas fa-exclamation-circle"
+                  <button *ngIf="rowData.justificativa || rowData.issue_relacionada" pButton class="btCheck" type="text" icon="fas fa-check-circle" (click)="showDialogJustificativa(rowData)"></button>
+                  <button *ngIf="!rowData.justificativa && !rowData.issue_relacionada" pButton class="btExclamation" type="text" icon="fas fa-exclamation-circle"
                     (click)="showDialogJustificativa(rowData)"></button>
                 </span>
               </td>

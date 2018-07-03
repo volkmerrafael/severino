@@ -19,5 +19,6 @@ export class PontoEditado {
     legenda: string;
     status: string;
     issues: Issues[];
+    issue_relacionada: boolean;
     worklog_diario: number;
 }

@@ -447,19 +447,22 @@ export class PontoComponent implements OnInit {
     let jornada: Jornada = new Jornada();
     let legenda: Legenda = new Legenda();
     let diaSemana: DiaSemana = new DiaSemana;
-    let justificativa: string;
     pontos.forEach(ponto => {
       this.pontoEditado = new PontoEditado();
       jornada = ponto.jornada;
       if (ponto.justificativa) {
         this.pontoEditado.justificativa = ponto.justificativa;
-        justificativa = ponto.justificativa;
       } else {
         this.pontoEditado.justificativa = "";
       }
       legenda = ponto.legenda;
       diaSemana = ponto.diasemana;
       this.pontoEditado.issues = ponto.issues;
+      ponto.issues.forEach( issue => {
+        if (issue.id) {
+          this.pontoEditado.issue_relacionada = true;
+        }
+      });
       this.pontoEditado.id = ponto.id;
       this.pontoEditado.diaSemana = diaSemana.nome;
       this.pontoEditado.data = moment(ponto.data).format("DD/MM/YYYY");

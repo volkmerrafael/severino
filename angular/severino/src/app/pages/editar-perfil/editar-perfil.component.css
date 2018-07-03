@@ -3,13 +3,11 @@
 }
 
 #panel {
-    display: flex;
     justify-content: center;
 }
 
 #bt {
-    display: flex;
-    justify-content: center;
+    align-content: center;
 }
 
 
