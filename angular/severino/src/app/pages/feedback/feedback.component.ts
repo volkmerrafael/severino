@@ -62,7 +62,8 @@ export class FeedbackComponent implements OnInit {
         this.cols = [
           { field: 'nome', header: 'Nome' },
           { field: 'data', header: 'Data' },
-          { field: 'tipo', header: 'Tipo' }
+          { field: 'tipo', header: 'Tipo' },
+          { field: 'status', header: 'Status' },
         ];
       });
     } else {
@@ -90,6 +91,7 @@ export class FeedbackComponent implements OnInit {
     } else if ( this.feedback.tipo === 'Erro') {
       this.feedback.tipo = 'ERRO';
     }
+    this.feedback.status = 'PENDENTE';
     this.feedbackService.feedback(this.feedback)
     .subscribe( res => {
       this.tipoGrow = "success";

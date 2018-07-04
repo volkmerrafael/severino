@@ -1,15 +1,14 @@
 #table {
-  padding-left: 100px;
-  padding-right: 100px;
-}
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+  font-size: 13px
+ }
 
 #mes {
   margin-right: 10px;
 }
 
-#table{
-  text-align: center;
-}
 
 #legenda.ui-g-6{
   padding-top: 0;

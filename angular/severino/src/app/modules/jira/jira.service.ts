@@ -11,9 +11,9 @@ export class JiraService {
 
   constructor(private http: HttpClient) {}
 
-  listaPrioridadeJira(): Observable<PrioridadeInfo> {
+  listaPrioridadeJira(id: number): Observable<PrioridadeInfo> {
     return this.http.get<PrioridadeInfo>(
-      `${environment.server}jira/prioridade/listar`
+      `${environment.server}jira/prioridade/listar/` + id
     );
   }
 }

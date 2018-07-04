@@ -2,8 +2,8 @@
     <div *ngIf='mostraLinks' class="ui-toolbar-group-right">
         <button id="bt" pButton label="{{usuario.nome}}" icon="fa fa-angle-down" (click)="menu.toggle($event)"></button>
     </div>
-    <div class="ui-toolbar-group-left">
-        <button *ngIf='mostraLinks' class="menu" type="button" pButton icon="fa fa-bars" (click)="menuItens.toggle($event)"></button>
+    <div *ngIf='mostraLinks' class="ui-toolbar-group-left">
+        <button class="menu" type="button" pButton icon="fa fa-bars" (click)="menuItens.toggle($event)"></button>
         <img class="img" src="assets/icon-jira-logo.png" (click)="onClickNavigator('jira')" />
     </div>
 </div>
