@@ -3,6 +3,7 @@ import { Usuario } from './../../shared/models/usuario';
 import { Router, NavigationStart, NavigationEnd, NavigationError, NavigationCancel, Event, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { MenuItem } from 'primeng/api';
+import { Feedback } from '../../shared/models/feedback';
 
 @Component({
   selector: 'app-home',
@@ -89,22 +90,30 @@ export class HomeComponent implements OnInit {
     }
     if (this.tipo === 'NORMAL') {
       this.menuLateral.push({
+        label: '',
+        items: [{
         label: 'Ponto', icon: 'fa fa-fw fa-file-o', command: (event) => {
           event.originalEvent = this.onClickNavigator('ponto');
         }
+      }]
       }
       );
     }
     if (this.tipo === 'NORMAL' || this.tipo === 'ADMIN' || this.tipo === 'COORDENADOR' || this.tipo === 'IMPORTADOR') {
       this.menuLateral.push({
+        label: '',
+        items: [{
         label: 'Feedback', icon: 'fa fa-fw fa-edit', command: (event) => {
           event.originalEvent = this.onClickNavigator('feedback');
         }
+      }]
       }
       );
     }
     if (this.tipo === 'ADMIN') {
       this.menuLateral.push({
+        label: '',
+        items: [{
         label: 'Configurações', icon: 'fa fa-cogs', command: (event) => {
           event.originalEvent = this.onClickNavigator('admin/configuracao');
         }
@@ -113,8 +122,8 @@ export class HomeComponent implements OnInit {
           label: 'Importações', icon: 'fa fa-upload', command: (event) => {
             event.originalEvent = this.onClickNavigator('admin');
           }
-        }
-      );
+        }]
+      });
     }
   }
 

@@ -3,16 +3,18 @@
         <button id="bt" pButton label="{{usuario.nome}}" icon="fa fa-angle-down" (click)="menu.toggle($event)"></button>
     </div>
     <div class="ui-toolbar-group-left">
+        <button *ngIf='mostraLinks' class="menu" type="button" pButton icon="fa fa-bars" (click)="menuItens.toggle($event)"></button>
         <img class="img" src="assets/icon-jira-logo.png" (click)="onClickNavigator('jira')" />
     </div>
 </div>
+<p-menu #menuItens popup="popup" [model]="menuLateral"></p-menu>
 <p-tieredMenu #menu [model]="items" [popup]="true" class="popup"></p-tieredMenu>
 
-<div *ngIf='mostraLinks' class="menuLateral">
+<!--<div *ngIf='mostraLinks' class="menuLateral">
     <p-card class="panel" [style]="{height: '100%'}">
         <p-panelMenu [model]="menuLateral" [multiple]="false"></p-panelMenu>
     </p-card>
-</div>
+</div>-->
 
 <div class="router">
     <router-outlet></router-outlet>

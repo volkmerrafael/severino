@@ -18,7 +18,7 @@
         <div>
           <label>Nome de acesso:</label>
           <br>
-          <input size="70%" formControlName="inputNomeAcesso" pInputText [(ngModel)]="acesso.nomeacesso" />
+          <input style="display: flex" size="70%" formControlName="inputNomeAcesso" pInputText [(ngModel)]="acesso.nomeacesso" />
           <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!perfilForm.controls['inputNomeAcesso'].valid && perfilForm.controls['inputNomeAcesso'].dirty">
             <i class="fa fa-close"></i>
             Deve ter mais de 3 caracteres
@@ -26,6 +26,17 @@
           <br>
           <br>
         </div>
+        <div *ngIf="id === 0 || admin">
+            <label>Usuario Jira:</label>
+            <br>
+            <input size="70%" formControlName="inputUsuarioJira" pInputText [(ngModel)]="usuario.usuario_jira" />
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!perfilForm.controls['inputUsuarioJira'].valid && perfilForm.controls['inputUsuarioJira'].dirty">
+              <i class="fa fa-close"></i>
+              Deve ter mais de 3 caracteres
+            </div>
+            <br>
+            <br>
+          </div>
         <div>
           <label>E-mail:</label>
           <br>

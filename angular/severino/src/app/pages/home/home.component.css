@@ -4,7 +4,7 @@
  }
  .ui-toolbar-group-left{
     margin-left:50px; 
-    margin-top:12px
+    margin-top:12px;
  }
  .perfil{
     font-weight: bold;
@@ -30,10 +30,17 @@
     height: 3rem !important;
     align-content: center;
  }
+
+ .menu {
+    background: rgb(26, 124, 204) !important;
+    border-color: rgb(26, 124, 204) !important;
+    width: 40px;
+    margin-bottom: 3px;
+ }
  
  .router{
+    align-content: center;
     margin-top: 3rem;
-    margin-left: 10% !important;
     padding: 1px 16px 16px 16px;
     background-color: #f3f3f3;
  }
@@ -54,7 +61,7 @@
  .menuLateral {
      position: fixed;
      height: 100%;
-     width: 10%;
+     width: 15%;
      box-sizing: border-box;
      transition: all .3s;
  }

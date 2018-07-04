@@ -85,6 +85,7 @@ export class EditarPerfilComponent implements OnInit {
       'inputNome': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
       'inputPIS': new FormControl('', [Validators.required]),
       'inputNomeAcesso': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
+      'inputUsuarioJira': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
       'inputEmail': new FormControl('', Validators.compose([Validators.required, Validators.email])),
       'inputDataAdmissao': new FormControl('', [Validators.required]),
       'inputEmpresa': new FormControl('', [Validators.required]),
@@ -165,6 +166,7 @@ export class EditarPerfilComponent implements OnInit {
       }
     }
     if (this.id !== 0) {
+      console.log(this.usuario);
       this.usuarioService.editar(this.usuario)
         .subscribe(res => {
           if (this.admin === false) {
@@ -181,6 +183,7 @@ export class EditarPerfilComponent implements OnInit {
           this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
           this.voltar();
         }, error => {
+          console.log(error);
           this.tipoGrow = "error";
           this.tituloGrow = 'Ops';
           this.mensagemGrow = error.error;
