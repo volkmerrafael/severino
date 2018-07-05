@@ -8,6 +8,7 @@ import { ConfiguracaoIntegracao } from '../shared/models/configuracaoIntegracao'
 import { Departamento } from "../shared/models/departamento";
 import { Funcao } from "../shared/models/funcao";
 import { Empresa } from "../shared/models/empresa";
+import { TipoEvento } from "../shared/models/tipoevento";
 
 @Injectable()
 export class UsuarioService {
@@ -33,6 +34,12 @@ export class UsuarioService {
     );
   }
 
+  cadastrotipoevento( tipoevento: TipoEvento ): Observable<TipoEvento> {
+    return this.http.post<TipoEvento>(
+      `${environment.server}tipoevento`, tipoevento
+    );
+  }
+
   listaUsuarios(): Observable<Usuario> {
     return this.http.get<Usuario>(
       `${environment.server}usuario`
@@ -51,9 +58,21 @@ export class UsuarioService {
     );
   }
 
+  tipoevento(id: number): Observable<TipoEvento> {
+    return this.http.get<TipoEvento>(
+      `${environment.server}tipoevento/` + id
+    );
+  }
+
   editar( usuario: Usuario): Observable<Usuario> {
     return this.http.put<Usuario>(
       `${environment.server}usuario`, usuario
+    );
+  }
+
+  editartipoevento( tipoevento: TipoEvento): Observable<TipoEvento> {
+    return this.http.put<TipoEvento>(
+      `${environment.server}tipoevento`, tipoevento
     );
   }
 
@@ -66,6 +85,12 @@ export class UsuarioService {
   departamentos(): Observable<Departamento[]> {
     return this.http.get<Departamento[]>(
       `${environment.server}departamento`
+    );
+  }
+
+  tiposevento(): Observable<TipoEvento[]> {
+    return this.http.get<TipoEvento[]>(
+      `${environment.server}tipoevento`
     );
   }
 

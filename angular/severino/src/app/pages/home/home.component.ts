@@ -87,6 +87,26 @@ export class HomeComponent implements OnInit {
         ]
       }
       );
+      this.menuLateral.push({
+        label: 'Geral',
+        items: [{
+          label: 'Empresa', icon: 'fa fa-user', command: (event) => {
+            event.originalEvent = this.onClickNavigator('lista/empresa');
+          }
+        },
+        {
+          label: 'Departamento', icon: 'fa fa-user', command: (event) => {
+            event.originalEvent = this.onClickNavigator('lista/departamento');
+          }
+        },
+        {
+          label: 'Função', icon: 'fa fa-user', command: (event) => {
+            event.originalEvent = this.onClickNavigator('lista/funcao');
+          }
+        },
+        ]
+      }
+      );
     }
     if (this.tipo === 'NORMAL') {
       this.menuLateral.push({
@@ -107,6 +127,22 @@ export class HomeComponent implements OnInit {
           event.originalEvent = this.onClickNavigator('feedback');
         }
       }]
+      }
+      );
+
+      this.menuLateral.push({
+        label: 'Eventos',
+        items: [{
+          label: 'Tipo de Evento', icon: 'fa fa-user', command: (event) => {
+            event.originalEvent = this.onClickNavigator('lista/tipoevento');
+          }
+        },
+        {
+          label: 'Evento', icon: 'fa fa-user', command: (event) => {
+            event.originalEvent = this.onClickNavigator('lista/evento');
+          }
+        },
+        ]
       }
       );
     }
@@ -154,6 +190,14 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['/feedback']);
     } else if (rota === 'lista') {
       this.router.navigate(['/lista']);
+    } else if (rota === 'lista/tipoevento') {
+      this.router.navigate(['/lista/tipoevento']);
+    } else if (rota === 'lista/funcao') {
+      this.router.navigate(['/lista/funcao']);
+    } else if (rota === 'lista/departamento') {
+      this.router.navigate(['/lista/departamento']);
+    } else if (rota === 'lista/empresa') {
+      this.router.navigate(['/lista/empresa']);
     }
 
   }
@@ -163,6 +207,18 @@ export class HomeComponent implements OnInit {
   }
   editarUsuario(id: any) {
     this.router.navigate(['/editar-perfil'], { queryParams: { id } });
+  }
+  editarTipoEvento(id: any) {
+    this.router.navigate(['/editar-tipo-evento'], { queryParams: { id } });
+  }
+  editarFuncao(id: any) {
+    this.router.navigate(['/editar-funcao'], { queryParams: { id } });
+  }
+  editarDepartamento(id: any) {
+    this.router.navigate(['/editar-departamento'], { queryParams: { id } });
+  }
+  editarEmpresa(id: any) {
+    this.router.navigate(['/editar-empresa'], { queryParams: { id } });
   }
   feedback() {
     this.router.navigate(['/feedback']);

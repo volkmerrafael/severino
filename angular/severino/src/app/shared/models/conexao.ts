@@ -1,5 +1,3 @@
-import { Usuario } from "./usuario";
-
 export class Conexao {
 
     ip: number;
@@ -8,5 +6,5 @@ export class Conexao {
     senha: string;
     data: string;
     conexao_sistema: string;
-    usuario: Usuario;
+    usuario: string;
 }

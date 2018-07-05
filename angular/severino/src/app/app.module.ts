@@ -31,6 +31,7 @@ import { ControleHorasService } from './services/controle-horas.service';
 import { JornadaService } from './services/jornada.service';
 import { LegendaService } from './services/legenda.service';
 import { ListaComponent } from './pages/lista/lista.component';
+import { ListaTipoEventoComponent } from './pages/listatipoevento/listatipoevento.component';
 import {CardModule} from 'primeng/card';
 import { JustificativaService } from './services/justificativa.service';
 import { JiraService } from './modules/jira/jira.service';
@@ -47,7 +48,10 @@ import {CalendarModule} from 'primeng/calendar';
 import { VisualizaFeedbackComponent } from './pages/visualiza-feedback/visualiza-feedback.component';
 import {PanelMenuModule} from 'primeng/panelmenu';
 import {AccordionModule} from 'primeng/accordion';
-
+import { EditarTipoEventoComponent } from './pages/editar-tipo-evento/editar-tipo-evento.component';
+import { ListaFuncaoComponent } from './pages/listafuncao/listafuncao.component';
+import { ListaDepartamentoComponent } from './pages/listadepartamento/listadepartamento.component';
+import { ListaEmpresaComponent } from './pages/listaempresa/listaempresa.component';
 
 export const HttpInterceptorProviders = [
   { provide: HTTP_INTERCEPTORS, useClass: UserHttpInterceptor, multi: true  }
@@ -60,7 +64,12 @@ export const HttpInterceptorProviders = [
     HomeComponent,
     PerfilComponent,
     EditarPerfilComponent,
+    EditarTipoEventoComponent,
     ListaComponent,
+    ListaTipoEventoComponent,
+    ListaFuncaoComponent,
+    ListaDepartamentoComponent,
+    ListaEmpresaComponent,
     FeedbackComponent,
     VisualizaFeedbackComponent,
   ],
