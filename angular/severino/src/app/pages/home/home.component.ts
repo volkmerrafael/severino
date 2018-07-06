@@ -198,6 +198,8 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['/lista/departamento']);
     } else if (rota === 'lista/empresa') {
       this.router.navigate(['/lista/empresa']);
+    } else if (rota === 'lista/evento') {
+      this.router.navigate(['/lista/evento']);
     }
 
   }
@@ -210,6 +212,9 @@ export class HomeComponent implements OnInit {
   }
   editarTipoEvento(id: any) {
     this.router.navigate(['/editar-tipo-evento'], { queryParams: { id } });
+  }
+  editarEvento(id: any) {
+    this.router.navigate(['/editar-evento'], { queryParams: { id } });
   }
   editarFuncao(id: any) {
     this.router.navigate(['/editar-funcao'], { queryParams: { id } });

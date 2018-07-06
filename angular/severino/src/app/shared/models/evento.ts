@@ -2,7 +2,7 @@ import { TipoEvento } from "./tipoevento";
 import { Usuario } from "./usuario";
 import { PaticipanteEvento } from "./participanteEvento";
 
-export class Funcao {
+export class Evento {
     id: number;
     descricao: string;
     usuario: Usuario;
@@ -16,4 +16,5 @@ export class Funcao {
     permite_convidados: string;
     participantes: PaticipanteEvento[];
     favorito: string;
+    confirmados: number;
 }

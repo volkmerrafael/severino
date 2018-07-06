@@ -84,6 +84,10 @@ export class EditarPerfilComponent implements OnInit {
     this.perfilForm = this.fb.group({
       'inputNome': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
       'inputPIS': new FormControl('', [Validators.required]),
+      'inputCPF': new FormControl('', [Validators.required]),
+      'inputRG': new FormControl('', [Validators.required]),
+      'inputTelefone': new FormControl('', [Validators.required]),
+      'inputCelular': new FormControl('', [Validators.required]),
       'inputNomeAcesso': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
       'inputUsuarioJira': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
       'inputEmail': new FormControl('', Validators.compose([Validators.required, Validators.email])),

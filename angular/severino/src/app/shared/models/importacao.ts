@@ -14,6 +14,7 @@ export class Importacao {
       usuario_com_marcacao_incorreta: number;
       usuario_sem_pendencias: number;
       tempo_importacao: string;
+      tempo_processamento: string;
       status: string;
       arquivoimportacao: ArquivoImportacao;
 }

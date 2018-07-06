@@ -32,9 +32,8 @@ export class DashboardComponent implements OnInit {
     this.listarJiraPrioridade();
     this.carregarGraficos();
   }
-
   listarJiraPrioridade() {
-    this.jiraService.listaPrioridadeJira(this.id)
+    this.jiraService.listaPrioridadeJira()
       .subscribe(res => {
         this.prioridadesJira = res.lista_prioridades;
         this.prioridadesJira.forEach(data => {

@@ -32,6 +32,7 @@ import { JornadaService } from './services/jornada.service';
 import { LegendaService } from './services/legenda.service';
 import { ListaComponent } from './pages/lista/lista.component';
 import { ListaTipoEventoComponent } from './pages/listatipoevento/listatipoevento.component';
+import { ListaEventoComponent } from './pages/listaevento/listaevento.component';
 import {CardModule} from 'primeng/card';
 import { JustificativaService } from './services/justificativa.service';
 import { JiraService } from './modules/jira/jira.service';
@@ -49,6 +50,7 @@ import { VisualizaFeedbackComponent } from './pages/visualiza-feedback/visualiza
 import {PanelMenuModule} from 'primeng/panelmenu';
 import {AccordionModule} from 'primeng/accordion';
 import { EditarTipoEventoComponent } from './pages/editar-tipo-evento/editar-tipo-evento.component';
+import { EditarEventoComponent } from './pages/editar-evento/editar-evento.component';
 import { ListaFuncaoComponent } from './pages/listafuncao/listafuncao.component';
 import { ListaDepartamentoComponent } from './pages/listadepartamento/listadepartamento.component';
 import { ListaEmpresaComponent } from './pages/listaempresa/listaempresa.component';
@@ -65,11 +67,13 @@ export const HttpInterceptorProviders = [
     PerfilComponent,
     EditarPerfilComponent,
     EditarTipoEventoComponent,
+    EditarEventoComponent,
     ListaComponent,
     ListaTipoEventoComponent,
     ListaFuncaoComponent,
     ListaDepartamentoComponent,
     ListaEmpresaComponent,
+    ListaEventoComponent,
     FeedbackComponent,
     VisualizaFeedbackComponent,
   ],

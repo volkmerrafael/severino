@@ -11,6 +11,10 @@ export class Usuario {
   departamento: Departamento;
   funcao: Funcao;
   pis: string;
+  cpf: string;
+  rg: string;
+  telefone: string;
+  celular: string;
   email: string;
   data_admissao: string;
   usuario_jira: string;

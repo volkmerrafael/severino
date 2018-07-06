@@ -59,6 +59,50 @@
           <br>
           <br>
         </div>
+        <div>
+          <label>C.P.F.:</label>
+          <br>
+          <input size="70%" formControlName="inputCPF" pInputText [(ngModel)]="usuario.cpf" />
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!perfilForm.controls['inputCPF'].valid && perfilForm.controls['inputCPF'].dirty">
+            <i class="fa fa-close"></i>
+            C.P.F. é obrigatório
+          </div>
+          <br>
+          <br>
+        </div>
+        <div>
+          <label>R.G.:</label>
+          <br>
+          <input size="70%" formControlName="inputRG" pInputText [(ngModel)]="usuario.rg" />
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!perfilForm.controls['inputRG'].valid && perfilForm.controls['inputRG'].dirty">
+            <i class="fa fa-close"></i>
+            R.G. é obrigatório
+          </div>
+          <br>
+          <br>
+        </div>
+        <div>
+          <label>Telefône:</label>
+          <br>
+          <input size="70%" formControlName="inputTelefone" pInputText [(ngModel)]="usuario.telefone" />
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!perfilForm.controls['inputTelefone'].valid && perfilForm.controls['inputTelefone'].dirty">
+            <i class="fa fa-close"></i>
+            Telefône é obrigatório
+          </div>
+          <br>
+          <br>
+        </div>
+        <div>
+          <label>Celular:</label>
+          <br>
+          <input size="70%" formControlName="inputCelular" pInputText [(ngModel)]="usuario.celular" />
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!perfilForm.controls['inputCelular'].valid && perfilForm.controls['inputCelular'].dirty">
+            <i class="fa fa-close"></i>
+            Celular é obrigatório
+          </div>
+          <br>
+          <br>
+        </div>
         <div *ngIf="id === 0 || admin">
           <label>Data de admissão:</label>
           <br>
