@@ -6,7 +6,7 @@ import javax.ws.rs.client.ClientBuilder;
 
 import org.junit.Test;
 
-import com.volkmer.godinho.severino.entity.ObjetoTeste;
+import com.volkmer.godinho.severino.entity.mod_acesso.ObjetoTeste;
 
 public class TesteRestClientTest {
 	

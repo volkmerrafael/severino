@@ -15,7 +15,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.volkmer.godinho.core.resource.ResourceCRUD;
-import com.volkmer.godinho.core.rest.filters.RestException;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -29,7 +28,7 @@ public abstract class ControllerCRUD<Model, R extends ResourceCRUD<Model>> {
 		try (R res = this.newResource()) {
 			return res.buscaTotos();
 		} catch (Exception e) {
-			throw new RestException(e);
+			throw e;
 		}
 	}
 	
@@ -40,7 +39,7 @@ public abstract class ControllerCRUD<Model, R extends ResourceCRUD<Model>> {
 			Model usuario = res.busca(id);
 			return usuario;
 		} catch (Exception e) {
-			throw new RestException(e);
+			throw e;
 		}
 	}
 	
@@ -51,7 +50,7 @@ public abstract class ControllerCRUD<Model, R extends ResourceCRUD<Model>> {
 			res.incluir(model);
 			return model;
 		} catch (Exception e) {
-			throw new RestException(e);
+			throw e;
 		}
 	}
 	
@@ -62,7 +61,7 @@ public abstract class ControllerCRUD<Model, R extends ResourceCRUD<Model>> {
 			res.alterar(model);
 			return model;
 		} catch (Exception e) {
-			throw new RestException(e);
+			throw e;
 		}
 	}
 
@@ -73,7 +72,7 @@ public abstract class ControllerCRUD<Model, R extends ResourceCRUD<Model>> {
 			res.remover(id);
 			return Response.ok().build();
 		} catch (Exception e) {
-			throw new RestException(e);
+			throw e;
 		}
 	}
 	

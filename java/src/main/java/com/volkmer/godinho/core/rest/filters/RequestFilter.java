@@ -10,10 +10,11 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.ext.Provider;
 
 import com.volkmer.godinho.core.rest.RestSessao;
-import com.volkmer.godinho.severino.entity.Acesso;
-import com.volkmer.godinho.severino.entity.Sessao;
-import com.volkmer.godinho.severino.resource.acesso.AcessoResource;
-import com.volkmer.godinho.severino.resource.sessao.SessaoResource;
+import com.volkmer.godinho.severino.entity.mod_acesso.Acesso;
+import com.volkmer.godinho.severino.entity.mod_acesso.Sessao;
+import com.volkmer.godinho.severino.resource.mod_acesso.acesso.AcessoResource;
+import com.volkmer.godinho.severino.resource.mod_acesso.logacesso.ProcessaLogTransacao;
+import com.volkmer.godinho.severino.resource.mod_acesso.sessao.SessaoResource;
 
 @Provider
 public class RequestFilter implements ContainerRequestFilter {
@@ -32,9 +33,40 @@ public class RequestFilter implements ContainerRequestFilter {
 	public void filter(ContainerRequestContext requestContext) throws IOException {
 		
 		String pathInfo = context.getPathInfo();
+		String usuariotoken = context.getHeader("User-Token");
+		
+		String tipo = requestContext.getRequest().getMethod();
+		
+		String data = null;
+		 
+		if (tipo.equals("PUT") || tipo.equals("POST")) {
+			//StringBuilder buffer = new StringBuilder();
+		    //BufferedReader reader = context.getReader();
+		    //String line;
+		    //while ((line = reader.readLine()) != null) {
+		    //   buffer.append(line);
+		    //}
+		    //data = buffer.toString();
+		}
+		
+		String ipAddress = context.getHeader("x-forwarded-for");
+		if (ipAddress == null) {
+		    ipAddress = context.getHeader("X_FORWARDED_FOR");
+		    if (ipAddress == null){
+		        ipAddress = context.getRemoteAddr();
+		    }
+		}
+		
+		//Insere log De Acesso
+		try {
+			new ProcessaLogTransacao().processar(usuariotoken, tipo, pathInfo, ipAddress, data);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		if (!this.verificaPermissaoTotal(pathInfo)) {
 			
-			String usuariotoken = context.getHeader("User-Token");
+
 			String sessaotoken = context.getHeader("Session-Token");
 			//String useragent = context.getHeader("User-Agent");
 			//String ip = context.getRemoteHost()+"-"+context.getRemoteAddr();

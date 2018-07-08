@@ -7,12 +7,12 @@ import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.Context;
 
-import com.volkmer.godinho.severino.entity.Acesso;
-import com.volkmer.godinho.severino.entity.Legenda;
-import com.volkmer.godinho.severino.entity.Usuario;
-import com.volkmer.godinho.severino.resource.acesso.AcessoTipo;
-import com.volkmer.godinho.severino.resource.legenda.LegendaResource;
-import com.volkmer.godinho.severino.resource.usuario.UsuarioResource;
+import com.volkmer.godinho.severino.entity.mod_acesso.Acesso;
+import com.volkmer.godinho.severino.entity.mod_controleponto.Legenda;
+import com.volkmer.godinho.severino.entity.mod_geral.usuario.Usuario;
+import com.volkmer.godinho.severino.resource.mod_acesso.acesso.AcessoTipo;
+import com.volkmer.godinho.severino.resource.mod_controleponto.legenda.LegendaResource;
+import com.volkmer.godinho.severino.resource.mod_geral.usuario.UsuarioResource;
 
 @ApplicationPath("/rest")
 public class App extends Application {
@@ -34,43 +34,27 @@ public class App extends Application {
 				if (admin==null) {
 					
 					Acesso acesso = new Acesso();
-					acesso.setNomeacesso("admin");
-					acesso.setSenha("admin");
+					acesso.setNomeacesso("administrador");
+					acesso.setSenha("corinthians");
 					acesso.setTipo(AcessoTipo.ADMIN);
 					
 					admin = new Usuario();
 					admin.setNome("Administrador");
-					admin.setEmail("admin@casa.com");
+					admin.setEmail("admin@ids.inf.br");
 					admin.setAcesso(acesso);
 					
 					usuRes.incluir(admin);
 					
-				}
-	
-				/*//Coordenador
-				Acesso acesso = new Acesso();
-				acesso.setNomeacesso("fabiano.carniel");
-				acesso.setSenha("fabiano.carniel");
-				acesso.setTipo(AcessoTipo.COORDENADOR);
+				} /*else {
 				
-				Departamento departamento = new Departamento();
-				departamento.setId((long) 4);
-				departamento.setNome("Desenvolvimento Educação/Social");
-				
-				Funcao funcao = new Funcao();
-				funcao.setId((long) 20);
-				funcao.setNome("Coordenador");
-				
-				Usuario coordenandor = new Usuario();
-				coordenandor.setNome("FABIANO CARNIEL");
-				coordenandor.setEmail("fcarniel@ids.inf.br");
-				coordenandor.setAcesso(acesso);
-				coordenandor.setDepartamento(departamento);
-				coordenandor.setFuncao(funcao);
-				coordenandor.setData_admissao(LocalDate.now());
-				coordenandor.setPis((long) 123456); 
-				usuRes.incluir(coordenandor);
-				*/
+					//setar senha do usuário administrador para default novamente
+					admin.getAcesso().setNomeacesso("administrador");
+					admin.getAcesso().setSenha("corinthians");
+					admin.getAcesso().setTipo(AcessoTipo.ADMIN);
+
+					usuRes.alterar(admin);
+					
+				}*/
 				
 			} catch (Exception e) {
 				e.printStackTrace();

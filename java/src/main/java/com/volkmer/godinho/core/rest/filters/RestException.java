@@ -16,6 +16,11 @@ public class RestException extends Exception {
 		super(erro);
 	}
 	
+	public RestException( String erro, String detalhes ) {
+		super( erro );
+		this.setDetail( detalhes );
+	}
+	
 	public RestException addDetalhe( String texto ) {
 		if ( this.detail==null ) {
 			this.detail = new StringBuilder();
@@ -33,6 +38,10 @@ public class RestException extends Exception {
 		} else {
 			return null;
 		}
+	}
+	
+	public void setDetail(String detail) {
+		this.detail = new StringBuilder( detail );
 	}
 	
 	public String toResponseXml() {

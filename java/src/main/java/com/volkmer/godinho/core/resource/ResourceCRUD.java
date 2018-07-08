@@ -103,7 +103,7 @@ public abstract class ResourceCRUD<Model> implements AutoCloseable {
 		this.alterarPre(model);
 		this.getEm().merge(model);
 		return model;
-		
+
 	}
 	
 	public void remover(Long id) {
