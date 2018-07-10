@@ -1,6 +1,7 @@
 
 package com.volkmer.godinho.severino.entity.mod_geral.usuario;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -62,6 +63,7 @@ public class Usuario {
 	private LocalDate data_admissao;
 	
 	@Column(length=26)
+	@NotNull
 	@ApiModelProperty("P.I.S.")
 	private Long pis;
 	
@@ -80,6 +82,14 @@ public class Usuario {
 	@Column(length=11)
 	@ApiModelProperty("Celular")
 	private String celular;
+	
+	@Column
+	@ApiModelProperty("Latitude")
+	private BigDecimal latitude;
+	
+	@Column
+	@ApiModelProperty("Longitude")
+	private BigDecimal longitude;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="acessoId", foreignKey=@ForeignKey(name="fk_usuario_acesso"))
