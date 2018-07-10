@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { PrioridadeJira } from '../../../../shared/models/prioridadeJira';
-import { MessageService } from 'primeng/components/common/messageservice';
-import { JiraService } from '../../jira.service';
 import * as moment from 'moment/moment';
+
 import { PrioridadeInfo } from '../../../../shared/models/prioridadeInfo';
+import { PrioridadeJira } from '../../../../shared/models/prioridadeJira';
+import { JiraService } from '../../jira.service';
 
 @Component({
   selector: 'app-dashboard',

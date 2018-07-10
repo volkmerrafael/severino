@@ -6,21 +6,19 @@ import org.apache.commons.mail.SimpleEmail;
 
 public class Email {
 
-	public void sendEmail() throws EmailException {
+	public void sendEmail(String email, String senha, Integer porta, String host, String titulo, String mensagem, String emaildestino) throws EmailException {
 
-		SimpleEmail email = new SimpleEmail();
-		email.setHostName("smtp.googlemail.com");
-		email.setSmtpPort(465);
-		email.setAuthenticator(new DefaultAuthenticator("rafael.volkmer1@gmail.com", "xxxx"));
-		email.setSSLOnConnect(true);
-		email.setFrom("rafael.volkmer1@gmail.com");
-		email.setSubject("TestMail");
-		email.setMsg("This is a test mail 2 ... :-)");
-		email.addTo("rafael.volkmer1@gmail.com");
-		email.send();
-
-		//https://myaccount.google.com/lesssecureapps?pli=1
-		
+		SimpleEmail envioemail = new SimpleEmail();
+		envioemail.setHostName(host);
+		envioemail.setSmtpPort(porta);
+		envioemail.setAuthenticator(new DefaultAuthenticator(email, ""+senha));
+		envioemail.setSSLOnConnect(true);
+		envioemail.setFrom(email);
+		envioemail.setSubject(titulo);
+		envioemail.setMsg(mensagem);
+		envioemail.addTo(emaildestino);
+		envioemail.send();
+		 		
 	}
-
+	
 }

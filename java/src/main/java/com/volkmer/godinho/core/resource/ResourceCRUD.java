@@ -39,9 +39,9 @@ public abstract class ResourceCRUD<Model> implements AutoCloseable {
 		this.setEm(res.getEm());
 	}
 
-	protected void buscaPos(Model model) {}
+	protected void buscaPos(Model model) throws Exception {}
 	
-	public List<Model> buscaTotos() {
+	public List<Model> buscaTotos() throws Exception {
 		
 		sql = "from "+this.getModelClass().getSimpleName() + " m ";
 		
@@ -103,7 +103,7 @@ public abstract class ResourceCRUD<Model> implements AutoCloseable {
 		this.alterarPre(model);
 		this.getEm().merge(model);
 		return model;
-		
+
 	}
 	
 	public void remover(Long id) {

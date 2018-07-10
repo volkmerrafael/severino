@@ -10,7 +10,11 @@ public class RestExceptionFilter implements ExceptionMapper<RestException> {
 
 	@Override
 	public Response toResponse(RestException e) {
-		return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
+		if (e.getDetail()!=null && !e.getDetail().equals("")) {
+			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()+" - "+e.getDetail()).build();
+		} else {
+			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
+		}	
 	}
 	
 }

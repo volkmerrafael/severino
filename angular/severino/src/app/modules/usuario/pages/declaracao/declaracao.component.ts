@@ -1,5 +1,7 @@
 import { Component, OnInit, Inject, ElementRef, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import * as jsPDF from 'jspdf';
 import { Usuario } from '../../../../shared/models/usuario';
 import { ActivatedRoute } from '@angular/router';
@@ -10,6 +12,8 @@ import { FormatarMinutosPipe } from '../../../../shared/components/pipes/time.pi
 import { FormatarDataPipe } from '../../../../components/pipes/pipe';
 import { Issues } from '../../../../shared/models/issues';
 
+import { JustificativaService } from '../../../../services/justificativa.service';
+import { Usuario } from '../../../../shared/models/usuario';
 
 @Component({
   selector: 'app-declaracao',
@@ -20,8 +24,7 @@ import { Issues } from '../../../../shared/models/issues';
   ]
 })
 export class DeclaracaoComponent implements OnInit {
-
-
+  
   doc: jsPDF = new jsPDF();
   txtEditor: String = '';
   form = new FormGroup({

@@ -1,10 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ChartModule } from 'primeng/chart';
 import { TableModule } from 'primeng/table';
+
 import { JiraService } from './jira.service';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { FormsModule } from "@angular/forms";
-import { ChartModule } from 'primeng/chart';
 
 @NgModule({
   imports: [
