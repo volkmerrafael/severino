@@ -219,7 +219,7 @@
         </p-listbox>
       </div>
     </div>
-    <button *ngIf="tipo !== 'COORDENADOR'" pButton type="button" icon="fa fa-fw fa-check" label="Salvar" class="ui-button-success"
+    <button *ngIf="tipo !== 'COORDENADOR' && selectedIssues.length > 0 || justificativa" pButton type="button" icon="fa fa-fw fa-check" label="Salvar" class="ui-button-success"
       (click)="justificarPonto(justificativa)"></button>
     <button *ngIf="tipo !== 'COORDENADOR'" pButton type="button" icon="fa fa-fw fa-ban" label="Cancelar" class="ui-button-danger"
       (click)="closeDialogJustificativa()"></button>
