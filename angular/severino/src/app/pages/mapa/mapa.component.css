@@ -1,0 +1,9 @@
+.mapa {
+  width: 100%;
+  height: 400px;
+  background-color: blue;
+}
+
+agm-map {
+  height: 400px;
+}
