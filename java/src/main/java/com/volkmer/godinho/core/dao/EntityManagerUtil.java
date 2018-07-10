@@ -21,7 +21,7 @@ public class EntityManagerUtil {
 			.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver")
 			.setProperty("hibernate.connection.username", "postgres")
 			.setProperty("hibernate.connection.password", "ids0207")
-			.setProperty("hibernate.connection.url", "jdbc:postgresql://localhost:5443/severino_0011")
+			.setProperty("hibernate.connection.url", "jdbc:postgresql://192.168.1.45:5443/severino_0015")
 			
 			.setProperty("hibernate.c3p0.min_size", "5")
 			.setProperty("hibernate.c3p0.max_size", "35")
@@ -33,14 +33,34 @@ public class EntityManagerUtil {
 			.setProperty("hibernate.show_sql", "false");
 		
 		try {
-			List<Class<?>> classes = new ListaDeClasses("com.volkmer.godinho.severino.entity").getClasses();
-			System.out.println("Inicio Classes");
-			for (Class<?> classe : classes) {
-				if (classe.isAnnotationPresent(Table.class)) {
-					cfg.addAnnotatedClass(classe);
-					System.out.println("--> " + classe.getSimpleName());
+			
+			//Pastas que contem Entity
+			String[] arrayPacotes = {
+					"mod_acesso",
+					"mod_controleponto",
+					"mod_estoque",
+					"mod_eventos", 
+					"mod_geral",
+					"mod_geral.usuario",
+					"mod_geral.usuario.dadosbancarios",
+					"mod_geral.usuario.dadosensino",
+					"mod_jira"};
+
+			for (String pacote : arrayPacotes) {
+				
+				System.out.println("Inicio Classes -- "+pacote);
+				
+				List<Class<?>> classes = new ListaDeClasses("com.volkmer.godinho.severino.entity."+pacote).getClasses();
+				
+				for (Class<?> classe : classes) {
+					if (classe.isAnnotationPresent(Table.class)) {
+						cfg.addAnnotatedClass(classe);
+						System.out.println("--> " + classe.getSimpleName());
+					}
 				}
+				
 			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

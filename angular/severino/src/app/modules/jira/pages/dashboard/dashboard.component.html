@@ -1,0 +1,23 @@
+<div class="row justify-content-md-center"> 
+  <div class="table">
+    <p-table #dt [columns]="cols" [value]="prioridadesJira" [paginator]="true" [rows]="28">
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+        </tr>        
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr [ngClass]="rowData.t == -100.00 ? 'tempo-estourado' :
+                       rowData.t <= 30.00 ? 'tempo-preocupante' :
+                       rowData.t > 30.00 ? 'tempo-razoavel' : null">
+          <td *ngFor="let col of columns" class="ui-resizable-column">
+            <span *ngIf="rowData[col.field] == -100.00; else elseBlock">Tempo Estourado</span>
+            <ng-template #elseBlock>{{rowData[col.field]}}</ng-template>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  

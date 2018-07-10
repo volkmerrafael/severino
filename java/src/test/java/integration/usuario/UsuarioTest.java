@@ -1,13 +1,17 @@
 package integration.usuario;
 
-import org.junit.Assert;
+import javax.xml.ws.WebServiceException;
 
-import com.volkmer.godinho.severino.entity.Usuario;
+import org.junit.Assert;
+import org.junit.Test;
+
+import com.volkmer.godinho.core.rest.filters.RestException;
+import com.volkmer.godinho.severino.entity.mod_geral.usuario.Usuario;
 
 import integration.TesteCrud;
 
 public class UsuarioTest extends TesteCrud<Usuario> {
-
+	
 	@Override
 	protected String getUrlName() {
 		return "usuario";

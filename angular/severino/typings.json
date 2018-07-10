@@ -1,0 +1,6 @@
+{
+  "globalDependencies": {
+    "jspdf": "registry:dt/jspdf#1.1.135+20160921164505",
+    "quill": "registry:dt/quill#1.1.0+20161025144844"
+  }
+}

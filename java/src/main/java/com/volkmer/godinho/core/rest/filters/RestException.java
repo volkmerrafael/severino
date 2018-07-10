@@ -3,6 +3,7 @@ package com.volkmer.godinho.core.rest.filters;
 public class RestException extends Exception {
 
 	private static final long serialVersionUID = 1L;
+	private StringBuilder detail;
 	
 	public RestException() {
 	}
@@ -14,6 +15,45 @@ public class RestException extends Exception {
 	public RestException(String erro) {
 		super(erro);
 	}
+	
+	public RestException( String erro, String detalhes ) {
+		super( erro );
+		this.setDetail( detalhes );
+	}
+	
+	public RestException addDetalhe( String texto ) {
+		if ( this.detail==null ) {
+			this.detail = new StringBuilder();
+		}
+		if ( this.detail.length()>0 ) {
+			this.detail.append( "\n" );
+		}
+		this.detail.append( texto );
+		return this;
+	}
 
+	public String getDetail() {
+		if ( detail!=null ) {
+			return detail.toString();
+		} else {
+			return null;
+		}
+	}
+	
+	public void setDetail(String detail) {
+		this.detail = new StringBuilder( detail );
+	}
+	
+	public String toResponseXml() {
+		
+		StringBuilder xml = new StringBuilder()
+		.append( "<ExceptionResponse>" )
+			.append( "<message>" ).append( this.getMessage() ).append( "</message>" )
+			.append( "<detail>" ).append( this.getDetail() ).append( "</detail>" )
+		.append( "</ExceptionResponse>" );
+		
+		return xml.toString();
+		
+	}
 }
 

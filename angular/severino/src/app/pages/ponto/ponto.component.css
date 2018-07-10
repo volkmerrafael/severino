@@ -3,6 +3,32 @@
   padding-right: 100px;
 }
 
+#mes {
+  margin-right: 10px;
+}
+
+#table{
+  text-align: center;
+}
+
+#legenda.ui-g-6{
+  padding-top: 0;
+  vertical-align: bottom;
+}
+
+#ano {
+  margin-right: 10px;
+}
+
+#pesquisa {
+  margin-bottom: 0;
+}
+
+#legenda {
+  padding-right: 100px;
+  text-align: right;
+}
+
 #menu-lateral {
   text-align: center;
 }
@@ -11,47 +37,40 @@
   text-align: center;
 }
 
-#float-input{
-  text-align: center;
-  margin-top: 10px 10px 10px 10px;
-}
-
-#corpoPonto{
-  padding-top: 100px;
-}
-
-#btnPesquisar{
-  margin: 0px 0px 0px 5px;
-}
-
-#uploadInput{
-  margin-top: 10px;
+#pesquisa {
+  padding-left: 100px; 
 }
 
 #inputInfo {
   text-align: center;
 }
 
-#severino-icon{
-  margin-bottom: 20px;
-}
-
 #ano {
-  margin-bottom: 10px;
   text-align: center;
   width: 100px;
   display: inline-block;
 }
 
 #mes {
-  margin-bottom: 10px;
   text-align: center;
   width: 70px;
   display: inline-block;
 }
 
+.textArea {
+  resize: none;
+  margin-top: 5px;
+  width: 90%;
+  height: 90%;
+  
+}
+
+#btDeclaracao {
+  padding-left: 100px;
+}
+
 .linha-correta {
-  background-color: rgb(86, 136, 169) !important;
+  background-color: rgb(72, 157, 206) !important;
   color: #ffffff !important;
 }
 
@@ -61,6 +80,79 @@
 }
 
 .linha-credito {
-  background-color: rgb(63, 118, 65) !important;
+  background-color: rgb(64, 131, 66) !important;
   color: #ffffff !important;
+}
+
+.linha-justificado {
+  background-color: rgb(55, 103, 190) !important;
+  color: #ffffff !important;
+}
+
+.linha-falta-justificada {
+  background-color: rgb(192, 192, 112) !important;
+  color: #ffffff !important;
+}
+
+.linha-marcacao-incorreta {
+  background-color: rgb(197, 108, 56) !important;
+  color: #ffffff !important;
+}
+
+.linha-sem-informacoes {
+  background-color: #ffffff !important;
+  color: black !important;
+}
+
+.linha-ferias {
+  background-color: rgb(39, 163, 194) !important;
+  color: #ffffff !important;
+}
+
+.linha-atestado-medico {
+  background-color: rgb(135, 140, 141) !important;
+  color: #ffffff !important;
+}
+
+.linha-ponto-facultativo {
+  background-color: rgb(206, 105, 66) !important;
+  color: #ffffff !important;
+}
+
+.linha-nao-admitido {
+  background-color: rgb(123, 130, 138) !important;
+  color: #ffffff !important;
+}
+
+.linha-feriado {
+  background-color: rgb(23, 190, 168) !important;
+  color: #ffffff !important;
+}
+
+.linha-obito {
+  background-color: rgb(116, 129, 136) !important;
+  color: #ffffff !important;
+}
+
+.linha-compensacao {
+  background-color: rgb(124, 59, 84) !important;
+  color: #ffffff !important;
+}
+
+.ui-panel {
+  text-align: right !important;
+}
+
+.btExclamation {
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+
+.btCheck {
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+
+.justificativa {
+  text-align: center;
 }

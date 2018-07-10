@@ -1,1 +1,13 @@
+#bt button {
+    margin: 8px;
+}
 
+#panel {
+    display: flex;
+    justify-content: center;
+}
+
+#bt {
+    display: flex;
+    justify-content: center;
+}

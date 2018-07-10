@@ -11,6 +11,7 @@
     font-size: 18px;
  }
  .links{
+    font-size: 120%;
     text-decoration: none;
     margin-left: 10px;
     cursor:  pointer;
@@ -33,4 +34,8 @@
     margin-top: 3rem;
     padding: 1px 16px 16px 16px;
     background-color: #f3f3f3;
+ }
+
+ #btn-atualizar-lista-ponto {
+     padding-bottom: 30px; 
  }

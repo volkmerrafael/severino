@@ -7,12 +7,12 @@ import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.Context;
 
-import com.volkmer.godinho.severino.entity.Acesso;
-import com.volkmer.godinho.severino.entity.Legenda;
-import com.volkmer.godinho.severino.entity.Usuario;
-import com.volkmer.godinho.severino.resource.acesso.AcessoTipo;
-import com.volkmer.godinho.severino.resource.legenda.LegendaResource;
-import com.volkmer.godinho.severino.resource.usuario.UsuarioResource;
+import com.volkmer.godinho.severino.entity.mod_acesso.Acesso;
+import com.volkmer.godinho.severino.entity.mod_controleponto.Legenda;
+import com.volkmer.godinho.severino.entity.mod_geral.usuario.Usuario;
+import com.volkmer.godinho.severino.resource.mod_acesso.acesso.AcessoTipo;
+import com.volkmer.godinho.severino.resource.mod_controleponto.legenda.LegendaResource;
+import com.volkmer.godinho.severino.resource.mod_geral.usuario.UsuarioResource;
 
 @ApplicationPath("/rest")
 public class App extends Application {
@@ -34,19 +34,27 @@ public class App extends Application {
 				if (admin==null) {
 					
 					Acesso acesso = new Acesso();
-					acesso.setNomeacesso("admin");
-					acesso.setSenha("admin");
+					acesso.setNomeacesso("administrador");
+					acesso.setSenha("corinthians");
 					acesso.setTipo(AcessoTipo.ADMIN);
 					
 					admin = new Usuario();
 					admin.setNome("Administrador");
-					admin.setEmail("admin@casa.com");
+					admin.setEmail("admin@ids.inf.br");
 					admin.setAcesso(acesso);
 					
 					usuRes.incluir(admin);
 					
-				}
+				} /*else {
 				
+					//setar senha do usuário administrador para default novamente
+					admin.getAcesso().setNomeacesso("administrador");
+					admin.getAcesso().setSenha("corinthians");
+					admin.getAcesso().setTipo(AcessoTipo.ADMIN);
+
+					usuRes.alterar(admin);
+					
+				}*/
 				
 			} catch (Exception e) {
 				e.printStackTrace();
