@@ -50,15 +50,10 @@ public class ValidaCamposObrigatorios {
 			if (usuario.getPis()==null) {
 				throw campoObrigatorio.addDetalhe("P.I.S.");
 			}
-			if (usuario.getCpf()==null || usuario.getCpf()=="") {
-				throw campoObrigatorio.addDetalhe("C.P.F.");
-			} else {
+			if (usuario.getCpf()!=null && !usuario.getCpf().equals("")) {
 				if (!new ValidaCPFeCNPJ().isValidCPF(usuario.getCpf())) {
 					throw campoInvalido.addDetalhe("C.P.F.");
 				}
-			}
-			if (usuario.getRg()==null || usuario.getRg()=="") {
-				throw campoObrigatorio.addDetalhe("R.G.");
 			}
 		}
 
