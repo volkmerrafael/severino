@@ -12,6 +12,10 @@ export class FormatarMinutosPipe implements PipeTransform {
     minuto: string;
     total: number;
     result: string;
+    string: string;
+    p1: number;
+    p2: number;
+    retorno: string;
 
     transform(value: number): string {
         if (value < 0) {
@@ -21,7 +25,6 @@ export class FormatarMinutosPipe implements PipeTransform {
             this.result = "00:00";
         } else if (value < 60) {
             this.minutos = value;
-                this.result = "00:0" + this.minutos;
             if (this.minutos < 10) {
                 this.result = "00:0" + this.minutos;
             } else {
@@ -53,5 +56,43 @@ export class FormatarMinutosPipe implements PipeTransform {
             this.result = this.hora + this.minuto;
             return this.result;
         }
+    }
+    horaTransform(value: number) {
+        if (value < 1) {
+            this.minutos = Math.trunc(value * 60);
+            if (this.minutos >= 10) {
+            this.minuto = "00:" + this.minutos;
+            } else {
+            this.minuto = "00:0" + this.minutos;
+            }
+            this.result = this.minuto;
+        } else if (value < 10) {
+            this.horas = Math.trunc(value);
+            this.minutos = (value - this.horas) * 60;
+            if (this.minutos >= 10) {
+                this.minuto = ":" + Math.trunc(this.minutos);
+            } else {
+                this.minuto = ":0" + Math.trunc(this.minutos);
+            }
+            this.result = "0" + this.horas + this.minuto;
+        } else {
+            this.horas = Math.trunc(value);
+            this.minutos = (value - this.horas) * 60;
+            if (this.minutos >= 10) {
+                this.minuto = ":" + Math.trunc(this.minutos);
+            } else {
+                this.minuto = ":0" + Math.trunc(this.minutos);
+            }
+            this.result = this.horas + this.minuto;
+        }
+            return this.result;
+    }
+
+    buscar(text: string, posicao1: any, posicao2: any) {
+        this.string = text;
+        this.p1 = posicao1;
+        this.p2 = posicao2;
+        this.retorno = this.string.slice(this.p1, this.p2);
+        return this.retorno;
     }
 }

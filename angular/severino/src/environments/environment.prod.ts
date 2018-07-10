@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  server: "http://localhost:8082/severino/rest/"
+  server: "http://192.168.1.45:8082/severino/rest/"
 };

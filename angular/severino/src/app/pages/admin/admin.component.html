@@ -31,9 +31,9 @@
     </ng-template>
     <ng-template pTemplate="body" let-importacoes let-columns="columns">
       <tr>
-        <td>{{importacoes.nome}}{{importacao.extensao}}</td>
+        <td>{{importacoes.nome}}.xls</td>
 
-        <td>{{importacoes.tamanho}}</td>
+        <td>{{importacoes.tamanho / 1024}} KB</td>
 
         <td>{{importacoes.inicio_periodo | date:"dd/MM/yyyy"}}</td>
 
@@ -52,6 +52,8 @@
         <td>{{importacoes.usuario_sem_pendencias}}</td>
 
         <td>{{importacoes.tempo_importacao}}</td>
+
+        <td>{{importacoes.tempo_processamento}}</td>
 
         <td>{{importacoes.status}}</td>
       </tr>

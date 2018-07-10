@@ -1,0 +1,26 @@
+<div id="p-editar-perfil" style="padding-left: 300px; padding-right: 300px">
+  <p-panel id="panel" [style]="{margin:'5px'}" styleClass="ui-card-shadow">
+    <p-header *ngIf="id !== 0" style="font-size: 20px">Editar perfil:</p-header>
+    <p-header *ngIf="id === 0" style="font-size: 20px">Cadastro de Tipo de Evento:</p-header>
+    <div style="display: inline-block;">
+      <form style="margin: 20px" [formGroup]="perfilForm" (ngSubmit)="onSubmit(perfilForm.value)">
+        <div>
+          <label>Descrição:</label>
+          <br>
+          <input size="70%" formControlName="inputDescricao" pInputText [(ngModel)]="tipoevento.descricao" />
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!perfilForm.controls['inputDescricao'].valid && perfilForm.controls['inputDescricao'].dirty">
+            <i class="fa fa-close"></i>
+            Deve ter mais de 3 caracteres
+          </div>
+          <br>
+          <br>
+        </div>
+      </form>
+      <div id="bt">
+        <button pButton type="button" icon="fa fa-fw fa-reply" label="Voltar" class="ui-button-secondary" (click)="voltar()"></button>
+        <button pButton *ngIf="id !== 0" type="button" icon="fa fa-fw fa-ban" label="Cancelar" class="ui-button-danger" (click)="buscaPerfil()"></button>
+        <button pButton type="button" icon="fa fa-fw fa-chevron-down" label="Salvar" class="ui-button-success" (click)="clickEditar()"></button>
+      </div>
+    </div>
+  </p-panel>
+</div>

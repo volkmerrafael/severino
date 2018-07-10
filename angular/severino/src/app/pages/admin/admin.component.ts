@@ -69,6 +69,7 @@ export class AdminComponent implements OnInit {
           { field: 'importacoes.usuario_com_marcacao_incorreta', header: 'Inc.' },
           { field: 'importacoes.usuario_sem_pendencias', header: 'Cor.' },
           { field: 'importacoes.tempo_importacao', header: 'Tempo Imp.' },
+          { field: 'importacoes.tempo_processamento', header: 'Tempo Proc. Arq.' },
           { field: 'importacoes.status', header: 'Sit.' },
         ];
         this.tipoGrow = "success";

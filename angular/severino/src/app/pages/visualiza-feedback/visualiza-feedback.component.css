@@ -1,0 +1,12 @@
+#panel {
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.span {
+    font-weight: bold;
+    color: black;
+    font-family: Arial, sans-serif;
+    font-size: medium;
+}

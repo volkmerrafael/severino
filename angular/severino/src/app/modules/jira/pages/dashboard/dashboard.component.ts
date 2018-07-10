@@ -20,26 +20,25 @@ export class DashboardComponent implements OnInit {
   prioridadeInfo: PrioridadeInfo = new PrioridadeInfo;
   prioridadesJira: PrioridadeJira[] = [];
   data: any;
+  id: number;
 
   constructor(
     private jiraService: JiraService
-  ) { }
+  ) {
+    this.id = parseInt(sessionStorage.getItem('id'), 10);
+   }
 
   ngOnInit() {
     this.listarJiraPrioridade();
     this.carregarGraficos();
   }
-
   listarJiraPrioridade() {
     this.jiraService.listaPrioridadeJira()
       .subscribe(res => {
-        console.log(res);
         this.prioridadesJira = res.lista_prioridades;
-        console.log(this.prioridadesJira);
         this.prioridadesJira.forEach(data => {
         data.pendenteem = moment(data.pendenteem).format("DD/MM/YYYY");
         });
-        console.log('Jira', this.prioridadesJira);
         this.cols = [
           { field: 'project_name', header: 'Projeto' },
           { field: 'sitema', header: 'Sistema' },

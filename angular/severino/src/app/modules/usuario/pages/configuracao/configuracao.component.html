@@ -1,0 +1,19 @@
+<div class="divMaior">
+    <p-panel id="panel">
+      <p-header style="font-size: 20px">Integrações:</p-header>
+      <div>
+        <span style="font-size: 17px">
+          <p-checkbox  binary="true" [(ngModel)]="configuracao.integra_jira" value="configuracao.integra_jira"></p-checkbox>
+          Integração Jira
+        </span>
+        <br>
+        <span style="font-size: 17px">
+          <p-checkbox binary="true" [(ngModel)]="configuracao.integra_slack" value="configuracao.integra_slack"></p-checkbox>
+          Integração Slack
+        </span>
+        <br>
+        <br>
+        <button pButton type="button" icon="fa fa-fw fa-chevron-down" label="Salvar" class="ui-button-success" (click)="alteraConfiguracao()"></button>
+      </div>
+    </p-panel>
+  </div>

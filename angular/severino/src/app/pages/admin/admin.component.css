@@ -1,8 +1,9 @@
   #table {
+    padding-left: 20px;
+    padding-right: 20px;
     text-align: center;
-    margin-left: 200px;
-    margin-right: 200px;
-  }
+    font-size: 13px
+   }
   
   #menu-lateral {
     text-align: center;
@@ -34,6 +35,7 @@
   }
 
   .table {
-    padding-left: 100px;
-    padding-right: 100px
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 12px;
   }
