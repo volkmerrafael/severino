@@ -84,12 +84,12 @@
   
 ### 3. (versão 3.0)
 * Acesso Administrativo  
-  - [ ] Cadastro de Coordenadores
-  - [ ] Ver ponto dos Funcionários por Departamento
-  - [ ] Visualizar Informações dos Funcionarioo que tem Declaração de Hora Extra a Fazer.
-  - [ ] Visualizar Informações dos Funcionario que tem Declaração de Compensação de Horas a Fazer.
+  - [x] Cadastro de Coordenadores
+  - [x] Ver ponto dos Funcionários por Departamento
+  - [x] Visualizar Informações dos Funcionarioo que tem Declaração de Hora Extra a Fazer.
+  - [x] Visualizar Informações dos Funcionario que tem Declaração de Compensação de Horas a Fazer.
 * Acesso Coordenador
-  - [ ] Visualizar ponto dos Funcionário pertencentes ao seu Departamento
+  - [x] Visualizar ponto dos Funcionário pertencentes ao seu Departamento
   
 #### @autor 
 * Rafael Volkmer - Back-End - https://github.com/volkmerrafael
