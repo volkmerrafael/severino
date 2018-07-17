@@ -21,8 +21,10 @@ public class EntityManagerUtil {
 			.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver")
 			.setProperty("hibernate.connection.username", "postgres")
 			.setProperty("hibernate.connection.password", "ids0207")
-			.setProperty("hibernate.connection.url", "jdbc:postgresql://192.168.1.45:5443/severino_0015")
-			
+			//producão
+			//.setProperty("hibernate.connection.url", "jdbc:postgresql://localhost:5432/severino_beta")
+			//local
+			.setProperty("hibernate.connection.url", "jdbc:postgresql://localhost:5443/severino_0015")
 			.setProperty("hibernate.c3p0.min_size", "5")
 			.setProperty("hibernate.c3p0.max_size", "35")
 			.setProperty("hibernate.c3p0.timeout", "1800")

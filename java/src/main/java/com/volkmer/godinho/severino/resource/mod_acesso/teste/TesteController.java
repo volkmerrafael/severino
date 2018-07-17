@@ -14,7 +14,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import com.volkmer.godinho.core.dao.ListaDeClasses;
-import com.volkmer.godinho.core.email.Email;
 import com.volkmer.godinho.core.rest.RestSessao;
 import com.volkmer.godinho.severino.entity.mod_acesso.Acesso;
 import com.volkmer.godinho.severino.entity.mod_acesso.ObjetoTeste;
@@ -57,19 +56,6 @@ public class TesteController {
 			return true;
 		} else {
 			return false;
-		}
-		
-	}
-	
-	@GET
-	@Path("/html")
-	@Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_HTML}) 
-	public String html() {
-		try {
-			new Email().sendEmail();
-			return "<html><body><h1>Teste</h1>teste 2</body></html>";
-		} catch (Exception e) {
-			return "<html><body><h1>Erro:</h1>"+e.getMessage()+"</body></html>";
 		}
 		
 	}

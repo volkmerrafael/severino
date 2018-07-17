@@ -1,6 +1,7 @@
 package com.volkmer.godinho.severino.resource.mod_geral.usuario;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -227,6 +228,48 @@ public class UsuarioResource extends ResourceCRUD<Usuario> {
 		}
 		
 		return null;
+		
+	}
+	
+	public List<Usuario> listarCoordenadores(String userToken) throws Exception {
+		
+		List<Usuario> listaCoordenador = new ArrayList<Usuario>();
+		
+		Usuario usuario = new ValidaSeExisteUsuarioParaOToken().validar(userToken);
+		
+		if (this.ehUsarioAdmin(usuario.getAcesso().getToken())) {
+			
+			TypedQuery<Usuario> queryUsuario = this.getEm().createQuery("select p from Usuario p", Usuario.class);			
+			List<Usuario> lista = queryUsuario.getResultList();
+			
+			for (Usuario usu : lista) {
+				if (usu.getAcesso().getTipo().equals(AcessoTipo.COORDENADOR)) {
+					listaCoordenador.add(usu);
+				}
+			}
+			
+			return listaCoordenador;
+
+		}
+		
+		return null;
+		
+	}
+	
+	public List<Usuario> listarUsuariosAcessoNormal() throws Exception {
+		
+		List<Usuario> listaFinal = new ArrayList<Usuario>();
+		
+		TypedQuery<Usuario> queryUsuario = this.getEm().createQuery("select p from Usuario p", Usuario.class);			
+		List<Usuario> lista = queryUsuario.getResultList();
+		
+		for (Usuario usu : lista) {
+			if (usu.getAcesso().getTipo().equals(AcessoTipo.NORMAL)) {
+				listaFinal.add(usu);
+			}
+		}
+		
+		return listaFinal;
 		
 	}
 

@@ -15,7 +15,7 @@ public class Configurador extends Application {
 		BeanConfig b = new BeanConfig();
 		b.setVersion("1.0.0");
 		b.setSchemes(new String[] {"http"});
-		b.setHost("192.168.1.45:8082");
+		b.setHost("192.168.0.21:8082");
 		b.setBasePath("severino/rest");
 		//b.setResourcePackage(EchoRest.class.getPackage().getName());
 		b.setTitle("severino");

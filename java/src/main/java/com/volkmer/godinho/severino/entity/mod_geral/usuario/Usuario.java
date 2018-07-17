@@ -6,6 +6,8 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -21,6 +23,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.volkmer.godinho.core.util.SimNao;
 import com.volkmer.godinho.severino.entity.mod_acesso.Acesso;
 
 import io.swagger.annotations.ApiModel;
@@ -48,7 +51,6 @@ public class Usuario {
 	private String nome;
 	
 	@Column(length=200)
-	@NotNull
 	@ApiModelProperty("E-mail")
 	private String email;
 	
@@ -83,11 +85,16 @@ public class Usuario {
 	@ApiModelProperty("Celular")
 	private String celular;
 	
-	@Column
+	@Column(precision = 11, scale = 8)
 	@ApiModelProperty("Latitude")
 	private BigDecimal latitude;
 	
-	@Column
+	@Column(length=3)
+	@ApiModelProperty("Receber Notificação")
+	@Enumerated(EnumType.STRING)
+	private SimNao receber_notificacao = SimNao.NAO;
+	
+	@Column(precision = 11, scale = 8)
 	@ApiModelProperty("Longitude")
 	private BigDecimal longitude;
 	

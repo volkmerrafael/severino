@@ -50,7 +50,7 @@ public class AcessoResource extends ResourceCRUD<Acesso> {
 	
 	public Acesso buscaPorUsuario(Long id) {
 		
-		TypedQuery<Acesso> query = this.getEm().createQuery("select a from Usaurio u inner join u.acesso a  where u.id = :id", this.getModelClass());
+		TypedQuery<Acesso> query = this.getEm().createQuery("select a from Usuario u inner join u.acesso a  where u.id = :id", this.getModelClass());
 		query.setParameter("id", id);
 		Acesso acesso = query.getSingleResult();
 		return acesso;
