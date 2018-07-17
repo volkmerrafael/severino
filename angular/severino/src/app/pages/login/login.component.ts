@@ -22,6 +22,7 @@ export class LoginComponent {
   tituloGrow;
   tipoGrow;
   id: any;
+  loginAdm : boolean = false;
 
   constructor(
     private usuarioService: UsuarioService,
@@ -37,6 +38,22 @@ export class LoginComponent {
   }
 
   login() {
+
+    if (!this.loginAdm) {
+      this.usuario.superuser = "";
+    }
+ 
+    if (this.usuario.nomeacesso === undefined) {
+    this.tipoGrow = "error";
+    this.tituloGrow = 'Ops';
+    this.mensagemGrow = "Preencha o campo nome";
+    this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
+  } else if (this.usuario.senha === undefined) {
+      this.tipoGrow = "error";
+      this.tituloGrow = 'Ops';
+      this.mensagemGrow = "Preencha o campo senha";
+      this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
+    } else {
     this.usuarioService.login(this.usuario)
     .subscribe(res => {
       sessionStorage.setItem('id', '' + res.usuario.id);
@@ -46,9 +63,14 @@ export class LoginComponent {
       sessionStorage.setItem('sessaotoken', res.sessaotoken);
       sessionStorage.setItem('nomeacesso', res.nomeacesso);
       sessionStorage.setItem('tipo', res.usuario.acesso.tipo);
-
+      this.usuarioService.usuarioJira()
+      .subscribe(res1 => {
+        sessionStorage.setItem('usuarioJira', '' + res1.integra_jira);
+      });
       if (res.usuario.acesso.tipo === "ADMIN") {
         this.router.navigate(['/admin']);
+      } else if (res.usuario.acesso.tipo === "COORDENADOR") {
+        this.router.navigate(['/lista']);
       } else {
         sessionStorage.setItem('departamentoUsuario', res.usuario.departamento.nome);
         sessionStorage.setItem('pisUsuario', res.usuario.pis);
@@ -62,10 +84,7 @@ export class LoginComponent {
         this.mensagemGrow = error.error;
         this.showGrow(this.tipoGrow, this.tituloGrow, this.mensagemGrow);
     });
-    this.usuarioService.usuarioJira()
-    .subscribe( res => {
-      console.log(res);
-    });
+  }
   }
 
   logout(): void {

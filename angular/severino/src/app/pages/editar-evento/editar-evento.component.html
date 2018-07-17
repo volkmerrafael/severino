@@ -1,0 +1,148 @@
+<div id="p-editar-perfil" style="padding-left: 300px; padding-right: 300px">
+  <p-panel id="panel" [style]="{margin:'5px'}" styleClass="ui-card-shadow">
+    <p-header *ngIf="id !== 0" style="font-size: 20px">Editar evento:</p-header>
+    <p-header *ngIf="id === 0" style="font-size: 20px">Cadastro de Evento:</p-header>
+    <div style="display: inline-block;">
+      <form style="margin: 20px" [formGroup]="perfilForm" (ngSubmit)="onSubmit(perfilForm.value)">
+        <div>
+          <label>Descrição:</label>
+          <br>
+          <textarea size="100%" formControlName="inputDescricao" pInputText [(ngModel)]="evento.descricao" [rows]="10"></textarea>
+          <!--input size="100%" formControlName="inputDescricao" pInputText [(ngModel)]="evento.descricao" /-->
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!perfilForm.controls['inputDescricao'].valid && perfilForm.controls['inputDescricao'].dirty">
+            <i class="fa fa-close"></i>
+            Deve ter mais de 3 caracteres
+          </div>
+          <br>
+          <br>
+        </div>
+
+        <div>
+        <label>Início:</label>
+        <br>
+        <input size="100%" formControlName="inputDataHoraInicio" pInputText [(ngModel)]="evento.data_hora_inicio" />
+        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!perfilForm.controls['inputDataHoraInicio'].valid && perfilForm.controls['inputDataHoraInicio'].dirty">
+          <i class="fa fa-close"></i>
+          Deve ter mais de 3 caracteres
+        </div>
+        <br>
+        <br>
+        </div>
+
+        <div>
+        <label>Término:</label>
+        <br>
+        <input size="100%" formControlName="inputDataHoraTermino" pInputText [(ngModel)]="evento.data_hora_termino" />
+        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!perfilForm.controls['inputDataHoraTermino'].valid && perfilForm.controls['inputDataHoraTermino'].dirty">
+          <i class="fa fa-close"></i>
+          Deve ter mais de 3 caracteres
+        </div>
+        <br>
+        <br>
+        </div>
+
+        <div>
+            <label>Duração:</label>
+            <br>
+            <input size="100%" formControlName="inputDuracao" pInputText [(ngModel)]="evento.duracao" />
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!perfilForm.controls['inputDuracao'].valid && perfilForm.controls['inputDuracao'].dirty">
+              <i class="fa fa-close"></i>
+              Deve ter mais de 1 caracteres
+            </div>
+            <br>
+            <br>
+        </div>
+
+        <div>
+            <label>Lim. Confirmação:</label>
+            <br>
+            <input size="100%" formControlName="inputDataHoraLimite" pInputText [(ngModel)]="evento.data_hora_limite_confirmacao" />
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!perfilForm.controls['inputDataHoraLimite'].valid && perfilForm.controls['inputDataHoraLimite'].dirty">
+              <i class="fa fa-close"></i>
+              Deve ter mais de 3 caracteres
+            </div>
+            <br>
+            <br>
+        </div>
+
+        <div>
+            <label>Limite Vagas:</label>
+            <br>
+            <input size="100%" formControlName="inputLimiteVagas" pInputText [(ngModel)]="evento.limite_vagas" />
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!perfilForm.controls['inputLimiteVagas'].valid && perfilForm.controls['inputLimiteVagas'].dirty">
+              <i class="fa fa-close"></i>
+              Deve ter mais de 1 caracteres
+            </div>
+            <br>
+            <br>
+        </div>
+
+        <div>
+            <label>Mentor:</label>
+            <br>
+            <input size="100%" formControlName="inputMentor" pInputText [(ngModel)]="evento.usuario.nome" />
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!perfilForm.controls['inputMentor'].valid && perfilForm.controls['inputMentor'].dirty">
+              <i class="fa fa-close"></i>
+              Deve ter mais de 1 caracteres
+            </div>
+            <br>
+            <br>
+        </div>
+
+        <div>
+            <label>Tipo Evento:</label>
+            <br>
+            <input size="100%" formControlName="inputTipoEvento" pInputText [(ngModel)]="evento.tipoevento.descricao" />
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!perfilForm.controls['inputTipoEvento'].valid && perfilForm.controls['inputTipoEvento'].dirty">
+              <i class="fa fa-close"></i>
+              Deve ter mais de 1 caracteres
+            </div>
+            <br>
+            <br>
+        </div>
+
+        <div>
+            <label>Permite Convidados:</label>
+            <br>
+            <input size="100%" formControlName="inputPermiteConvidados" pInputText [(ngModel)]="evento.permite_convidados" />
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!perfilForm.controls['inputPermiteConvidados'].valid && perfilForm.controls['inputPermiteConvidados'].dirty">
+              <i class="fa fa-close"></i>
+              Deve ter mais de 1 caracteres
+            </div>
+            <br>
+            <br>
+        </div>
+
+        <div>
+            <label>Favorito:</label>
+            <br>
+            <input size="100%" formControlName="inputFavorito" pInputText [(ngModel)]="evento.favorito" />
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!perfilForm.controls['inputFavorito'].valid && perfilForm.controls['inputFavorito'].dirty">
+              <i class="fa fa-close"></i>
+              Deve ter mais de 1 caracteres
+            </div>
+            <br>
+            <br>
+        </div>
+
+        <div>
+            <label>Confirmados:</label>
+            <br>
+            <input size="100%" formControlName="inputConfirmados" pInputText [(ngModel)]="evento.confirmados" />
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!perfilForm.controls['inputConfirmados'].valid && perfilForm.controls['inputConfirmados'].dirty">
+              <i class="fa fa-close"></i>
+              Deve ter mais de 1 caracteres
+            </div>
+            <br>
+            <br>
+        </div>
+
+      </form>
+      <div id="bt">
+        <button pButton type="button" icon="fa fa-fw fa-reply" label="Voltar" class="ui-button-secondary" (click)="voltar()"></button>
+        <button pButton *ngIf="id !== 0" type="button" icon="fa fa-fw fa-ban" label="Cancelar" class="ui-button-danger" (click)="buscaPerfil()"></button>
+        <button pButton type="button" icon="fa fa-fw fa-chevron-down" label="Salvar" class="ui-button-success" (click)="clickEditar()"></button>
+      </div>
+    </div>
+  </p-panel>
+</div>

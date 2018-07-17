@@ -6,5 +6,5 @@ export interface Login {
     usertoken: string;
     sessaotoken: string;
     usuario: Usuario;
-
+    superuser: string;
 }

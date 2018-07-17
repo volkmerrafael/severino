@@ -1,7 +1,7 @@
 <form [formGroup]="form">
-    <span>{{form.controls.editor.value}}</span>
   <div class="bt">
-  <button id="btExportar" pButton type="button" class="ui-button-primary" label="Exportar declaração" (click)="download02()"></button>
-</div>
+    <button id="btVoltar" pButton type="button" icon="fa fa-fw fa-reply" label="Voltar" class="ui-button-secondary" (click)="voltar()"></button>
+    <button id="btExportar" pButton type="button" class="ui-button-primary" label="Exportar declaração" (click)="dowloadPDF()"></button>
+  </div>
   <quill-editor #editor [formControl]="form.controls['editor']"></quill-editor>
 </form>

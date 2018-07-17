@@ -1,4 +1,5 @@
 import { Justificativa } from "./justificativa";
+import { Issues } from "./issues";
 
 export class PontoEditado {
     id: number;
@@ -14,7 +15,10 @@ export class PontoEditado {
     entrada4: string;
     saida4: string;
     observacao: string;
-    justificativa: Justificativa;
+    justificativa: string;
     legenda: string;
     status: string;
+    issues: Issues[];
+    issue_relacionada: boolean;
+    worklog_diario: number;
 }

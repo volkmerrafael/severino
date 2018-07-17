@@ -15,4 +15,5 @@ export class JiraService {
       `${environment.server}jira/prioridade/listar`
     );
   }
+
 }

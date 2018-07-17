@@ -1,6 +1,7 @@
 <div class="ui-g">
   <div class="ui-g-12" style="text-align: center; padding-top: 30px;">
     <div id="pesquisa" class="form-group">
+      <h5 *ngIf="tipo === 'COORDENADOR'">{{nomeUsuario}}</h5>
 
       <input class="form-control" pInputText id="mes" name="mes" type="text" placeholder="Mês" [(ngModel)]="mes" />
 
@@ -19,8 +20,15 @@
 
     <div class="row">
       <div id="btDeclaracao">
-      <button type="text" (click)="gerarDeclaracao(usuario.id, ano, mes)" pButton icon="fa-file" label="Gerar declaração"></button>
-    </div>
+        <button *ngIf="existeCredito && justCredito && tipo !== 'COORDENADOR'" id="bt1" type="text" (click)="gerarDeclaracao(usuario.id, ano, mes, 'ext')"
+          pButton icon="fa-file" label="Gerar declaração de hora extra"></button>
+
+        <button *ngIf="existeDebito && justDebito && tipo !== 'COORDENADOR'" id="bt2" type="text" (click)="gerarDeclaracao(usuario.id, ano, mes, 'comp')"
+          pButton icon="fa-file" label="Gerar declaração de compensação de horas"></button>
+
+        <button *ngIf="existeMarcInc && justJustificado && tipo !== 'COORDENADOR'" id="bt3" type="text" (click)="gerarDeclaracao(usuario.id, ano, mes, 'just')"
+          pButton icon="fa-file" label="Gerar declaração de justificativa ponto"></button>
+      </div>
       <div id="legenda" class="ui-g-12" style="text-align: right;">
         <span *ngIf="existeCorreto">
           <svg height="15" width="15">
@@ -52,17 +60,17 @@
           </svg>
           Falta Justificada
         </span>
-        <span *ngIf="existeMarcInc">
-          <svg height="15" width="15">
-            <circle cx="15" cy="15" r="40" fill="rgb(197, 108, 56)" />
-          </svg>
-          Marcação Incorreta
-        </span>
         <span *ngIf="existeFerias">
           <svg height="15" width="15">
             <circle cx="15" cy="15" r="40" fill="rgb(39, 163, 194)" />
           </svg>
           Férias
+        </span>
+        <span *ngIf="existeMarcInc">
+          <svg height="15" width="15">
+            <circle cx="15" cy="15" r="40" fill="rgb(197, 108, 56)" />
+          </svg>
+          Marcação Incorreta
         </span>
         <span *ngIf="existeAtestado">
           <svg height="15" width="15">
@@ -100,10 +108,13 @@
           </svg>
           Compensação de horas
         </span>
+        <span *ngIf="existeMarcAlt">
+          * Marcação Alterada
+        </span>
       </div>
 
       <div id="table">
-        <p-table [columns]="cols" [value]="pontosEditados" [resizableColumns]="true">
+        <p-table [columns]="tabela" [value]="pontosEditados" [resizableColumns]="true">
 
           <ng-template pTemplate="colgroup" let-columns>
             <colgroup>
@@ -151,8 +162,8 @@
               <td *ngFor="let col of columns" class="ui-resizable-column">
                 {{rowData[col.field]}}
                 <span *ngIf="col.field == 'justificativaId' && (rowData.status == 'CREDITO' || rowData.status == 'DEBITO' || rowData.status == 'MARCACAO_INCORRETA')">
-                  <button *ngIf="rowData.justificativa.descricao !== '' && rowData.justificativa.id" pButton class="btCheck" type="text" icon="fas fa-check-circle" (click)="showDialogJustificativa(rowData)"></button>
-                  <button *ngIf="rowData.justificativa.descricao === '' || !rowData.justificativa.id" pButton class="btExclamation" type="text" icon="fas fa-exclamation-circle"
+                  <button *ngIf="rowData.justificativa || rowData.issue_relacionada" pButton class="btCheck" type="text" icon="fas fa-check-circle" (click)="showDialogJustificativa(rowData)"></button>
+                  <button *ngIf="!rowData.justificativa && !rowData.issue_relacionada" pButton class="btExclamation" type="text" icon="fas fa-exclamation-circle"
                     (click)="showDialogJustificativa(rowData)"></button>
                 </span>
               </td>
@@ -176,14 +187,31 @@
   </div>
 </div>
 <div class="divJustificativa">
-  <p-dialog id="justificativa" header="Justificativa" [(visible)]="displayJustificativa" [responsive]="true" [width]="1200"
-    [minWidth]="700" [minY]="70">
-    <div class="ui-g">
+  <p-dialog id="justificativa" header="Justificativa - {{textoJustificativa}}" [(visible)]="displayJustificativa" [responsive]="true"
+    [width]="1200" [minWidth]="700" [minY]="70">
+    <div *ngIf="statusJust === 'MARCACAO_INCORRETA'">
+      <textarea rows="5" tabela="30" class="textArea" pInputTextarea [(ngModel)]="justificativa"></textarea>
+    </div>
+    <div *ngIf="statusJust === 'CREDITO' || statusJust === 'DEBITO'" class="ui-g">
       <div class="ui-g-6">
-        <textarea rows="5" cols="30" class="textArea" pInputTextarea [(ngModel)]="justificativa.descricao"></textarea>
-      </div>
-      <div class="ui-g-6" style="width: auto;">
-        <p-listbox *ngIf="listaIssues" class="listbox" [style]="{'width':'500px'}" [listStyle]="{'max-height':'250px'}" [options]="listaIssues"
+        <p-accordion [style]="{'width':'500px'}">
+          <p-accordionTab header="Worklog" [selected]="true">
+            <span *ngFor="let worklog of worklogs">
+              {{worklog.issue.issue}} ({{worklog.issue.summary}})
+              <br> Iniciado as: {{worklog.startdate}}
+              <br>
+              <br>
+            </span>
+          </p-accordionTab>
+      </p-accordion>
+      
+    </div>
+      <div class="ui-g-6">
+        <span>Descrição:</span>
+        <textarea rows="5" tabela="30" class="textArea" pInputTextarea [(ngModel)]="justificativa"></textarea>
+
+        <br>
+        <p-listbox *ngIf="issues" class="listbox" [style]="{'width':'500px'}" [listStyle]="{'max-height':'250px'}" [options]="issues"
           [(ngModel)]="selectedIssues" multiple="multiple" checkbox="checkbox" filter="filter" optionLabel="issue">
           <p-header>
             Issues
@@ -191,7 +219,9 @@
         </p-listbox>
       </div>
     </div>
-    <button pButton type="button" icon="fa fa-fw fa-check" label="Salvar" class="ui-button-success" (click)="justificarPonto(justificativa)"></button>
-    <button pButton type="button" icon="fa fa-fw fa-ban" label="Cancelar" class="ui-button-danger" (click)="closeDialogJustificativa()"></button>
+    <button *ngIf="tipo !== 'COORDENADOR' && selectedIssues.length > 0 || justificativa" pButton type="button" icon="fa fa-fw fa-check" label="Salvar" class="ui-button-success"
+      (click)="justificarPonto(justificativa)"></button>
+    <button *ngIf="tipo !== 'COORDENADOR'" pButton type="button" icon="fa fa-fw fa-ban" label="Cancelar" class="ui-button-danger"
+      (click)="closeDialogJustificativa()"></button>
   </p-dialog>
 </div>

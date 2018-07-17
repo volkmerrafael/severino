@@ -19,12 +19,12 @@ export class UserHttpInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const urlReq = String(req.url);
     const urlLogin = urlReq.indexOf("login");
-    const urlJira = urlReq.indexOf("jira");
+    //const urlJira = urlReq.indexOf("jira");
     const sessaotoken = sessionStorage.getItem('sessaotoken');
     const usertoken = sessionStorage.getItem('usertoken');
     const nomeacesso = sessionStorage.getItem('nomeacesso');
 
-    if (urlLogin === -1 && urlJira === -1) {
+    if (urlLogin === -1) { //&& urlJira === -1) {
       if (usertoken) {
         const secureReq = req.clone({
           headers: new HttpHeaders({

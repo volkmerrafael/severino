@@ -1,15 +1,14 @@
 #table {
-  padding-left: 100px;
-  padding-right: 100px;
-}
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+  font-size: 13px
+ }
 
 #mes {
   margin-right: 10px;
 }
 
-#table{
-  text-align: center;
-}
 
 #legenda.ui-g-6{
   padding-top: 0;
@@ -22,6 +21,11 @@
 
 #pesquisa {
   margin-bottom: 0;
+  display: inline-block;
+}
+ 
+#btnPesquisar {
+  display: inline-block;
 }
 
 #legenda {
@@ -61,12 +65,30 @@
   resize: none;
   margin-top: 5px;
   width: 90%;
-  height: 90%;
+  height: 20%;
   
 }
 
 #btDeclaracao {
   padding-left: 100px;
+}
+
+#bt1 {
+  background-color: rgb(64, 131, 66) !important;
+  border-color: rgb(64, 131, 66) !important;
+  margin: 8px;
+}
+
+#bt2 {
+  background-color: rgb(153, 59, 59) !important;
+  border-color: rgb(153, 59, 59) !important;
+  margin: 8px;
+}
+
+#bt3 {
+  background-color: rgb(197, 108, 56) !important;
+  border-color: rgb(197, 108, 56) !important;
+  margin: 8px;
 }
 
 .linha-correta {
