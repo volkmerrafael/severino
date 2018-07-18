@@ -4,6 +4,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 import com.volkmer.godinho.core.resource.ResourceCRUD;
+import com.volkmer.godinho.core.util.imagem.Redimensionar;
 import com.volkmer.godinho.severino.entity.mod_geral.imagem.Imagem;
 import com.volkmer.godinho.severino.entity.mod_geral.usuario.Usuario;
 import com.volkmer.godinho.severino.resource.mod_geral.usuario.UsuarioResource;
@@ -33,6 +34,16 @@ public class ImagemResource extends ResourceCRUD<Imagem> {
 		}
 
 		return null;
+	}
+	
+	@Override
+	protected void incluirPre(Imagem model) throws Exception {
+		model.setFoto(new Redimensionar().fazer(model.getFoto(), 154, 192));
+	}
+
+	@Override
+	protected void alterarPre(Imagem model) throws Exception {
+		model.setFoto(new Redimensionar().fazer(model.getFoto(), 154, 192));
 	}
 	
 }

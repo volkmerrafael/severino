@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.volkmer.godinho.core.util.SimNao;
+import com.volkmer.godinho.core.util.enumeration.SimNao;
 import com.volkmer.godinho.severino.entity.mod_geral.usuario.Usuario;
 
 import io.swagger.annotations.ApiModel;

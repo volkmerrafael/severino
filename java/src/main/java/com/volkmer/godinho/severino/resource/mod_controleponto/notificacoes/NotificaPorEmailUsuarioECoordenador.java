@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.volkmer.godinho.core.email.Email;
-import com.volkmer.godinho.core.util.SimNao;
+import com.volkmer.godinho.core.util.enumeration.SimNao;
 import com.volkmer.godinho.severino.entity.mod_controleponto.Ponto;
 import com.volkmer.godinho.severino.entity.mod_geral.Configuracao;
 import com.volkmer.godinho.severino.entity.mod_geral.usuario.Usuario;

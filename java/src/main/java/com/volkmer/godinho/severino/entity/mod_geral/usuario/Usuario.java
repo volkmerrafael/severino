@@ -23,7 +23,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import com.volkmer.godinho.core.util.SimNao;
+import com.volkmer.godinho.core.util.enumeration.SimNao;
 import com.volkmer.godinho.severino.entity.mod_acesso.Acesso;
 import com.volkmer.godinho.severino.entity.mod_geral.endereco.Endereco;
 

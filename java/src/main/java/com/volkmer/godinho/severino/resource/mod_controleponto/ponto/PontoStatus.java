@@ -1,6 +1,6 @@
 package com.volkmer.godinho.severino.resource.mod_controleponto.ponto;
 
-import com.volkmer.godinho.core.util.EnumTransformacao;
+import com.volkmer.godinho.core.util.enumeration.EnumTransformacao;
 
 public enum PontoStatus implements EnumTransformacao {
 	

@@ -9,7 +9,7 @@ import javax.persistence.TypedQuery;
 
 import com.volkmer.godinho.core.crypto.Crypto;
 import com.volkmer.godinho.core.resource.ResourceCRUD;
-import com.volkmer.godinho.core.util.AcaoTipo;
+import com.volkmer.godinho.core.util.enumeration.AcaoTipo;
 import com.volkmer.godinho.severino.entity.mod_acesso.Acesso;
 import com.volkmer.godinho.severino.entity.mod_geral.usuario.Usuario;
 import com.volkmer.godinho.severino.resource.mod_acesso.acesso.AcessoResource;

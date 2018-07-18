@@ -23,7 +23,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.volkmer.godinho.core.mapperjson.LocalDateTimeDeserializer;
 import com.volkmer.godinho.core.mapperjson.LocalDateTimeSerializer;
-import com.volkmer.godinho.core.util.SimNao;
+import com.volkmer.godinho.core.util.enumeration.SimNao;
 import com.volkmer.godinho.severino.entity.mod_geral.usuario.Usuario;
 
 import io.swagger.annotations.ApiModel;

@@ -1,4 +1,4 @@
-package com.volkmer.godinho.core.util;
+package com.volkmer.godinho.core.util.validacao;
 
 public class ValidaEmail {
 	

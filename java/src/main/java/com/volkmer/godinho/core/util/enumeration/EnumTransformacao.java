@@ -1,4 +1,4 @@
-package com.volkmer.godinho.core.util;
+package com.volkmer.godinho.core.util.enumeration;
 
 public interface EnumTransformacao {
 	public String getDescricao();

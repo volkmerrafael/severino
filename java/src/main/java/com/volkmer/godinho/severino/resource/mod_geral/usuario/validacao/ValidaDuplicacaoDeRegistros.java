@@ -5,7 +5,7 @@ import java.util.List;
 import javax.persistence.NoResultException;
 
 import com.volkmer.godinho.core.rest.filters.RestException;
-import com.volkmer.godinho.core.util.SimNao;
+import com.volkmer.godinho.core.util.enumeration.SimNao;
 import com.volkmer.godinho.severino.entity.mod_geral.usuario.Usuario;
 import com.volkmer.godinho.severino.resource.mod_acesso.acesso.AcessoTipo;
 import com.volkmer.godinho.severino.resource.mod_geral.usuario.UsuarioResource;
