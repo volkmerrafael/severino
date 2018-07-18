@@ -1,5 +1,6 @@
 package com.volkmer.godinho.severino.entity.mod_eventos;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -98,6 +99,24 @@ public class Evento {
 	@ApiModelProperty("Permite Convidados")
 	@Enumerated(EnumType.STRING)
 	private SimNao permite_convidados;
+	
+	@Column
+	@ApiModelProperty("Evento Publico")
+	@Enumerated(EnumType.STRING)
+	private SimNao evento_publico;
+	
+	@Column(precision = 11, scale = 8)
+	@ApiModelProperty("Longitude")
+	private BigDecimal longitude;
+
+	@Column
+	@ApiModelProperty("Informar Localização")
+	@Enumerated(EnumType.STRING)
+	private SimNao informar_localizacao;
+	
+	@Column(precision = 11, scale = 8)
+	@ApiModelProperty("Latitude")
+	private BigDecimal latitude;
 	
 	@Column
 	@ApiModelProperty("Favorito")

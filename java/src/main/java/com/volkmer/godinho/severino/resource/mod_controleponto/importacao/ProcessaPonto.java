@@ -16,6 +16,7 @@ import com.volkmer.godinho.severino.entity.mod_controleponto.Jornada;
 import com.volkmer.godinho.severino.entity.mod_controleponto.Legenda;
 import com.volkmer.godinho.severino.entity.mod_controleponto.Ponto;
 import com.volkmer.godinho.severino.entity.mod_geral.usuario.Usuario;
+import com.volkmer.godinho.severino.resource.mod_acesso.acesso.AcessoTipo;
 import com.volkmer.godinho.severino.resource.mod_controleponto.anomes.AnoMesResource;
 import com.volkmer.godinho.severino.resource.mod_controleponto.controlehoras.ControleHorasResource;
 import com.volkmer.godinho.severino.resource.mod_controleponto.diasemana.DiaSemanaResource;
@@ -202,6 +203,7 @@ public class ProcessaPonto {
 						Acesso acesso = new Acesso();
 						acesso.setNomeacesso(ponto.getUsuario().getPis().toString());
 						acesso.setSenha(ponto.getUsuario().getPis().toString());
+						acesso.setTipo(AcessoTipo.NORMAL);
 						usuarioBanco.setAcesso(acesso);
 						
 						usuarioRes.incluir(usuarioBanco);

@@ -25,6 +25,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.volkmer.godinho.core.util.SimNao;
 import com.volkmer.godinho.severino.entity.mod_acesso.Acesso;
+import com.volkmer.godinho.severino.entity.mod_geral.endereco.Endereco;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -65,7 +66,6 @@ public class Usuario {
 	private LocalDate data_admissao;
 	
 	@Column(length=26)
-	@NotNull
 	@ApiModelProperty("P.I.S.")
 	private Long pis;
 	
@@ -113,5 +113,9 @@ public class Usuario {
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="empresaId", foreignKey=@ForeignKey(name="fk_usuario_empresa"))
 	private Empresa empresa;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="enderecoId", foreignKey=@ForeignKey(name="fk_usuario_endereco"))
+	private Endereco endereco;
 	
 }

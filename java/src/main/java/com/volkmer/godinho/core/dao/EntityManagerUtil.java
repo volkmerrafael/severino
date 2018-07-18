@@ -46,6 +46,7 @@ public class EntityManagerUtil {
 					"mod_geral.usuario",
 					"mod_geral.usuario.dadosbancarios",
 					"mod_geral.usuario.dadosensino",
+					"mod_geral.endereco",
 					"mod_jira"};
 
 			for (String pacote : arrayPacotes) {

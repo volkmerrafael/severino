@@ -1,4 +1,4 @@
-package com.volkmer.godinho.severino.entity.mod_geral.usuario.dadosbancarios;
+package com.volkmer.godinho.severino.entity.mod_geral.endereco;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,32 +12,34 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel(value="Agencia", description="Agência")
+@ApiModel(value="Municipio", description="Município")
 @Table
 @Getter @Setter
 @Entity
-public class Agencia {
+public class Municipio {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@ApiModelProperty("Código")
 	private Long id;
-	
+
+	@Column
 	@NotNull
-	@Column(length=300)
-	@ApiModelProperty("Descrição")
-	private String descricao;
-		
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JsonIgnore
-	@JoinColumn(name="bancoId", foreignKey=@ForeignKey(name="fk_agencia_banco"))
-	private Banco banco;
+	@ApiModelProperty("Código no IBGE")
+	private Long codigo_ibge;
 	
+	@Column(length=150)
+	@NotNull
+	@ApiModelProperty("Nome")
+	private String nome;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="ufId", foreignKey=@ForeignKey(name="fk_municipio_uf"))
+	private Uf uf;
+			
 }
