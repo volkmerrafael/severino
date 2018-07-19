@@ -1,5 +1,5 @@
 # Comandos
-* Versões disponíveis: https://drive.google.com/open?id=1KdHCNwvdHJ_y05T_uBrkgd_CI4-PMit6
+* [Versões](https://drive.google.com/open?id=1KdHCNwvdHJ_y05T_uBrkgd_CI4-PMit6)
 * baixar pasta dist e app.js os mesmos devem estar na mesma pasta
 
 * Abrir CMD do windows ou Terminal Linux.
@@ -12,7 +12,7 @@ npm install --save express
 node app.js
 ```
 
-#Download Wildfly
+#Download
 * [Wildfly](https://drive.google.com/open?id=1Bm4OrfGmtNdq3JC1JxjZ70IuGjZ8kCj8)
 
 * [Versões](https://drive.google.com/open?id=1KdHCNwvdHJ_y05T_uBrkgd_CI4-PMit6)
