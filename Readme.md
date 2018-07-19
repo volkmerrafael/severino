@@ -1,4 +1,6 @@
-# Severino
+# Severino 
+* [Documentação](https://github.com/volkmerrafael/severino/tree/master/documentacao)
+* [Wiki](https://github.com/volkmerrafael/severino/wiki)
 
 # Tecnologias
 ###### Wildfly 10.1
