@@ -3,7 +3,7 @@
 ### 3. (versão 3.0.0.3-16) (release)
 
 ### 4. (versão 4.0.0.0) (beta)
-[Marcos Previstos](https://github.com/volkmerrafael/severino/wiki/Marcos-previstos)
+* [Marcos Previstos](https://github.com/volkmerrafael/severino/wiki/Marcos-previstos)
 
 ## [Histórico Implementações disponíveis](https://github.com/volkmerrafael/severino/wiki/Implementa%C3%A7%C3%B5es-dispon%C3%ADveis)
 ### 1. (versão 1.0.0.0)
