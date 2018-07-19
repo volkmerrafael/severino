@@ -8,7 +8,7 @@ export class ConfiguracaoIntegracao {
     email_smtp_port:number;
     email_senha: string;
     apkey_google: string;
-    latitude: string;
-    longitude:string;
+    latitude: number;
+    longitude:number;
     
 }

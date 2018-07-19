@@ -5,6 +5,8 @@ import { Empresa } from './empresa';
 
 export class Usuario {
   id: number;
+  latitude: number;
+  longitude: number;
   nome: string;
   senha: string;
   acesso: Acesso;
@@ -19,4 +21,5 @@ export class Usuario {
   data_admissao: string;
   usuario_jira: string;
   empresa: Empresa;
+  receber_notificacao: string;
 }

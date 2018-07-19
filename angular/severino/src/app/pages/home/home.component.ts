@@ -158,6 +158,13 @@ export class HomeComponent implements OnInit {
           label: 'Importações', icon: 'fa fa-upload', command: (event) => {
             event.originalEvent = this.onClickNavigator('admin');
           }
+        },
+        {
+          label: 'Mapa', icon: 'fa fa-upload', command: (event) => {
+            event.originalEvent = this.onClickNavigator('mapa');
+          }
+        }
+        ]
         }]
       });
     }
@@ -200,6 +207,8 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['/lista/empresa']);
     } else if (rota === 'lista/evento') {
       this.router.navigate(['/lista/evento']);
+    } else if (rota === 'mapa') {
+      this.router.navigate(['/mapa']);
     }
 
   }

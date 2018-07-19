@@ -20,6 +20,7 @@ import { ListaFuncaoComponent } from './pages/listafuncao/listafuncao.component'
 import { ListaDepartamentoComponent } from './pages/listadepartamento/listadepartamento.component';
 import { ListaEmpresaComponent } from './pages/listaempresa/listaempresa.component';
 import { ListaEventoComponent } from './pages/listaevento/listaevento.component';
+import { MapaComponent } from "./pages/mapa/mapa.component";
 
 const id: Number = 0;
 
@@ -27,6 +28,7 @@ const rotas: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'ponto', component: PontoComponent, canActivate: [AuthGuardService] },
   {path: 'admin', component: AdminComponent, canActivate: [AuthGuardService] },
+  {path: 'mapa', component: MapaComponent, canActivate: [AuthGuardService] },
   {path: 'perfil', component: PerfilComponent, canActivate: [AuthGuardService] },
   {path: 'editar-perfil', component: EditarPerfilComponent, canActivate: [AuthGuardService] },
   {path: 'editar-tipo-evento', component: EditarTipoEventoComponent, canActivate: [AuthGuardService] },

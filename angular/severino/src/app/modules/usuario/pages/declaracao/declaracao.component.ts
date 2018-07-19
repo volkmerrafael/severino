@@ -13,7 +13,6 @@ import { FormatarDataPipe } from '../../../../components/pipes/pipe';
 import { Issues } from '../../../../shared/models/issues';
 
 import { JustificativaService } from '../../../../services/justificativa.service';
-import { Usuario } from '../../../../shared/models/usuario';
 
 @Component({
   selector: 'app-declaracao',

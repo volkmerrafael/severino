@@ -16,7 +16,6 @@ import { ButtonModule } from 'primeng/button';
 import { EditorModule } from 'primeng/editor';
 
 import { DeclaracaoComponent } from './pages/declaracao/declaracao.component';
-import { UsuarioService } from './usuario.service';
 
 @NgModule({
   imports: [

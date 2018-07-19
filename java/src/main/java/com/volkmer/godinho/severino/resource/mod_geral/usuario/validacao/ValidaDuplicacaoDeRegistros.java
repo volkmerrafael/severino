@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.NoResultException;
 
 import com.volkmer.godinho.core.rest.filters.RestException;
+import com.volkmer.godinho.core.util.enumeration.SimNao;
 import com.volkmer.godinho.severino.entity.mod_geral.usuario.Usuario;
 import com.volkmer.godinho.severino.resource.mod_acesso.acesso.AcessoTipo;
 import com.volkmer.godinho.severino.resource.mod_geral.usuario.UsuarioResource;
@@ -32,7 +33,7 @@ public class ValidaDuplicacaoDeRegistros {
 					
 					for (Usuario usuBanco : listaUsuarios) {
 						if (usuBanco.getId()!=usuario.getId()) {
-							if (usuBanco.getEmail()!=null && !usuBanco.getEmail().equals("")) {
+							if (usuBanco.getReceber_notificacao().equals(SimNao.SIM) && usuBanco.getEmail()!=null && !usuBanco.getEmail().equals("")) {
 								if (usuBanco.getEmail().toUpperCase().equals(usuario.getEmail().toUpperCase())) {
 									throw erroCampoEmailJaVinculadoAOutroUsuario.addDetalhe(usuBanco.getId()+" - "+usuBanco.getNome());
 								}

@@ -12,7 +12,7 @@ import javax.persistence.NoResultException;
 
 import com.volkmer.godinho.core.resource.ResourceCRUD;
 import com.volkmer.godinho.core.rest.filters.RestException;
-import com.volkmer.godinho.core.util.ValidaData;
+import com.volkmer.godinho.core.util.validacao.ValidaData;
 import com.volkmer.godinho.severino.entity.mod_geral.Conexao;
 import com.volkmer.godinho.severino.entity.mod_geral.Configuracao;
 import com.volkmer.godinho.severino.entity.mod_geral.usuario.Usuario;

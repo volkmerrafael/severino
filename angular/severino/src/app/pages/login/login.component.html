@@ -13,10 +13,20 @@
 
             <input class="form-control" name="nomeacesso" type="text" placeholder="Nome de Acesso" [(ngModel)]="usuario.nomeacesso" />
 
+            <input *ngIf="loginAdm" class="form-control" name="superuser" type="text" placeholder="Super Usuário" [(ngModel)]="usuario.superuser" />
+
             <input class="form-control" placeholder="Senha" name="senha" type="password" [(ngModel)]="usuario.senha">
+
           </div>
 
           <button id="btEntrar" type="submit" class="btn btn-primary" (click)="login()">Entrar</button>
+          
+          <br>
+
+          <div>Login administrativo</div>
+          <input id="btAdmin" type="checkbox" name="loginAdm" [(ngModel)]="loginAdm"/>
+          
+         
         </form>
       </app-card>
 

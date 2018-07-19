@@ -6,6 +6,8 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -21,7 +23,9 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.volkmer.godinho.core.util.enumeration.SimNao;
 import com.volkmer.godinho.severino.entity.mod_acesso.Acesso;
+import com.volkmer.godinho.severino.entity.mod_geral.endereco.Endereco;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -48,7 +52,6 @@ public class Usuario {
 	private String nome;
 	
 	@Column(length=200)
-	@NotNull
 	@ApiModelProperty("E-mail")
 	private String email;
 	
@@ -63,7 +66,6 @@ public class Usuario {
 	private LocalDate data_admissao;
 	
 	@Column(length=26)
-	@NotNull
 	@ApiModelProperty("P.I.S.")
 	private Long pis;
 	
@@ -83,11 +85,16 @@ public class Usuario {
 	@ApiModelProperty("Celular")
 	private String celular;
 	
-	@Column
+	@Column(precision = 11, scale = 8)
 	@ApiModelProperty("Latitude")
 	private BigDecimal latitude;
 	
-	@Column
+	@Column(length=3)
+	@ApiModelProperty("Receber Notificação")
+	@Enumerated(EnumType.STRING)
+	private SimNao receber_notificacao = SimNao.NAO;
+	
+	@Column(precision = 11, scale = 8)
 	@ApiModelProperty("Longitude")
 	private BigDecimal longitude;
 	
@@ -106,5 +113,9 @@ public class Usuario {
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="empresaId", foreignKey=@ForeignKey(name="fk_usuario_empresa"))
 	private Empresa empresa;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="enderecoId", foreignKey=@ForeignKey(name="fk_usuario_endereco"))
+	private Endereco endereco;
 	
 }

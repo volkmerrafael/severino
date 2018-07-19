@@ -53,11 +53,11 @@ public class Configuracao {
 	@ApiModelProperty("Chave api Google")
 	private String apkey_google;
 	
-	@Column
+	@Column(precision = 11, scale = 8)
 	@ApiModelProperty("Latitude Padrão")
 	private BigDecimal latitude;
 
-	@Column
+	@Column(precision = 11, scale = 8)
 	@ApiModelProperty("Longitude Padrão")
 	private BigDecimal longitude;
 	

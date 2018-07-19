@@ -17,6 +17,7 @@ import com.volkmer.godinho.severino.entity.mod_acesso.Acesso;
 import com.volkmer.godinho.severino.entity.mod_acesso.Sessao;
 import com.volkmer.godinho.severino.entity.mod_geral.usuario.Usuario;
 import com.volkmer.godinho.severino.resource.mod_acesso.acesso.AcessoResource;
+import com.volkmer.godinho.severino.resource.mod_acesso.acesso.AcessoTipo;
 import com.volkmer.godinho.severino.resource.mod_acesso.sessao.SessaoResource;
 import com.volkmer.godinho.severino.resource.mod_geral.usuario.UsuarioResource;
 
@@ -39,6 +40,33 @@ public class LoginController {
 		
 		try (AcessoResource acessoRes = new AcessoResource()) {
 			
+			Boolean superUser = false;
+			
+			Acesso acessoSuperUser = null;
+			
+			Usuario usuarioSuperUser = null;
+			
+			//Login de Super usuário
+			if (login.getSuperuser()!=null && !login.getSuperuser().equals("")) {
+				
+				acessoSuperUser = acessoRes.buscaPorNomeDeAcesso(login.getSuperuser());
+				
+				if (acessoSuperUser.getTipo().equals(AcessoTipo.ADMIN)) {
+					
+					try(UsuarioResource usuRes = new UsuarioResource()) {
+						usuarioSuperUser = usuRes.buscarPeloAcesso(acessoSuperUser);
+					} catch (NoResultException e) {
+						usuarioSuperUser = null;
+					}
+					
+				}
+				
+			}
+			
+			if (usuarioSuperUser!=null && acessoSuperUser!=null) {
+				superUser = true;
+			}
+				
 			Acesso acesso = acessoRes.buscaPorNomeDeAcesso(login.getNomeacesso());
 			
 			if (acesso==null) {
@@ -47,7 +75,15 @@ public class LoginController {
 			
 			String senhaCrypto = new Crypto().criptografar(login.getSenha());
 			
-			if (acesso.getSenha().equals(senhaCrypto)) {
+			String senha = "";
+			
+			if (superUser) {
+				senha = acessoSuperUser.getSenha();
+			} else {
+				senha = acesso.getSenha();
+			}
+			
+			if (senha.equals(senhaCrypto)) {
 				
 				Sessao sessao = new Sessao();
 				sessao.setAcesso(acesso);

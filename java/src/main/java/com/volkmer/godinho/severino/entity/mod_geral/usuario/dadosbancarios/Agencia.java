@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -34,6 +36,7 @@ public class Agencia {
 	private String descricao;
 		
 	@ManyToOne(fetch=FetchType.EAGER)
+	@JsonIgnore
 	@JoinColumn(name="bancoId", foreignKey=@ForeignKey(name="fk_agencia_banco"))
 	private Banco banco;
 	

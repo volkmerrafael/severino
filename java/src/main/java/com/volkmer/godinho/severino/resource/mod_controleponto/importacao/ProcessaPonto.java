@@ -16,6 +16,7 @@ import com.volkmer.godinho.severino.entity.mod_controleponto.Jornada;
 import com.volkmer.godinho.severino.entity.mod_controleponto.Legenda;
 import com.volkmer.godinho.severino.entity.mod_controleponto.Ponto;
 import com.volkmer.godinho.severino.entity.mod_geral.usuario.Usuario;
+import com.volkmer.godinho.severino.resource.mod_acesso.acesso.AcessoTipo;
 import com.volkmer.godinho.severino.resource.mod_controleponto.anomes.AnoMesResource;
 import com.volkmer.godinho.severino.resource.mod_controleponto.controlehoras.ControleHorasResource;
 import com.volkmer.godinho.severino.resource.mod_controleponto.diasemana.DiaSemanaResource;
@@ -31,7 +32,7 @@ public class ProcessaPonto {
 		List<Usuario> listaUsuarioBanco = new ArrayList<Usuario>();
 		Map<Long, Usuario> mapaUsuario = new HashMap<Long, Usuario>();
 		try (UsuarioResource usuarioRes = new UsuarioResource()) {
-			listaUsuarioBanco = usuarioRes.buscaTotos();
+			listaUsuarioBanco = usuarioRes.listarUsuariosAcessoNormal();
 			for (Usuario usuario : listaUsuarioBanco) {
 				mapaUsuario.put(usuario.getPis(), usuario); 
 			}
@@ -202,6 +203,7 @@ public class ProcessaPonto {
 						Acesso acesso = new Acesso();
 						acesso.setNomeacesso(ponto.getUsuario().getPis().toString());
 						acesso.setSenha(ponto.getUsuario().getPis().toString());
+						acesso.setTipo(AcessoTipo.NORMAL);
 						usuarioBanco.setAcesso(acesso);
 						
 						usuarioRes.incluir(usuarioBanco);
@@ -233,6 +235,28 @@ public class ProcessaPonto {
 				
 			} else {
 				
+				//Caso seja alterada alguma informação de função ou departamento no ponto o cadastro do usuário será atualizado
+				Usuario usuarioBanco = mapaUsuario.get(ponto.getUsuario().getPis());
+				
+				Usuario usuarioProcessado = new ProcessaDependenciasUsuario().buscaOuCriaDependenciaUsuario(ponto.getUsuario());
+					
+				try (UsuarioResource usuarioRes = new UsuarioResource()) {
+					Boolean alterar = false;
+					//Atualiza somente função e Departamento
+					if (!usuarioBanco.getFuncao().getId().equals(usuarioProcessado.getFuncao().getId())
+							|| !usuarioBanco.getDepartamento().getId().equals(usuarioProcessado.getDepartamento().getId())) {
+						alterar = true;
+						usuarioBanco.setFuncao(usuarioProcessado.getFuncao());
+						usuarioBanco.setDepartamento(usuarioProcessado.getDepartamento());
+					}
+					
+					if (alterar) {
+						//Seta senha null pra não mudar a senha do usuário
+						usuarioBanco.getAcesso().setSenha("");
+						usuarioRes.alterar(usuarioBanco);
+					}
+				}
+
 				//Alterar Ponto
 				if (ponto.getLegenda()!=null && ponto.getLegenda().getSigla()!="") {						
 					pontoBanco.setLegenda(new ProcessaLegenda().processar(mapaLegenda, ponto.getLegenda()));

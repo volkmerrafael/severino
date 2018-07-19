@@ -39,6 +39,7 @@ public class PontoResource extends ResourceCRUD<Ponto> {
 	}
 	
 	private RestException erroUsuarioNaoPertenceAoCoordenadorLogado = new RestException("Usuário Não pertence ao coordenador logado.");
+	//private RestException naoEncontradasInformacoesDePontoNoPeriodo = new RestException("Não foram encontradas informações de ponto no período informado.");
 	
 	@Override
 	protected void alterarPre(Ponto model) throws Exception {
@@ -91,8 +92,11 @@ public class PontoResource extends ResourceCRUD<Ponto> {
 			if (status!=null) {
 				queryPonto.setParameter("status", status);
 			}
-			
 			List<Ponto> lista = queryPonto.getResultList();
+			
+			if (lista==null || lista.size()==0) {
+				//throw naoEncontradasInformacoesDePontoNoPeriodo;
+			}
 			
 			Configuracao configuracao = new Configuracao();
 			
@@ -102,6 +106,8 @@ public class PontoResource extends ResourceCRUD<Ponto> {
 			}
 			
 			for (Ponto ponto : lista) {
+				
+				//ponto.getImportacao().setArquivoimportacao(null);
 				
 				if (configuracao!=null && configuracao.getIntegra_jira()) {
 					

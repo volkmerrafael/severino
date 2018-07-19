@@ -1,9 +1,10 @@
 package com.volkmer.godinho.severino.resource.mod_geral.usuario.validacao;
 
 import com.volkmer.godinho.core.rest.filters.RestException;
-import com.volkmer.godinho.core.util.AcaoTipo;
-import com.volkmer.godinho.core.util.ValidaCPFeCNPJ;
-import com.volkmer.godinho.core.util.ValidaEmail;
+import com.volkmer.godinho.core.util.enumeration.AcaoTipo;
+import com.volkmer.godinho.core.util.enumeration.SimNao;
+import com.volkmer.godinho.core.util.validacao.ValidaCPFeCNPJ;
+import com.volkmer.godinho.core.util.validacao.ValidaEmail;
 import com.volkmer.godinho.severino.entity.mod_geral.usuario.Usuario;
 import com.volkmer.godinho.severino.resource.mod_acesso.acesso.AcessoTipo;
 
@@ -30,10 +31,12 @@ public class ValidaCamposObrigatorios {
 			if (usuario.getData_admissao()==null) {
 				throw campoObrigatorio.addDetalhe("Data de Admissão");
 			}
-			if (usuario.getEmail()==null) {
-				throw campoObrigatorio.addDetalhe("E-mail");
-			} else if (!new ValidaEmail().validaEmail(usuario.getEmail())){
-				throw campoInvalido.addDetalhe("E-mail");
+			if (usuario.getReceber_notificacao()!=null && usuario.getReceber_notificacao().equals(SimNao.SIM)) {
+				if (usuario.getEmail()==null || usuario.getEmail().equals("")) {
+					throw campoObrigatorio.addDetalhe("E-mail");
+				} else if (!new ValidaEmail().validaEmail(usuario.getEmail())){
+					throw campoInvalido.addDetalhe("E-mail");
+				}
 			}
 			if (usuario.getDepartamento()==null || usuario.getDepartamento().getId()==null) {
 				throw campoObrigatorio.addDetalhe("Departamento");
@@ -50,6 +53,7 @@ public class ValidaCamposObrigatorios {
 			if (usuario.getPis()==null) {
 				throw campoObrigatorio.addDetalhe("P.I.S.");
 			}
+			
 			if (usuario.getCpf()!=null && !usuario.getCpf().equals("")) {
 				if (!new ValidaCPFeCNPJ().isValidCPF(usuario.getCpf())) {
 					throw campoInvalido.addDetalhe("C.P.F.");

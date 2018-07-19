@@ -14,6 +14,7 @@ import com.volkmer.godinho.severino.entity.mod_controleponto.Ponto;
 import com.volkmer.godinho.severino.entity.mod_geral.usuario.Usuario;
 import com.volkmer.godinho.severino.resource.mod_controleponto.arquivoimportacao.ArquivoImportacaoResource;
 import com.volkmer.godinho.severino.resource.mod_controleponto.importador.ConverteExcelEmObjetoPonto;
+import com.volkmer.godinho.severino.resource.mod_controleponto.notificacoes.NotificaPorEmailUsuarioECoordenador;
 import com.volkmer.godinho.severino.resource.mod_controleponto.ponto.PontoStatus;
 
 public class ImportacaoResource extends ResourceCRUD<Importacao> {
@@ -137,6 +138,8 @@ public class ImportacaoResource extends ResourceCRUD<Importacao> {
 		importacao.setTempo_importacao(cte.fim());
 		this.alterar(importacao);
 		this.commit();
+		
+		new NotificaPorEmailUsuarioECoordenador().notificar(importacao.getData_hora_importacao().getYear(), importacao.getData_hora_importacao().getMonthValue(), userToken);
 		
 		return importacao;
 		

@@ -54,6 +54,7 @@ import { EditarEventoComponent } from './pages/editar-evento/editar-evento.compo
 import { ListaFuncaoComponent } from './pages/listafuncao/listafuncao.component';
 import { ListaDepartamentoComponent } from './pages/listadepartamento/listadepartamento.component';
 import { ListaEmpresaComponent } from './pages/listaempresa/listaempresa.component';
+import { MapaModule } from "./pages/mapa/mapa.module";
 
 export const HttpInterceptorProviders = [
   { provide: HTTP_INTERCEPTORS, useClass: UserHttpInterceptor, multi: true  }
@@ -89,6 +90,7 @@ export const HttpInterceptorProviders = [
     DropdownModule,
     PontoModule,
     AdminModule,
+    MapaModule,
     GrowlModule,
     ButtonModule,
     PanelModule,

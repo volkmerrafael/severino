@@ -22,6 +22,7 @@ export class LoginComponent {
   tituloGrow;
   tipoGrow;
   id: any;
+  loginAdm : boolean = false;
 
   constructor(
     private usuarioService: UsuarioService,
@@ -37,6 +38,9 @@ export class LoginComponent {
   }
 
   login() {
+    if (!this.loginAdm) {
+      this.usuario.superuser = "";
+    }
     if (this.usuario.nomeacesso === undefined) {
     this.tipoGrow = "error";
     this.tituloGrow = 'Ops';

@@ -47,8 +47,8 @@ export class UsuarioService {
     );
   }
 
-  listaUsuarios(): Observable<Usuario> {
-    return this.http.get<Usuario>(
+  listaUsuarios(): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(
       `${environment.server}usuario`
     );
   }
