@@ -1,8 +1,8 @@
 # Versões
 
-### 3. (versão 3.0.0.3-16) (release)
+### 3. (versão 3.0.0.3-16) (release) (12/07/2018)
 
-### 4. (versão 4.0.0.0) (beta)
+### 4. (versão 4.0.0.0) (beta) (previsao 10/08/2018)
 * [Marcos Previstos](https://github.com/volkmerrafael/severino/wiki/Marcos-previstos)
 
 ## [Histórico Implementações disponíveis](https://github.com/volkmerrafael/severino/wiki/Implementa%C3%A7%C3%B5es-dispon%C3%ADveis)
@@ -24,8 +24,8 @@
   - [x] Verificar quantiade de Crédito no Banco de Horas
   - [x] Verificar quantidade de Débito no Banco de Horas
 * Gerar build para produção
-  - [ ] Back-End
-  - [ ] Front-End
+  - [X] Back-End
+  - [X] Front-End
 ##### 1.2. Instalação (16/05/2018)
   - [x] Instalação 
 ##### 1.3. Teste (23/05/2018)
