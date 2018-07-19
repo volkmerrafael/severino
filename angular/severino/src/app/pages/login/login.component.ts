@@ -38,11 +38,9 @@ export class LoginComponent {
   }
 
   login() {
-
     if (!this.loginAdm) {
       this.usuario.superuser = "";
     }
- 
     if (this.usuario.nomeacesso === undefined) {
     this.tipoGrow = "error";
     this.tituloGrow = 'Ops';

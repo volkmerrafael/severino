@@ -68,28 +68,28 @@
 ### 2. (versão 1.1) (23/05/2018)
 * Acesso Administrativo 
   - [ ] Visualizar Informações dos Funcionario que tem Marcação Incorreta.
-  - [ ] Adicionar botão Atualizar lista de importações.
+  - [x] Adicionar botão Atualizar lista de importações.
 * Acesso Individual
-  - [ ] Gravar Justificativas Item a Item
-  - [ ] Mostrar Total Hora Extra Mês
-  - [ ] Mostrar Total Hora Débito Mês
-  - [ ] Apresentar com coloração diferente pontos de débito, crédito e correto.
+  - [x] Gravar Justificativas Item a Item
+  - [x] Mostrar Total Hora Extra Mês
+  - [x] Mostrar Total Hora Débito Mês
+  - [x] Apresentar com coloração diferente pontos de débito, crédito e correto.
   
 ### 3. (versao 2.0) (25/05/2018)
 * Acesso Individual
-  - [ ] Visualizar Absenteísmo Mensal.
+  - [x] Visualizar Absenteísmo Mensal.
   - [ ] Visualizar Absenteísmo Anual.
 * Acesso Administrativo
   - [ ] Envio de Notificação ou E-mail ao colaborador.
   
 ### 3. (versão 3.0)
 * Acesso Administrativo  
-  - [ ] Cadastro de Coordenadores
-  - [ ] Ver ponto dos Funcionários por Departamento
-  - [ ] Visualizar Informações dos Funcionarioo que tem Declaração de Hora Extra a Fazer.
-  - [ ] Visualizar Informações dos Funcionario que tem Declaração de Compensação de Horas a Fazer.
+  - [x] Cadastro de Coordenadores
+  - [x] Ver ponto dos Funcionários por Departamento
+  - [x] Visualizar Informações dos Funcionarioo que tem Declaração de Hora Extra a Fazer.
+  - [x] Visualizar Informações dos Funcionario que tem Declaração de Compensação de Horas a Fazer.
 * Acesso Coordenador
-  - [ ] Visualizar ponto dos Funcionário pertencentes ao seu Departamento
+  - [x] Visualizar ponto dos Funcionário pertencentes ao seu Departamento
   
 #### @autor 
 * Rafael Volkmer - Back-End - https://github.com/volkmerrafael

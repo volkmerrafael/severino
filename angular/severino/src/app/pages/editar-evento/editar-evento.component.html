@@ -8,7 +8,7 @@
           <label>Descrição:</label>
           <br>
           <textarea size="100%" formControlName="inputDescricao" pInputText [(ngModel)]="evento.descricao" [rows]="10"></textarea>
-          <!--input size="100%" formControlName="inputDescricao" pInputText [(ngModel)]="evento.descricao" /-->
+          <input size="100%" formControlName="inputDescricao" pInputText [(ngModel)]="evento.descricao" />
           <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!perfilForm.controls['inputDescricao'].valid && perfilForm.controls['inputDescricao'].dirty">
             <i class="fa fa-close"></i>
             Deve ter mais de 3 caracteres

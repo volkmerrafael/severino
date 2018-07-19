@@ -1,8 +1,10 @@
 import { Component, OnInit, Inject, ElementRef, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import * as jsPDF from 'jspdf';
 import { Usuario } from '../../../../shared/models/usuario';
+import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { PontoService } from '../../../../services/ponto.service';
 import { Justificativa } from '../../../../shared/models/justificativa';
