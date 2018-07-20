@@ -8,13 +8,16 @@
 
 ### O que o Projeto Lombok consegue fazer?
 * O Projeto Lombok tem diversas annotations que permitem minimizar o uso de código repetitivo.
-* Anotações utilizada no projeto:
+* Anotações utilizada atualmente no projeto:
 ```java  
 * @Getter/@Setter
-* @Data
+```
+Inicialmente usavamos a anotação, sua funcionalidade é praticamente a mesma da anotação que utilizamos atualmente mas por ela fazer algumas manipulações na classe que pra nós não é necessária e por alguns bugs encontrados, descontinuamos a utilização da anotação abaixo em nosso projeto
+```java
+@Data
 ```
 
-Exemplo Com utilização do Lombok:
+Exemplo Com utilização do Lombok anotação **(@Getter @Setter)**
 ```java 
 @ApiModel("Departamento")
 @Getter @Setter
@@ -73,3 +76,6 @@ public class Departamento {
 
 @autor Rafael Volkmer
 
+@bibliografia
+* http://blog.caelum.com.br/java-menos-verboso-com-lombok/
+* https://www.devmedia.com.br/uma-visao-sobre-o-projeto-lombok/28321
