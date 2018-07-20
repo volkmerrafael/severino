@@ -41,14 +41,19 @@ public class RecuperacaoDeSenhaController {
 			throw campoInvalido.addDetalhe("E-mail");
 		}
 		
+		Usuario usuario = new Usuario();
 		try (UsuarioResource usuRes = new UsuarioResource()) {
 			try {
-				usuRes.buscaUsuarioPorEmail(email);
+				usuario = usuRes.buscaUsuarioPorEmail(email);
+				if (usuario==null) {
+					throw erroEmailNaoLocalizado;
+				}
 			} catch (NoResultException e) {
 				throw erroEmailNaoLocalizado;
 			}
 			
 		}
+		
 	}
 
 	@PUT
@@ -57,7 +62,7 @@ public class RecuperacaoDeSenhaController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public void envioPorEmailNovaSenha(@PathParam("email") String email) throws Exception {
 		
-		this.envioPorEmailNovaSenha(email);
+		this.verificaExistenciaDeEmail(email);
 		try (UsuarioResource usuRes = new UsuarioResource()) {
 			Usuario usuario = usuRes.buscaUsuarioPorEmail(email);
 			
