@@ -180,6 +180,24 @@ public class UsuarioResource extends ResourceCRUD<Usuario> {
 		return usuario;
 		
 	}
+
+	public Usuario buscaUsuarioPorEmail(String email) throws Exception {
+		
+		//Busca usuário pelo e-mail
+		TypedQuery<Usuario> queryUsuario = this.getEm().createQuery("select u from Usuario u where u.email = :email", Usuario.class);
+		queryUsuario.setParameter("email", email);		
+		
+		Usuario usuario = new Usuario();
+		
+		try {
+			usuario = queryUsuario.getSingleResult();
+		} catch (NoResultException e) {
+			usuario = null;
+		}
+		
+		return usuario;
+		
+	}
 	
 	public boolean ehUsarioAdmin(String userToken) {
 		

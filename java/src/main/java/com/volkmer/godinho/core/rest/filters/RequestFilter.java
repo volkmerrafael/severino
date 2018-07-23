@@ -26,7 +26,14 @@ public class RequestFilter implements ContainerRequestFilter {
 	HttpServletRequest context;
 	
 	private boolean verificaPermissaoTotal(String pathInfo) {
-		return (pathInfo.equals("/login") || pathInfo.indexOf("/teste")==0 || pathInfo.indexOf("/jira")==0 || pathInfo.indexOf("/configuracao")==0 || pathInfo.endsWith("swagger.json") || pathInfo.endsWith("swagger.json") || pathInfo.lastIndexOf("/help")>=0);
+		return 
+				(pathInfo.equals("/login") || 
+				 pathInfo.indexOf("/teste")==0 || 
+				 pathInfo.indexOf("/jira")==0 || 
+				 pathInfo.indexOf("/configuracao")==0 ||
+				 pathInfo.indexOf("/recuperacaodesenha")==0 ||
+				 pathInfo.endsWith("swagger.json") ||  
+				 pathInfo.lastIndexOf("/help")>=0);
 	}
 	
 	@Override
