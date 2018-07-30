@@ -20,7 +20,7 @@ public class EntityManagerUtil {
 			
 			.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver")
 			.setProperty("hibernate.connection.username", "postgres")
-			.setProperty("hibernate.connection.password", "ids0207")
+			.setProperty("hibernate.connection.password", "XXX")
 			//producão
 			//.setProperty("hibernate.connection.url", "jdbc:postgresql://localhost:5432/severino_beta")
 			//local
